@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#8b5cf6" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <link rel="apple-touch-icon" href="/favicon.svg" />
+    <title>KidPedia 🚀 - L'encyclopédie des petits explorateurs</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      (function() {
+        try {
+          var activeId = localStorage.getItem("kp-active-profile-id");
+          var profiles = JSON.parse(localStorage.getItem("kp-profiles-index") || "[]");
+          var activeProfile = profiles.find(function(p) { return p.id === activeId; });
+          
+          if (activeProfile) {
+            if (activeProfile.theme === "dark") {
+              document.documentElement.classList.add("dark");
+              document.documentElement.setAttribute("data-theme", "dark");
+            }
+            if (activeProfile.gender) {
+              document.documentElement.setAttribute("data-gender", activeProfile.gender);
+            }
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

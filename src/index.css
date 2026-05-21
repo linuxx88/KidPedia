@@ -1,0 +1,63 @@
+@import './styles/vars.css';
+@import './styles/reset.css';
+
+/* KIDPEDIA - MAIN ENTRY POINT */
+
+body {
+  margin: 0;
+  font-family: var(--font-main);
+  background-color: var(--color-app-bg);
+  color: var(--color-app-text);
+  overflow-x: hidden;
+  
+  /* Curseur Magique pour l'immersion */
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' style='font-size: 24px'><text y='24' x='4'>🪄</text></svg>") 4 24, auto;
+}
+
+button, a {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='40' height='40' style='font-size: 24px'><text y='24' x='4'>🪄</text></svg>") 4 24, pointer;
+}
+
+/* On n'active les transitions que lorsque le thème initial est prêt */
+html.theme-ready body,
+html.theme-ready button, 
+html.theme-ready header, 
+html.theme-ready nav,
+html.theme-ready section,
+html.theme-ready [class*="Card"],
+html.theme-ready [class*="Container"],
+html.theme-ready [class*="Box"],
+html.theme-ready [class*="Wrapper"] {
+  transition: 
+    background-color var(--theme-transition),
+    border-color var(--theme-transition),
+    color var(--theme-transition),
+    box-shadow var(--theme-transition),
+    filter var(--theme-transition);
+}
+
+/* Sécurité pour la barre de navigation mobile de KidPedia */
+@media (max-width: 1023px) {
+  body {
+    padding-bottom: 100px;
+  }
+}
+
+#root {
+  width: 100%;
+}
+
+/* KIDPEDIA - ACCESSIBILITÉ SVG */
+
+/* Focus Ring Industriel pour SVG interactifs */
+.svg-accessible-hotspot:focus-visible {
+  outline: 3px solid var(--color-accent, #ffcc00) !important;
+  outline-offset: 4px;
+  filter: brightness(1.2) saturate(1.2);
+  transition: filter 0.2s ease, outline-offset 0.2s ease;
+}
+
+/* Style de survol pour renforcer le feedback visuel */
+.svg-accessible-hotspot:hover {
+  filter: brightness(1.1) saturate(1.1);
+}

@@ -1,0 +1,389 @@
+import { create } from 'zustand';
+import { persist, createJSONStorage } from 'zustand/middleware';
+import { type MedalType } from '../utils/quizMessages';
+import { type TopicId, type EarnedBadge } from '../types/domain';
+import { ACCESSORIES_DB } from '../data/accessories';
+import { encyclopedia } from '../data/topics';
+import { useNotificationStore } from './useNotificationStore';
+import { useSettingsStore } from './useSettingsStore';
+import { launchCelebration } from '../utils/celebrations';
+import { RANKS } from '../data/rewards';
+
+interface ProfileProgression {
+  badges: EarnedBadge[];
+  totalXP: number;
+  currentRankId: string;
+  unlockedAccessories: string[]; // IDs des accessoires possédés
+  equippedAccessoryId: string | null; // ID de l'accessoire porté
+  equippedCompanionId: string | null; // ID du compagnon actif
+}
+
+export interface ProgressionState {
+  // --- Global Progressions Map ---
+  progressions: Record<string, ProfileProgression>;
+  activeProfileId: string | null;
+
+  // --- Getters ---
+  getBadges: () => EarnedBadge[];
+  getTotalXP: () => number;
+  getCurrentRankId: () => string;
+  getUnlockedAccessories: () => string[];
+  getEquippedAccessoryId: () => string | null;
+  getEquippedCompanionId: () => string | null;
+
+  // --- Actions ---
+  addXP: (amount: number) => void;
+  addBadge: (topicId: TopicId, medal: MedalType) => void;
+  clearBadges: () => void;
+  syncWithProfile: (profileId: string | null) => void;
+  equipAccessory: (accessoryId: string | null) => void;
+  equipCompanion: (companionId: string | null) => void;
+  reset: () => void;
+}
+
+const xpValues: Record<string, number> = { gold: 1000, silver: 500, bronze: 250 };
+const medalTier: Record<MedalType, number> = { gold: 3, silver: 2, bronze: 1 };
+
+/**
+ * Calcule le rang correspondant au total d'XP actuel.
+ */
+const calculateRankId = (xp: number): string => {
+  const rank = [...RANKS].reverse().find(r => xp >= r.minXP);
+  return rank ? rank.id : RANKS[0].id;
+};
+
+const DEFAULT_PROGRESSION: ProfileProgression = {
+  badges: [],
+  totalXP: 0,
+  currentRankId: 'apprentice',
+  unlockedAccessories: [],
+  equippedAccessoryId: null,
+  equippedCompanionId: null
+};
+
+/**
+ * Logique de déblocage automatique d'accessoires basée sur la progression actuelle
+ */
+const checkAccessoryUnlocks = (prog: ProfileProgression): string[] => {
+  const currentUnlocked = prog.unlockedAccessories || [];
+  const newUnlocked = [...currentUnlocked];
+
+  ACCESSORIES_DB.forEach(acc => {
+    if (newUnlocked.includes(acc.id)) return;
+
+    let conditionMet = false;
+    const { type, value, medal, category } = acc.unlockCondition;
+
+    if (type === 'xp') {
+      conditionMet = prog.totalXP >= (value as number);
+    } 
+    else if (type === 'specific_topic') {
+      const badge = prog.badges.find(b => b.id === value);
+      conditionMet = !!(badge && (!medal || medalTier[badge.medal] >= medalTier[medal]));
+    }
+    else if (type === 'count' && category) {
+      const count = prog.badges.filter(b => {
+        const topic = encyclopedia.find(t => t.id === b.id);
+        return topic?.categoryKey.toLowerCase() === category && (!medal || medalTier[b.medal] >= medalTier[medal]);
+      }).length;
+      conditionMet = count >= (value as number);
+    }
+
+    if (conditionMet) {
+      newUnlocked.push(acc.id);
+    }
+  });
+
+  return newUnlocked;
+};
+
+/**
+ * Logique de migration pour les anciens formats de stockage (v1.x).
+ * Isolé pour ne pas polluer le flux réactif principal.
+ */
+const migrateLegacyProfile = (profileId: string): ProfileProgression => {
+  const legacyBadges = localStorage.getItem(`kp-badges-${profileId}`);
+  if (!legacyBadges) return { ...DEFAULT_PROGRESSION };
+
+  try {
+    const parsed = JSON.parse(legacyBadges);
+    const badgeList = parsed.map((b: string | EarnedBadge) =>
+      typeof b === 'string' ? { id: b, medal: 'gold' } : b
+    );
+    const totalXP = badgeList.reduce((acc: number, badge: EarnedBadge) => acc + (xpValues[badge.medal] || 0), 0);
+    
+    // Nettoyage après migration réussie
+    localStorage.removeItem(`kp-badges-${profileId}`);
+
+    return {
+      badges: badgeList,
+      totalXP,
+      currentRankId: calculateRankId(totalXP),
+      unlockedAccessories: [],
+      equippedAccessoryId: null,
+      equippedCompanionId: null
+    };
+  } catch (e) {
+    console.error("Migration error", e);
+    return { ...DEFAULT_PROGRESSION };
+  }
+};
+
+export const useProgressionStore = create<ProgressionState>()(
+  persist(
+    (set, get) => ({
+      // --- Initial State ---
+      progressions: {},
+      activeProfileId: null,
+
+      // --- Getters ---
+      getBadges: () => {
+        const { progressions, activeProfileId } = get();
+        return (activeProfileId ? progressions[activeProfileId]?.badges : []) || [];
+      },
+      getTotalXP: () => {
+        const { progressions, activeProfileId } = get();
+        return (activeProfileId ? progressions[activeProfileId]?.totalXP : 0) || 0;
+      },
+      getCurrentRankId: () => {
+        const { progressions, activeProfileId } = get();
+        return (activeProfileId ? progressions[activeProfileId]?.currentRankId : 'apprentice') || 'apprentice';
+      },
+      getUnlockedAccessories: () => {
+        const { progressions, activeProfileId } = get();
+        return (activeProfileId ? progressions[activeProfileId]?.unlockedAccessories : []) || [];
+      },
+      getEquippedAccessoryId: () => {
+        const { progressions, activeProfileId } = get();
+        return (activeProfileId ? progressions[activeProfileId]?.equippedAccessoryId : null) || null;
+      },
+      getEquippedCompanionId: () => {
+        const { progressions, activeProfileId } = get();
+        return (activeProfileId ? progressions[activeProfileId]?.equippedCompanionId : null) || null;
+      },
+
+      // --- Actions ---
+      addXP: (amount) => {
+        const { activeProfileId } = get();
+        if (!activeProfileId) return;
+
+        let addedAccessories: string[] = [];
+
+        set((state) => {
+          const current = state.progressions[activeProfileId] || { ...DEFAULT_PROGRESSION };
+          const nextXP = current.totalXP + amount;
+          const nextProg = {
+            ...current,
+            totalXP: nextXP,
+            currentRankId: calculateRankId(nextXP)
+          };
+          
+          const oldUnlocked = current.unlockedAccessories || [];
+          const newUnlocked = checkAccessoryUnlocks(nextProg) || [];
+          nextProg.unlockedAccessories = newUnlocked;
+
+          if (newUnlocked.length > oldUnlocked.length) {
+            addedAccessories = newUnlocked.filter(id => !oldUnlocked.includes(id));
+            addedAccessories.forEach(id => {
+              const acc = ACCESSORIES_DB.find(a => a.id === id);
+              if (acc) {
+                if (acc.slot === 'companion') {
+                  nextProg.equippedCompanionId = id;
+                } else {
+                  nextProg.equippedAccessoryId = id;
+                }
+              }
+            });
+          }
+
+          return {
+            progressions: {
+              ...state.progressions,
+              [activeProfileId]: nextProg
+            }
+          };
+        });
+
+        // EFFETS DE BORD : Déclenchés APRÈS le set
+        if (addedAccessories.length > 0) {
+          const { labels, language } = useSettingsStore.getState();
+          launchCelebration();
+          
+          addedAccessories.forEach(id => {
+            const acc = ACCESSORIES_DB.find(a => a.id === id);
+            if (acc) {
+              useNotificationStore.getState().addNotification({
+                type: 'xp',
+                title: labels.badges.unlockedTitle,
+                message: labels.badges.unlockedMessage(acc.name[language]),
+                icon: acc.icon
+              });
+            }
+          });
+        }
+      },
+
+      addBadge: (topicId, medal) => {
+        const { activeProfileId, progressions } = get();
+        if (!activeProfileId) return;
+
+        const current = progressions[activeProfileId] || { ...DEFAULT_PROGRESSION };
+        const existing = current.badges.find((b) => b.id === topicId);
+
+        let newBadges = [...current.badges];
+        const isFirstTime = !existing;
+        const isUpgrade = existing && medalTier[medal] > medalTier[existing.medal];
+        
+        if (isFirstTime) {
+          newBadges.push({ id: topicId, medal });
+        } else if (isUpgrade) {
+          newBadges = current.badges.map((b) => (b.id === topicId ? { id: b.id, medal } : b));
+        } else {
+          return; 
+        }
+
+        const nextXP = newBadges.reduce((acc, badge) => acc + (xpValues[badge.medal] || 0), 0);
+        const nextRankId = calculateRankId(nextXP);
+
+        let addedAccessories: string[] = [];
+
+        set((state) => {
+          const nextProg = {
+            ...(state.progressions[activeProfileId] || { ...DEFAULT_PROGRESSION }),
+            badges: newBadges,
+            totalXP: nextXP,
+            currentRankId: nextRankId
+          };
+
+          const oldUnlocked = nextProg.unlockedAccessories || [];
+          const newUnlocked = checkAccessoryUnlocks(nextProg) || [];
+          nextProg.unlockedAccessories = newUnlocked;
+
+          if (newUnlocked.length > oldUnlocked.length) {
+            addedAccessories = newUnlocked.filter(id => !oldUnlocked.includes(id));
+            addedAccessories.forEach(id => {
+              const acc = ACCESSORIES_DB.find(a => a.id === id);
+              if (acc) {
+                if (acc.slot === 'companion') {
+                  nextProg.equippedCompanionId = id;
+                } else {
+                  nextProg.equippedAccessoryId = id;
+                }
+              }
+            });
+          }
+
+          return {
+            progressions: {
+              ...state.progressions,
+              [activeProfileId]: nextProg
+            }
+          };
+        });
+
+        // EFFETS DE BORD : Déclenchés APRÈS le set
+        if (addedAccessories.length > 0) {
+          const { labels, language } = useSettingsStore.getState();
+          launchCelebration();
+          
+          addedAccessories.forEach(id => {
+            const acc = ACCESSORIES_DB.find(a => a.id === id);
+            if (acc) {
+              useNotificationStore.getState().addNotification({
+                type: 'badge',
+                title: labels.badges.unlockedTitle,
+                message: labels.badges.unlockedMessage(acc.name[language]),
+                icon: acc.icon
+              });
+            }
+          });
+        }
+      },
+
+      equipAccessory: (accessoryId) => {
+        const { activeProfileId } = get();
+        if (!activeProfileId) return;
+
+        set((state) => {
+          const current = state.progressions[activeProfileId];
+          if (!current) return state;
+
+          return {
+            progressions: {
+              ...state.progressions,
+              [activeProfileId]: {
+                ...current,
+                equippedAccessoryId: accessoryId
+              }
+            }
+          };
+        });
+      },
+
+      equipCompanion: (companionId) => {
+        const { activeProfileId } = get();
+        if (!activeProfileId) return;
+
+        set((state) => {
+          const current = state.progressions[activeProfileId];
+          if (!current) return state;
+
+          return {
+            progressions: {
+              ...state.progressions,
+              [activeProfileId]: {
+                ...current,
+                equippedCompanionId: companionId
+              }
+            }
+          };
+        });
+      },
+
+      syncWithProfile: (profileId) => {
+        const current = get();
+        
+        if (profileId === current.activeProfileId && (!profileId || current.progressions[profileId])) {
+          return;
+        }
+
+        set({ activeProfileId: profileId });
+        
+        if (profileId && !get().progressions[profileId]) {
+          // Migration Legacy isolée
+          const legacyProgression = migrateLegacyProfile(profileId);
+          
+          set((state) => ({
+            progressions: {
+              ...state.progressions,
+              [profileId]: legacyProgression
+            }
+          }));
+        }
+      },
+
+      clearBadges: () => {
+        const { activeProfileId } = get();
+        if (activeProfileId && window.confirm("Effacer toutes tes médailles ?")) {
+          set((state) => ({
+            progressions: {
+              ...state.progressions,
+              [activeProfileId]: { ...DEFAULT_PROGRESSION }
+            }
+          }));
+        }
+      },
+
+      reset: () => {
+        set({
+          progressions: {},
+          activeProfileId: null,
+        });
+      }
+    }),
+    {
+      name: 'kp-progression-storage',
+      storage: createJSONStorage(() => localStorage)
+    }
+  )
+);

@@ -1,0 +1,138 @@
+.galleryContainer {
+  padding: 1.5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  min-height: 80vh;
+}
+
+.galleryHeader {
+  text-align: center;
+  margin-bottom: 2rem;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.galleryTitle {
+  font-size: 2.2rem;
+  color: var(--color-primary, #ff6b6b);
+  margin-bottom: 0.5rem;
+  text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
+}
+
+.gallerySubtitle {
+  font-size: 1.1rem;
+  color: var(--color-text-soft, #666);
+}
+
+.stickerGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: 1.5rem;
+  padding: 1rem;
+}
+
+.stickerWrapper {
+  perspective: 1000px;
+}
+
+.sticker {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  padding: 1rem;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  border: none;
+  background: transparent;
+  width: 100%;
+}
+
+.sticker:hover {
+  transform: scale(1.1) rotate(2deg);
+}
+
+.sticker:active {
+  transform: scale(0.95);
+}
+
+/* Sticker Débloqué */
+.unlocked {
+  background: white;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1), inset 0 0 0 4px white;
+  filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+  animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+.unlocked .icon {
+  font-size: 4rem;
+  margin-bottom: 0.5rem;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.1));
+}
+
+.unlocked .name {
+  font-weight: bold;
+  color: var(--color-text, #333);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Sticker Verrouillé */
+.locked {
+  background: rgba(0,0,0,0.05);
+  border: 2px dashed rgba(0,0,0,0.1);
+  cursor: help;
+}
+
+.locked .icon {
+  font-size: 3rem;
+  filter: grayscale(1) brightness(0.3) opacity(0.3);
+}
+
+.locked .questionMark {
+  position: absolute;
+  font-size: 2rem;
+  font-weight: bold;
+  color: rgba(0,0,0,0.2);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.locked:hover .icon {
+  filter: grayscale(1) brightness(0.5) opacity(0.5);
+}
+
+.medalIcon {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  font-size: 1.5rem;
+  filter: drop-shadow(0 2px 2px rgba(0,0,0,0.2));
+  z-index: 2;
+}
+
+/* Animations */
+@keyframes popIn {
+  0% { transform: scale(0) rotate(-10deg); opacity: 0; }
+  70% { transform: scale(1.1) rotate(5deg); }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .stickerGrid {
+    grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+    gap: 1rem;
+  }
+  .unlocked .icon {
+    font-size: 3rem;
+  }
+}

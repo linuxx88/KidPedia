@@ -1,0 +1,67 @@
+/* ==========================================================================
+   KIDPEDIA - RESET & BASE STYLES
+   ========================================================================== */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html,
+body {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  padding-bottom: 80px; /* Espace pour la barre mobile */
+  overflow-x: hidden;
+  font-family: var(--font-main);
+  font-weight: var(--fw-normal);
+  font-size: var(--fs-base);
+  color: var(--color-app-text);
+  line-height: 1.5;
+}
+
+/* On n'active les transitions que lorsque le thème initial est prêt */
+html.theme-ready body {
+  transition:
+    background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.3s ease;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: var(--fw-ultra);
+  line-height: 1.1;
+  letter-spacing: var(--ls-tight);
+  color: var(--color-app-text);
+}
+
+h1 { font-size: var(--fs-3xl); }
+h2 { font-size: var(--fs-2xl); }
+h3 { font-size: var(--fs-xl); }
+
+button {
+  font-family: var(--font-main);
+  font-weight: var(--fw-black);
+  letter-spacing: var(--ls-wide);
+}
+
+body {
+  /* Le fond clair est géré par la variable --color-app-bg */
+  background-color: var(--color-app-bg);
+  background-attachment: fixed;
+}
+
+/* En mode sombre, le body devient transparent pour laisser voir le StarBackground derrière */
+html.dark body {
+  background-color: transparent !important;
+  background-image: none !important;
+}
+
+#root {
+  width: 100%;
+  position: relative;
+  z-index: 1;
+}

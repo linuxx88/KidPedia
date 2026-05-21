@@ -1,0 +1,110 @@
+.avatarContainer {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background-color: var(--color-surface-mixed);
+  overflow: visible; /* Important pour laisser déborder les accessoires */
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.animate:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* Tailles */
+.small { width: 32px; height: 32px; }
+.medium { width: 64px; height: 64px; }
+.large { width: 120px; height: 120px; }
+.huge { width: 200px; height: 200px; }
+
+.baseLayer {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--card-border);
+  background-color: white;
+}
+
+.avatarImg {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarEmoji {
+  font-size: 2rem;
+}
+
+.large .avatarEmoji { font-size: 4rem; }
+.huge .avatarEmoji { font-size: 7rem; }
+
+/* Couche Accessoire */
+.accessoryLayer {
+  position: absolute;
+  top: -15%;
+  right: -10%;
+  width: 50%;
+  height: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  animation: float 3s infinite ease-in-out;
+}
+
+.accessoryIcon {
+  font-size: 1.5rem;
+}
+
+.large .accessoryIcon { font-size: 3rem; }
+.huge .accessoryIcon { font-size: 5rem; }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-5px); }
+}
+
+/* Spécificités par catégorie d'accessoire */
+.accessoryLayer[data-category="espace"] {
+  top: -20%;
+  right: -15%;
+}
+
+.accessoryLayer[data-category="animaux"] {
+  top: -10%;
+  right: -5%;
+}
+
+/* --- Couche Compagnon / Familier --- */
+.companionLayer {
+  position: absolute;
+  bottom: -5%;
+  right: -12%;
+  width: 42%;
+  height: 42%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 12;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  animation: floatCompanion 3.5s infinite ease-in-out;
+}
+
+.companionIcon {
+  font-size: 1.3rem;
+}
+
+.large .companionIcon { font-size: 2.6rem; }
+.huge .companionIcon { font-size: 4.2rem; }
+
+@keyframes floatCompanion {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-6px) scale(1.04); }
+}

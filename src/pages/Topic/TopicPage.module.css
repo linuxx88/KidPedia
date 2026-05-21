@@ -1,0 +1,33 @@
+.loadingFallback {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  animation: pulse 1s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.1); }
+}
+
+.errorContainer {
+  text-align: center;
+  padding: 5rem 1rem;
+}
+
+.errorTitle {
+  font-size: 2rem;
+  font-weight: 950;
+  margin-bottom: 1rem;
+  color: var(--color-app-text);
+}
+
+.errorText {
+  font-size: 1.25rem;
+  color: var(--color-app-text-muted);
+  margin-bottom: 2rem;
+}

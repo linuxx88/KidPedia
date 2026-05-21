@@ -1,0 +1,288 @@
+.container {
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-app-bg);
+  overflow: hidden; /* Zero scroll absolute force */
+  position: fixed; /* Évite tout scroll parasite du body */
+  inset: 0;
+}
+
+.questBadge {
+  background: var(--color-primary);
+  color: white;
+  padding: 0.4rem 1.2rem;
+  border-radius: 1rem;
+  font-weight: 800;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  white-space: nowrap;
+}
+
+.gameContainer {
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  overflow: hidden;
+  position: relative;
+  min-height: 0; /* CRITIQUE : Permet au flex child de ne pas déborder */
+}
+
+/* PANNEAU DE CONTRÔLE */
+.statusPanel {
+  width: clamp(220px, 22vw, 280px);
+  flex-shrink: 0;
+  background: var(--glass-bg);
+  border-right: 2px solid var(--glass-border);
+  padding: clamp(0.8rem, 1.5vw, 1.2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  justify-content: center;
+  box-shadow: var(--shadow-xl);
+  z-index: 20;
+  overflow-y: auto; /* Permet le scroll interne si nécessaire */
+}
+
+.messageBox {
+  background: var(--card-bg);
+  padding: 1.2rem;
+  border-radius: 1.5rem;
+  border: 3px solid var(--color-primary);
+  position: relative;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  transition: var(--theme-transition);
+}
+
+/* Petit triangle pour l'effet bulle de BD */
+.messageBox::after {
+  content: '';
+  position: absolute;
+  bottom: -12px;
+  left: 30px;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid var(--color-primary);
+}
+
+
+.messageBox p {
+  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  font-weight: 900;
+  color: var(--color-app-text);
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+}
+
+.messageIcon {
+  font-size: 2rem;
+  background: var(--color-app-bg);
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 2px solid var(--color-primary);
+  flex-shrink: 0;
+  animation: wave 2s infinite ease-in-out;
+}
+
+@keyframes wave {
+  0%, 100% { transform: rotate(-10deg); }
+  50% { transform: rotate(10deg); }
+}
+
+.controls {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rollBtn, .resetBtn {
+  width: 100%;
+  background: var(--color-primary); /* Utilise la couleur Explorer Blue ou Amethyst */
+  color: white;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  padding: clamp(1rem, 1.5vh, 1.4rem);
+  border-radius: 1.5rem;
+  font-size: clamp(1rem, 1.2vw, 1.2rem);
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  cursor: pointer;
+  box-shadow: 0 6px 0px var(--color-primary-dark), 0 10px 20px rgba(0,0,0,0.2);
+  transition: all 0.1s active;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.rollBtn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 0px var(--color-primary-dark), 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.rollBtn:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0px var(--color-primary-dark), 0 5px 10px rgba(0,0,0,0.2);
+}
+
+.rollBtn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(0.5);
+  box-shadow: none;
+  transform: translateY(4px);
+}
+
+.inventoryList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+  padding-top: 1rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.inventoryIcon {
+  font-size: 1.8rem;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+  background: rgba(255, 255, 255, 0.1);
+  width: 45px;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--glass-border);
+}
+
+.boardLayout {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.mainPanel {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.sidePanel {
+  width: clamp(220px, 22vw, 280px);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+
+/* QUIZ OVERLAY */
+.quizOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(15px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+}
+
+.quizContent {
+  width: 100%;
+  max-width: 700px;
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 2.5rem;
+  border: clamp(4px, 1vw, 6px) solid var(--color-primary);
+  max-height: 90vh;
+  overflow-y: auto;
+  transition: var(--theme-transition);
+}
+
+
+/* RESPONSIVE MOBILE VERTICAL */
+@media (max-height: 700px) {
+  .statusPanel {
+    padding: 0.5rem;
+    gap: 0.5rem;
+    flex-shrink: 1; /* Permet au panneau de réduire sa taille */
+  }
+
+  .messageBox {
+    padding: 0.8rem;
+  }
+
+  .messageBox p {
+    font-size: 1rem;
+  }
+
+  .rollBtn {
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+}
+
+@media (max-width: 768px) and (orientation: portrait) {
+  .gameContainer {
+    flex-direction: column-reverse;
+  }
+  
+  .statusPanel {
+    width: 100%;
+    height: auto;
+    border-right: none;
+    border-top: 4px solid var(--color-primary);
+    padding: 0.5rem;
+    gap: 0.5rem;
+    flex-direction: column; 
+  }
+  
+  .controls {
+    flex-direction: row;
+    width: 100%;
+    gap: 0.5rem;
+  }
+
+  .inventoryList {
+    padding-top: 0.2rem;
+    gap: 0.2rem;
+  }
+
+  .inventoryIcon {
+    width: 35px;
+    height: 35px;
+    font-size: 1.2rem;
+  }
+
+  .messageBox { 
+    display: flex; 
+    padding: 0.5rem;
+    margin-bottom: 0.2rem;
+  }
+  
+  .messageIcon { display: none; } 
+  
+  .rollBtn {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1rem;
+  }
+}

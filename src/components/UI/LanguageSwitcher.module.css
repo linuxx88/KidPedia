@@ -1,0 +1,69 @@
+.container {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin: 1rem 0;
+}
+
+.langButton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.8rem 1.2rem;
+  border: none;
+  border-radius: 1.2rem;
+  background-color: var(--card-bg, #ffffff);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+  min-width: 100px;
+  position: relative;
+  top: 0;
+  border: 2px solid transparent;
+}
+
+.langButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+.langButton:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.active {
+  background-color: var(--accent-color, #8b5cf6);
+  color: white;
+  border-color: rgba(255, 255, 255, 0.3);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2);
+}
+
+.active:hover {
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.2);
+}
+
+.flag {
+  font-size: 2rem;
+  margin-bottom: 0.3rem;
+}
+
+.label {
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'Quicksand', sans-serif;
+}
+
+/* Adaptations selon le genre (data-gender injecté dans le body) */
+:global([data-gender="girl"]) .active {
+  background-color: #ec4899; /* Rose KidPedia */
+}
+
+:global([data-gender="boy"]) .active {
+  background-color: #3b82f6; /* Bleu KidPedia */
+}
+
+:global([data-gender="space"]) .active {
+  background-color: #06b6d4; /* Cyan Espace */
+}

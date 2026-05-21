@@ -1,0 +1,96 @@
+.wardrobeContainer {
+  margin-top: 3rem;
+  padding: 2rem;
+  background: var(--color-surface-mixed);
+  border-radius: 2.5rem;
+  border: 4px solid var(--card-border);
+  animation: slideUp 0.6s ease-out;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 950;
+  color: var(--color-app-text);
+  margin-bottom: 2rem;
+}
+
+.icon {
+  font-size: 2rem;
+  vertical-align: middle;
+  margin-right: 0.5rem;
+}
+
+.previewSection {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 1.5rem;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1.25rem;
+  background-color: var(--card-bg);
+  border: 3px solid var(--card-border);
+  border-radius: 1.5rem;
+  cursor: pointer;
+  transition: var(--transition-bounce);
+  position: relative;
+}
+
+.item:hover {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+}
+
+.active {
+  border-color: var(--color-primary);
+  background-color: rgba(59, 130, 246, 0.05);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.1);
+}
+
+.itemIcon {
+  font-size: 2.5rem;
+}
+
+.itemName {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-app-text-muted);
+}
+
+.equippedBadge {
+  position: absolute;
+  top: -0.5rem;
+  right: -0.5rem;
+  background: var(--color-primary);
+  color: white;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-size: 0.7rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.emptyMsg {
+  text-align: center;
+  color: var(--color-app-text-light);
+  font-style: italic;
+  font-weight: 600;
+  padding: 2rem;
+}

@@ -1,0 +1,90 @@
+.searchContainer {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  background-color: var(--color-nav-bg);
+  border-radius: var(--radius-xl);
+  padding: 0.5rem;
+  box-shadow: var(--shadow-md);
+  border: 4px solid var(--color-border-neutral);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.searchContainer:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-lg);
+}
+
+.searchContainer[data-compact="true"] {
+  max-width: 400px;
+  padding: 0.25rem;
+  box-shadow: none;
+  border-width: 2px;
+}
+
+.searchInner {
+  display: flex;
+  align-items: center;
+}
+
+.searchIconBox {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  background-color: var(--color-surface-mixed);
+  border-radius: var(--radius-lg);
+  margin-right: 0.5rem;
+}
+
+.searchContainer[data-compact="true"] .searchIconBox {
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 1.25rem;
+  margin-right: 0.25rem;
+}
+
+.searchInput {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-black);
+  color: var(--color-app-text);
+  padding: 0.5rem 1rem;
+}
+
+.searchContainer[data-compact="true"] .searchInput {
+  font-size: var(--fs-sm);
+  padding: 0.25rem 0.75rem;
+}
+
+.clearButton {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: var(--radius-md);
+  border: none;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--color-app-text-light);
+  transition: all 0.2s;
+  font-size: 1.25rem;
+}
+
+.clearButton:hover {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: var(--color-explorer-coral);
+}
+
+.searchContainer[data-compact="true"] .clearButton {
+  width: 2rem;
+  height: 2rem;
+  font-size: 1rem;
+}

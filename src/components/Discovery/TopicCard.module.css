@@ -1,0 +1,155 @@
+.topicCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 3.5rem 2rem 2.5rem;
+  margin-top: 1.5rem;
+  border: 4px solid var(--color-border-neutral);
+  cursor: pointer;
+  text-align: center;
+  min-height: 340px;
+  box-shadow: var(--shadow-3d);
+  transition: var(--transition-bounce);
+  border-radius: var(--radius-3xl);
+  background-color: var(--color-nav-bg);
+  outline: none;
+}
+
+.topicCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-3d-hover);
+}
+
+.topicCard:active {
+  transform: translateY(var(--depth-sm));
+  box-shadow: var(--shadow-3d-active);
+}
+
+.topicCard:focus-visible {
+  outline: 4px solid var(--color-primary);
+  outline-offset: 4px;
+}
+
+/* Category Labels & Colors */
+.categoryLabel {
+  position: absolute;
+  top: -1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.75rem 2rem;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-black);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: white;
+  box-shadow: var(--shadow-md);
+  z-index: 20;
+  white-space: nowrap;
+}
+
+/* Specific Category Styles */
+.topicCard[data-category="animaux"] .categoryLabel { background: linear-gradient(135deg, #10b981, #059669); }
+.topicCard[data-category="animaux"]:hover { border-color: #10b981; }
+
+.topicCard[data-category="espace"] .categoryLabel { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.topicCard[data-category="espace"]:hover { border-color: #3b82f6; }
+
+.topicCard[data-category="pourquoi"] .categoryLabel { background: linear-gradient(135deg, #ec4899, #db2777); }
+.topicCard[data-category="pourquoi"]:hover { border-color: #ec4899; }
+
+.topicCard[data-category="corps-humain"] .categoryLabel { background: linear-gradient(135deg, #f97316, #ea580c); }
+.topicCard[data-category="corps-humain"]:hover { border-color: #f97316; }
+
+.topicCard[data-category="dinosaures"] .categoryLabel { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+.topicCard[data-category="dinosaures"]:hover { border-color: #dc2626; }
+
+.topicCard[data-category="nature"] .categoryLabel { background: linear-gradient(135deg, #16a34a, #15803d); }
+.topicCard[data-category="nature"]:hover { border-color: #16a34a; }
+
+.topicCard[data-category="histoire"] .categoryLabel { background: linear-gradient(135deg, #a855f7, #9333ea); }
+.topicCard[data-category="histoire"]:hover { border-color: #a855f7; }
+
+.topicCard[data-category="geographie"] .categoryLabel { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+.topicCard[data-category="geographie"]:hover { border-color: #0ea5e9; }
+
+.topicCard[data-category="inventions"] .categoryLabel { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.topicCard[data-category="inventions"]:hover { border-color: #f59e0b; }
+
+.topicCard[data-category="arts"] .categoryLabel { background: linear-gradient(135deg, #f43f5e, #e11d48); }
+.topicCard[data-category="arts"]:hover { border-color: #f43f5e; }
+
+.medalOverlay {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  border: 3px solid white;
+}
+
+.medalOverlay[data-medal="gold"] { background: linear-gradient(135deg, #fbbf24, #d97706); color: white; }
+.medalOverlay[data-medal="silver"] { background: linear-gradient(135deg, #94a3b8, #475569); color: white; }
+.medalOverlay[data-medal="bronze"] { background: linear-gradient(135deg, #fb923c, #9a3412); color: white; }
+
+.iconWrapper {
+  width: 100px;
+  height: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 2rem;
+  margin-bottom: 1.5rem;
+  background-color: #f8fafc;
+  font-size: 3.5rem;
+  transition: transform 0.3s ease;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+:global(.dark) .iconWrapper {
+  background-color: #334155;
+}
+
+.topicCard:hover .iconWrapper {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  margin-bottom: 0.75rem;
+  color: var(--color-app-text);
+  line-height: 1.2;
+}
+
+.description {
+  font-size: 1rem;
+  color: var(--color-app-text-muted);
+  font-weight: 600;
+  line-height: 1.5;
+  margin-bottom: 1rem;
+}
+
+.discoverHint {
+  margin-top: auto;
+  font-size: 0.9rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: var(--color-primary);
+  opacity: 0.8;
+  transition: opacity 0.2s;
+}
+
+.topicCard:hover .discoverHint {
+  opacity: 1;
+}
+

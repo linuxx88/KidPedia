@@ -1,0 +1,213 @@
+/* TreasureMap.module.css - Styles pour la Carte aux Trésors Interactive (Purifiés) */
+
+.mapPage {
+  padding: 2rem 1rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.mapWrapperScroll {
+  flex: 1;
+  overflow: auto;
+  border-radius: 2rem;
+  background: #acc6f8;
+  position: relative;
+  scrollbar-width: none;
+  box-shadow: inset 0 0 50px rgba(0, 0, 0, 0.1);
+  border: 4px solid var(--card-border);
+  margin-top: 1rem;
+  cursor: grab;
+  touch-action: none; /* Crucial pour le drag manuel sur mobile */
+}
+
+.mapWrapperScroll.isDragging {
+  cursor: grabbing;
+  user-select: none;
+}
+
+.mapWrapperScroll::-webkit-scrollbar {
+  display: none;
+}
+
+.mapContainerRelative {
+  position: relative;
+  aspect-ratio: 2 / 1;
+  min-width: 100%;
+  min-height: 100%;
+  flex-shrink: 0;
+  pointer-events: auto;
+  transform-origin: 0 0;
+}
+
+.mapWrapperScroll.isDragging .mapContainerRelative {
+  transition: none;
+}
+
+.worldMapImage {
+  width: 100%;
+  display: block;
+  border-radius: 1.5rem;
+  user-select: none;
+  pointer-events: none;
+}
+
+/* --- ZOOM CONTROLS --- */
+
+.zoomSidebar {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--color-surface-mixed);
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.zoomBtn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 2px solid var(--card-border);
+  background: var(--card-bg);
+  font-size: 1.25rem;
+  font-weight: bold;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+  color: var(--color-primary);
+}
+
+.zoomBtn:hover:not(:disabled) {
+  transform: scale(1.1);
+  background: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+}
+
+.zoomBtn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.zoomLevelBadge {
+  font-weight: 900;
+  color: var(--color-primary);
+  min-width: 40px;
+  text-align: center;
+}
+
+/* --- MARKERS --- */
+
+.mapMarkerPoint {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: none;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+.markerIcon {
+  font-size: 2.5rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.3));
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.mapMarkerPoint:hover .markerIcon,
+.mapMarkerPoint:focus .markerIcon {
+  transform: scale(1.4) rotate(10deg);
+}
+
+.markerStar {
+  position: absolute;
+  top: -12px;
+  right: -12px;
+  font-size: 1.8rem;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+  animation: starFloat 2s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes starFloat {
+  0%, 100% { transform: translateY(0) rotate(-5deg); }
+  50% { transform: translateY(-5px) rotate(5deg); }
+}
+
+/* --- VISUAL EFFECTS --- */
+
+.clickRipple {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.8) 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  animation: rippleScale 0.6s ease-out forwards;
+  pointer-events: none;
+  z-index: 5;
+}
+
+@keyframes rippleScale {
+  from { transform: translate(-50%, -50%) scale(0); opacity: 1; }
+  to { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+
+/* --- POPUP CONTENT --- */
+
+.popupContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.popupIcon {
+  font-size: 6rem;
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.1));
+  animation: bounce 3s ease-in-out infinite;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+
+.popupText {
+  font-size: 1.2rem;
+  color: var(--color-app-text-muted);
+  font-weight: 500;
+  line-height: 1.6;
+}
+
+.explorerBtnMap {
+  margin-top: 1rem;
+  padding: 1.2rem 3rem;
+  font-size: 1.2rem;
+  box-shadow: 0 10px 20px var(--color-primary-light);
+}
+
+@media (max-width: 768px) {
+  .mapPage {
+    padding: 0.5rem;
+  }
+  .mapWrapperScroll {
+    border-radius: 1rem;
+  }
+  .markerIcon {
+    font-size: 2rem;
+  }
+}

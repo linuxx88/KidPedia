@@ -1,0 +1,225 @@
+:root {
+  /* Police principale - Ronde et lisible */
+  --font-main: 'Quicksand', 'Comic Sans MS', sans-serif;
+  --fw-normal: 500;
+  --fw-bold: 700;
+  --fw-black: 900;
+  --fw-ultra: 950;
+
+  /* Échelle de tailles - Plus grande pour les enfants */
+  --fs-xs: 0.85rem;
+  --fs-sm: 1rem;
+  --fs-base: 1.15rem;
+  --fs-lg: 1.35rem;
+  --fs-xl: clamp(1.5rem, 4vw, 2rem);
+  --fs-2xl: clamp(2rem, 6vw, 3.5rem);
+  --fs-3xl: clamp(3.5rem, 10vw, 6rem);
+
+  /* Fond de page par défaut - Doux et chaud */
+  --color-app-bg: #FEFDF5; 
+  --color-nav-bg: rgba(255, 255, 255, 0.9);
+  
+  /* Textes Haute Lisibilité */
+  --color-app-text: #1e293b;
+  --color-app-text-muted: #475569; 
+  --color-app-text-light: #64748b;
+  
+  /* Couleurs de genres - Vives et joyeuses */
+  --color-explorer-blue: #3b82f6;
+  --color-explorer-emerald: #10b981;
+  --color-explorer-amethyst: #8b5cf6;
+  --color-explorer-coral: #f43f5e;
+
+  /* Rayons de bordure - Très arrondis */
+  --radius-sm: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-xl: 1.5rem;
+  --radius-2xl: 2rem;
+  --radius-3xl: 3rem;
+  --radius-full: 9999px;
+
+  /* Ombres - Douces et diffuses */
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.15);
+  --shadow-xl: 0 30px 50px rgba(0, 0, 0, 0.2);
+
+  /* Transitions - La "Magie" du changement de thème */
+  --theme-transition: 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+  --transition-bounce: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  /* Effet 3D (Profondeur et Physique) */
+  --depth-sm: 4px;
+  --depth-md: 8px;
+  --depth-lg: 12px;
+
+  --shadow-3d: 0 var(--depth-md) 0 var(--color-border-neutral);
+  --shadow-3d-hover: 0 var(--depth-lg) 0 var(--color-border-neutral);
+  --shadow-3d-active: 0 var(--depth-sm) 0 var(--color-border-neutral);
+
+  /* Couleurs de bordure et fonds neutres */
+  --color-border-neutral: #f0f0f0;
+  --color-border-dark: #e0e0e0;
+  --color-surface-mixed: #f8fafc;
+
+  /* Variables de Cartes */
+  --card-bg: #ffffff;
+  --card-border: #f1f5f9;
+  --card-shadow: rgba(0, 0, 0, 0.05);
+
+  /* Défauts dynamiques */
+  --color-primary: var(--color-explorer-blue);
+  --color-primary-dark: #2563eb;
+  --color-accent: var(--color-explorer-emerald);
+
+  /* Dégradés Spéciaux */
+  --gradient-fire: linear-gradient(to right, #ff0000, #ff8c00, #ffff00);
+  --gradient-civilization: linear-gradient(135deg, #f59e0b 0%, #8b5cf6 50%, #f1f5f9 100%);
+  --gradient-middleages: linear-gradient(135deg, #475569 0%, #8b5cf6 50%, #94a3b8 100%);
+
+  /* Nébuleuses décoratives */
+  --color-nebula-1: rgba(59, 130, 246, 0.05);
+  --color-nebula-2: rgba(139, 92, 246, 0.05);
+
+  /* Animation Background */
+  --bg-animation: move-bg 30s ease-in-out infinite alternate;
+
+  /* --- NATURE EXPLORER : Couleurs Saisonnières (Défaut : ÉTÉ) --- */
+  --transition-season: 1.5s ease-in-out;
+  --color-nature-sky: #4fc3f7;
+  --color-nature-grass: #4caf50;
+  --color-nature-leaf: #2e7d32;
+  --color-nature-trunk: #795548;
+  --color-nature-water: #0288d1;
+}
+
+/* --- VARIATIONS SAISONNIÈRES (NATURE EXPLORER) --- */
+
+.season-spring {
+  --sky-gradient-start: #a1c4fd;
+  --sky-gradient-end: #c2e9fb;
+  --color-nature-sky: #81d4fa;
+  --color-nature-grass: #81c784;
+  --color-nature-leaf: #aed581;
+  --color-nature-trunk: #8d6e63;
+  --color-nature-water: #4fc3f7;
+}
+
+.season-summer {
+  --sky-gradient-start: #6a82fb;
+  --sky-gradient-end: #fc5c7d;
+  --color-nature-sky: #4fc3f7;
+  --color-nature-grass: #4caf50;
+  --color-nature-leaf: #2e7d32;
+  --color-nature-trunk: #795548;
+  --color-nature-water: #0288d1;
+}
+
+.season-autumn {
+  --sky-gradient-start: #ffc371;
+  --sky-gradient-end: #ff5f6d;
+  --color-nature-sky: #ffb74d;
+  --color-nature-grass: #a1887f;
+  --color-nature-leaf: #ef6c00;
+  --color-nature-trunk: #5d4037;
+  --color-nature-water: #0277bd;
+}
+
+.season-winter {
+  --sky-gradient-start: #e0eafc;
+  --sky-gradient-end: #cfdef3;
+  --color-nature-sky: #e1f5fe;
+  --color-nature-grass: #cfd8dc;
+  --color-nature-leaf: #eceff1;
+  --color-nature-trunk: #3e2723;
+  --color-nature-water: #81d4fa;
+}
+
+/* --- LIGHT THEME + GENDER ACCENTS --- */
+
+html[data-gender='girl']:not([data-theme='dark']) {
+  --color-app-bg: #fff7ed; /* Pêche doux */
+  --color-primary: var(--color-explorer-amethyst);
+  --color-primary-dark: #7c3aed;
+  --color-accent: var(--color-explorer-coral);
+}
+
+html[data-gender='boy']:not([data-theme='dark']) {
+  --color-app-bg: #f0f9ff; /* Ciel doux */
+  --color-primary: var(--color-explorer-blue);
+  --color-primary-dark: #2563eb;
+  --color-accent: var(--color-explorer-emerald);
+}
+
+html[data-gender='space']:not([data-theme='dark']) {
+  --color-app-bg: #f5f3ff; /* Lavande très clair */
+  --color-primary: var(--color-explorer-amethyst);
+  --color-primary-dark: #7c3aed;
+  --color-accent: #06b6d4; /* Cyan */
+}
+
+
+/* --- DARK THEME (Galactique pour enfants) --- */
+
+html[data-theme='dark'],
+.dark {
+  --color-app-bg: #0f172a;
+  --color-nav-bg: rgba(15, 23, 42, 0.9);
+  --color-app-text: #f8fafc;
+  --color-app-text-muted: #cbd5e1;
+  --color-app-text-light: #94a3b8;
+  
+  --color-border-neutral: #1e293b;
+  --color-border-dark: #0f172a;
+  --color-badge-locked: #1e293b;
+  --color-surface-mixed: #1e293b;
+
+  /* Cartes en mode sombre - Bleu nuit profond, pas noir ! */
+  --card-bg: #1e293b; 
+  --card-border: #334155;
+  --card-shadow: rgba(0, 0, 0, 0.4);
+
+  --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.5);
+
+  --color-nebula-1: rgba(14, 165, 233, 0.15);
+  --color-nebula-2: rgba(168, 85, 247, 0.15);
+}
+
+/* Accents en mode Sombre - Amélioration du contraste pour WCAG AA */
+html[data-theme='dark'][data-gender='girl'] {
+  --color-primary: #c084fc; /* Violet 400 plus vibrant */
+  --color-primary-dark: #9333ea;
+  --color-accent: #fb7185;
+}
+
+html[data-theme='dark'][data-gender='boy'] {
+  --color-primary: #0ea5e9; /* Light Blue 600 - Meilleur contraste avec blanc (approx 4.5:1) */
+  --color-primary-dark: #0284c7;
+  --color-accent: #10b981;
+}
+
+html[data-theme='dark'][data-gender='space'] {
+  --color-primary: #a855f7; /* Purple 600 */
+  --color-primary-dark: #7e22ce;
+  --color-accent: #0891b2; /* Cyan 600 */
+}
+
+/* --- ACCESSIBILITÉ & TESTS E2E --- */
+@keyframes move-bg {
+  0% { background-position: 0% 0%; }
+  100% { background-position: 100% 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -1,0 +1,133 @@
+.container {
+  min-height: 100vh;
+  background: var(--color-surface-mixed);
+  padding-bottom: 5rem;
+}
+
+.content {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.section {
+  background: white;
+  padding: 2rem;
+  border-radius: 2.5rem;
+  box-shadow: var(--shadow-xl);
+  margin-bottom: 2rem;
+  border: 2px solid var(--card-border);
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--color-app-text);
+  margin-bottom: 2rem;
+}
+
+.profilesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.profileCard {
+  background: var(--color-surface-mixed);
+  padding: 1.5rem;
+  border-radius: 2rem;
+  border: 2px solid var(--card-border);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.profileHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profileName {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-app-text);
+}
+
+.profileStats {
+  font-size: 0.9rem;
+  color: var(--color-app-text-muted);
+  font-weight: 700;
+}
+
+.progressWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.progressHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-app-text-muted);
+}
+
+.progressBar {
+  height: 12px;
+  background: white;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-secondary));
+  border-radius: 999px;
+  transition: width 1s ease-out;
+}
+
+.profileActions {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.resetBtn {
+  font-size: 0.8rem;
+  padding: 0.5rem 1rem;
+  color: #ef4444;
+  border-color: #fca5a5;
+}
+
+.resetBtn:hover {
+  background: #fef2f2;
+}
+
+.infoBox {
+  background: linear-gradient(135deg, #eff6ff 0%, #ebf2ff 100%);
+  padding: 2rem;
+  border-radius: 2rem;
+  border-left: 6px solid var(--color-primary);
+}
+
+.infoBox h4 {
+  font-size: 1.1rem;
+  font-weight: 900;
+  color: var(--color-primary);
+  margin-bottom: 0.5rem;
+}
+
+.infoBox p {
+  font-size: 1rem;
+  color: var(--color-app-text-muted);
+  line-height: 1.6;
+  font-weight: 600;
+}
+
+@media (max-width: 600px) {
+  .profilesGrid {
+    grid-template-columns: 1fr;
+  }
+}

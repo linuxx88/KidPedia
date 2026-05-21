@@ -1,0 +1,294 @@
+.badgesPage {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem 4rem;
+  animation: fadeIn 0.6s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.badgesHeader {
+  background-color: var(--card-bg);
+  border-radius: 2.5rem;
+  padding: 2.5rem;
+  margin-bottom: 3rem;
+  border: 4px solid var(--card-border);
+  box-shadow: 0 10px 30px var(--card-shadow);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.medalsSummary {
+  display: flex;
+  gap: 1.5rem;
+}
+
+.medalStat {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 950;
+  padding: 0.75rem 1.5rem;
+  border-radius: 1.25rem;
+  background-color: var(--color-surface-mixed);
+}
+
+.gold { color: #d97706; border: 2px solid #fcd34d; }
+.silver { color: #475569; border: 2px solid #cbd5e1; }
+.bronze { color: #9a3412; border: 2px solid #fdba74; }
+
+.statsBox {
+  width: 100%;
+  max-width: 600px;
+  text-align: left;
+}
+
+.rankBadge {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  background: var(--color-surface-mixed);
+  padding: 1.25rem;
+  border-radius: 1.5rem;
+  margin-bottom: 1.5rem;
+  border: 2px solid var(--card-border);
+}
+
+.rankIcon {
+  font-size: 3.5rem;
+  filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+}
+
+.rankText {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.rankTitle {
+  font-weight: 900;
+  color: var(--color-primary);
+  font-size: 1.4rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.rankDesc {
+  color: var(--color-app-text-muted);
+  font-size: 0.95rem;
+  margin: 0;
+  font-style: italic;
+  line-height: 1.2;
+}
+
+.xpInfo {
+  margin-bottom: 1rem;
+  text-align: right;
+}
+
+.xpTotal {
+  font-weight: 900;
+  color: #fbbf24;
+  font-size: 1.2rem;
+  background: rgba(251, 191, 36, 0.1);
+  padding: 0.4rem 1.25rem;
+  border-radius: 2rem;
+  border: 2px solid rgba(251, 191, 36, 0.2);
+}
+
+.progressBarContainer {
+  height: 1.25rem;
+  background-color: var(--color-surface-mixed);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-bottom: 0.75rem;
+  border: 2px solid var(--card-border);
+}
+
+
+.progressBarFill {
+  height: 100%;
+  background: linear-gradient(to right, #3b82f6, #8b5cf6);
+  border-radius: 9999px;
+  transition: width 1s cubic-bezier(0.23, 1, 0.32, 1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.progressPercentage {
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: white;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.progressText {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: var(--color-app-text-muted);
+  text-align: center;
+}
+
+.onboardingCTA {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  animation: bounceIn 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes bounceIn {
+  from { transform: scale(0.5); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+.badgesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+  gap: 1.5rem;
+}
+
+.badgeItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1.5rem;
+  border-radius: 2rem;
+  border: 4px solid var(--card-border);
+  background-color: var(--card-bg);
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: default;
+  outline: none;
+}
+
+/* Optimisation : Report du rendu pour les cartes hors-champ initial */
+.badgeItem:nth-child(n+13) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto none auto 200px;
+}
+
+.badgeItem.earned {
+  cursor: pointer;
+  box-shadow: var(--shadow-3d);
+}
+
+:global(.dark) .badgeItem.earned {
+  box-shadow: 0 var(--depth-md) 0 var(--card-border);
+}
+
+.badgeItem.earned:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-3d-hover);
+}
+
+:global(.dark) .badgeItem.earned:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 var(--depth-lg) 0 var(--card-border);
+  border-color: var(--color-primary);
+}
+
+.badgeItem.earned:active {
+  transform: translateY(var(--depth-sm));
+  box-shadow: var(--shadow-3d-active);
+}
+
+:global(.dark) .badgeItem.earned:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--card-border);
+}
+
+.badgeItem.locked {
+  border-style: dashed;
+  border-color: var(--color-badge-locked);
+  background-color: transparent;
+  animation: pulse 3s infinite ease-in-out;
+  will-change: opacity;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.3; }
+  100% { opacity: 0.6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .badgeItem.locked {
+    animation: none;
+    opacity: 0.5;
+  }
+}
+
+.badgeItem.locked .badgeIconWrapper {
+  background-color: var(--color-badge-locked);
+  filter: brightness(0.8);
+}
+
+.badgeItem.locked .badgeIcon {
+  filter: contrast(0) brightness(0.5);
+  opacity: 0.3;
+}
+
+.badgeItem.locked .badgeName {
+  color: var(--color-app-text-light);
+  font-style: italic;
+}
+
+.badgeIconWrapper {
+  width: 5rem;
+  height: 5rem;
+  border-radius: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  position: relative;
+  background-color: var(--color-surface-mixed);
+}
+
+
+/* Category Colors */
+.badgeItem[data-category="animaux"].earned .badgeIconWrapper { background-color: #d1fae5; color: #059669; }
+.badgeItem[data-category="espace"].earned .badgeIconWrapper { background-color: #dbeafe; color: #2563eb; }
+.badgeItem[data-category="pourquoi"].earned .badgeIconWrapper { background-color: #fce7f3; color: #db2777; }
+.badgeItem[data-category="corps-humain"].earned .badgeIconWrapper { background-color: #ffedd5; color: #ea580c; }
+.badgeItem[data-category="dinosaures"].earned .badgeIconWrapper { background-color: #fee2e2; color: #dc2626; }
+.badgeItem[data-category="nature"].earned .badgeIconWrapper { background-color: #dcfce7; color: #15803d; }
+.badgeItem[data-category="histoire"].earned .badgeIconWrapper { background-color: #f3e8ff; color: #9333ea; }
+.badgeItem[data-category="geographie"].earned .badgeIconWrapper { background-color: #e0f2fe; color: #0284c7; }
+.badgeItem[data-category="inventions"].earned .badgeIconWrapper { background-color: #fef3c7; color: #d97706; }
+.badgeItem[data-category="arts"].earned .badgeIconWrapper { background-color: #ffe4e6; color: #e11d48; }
+
+.badgeIcon {
+  font-size: 2.5rem;
+}
+
+.medalOverlay {
+  position: absolute;
+  bottom: -0.5rem;
+  right: -0.5rem;
+  background-color: var(--card-bg);
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  border: 2px solid var(--card-border);
+}
+
+.badgeName {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--color-app-text);
+  text-align: center;
+}
