@@ -53,7 +53,7 @@ export const useMapZoom = (): MapZoomHook => {
    * Calcule et définit l'origine du zoom basée sur un événement de clic.
    * Permet de zoomer vers le point cliqué par l'utilisateur.
    */
-  const handleZoomAt = useCallback((_e?: React.MouseEvent | React.TouchEvent) => {
+  const handleZoomAt = useCallback(() => {
     setZoom(prev => ({
       ...prev,
       level: Math.min(prev.level + 1, MAP_SVG_CONFIG.MAX_ZOOM),
