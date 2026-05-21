@@ -12,7 +12,7 @@ export interface MapZoomHook {
   zoomIn: () => void;
   zoomOut: () => void;
   resetZoom: () => void;
-  handleZoomAt: () => void;
+  handleZoomAt: (e: React.MouseEvent | React.TouchEvent) => void;
   isMin: boolean;
   isMax: boolean;
 }
