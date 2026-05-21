@@ -30,8 +30,7 @@ updates:
     # Group dependencies by type
     groups:
       development-dependencies:
-        dependency-types:
-          - "dev"
+        dependency-type: "development"
         patterns:
           - "@types/*"
           - "eslint*"
@@ -39,5 +38,5 @@ updates:
           - "vitest*"
           - "playwright*"
       production-dependencies:
-        dependency-types:
-          - "prod"
+        dependency-type: "production"
+
