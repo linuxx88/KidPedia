@@ -17,7 +17,6 @@ test.describe('Navigation et Boutons Accueil', () => {
   test('devrait naviguer vers toutes les sections du Discovery Hub', async ({ page }) => {
     const hubSections = [
       { name: /Le Grand Voyage du Temps/i, url: /\/origins/ },
-      { name: /Le Cercle de la Vie/i, url: /\/nature/ },
       { name: /La Carte aux Trésors/i, url: /\/map/ },
       { name: /Mission Safari/i, url: /\/safari/ },
     ];

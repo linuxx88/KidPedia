@@ -130,7 +130,7 @@ export function HomePage({ topicsData }: HomePageProps) {
       {/* Pill Dashboard - Suivi personnel */}
       <div className={styles.dashboardWrapper}>
         <Link
-          to="/badges"
+          to="/gallery"
           className={styles.pillDashboard}
           aria-label={`Voir mes médailles. Progression : ${progressPercent} pour cent. Total XP : ${xp}`}
         >

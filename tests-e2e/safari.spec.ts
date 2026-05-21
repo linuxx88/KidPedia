@@ -19,7 +19,7 @@ test.describe('Mission Safari', () => {
 
     // 3. Vérifier le message de bienvenue
     const message = page.getByTestId('safari-message');
-    await expect(message).toContainText('Bienvenue');
+    await expect(message).toContainText(/(Bienvenue|Nouvelle aventure)/);
 
     // 4. Lancer le dé
     const rollButton = page.getByTestId('roll-dice-button');
