@@ -2,7 +2,6 @@ import { renderHook, act } from '@testing-library/react'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { useMapZoom } from './useMapZoom'
 import { MAP_SVG_CONFIG } from '../constants/geometry'
-import React from 'react'
 
 describe('useMapZoom', () => {
   beforeEach(() => {
@@ -34,16 +33,9 @@ describe('useMapZoom', () => {
   it('devrait diminuer le zoom jusqu\'au minimum et garder l\'origine à 0 0', () => {
     const { result } = renderHook(() => useMapZoom())
     
-    // Zoomer à x2 avec une origine spécifique
+    // Zoomer à x2
     act(() => {
-      const mockEvent = {
-        currentTarget: {
-          getBoundingClientRect: () => ({ left: 0, top: 0, width: 1000, height: 500 } as DOMRect)
-        },
-        clientX: 500,
-        clientY: 250
-      };
-      result.current.handleZoomAt(mockEvent as unknown as React.MouseEvent);
+      result.current.handleZoomAt();
     });
 
     expect(result.current.zoom).toBe(2)
@@ -68,21 +60,8 @@ describe('useMapZoom', () => {
   it('devrait forcer l\'origine à 0 0 lors d\'un clic', () => {
     const { result } = renderHook(() => useMapZoom())
     
-    const mockEvent = {
-      currentTarget: {
-        getBoundingClientRect: () => ({
-          left: 100,
-          top: 100,
-          width: 800,
-          height: 400
-        } as DOMRect)
-      },
-      clientX: 300,
-      clientY: 200
-    };
-
     act(() => {
-      result.current.handleZoomAt(mockEvent as unknown as React.MouseEvent);
+      result.current.handleZoomAt();
     });
 
     expect(result.current.zoom).toBe(2)
