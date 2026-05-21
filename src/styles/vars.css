@@ -19,6 +19,12 @@
   --color-app-bg: #FEFDF5; 
   --color-nav-bg: rgba(255, 255, 255, 0.9);
   
+  /* Effets de Verre (Glassmorphism) */
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.25);
+  --glass-blur: blur(12px);
+
+  
   /* Textes Haute Lisibilité */
   --color-app-text: #1e293b;
   --color-app-text-muted: #475569; 
@@ -166,6 +172,11 @@ html[data-theme='dark'],
 .dark {
   --color-app-bg: #0f172a;
   --color-nav-bg: rgba(15, 23, 42, 0.9);
+  
+  /* Effets de Verre (Glassmorphism) Sombre */
+  --glass-bg: rgba(15, 23, 42, 0.45);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-blur: blur(12px);
   --color-app-text: #f8fafc;
   --color-app-text-muted: #cbd5e1;
   --color-app-text-light: #94a3b8;

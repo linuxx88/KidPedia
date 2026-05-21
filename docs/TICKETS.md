@@ -23,11 +23,11 @@ Actuellement, seule l'anecdote ("Le savais-tu ?") et le quiz sont générés dyn
 ---
 
 ## 🎫 Ticket #03 : Bouton "La Singularité" (Lien brisé ou mal redirigé)
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Moyenne
 **Localisation** : `src/data/origins/bigBang.ts` / Navigation
 **Description** :
-Un clic sur le bouton "La singularité" (situé dans la catégorie des Origines / L'Odyssée de l'Univers) ne mène actuellement vers aucune page contenant un quiz. Il semble y avoir un problème de routage ou de reconnaissance de ce `topicId` spécifique par le composant `TopicPage`.
+Un clic sur le bouton "La singularité" (situé dans la catégorie des Origines / L'Odyssée de l'Univers) ne mène actuellement vers aucune page contenant un quiz. Il semble y avoir un problème de routage ou de reconnaissance de ce `topicId` spécifique par le composant `TopicPage`. A été résolu en associant le sujet 'singularite' avec ses questions et quiz dédiés et en vérifiant l'intégrité via des tests automatisés.
 
 ---
 
@@ -319,3 +319,85 @@ Lors du zoom sur la carte interactive, si l'origine du zoom (`transform-origin`)
 **Localisation** : `src/components/Game/TreasureMap.tsx` & `TreasureMap.module.css`
 **Description** :
 Lorsqu'un zoom avant est effectué sur la carte, les marqueurs de points d'intérêt (boutons d'îles/sujets) grandissent proportionnellement avec le zoom visuel CSS (`transform: scale(zoom)`). Par conséquent, à zoom élevé (ex: x3), les émojis et les étoiles de médailles deviennent gigantesques, s'empilent, se chevauchent et cachent complètement les détails de la carte environnante. Il faut appliquer un facteur d'échelle inverse (`scale(1 / zoom)`) sur les marqueurs individuels afin qu'ils conservent une taille visuelle propre, constante et lisible quel que soit le niveau de zoom.
+
+---
+
+## 🎫 Ticket #36 : Liaison et Quizz pour les sous-nœuds du Big Bang (Origines h1)
+**Statut** : 🔴 À faire
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/bigBang.ts` / Navigation
+**Description** :
+À l'exception de « La Singularité » (`bb1`) et « La Terre » (`bb9`), les nœuds intermédiaires (`bb2` à `bb8` : *Soupe de Particules*, *Naissance des Atomes*, *Expansion*, *Premières Étoiles*, etc.) n'ont pas de `topicId`. Il faut concevoir des sujets correspondants dans `space.ts`, des quiz d'intégrité associés, et les lier afin que toute la frise du Big Bang soit interactive et éducative.
+
+---
+
+## 🎫 Ticket #37 : Liaison et Quizz pour les sous-nœuds des Premières espèces marines (Origines h2)
+**Statut** : 🔴 À faire
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/marine.ts` / Navigation
+**Description** :
+Actuellement, seul le dernier nœud de la frise marine est interactif. Tous les sous-nœuds de `marine.ts` (comme les premières bactéries, algues ou trilobites) doivent être liés à des sujets de l'encyclopédie (probablement dans `nature.ts` ou `animals.ts`) avec des quiz interactifs dédiés.
+
+---
+
+## 🎫 Ticket #38 : Liaison et Quizz pour les sous-nœuds des Premières espèces terrestres (Origines h3)
+**Statut** : 🔴 À faire
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/land.ts` / Navigation
+**Description** :
+Les sous-nœuds de `land.ts` (premiers amphibiens, fougères géantes, insectes géants) n'ont pas de `topicId` actif. Ils doivent être liés à de nouveaux sujets et quiz pour enrichir l'exploration de la sortie des eaux.
+
+---
+
+## 🎫 Ticket #39 : Liaison et Quizz pour les sous-nœuds des Dinosaures (Origines h4)
+**Statut** : 🔴 À faire
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/dinosaurs.ts` / Navigation
+**Description** :
+La frise des dinosaures (`dinosaurs.ts`) présente des espèces fascinantes (T-Rex, Diplodocus, Tricératops) qui ne redirigent vers aucun quiz ou fiche individuelle. Il faut mapper ces sous-nœuds vers les sujets de `dinosaurs.ts` de l'encyclopédie.
+
+---
+
+## 🎫 Ticket #40 : Liaison et Quizz pour les sous-nœuds des Premières formes humaines (Origines h5)
+**Statut** : 🔴 À faire
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/humans.ts` / Navigation
+**Description** :
+Les différentes étapes de l'évolution des hominidés (Toumaï, Lucy, etc.) dans `humans.ts` manquent de redirection pédagogique. Il faut créer des mini-sujets historiques correspondants et les connecter.
+
+---
+
+## 🎫 Ticket #41 : Liaison et Quizz pour les sous-nœuds de l'Évolution de l'homme (Origines h6)
+**Statut** : 🔴 À faire
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/evolution.ts` / Navigation
+**Description** :
+Les grandes avancées humaines de la frise `evolution.ts` (maîtrise du feu, premiers outils, art pariétal) doivent être connectées à des sujets dans `history.ts` ou dans un nouveau fichier thématique avec des quiz correspondants.
+
+---
+
+## 🎫 Ticket #42 : Liaison et Quizz pour les sous-nœuds des Regroupements primitifs (Origines h7)
+**Statut** : 🔴 À faire
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/groups.ts` / Navigation
+**Description** :
+Les étapes de transition vers la sédentarisation (premières huttes, débuts de l'agriculture, élevage) dans `groups.ts` doivent être interactives et associées à des fiches pédagogiques.
+
+---
+
+## 🎫 Ticket #43 : Liaison et Quizz pour les sous-nœuds des Grandes civilisations (Origines h8)
+**Statut** : 🔴 À faire
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/civilizations.ts` / Navigation
+**Description** :
+Les sous-nœuds de `civilizations.ts` (Égypte ancienne, Mésopotamie, Grèce antique, Empire romain) doivent être mappés vers des sujets existants ou nouveaux de la catégorie Histoire avec leurs quiz.
+
+---
+
+## 🎫 Ticket #44 : Liaison et Quizz pour les sous-nœuds du Moyen-Âge (Origines h9)
+**Statut** : 🔴 À faire
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/middleAges.ts` / Navigation
+**Description** :
+Les éléments emblématiques du Moyen-Âge (châteaux forts, chevaliers, cathédrales, calligraphie) de la frise `middleAges.ts` doivent être liés à des sujets d'apprentissage et des quiz réels de l'encyclopédie.
+

@@ -259,4 +259,37 @@ export const space = [
     ],
     
   },
+  {
+    id: 'singularite',
+    title: { fr: 'La Singularité', en: 'The Singularity' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
+    icon: '💥',
+    shortDesc: {
+      fr: "Le point de départ mystérieux de tout notre univers !",
+      en: 'The mysterious starting point of our entire universe!',
+    },
+    fullContent: {
+      fr: "La singularité est le tout premier moment de notre univers. Il y a environ 13,8 milliards d'années, tout ce qui existe aujourd'hui (les étoiles, la Terre, et même nous !) était concentré en un point incroyablement minuscule, chaud et dense. Puis, ce point a commencé à s'étendre très rapidement : c'est le Big Bang !",
+      en: "The singularity is the very first moment of our universe. About 13.8 billion years ago, everything that exists today (stars, Earth, and even us!) was concentrated in an incredibly tiny, hot, and dense point. Then, this point began to expand very quickly: that is the Big Bang!",
+    },
+    funFact: {
+      fr: "Au moment de la singularité, tout l'univers tenait dans un espace plus petit qu'un grain de sable !",
+      en: "At the moment of the singularity, the entire universe fit in a space smaller than a grain of sand!",
+    },
+    funFacts: [
+      {
+        fr: "Au moment de la singularité, tout l'univers tenait dans un espace plus petit qu'un grain de sable !",
+        en: "At the moment of the singularity, the entire universe fit in a space smaller than a grain of sand!",
+      },
+      {
+        fr: "Le mot 'singularité' désigne un endroit où les règles habituelles de la physique ne fonctionnent plus.",
+        en: "The word 'singularity' refers to a place where the usual rules of physics no longer work."
+      },
+      {
+        fr: "Après la singularité, l'univers a grandi si vite que cela s'appelle l'inflation cosmique.",
+        en: "After the singularity, the universe grew so fast that it is called cosmic inflation."
+      }
+    ]
+  },
 ] as const

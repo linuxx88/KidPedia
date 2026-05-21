@@ -2,8 +2,10 @@ import { describe, it, expect } from 'vitest'
 import { encyclopedia } from './topics'
 import { mapData } from './mapData'
 import { originData } from './originData'
+import type { HistoryNode } from './origins'
 import { NATURE_ELEMENTS } from './natureData'
 import { safariMap } from './gameData'
+import { QUIZZES } from './quizzes'
 
 describe('Data Integrity Audit', () => {
   const encyclopediaIdsArray = encyclopedia.map((t) => t.id)
@@ -41,6 +43,37 @@ describe('Data Integrity Audit', () => {
     if (originIdsInEncyclopedia.length > 0) {
        console.log(`[Integrity Info] ${originIdsInEncyclopedia.length} originData IDs found in Encyclopedia: ${originIdsInEncyclopedia.join(', ')}`)
     }
+  })
+
+  it('tous les topicId des nœuds de la frise chronologique (originData) doivent exister dans l\'encyclopédie et posséder un quiz', () => {
+    const collectTopicIds = (nodes: HistoryNode[]): { id: string; topicId: string }[] => {
+      const result: { id: string; topicId: string }[] = []
+      nodes.forEach((node) => {
+        if (node.topicId) {
+          result.push({ id: node.id, topicId: node.topicId })
+        }
+        if (node.subNodes) {
+          result.push(...collectTopicIds(node.subNodes))
+        }
+      })
+      return result
+    }
+
+    const QUIZ_IDS = new Set(Object.keys(QUIZZES))
+    const categoryHubs = new Set(['histoire', 'dinosaurs', 'animaux'])
+
+    const topicIds = collectTopicIds(originData)
+    topicIds.forEach(({ id, topicId }) => {
+      if (categoryHubs.has(topicId)) {
+        return
+      }
+
+      const topicExists = encyclopediaIds.has(topicId)
+      expect(topicExists, `Topic ID "${topicId}" referenced in origin node "${id}" must exist in encyclopedia`).toBe(true)
+
+      const quizExists = QUIZ_IDS.has(topicId)
+      expect(quizExists, `Quiz for Topic ID "${topicId}" referenced in origin node "${id}" must exist in QUIZZES`).toBe(true)
+    })
   })
 
   it('Audit des Orphelins : tous les sujets doivent idéalement être référencés dans un mode de découverte', () => {

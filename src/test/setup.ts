@@ -41,3 +41,12 @@ vi.mock('canvas-confetti', () => ({
   }),
 }))
 
+// Mock de virtual:pwa-register/react pour éviter les crashes lors des tests
+vi.mock('virtual:pwa-register/react', () => ({
+  useRegisterSW: vi.fn(() => ({
+    offlineReady: [false, vi.fn()],
+    needRefresh: [false, vi.fn()],
+    updateServiceWorker: vi.fn(),
+  })),
+}))
+

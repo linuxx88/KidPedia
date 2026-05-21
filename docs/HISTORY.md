@@ -6,6 +6,24 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
+### VERSION 3.5.6 - Résolution du Ticket #03 & Redirection de La Singularité (21 Mai 2026)
+--------------------------------------------------
+- **[Feature] Intégration de La Singularité (Ticket #03) :**
+    - Création du sujet éducatif complet `'singularite'` dans `src/data/topics/space.ts` contenant les descriptions bilingues, faits amusants et icône associée (`💥`).
+    - Liaison de la frise chronologique Big Bang en configurant l'attribut `topicId: 'singularite'` sur le nœud `bb1` (« La Singularité »).
+    - Ajout d'un quiz par défaut dans `QUIZZES` et d'une banque de 3 questions thématiques aléatoires dans `QUIZ_BANKS` pour tester les connaissances des enfants de manière engageante.
+- **[Qualité] Tests d'Intégrité Automatiques :**
+    - Ajout d'une suite de tests dans `src/data/dataIntegrity.test.ts` qui vérifie que tout `topicId` référencé dans les nœuds de la frise chronologique est valide (présent dans l'encyclopédie et doté d'un quiz associé), à l'exclusion des hubs de catégorie (`'histoire'`, `'dinosaurs'`, `'animaux'`).
+    - Validation complète de la compilation TypeScript et de la suite de 131 tests unitaires et d'intégration à 100% au vert.
+
+### VERSION 3.5.5 - Résolution de la dette de validation et Mocking PWA (21 Mai 2026)
+--------------------------------------------------
+- **[Qualité] Fix de validation ESLint (useMapZoom.ts) :**
+    - Suppression du paramètre inutilisé `_e` dans la fonction `handleZoomAt` du hook `useMapZoom`, corrigeant l'erreur d'analyse statique `@typescript-eslint/no-unused-vars` qui faisait échouer la validation.
+- **[Qualité] Mock PWA dans les tests (setup.ts) :**
+    - Ajout du mock pour le module virtuel `virtual:pwa-register/react` dans le fichier de configuration de test global `src/test/setup.ts`.
+    - Résolution des plantages de Vitest sur `App.test.tsx` et `XPAndMedals.integration.test.tsx` provoqués par la tentative de résolution de ce module virtuel dans l'environnement de test JSDOM.
+
 ### VERSION 3.5.4 - Résilience des lancers de dés et mouvements asynchrones (21 Mai 2026)
 --------------------------------------------------
 - **[Feature] Annulation et Résilience Asynchrone (Ticket #17) :**

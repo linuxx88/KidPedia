@@ -7,7 +7,8 @@ export const bigBangSubNodes: HistoryNode[] = [
     color: '#ef4444', 
     icon: '💥', 
     title: { fr: 'La Singularité', en: 'Singularity' }, 
-    description: { fr: 'Tout a commencé par un point minuscule et brûlant !', en: 'It all started with a tiny and burning point!' } 
+    description: { fr: 'Tout a commencé par un point minuscule et brûlant !', en: 'It all started with a tiny and burning point!' },
+    topicId: 'singularite'
   },
   { 
     id: 'bb2', 

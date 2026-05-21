@@ -52,6 +52,23 @@ export const QUIZ_BANKS: Partial<Record<TopicId, Quiz[]>> = {
       options: { fr: ['Personne', 'Des extraterrestres', 'Des humains'], en: ['Nobody', 'Aliens', 'Humans'] },
       correctAnswer: 2
     }
+  ],
+  singularite: [
+    {
+      question: { fr: "Qu'était l'univers au moment de la singularité ?", en: "What was the universe at the moment of the singularity?" },
+      options: { fr: ['Un point minuscule et très chaud', 'Une galaxie géante', 'Un océan d\'eau froide'], en: ['A tiny and very hot point', 'A giant galaxy', 'An ocean of cold water'] },
+      correctAnswer: 0
+    },
+    {
+      question: { fr: "Il y a combien de temps le Big Bang a-t-il commencé environ ?", en: "About how long ago did the Big Bang start?" },
+      options: { fr: ['2 000 ans', '1 million d\'années', '13,8 milliards d\'années'], en: ['2,000 years', '1 million years', '13.8 billion years'] },
+      correctAnswer: 2
+    },
+    {
+      question: { fr: "Que s'est-il passé juste après la singularité ?", en: "What happened just after the singularity?" },
+      options: { fr: ['L\'univers s\'est arrêté', 'L\'univers a grandi très vite (expansion)', 'L\'univers a disparu'], en: ['The universe stopped', 'The universe grew very fast (expansion)', 'The universe disappeared'] },
+      correctAnswer: 1
+    }
   ]
 };
 
@@ -1411,5 +1428,20 @@ export const QUIZZES: Partial<Record<TopicId, Quiz>> = {
       en: ['Yes, it shines on its own', 'No, it reflects the Sun', 'Only on holidays'],
     },
     correctAnswer: 1,
+  },
+  singularite: {
+    question: {
+      fr: "Qu'était l'univers au moment de la singularité ?",
+      en: "What was the universe at the moment of the singularity?",
+    },
+    options: {
+      fr: ['Un point minuscule et très chaud', 'Une galaxie géante', 'Un océan d\'eau froide'],
+      en: ['A tiny and very hot point', 'A giant galaxy', 'An ocean of cold water'],
+    },
+    correctAnswer: 0,
+    hint: {
+      fr: "C'était quelque chose de tout petit, comme un minuscule grain de sable magique !",
+      en: "It was something very small, like a tiny magic grain of sand!"
+    }
   },
 };
