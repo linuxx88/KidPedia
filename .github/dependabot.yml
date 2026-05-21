@@ -1,0 +1,43 @@
+version: 2
+updates:
+  # NPM Dependencies
+  - package-ecosystem: npm
+    directory: "/"
+    schedule:
+      interval: weekly
+      day: monday
+      time: "03:00"
+    open-pull-requests-limit: 10
+    rebase-strategy: auto
+    commit-message:
+      prefix: "chore(deps)"
+      prefix-development: "chore(deps-dev)"
+      include: "scope"
+    pull-request-branch-name:
+      separator: "/"
+    reviewers:
+      - "linuxx88"
+    assignees:
+      - "linuxx88"
+    labels:
+      - "dependencies"
+      - "dependabot"
+    allow:
+      - dependency-type: "all"
+    ignore:
+      # Add packages to ignore here if needed
+      # - dependency-name: "package-name"
+    # Group dependencies by type
+    groups:
+      development-dependencies:
+        dependency-types:
+          - "dev"
+        patterns:
+          - "@types/*"
+          - "eslint*"
+          - "prettier*"
+          - "vitest*"
+          - "playwright*"
+      production-dependencies:
+        dependency-types:
+          - "prod"
