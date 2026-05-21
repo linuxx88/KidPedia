@@ -9,6 +9,7 @@ on:
 jobs:
   validate:
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     strategy:
       matrix:
@@ -25,26 +26,23 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Run linter
         run: npm run lint
-        continue-on-error: false
 
       - name: Check TypeScript types
         run: npm run type-check
-        continue-on-error: false
 
       - name: Run unit tests
         run: npm test -- --run
-        continue-on-error: false
 
       - name: Build project
         run: npm run build
-        continue-on-error: false
 
   e2e:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
 
     strategy:
       matrix:
@@ -61,7 +59,7 @@ jobs:
           cache: npm
 
       - name: Install dependencies
-        run: npm install
+        run: npm ci
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
@@ -76,3 +74,4 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 30
+
