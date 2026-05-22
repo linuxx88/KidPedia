@@ -279,6 +279,10 @@ export const en: Labels = {
     discoveryTitle: (title: string) => `Discovery: ${title}`,
     journalTitle: 'TRAVEL LOG',
     emptyJournal: 'No photos for now...',
+    quitConfirmTitle: '🚨 Warning!',
+    quitConfirmMessage: 'Do you really want to leave? If you leave now, the animal will run away!',
+    quitConfirmYes: 'Yes, leave anyway 👋',
+    quitConfirmNo: 'No, keep playing! 💪',
   },
   parents: {
     gateTitle: "Parents Zone",

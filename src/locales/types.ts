@@ -212,6 +212,10 @@ export interface Labels {
     discoveryTitle: (title: string) => string;
     journalTitle: string;
     emptyJournal: string;
+    quitConfirmTitle: string;
+    quitConfirmMessage: string;
+    quitConfirmYes: string;
+    quitConfirmNo: string;
   };
   parents: {
     gateTitle: string;

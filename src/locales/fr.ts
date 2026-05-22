@@ -280,6 +280,10 @@ export const fr: Labels = {
     discoveryTitle: (title: string) => `Découverte : ${title}`,
     journalTitle: 'CARNET DE VOYAGE',
     emptyJournal: "Aucune photo pour l'instant...",
+    quitConfirmTitle: '🚨 Attention !',
+    quitConfirmMessage: "Veux-tu vraiment quitter ? Si tu t'en vas maintenant, l'animal va s'enfuir !",
+    quitConfirmYes: "Oui, quitter 👋",
+    quitConfirmNo: "Non, continuer le quiz ! 💪",
   },
   parents: {
     gateTitle: "Zone Parents",

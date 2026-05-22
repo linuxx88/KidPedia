@@ -286,3 +286,32 @@
     font-size: 1rem;
   }
 }
+
+.confirmModal {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.confirmModal p {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-app-text);
+  margin: 0;
+  line-height: 1.5;
+}
+
+.confirmButtons {
+  display: flex;
+  gap: 1rem;
+  width: 100%;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.confirmButtons button {
+  min-width: 160px;
+}

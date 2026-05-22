@@ -27,6 +27,7 @@ interface MissionSafariProps {
 
 export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
   const { gender, language, labels } = useSettingsStore();
+  const [showQuitConfirm, setShowQuitConfirm] = React.useState(false);
   
   // SÉLECTEURS SAFARI (ZUSTAND)
   const playerPosition = useSafariStore(state => state.playerPosition);
@@ -170,7 +171,7 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
 
             <AppOverlay 
               isOpen={!!activeQuiz} 
-              onClose={() => handleQuizAnswer(false)}
+              onClose={() => setShowQuitConfirm(true)}
               closeLabel={labels.common.close}
               title={activeQuiz ? labels.safari.discoveryTitle(activeQuiz.title[language]) : ""}
             >
@@ -189,6 +190,32 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
                   funFact={activeQuiz.funFact[language]}
                 />
               )}
+            </AppOverlay>
+
+            <AppOverlay
+              isOpen={showQuitConfirm}
+              onClose={() => setShowQuitConfirm(false)}
+              closeLabel={labels.common.close}
+              title={labels.safari.quitConfirmTitle}
+              maxWidth="500px"
+            >
+              <div className={styles.confirmModal}>
+                <p>{labels.safari.quitConfirmMessage}</p>
+                <div className={styles.confirmButtons}>
+                  <AppButton onClick={() => setShowQuitConfirm(false)} variant="primary">
+                    {labels.safari.quitConfirmNo}
+                  </AppButton>
+                  <AppButton 
+                    onClick={() => {
+                      setShowQuitConfirm(false);
+                      handleQuizAnswer(false);
+                    }} 
+                    variant="secondary"
+                  >
+                    {labels.safari.quitConfirmYes}
+                  </AppButton>
+                </div>
+              </div>
             </AppOverlay>
           </div>
         </div>

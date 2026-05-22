@@ -150,11 +150,12 @@ La fonction `handleZoomAt` calcule l'origine du zoom en pourcentage par rapport 
 ---
 
 ## 🎫 Ticket #16 : Événement de fermeture de quiz punitif dans le Mission Safari
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Moyenne (UX / Logique de jeu)
 **Localisation** : `src/components/Game/MissionSafari.tsx`
 **Description** :
 Dans le Mission Safari, si l'enfant ferme la modale/overlay du quiz en cliquant sur la croix ou en dehors de la modale (`onClose={() => handleQuizAnswer(false)}`), le jeu préserve cela comme un échec immédiat au quiz (`QUIZ_FAILURE`). L'animal s'enfuit, et le joueur perd son tour de jeu. Ce comportement est trop punitif pour les enfants. Fermer la modale devrait simplement suspendre l'état du quiz ou nécessiter une confirmation ("Voulez-vous vraiment quitter ce défi ?") pour éviter les clics accidentels destructeurs.
+**Résolution** : Introduction d'un état local `showQuitConfirm` interceptant la fermeture de l'overlay de quiz. Si l'utilisateur clique sur la fermeture ou en dehors de l'overlay, un second overlay de confirmation bilingue de taille `maxWidth="500px"` s'affiche de manière non invasive pour l'enfant. S'il choisit de continuer le quiz, l'overlay de confirmation se ferme et le quiz reste actif. S'il choisit de quitter quand même, l'overlay se ferme, le quiz est annulé avec perte de l'animal rencontré, et le jeu repasse en statut actif.
 
 ---
 
