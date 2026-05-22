@@ -132,7 +132,7 @@ const ELEMENT_DETAILS: Record<string, ElementDisplayDetail> = {
 
 export const LifeCirclePage: React.FC = () => {
   const navigate = useNavigate();
-  const { currentSeason, setSeason, triggerNextSeason } = useEnvironmentStore();
+  const { currentSeason, setSeason } = useEnvironmentStore();
   const addXP = useProgressionStore((state) => state.addXP);
   const language = useSettingsStore((state) => state.language);
   const labels = useSettingsStore((state) => state.labels);
@@ -141,7 +141,7 @@ export const LifeCirclePage: React.FC = () => {
   const [clickedElements, setClickedElements] = useState<string[]>([]);
   const [floatingXp, setFloatingXp] = useState<{ x: number; y: number; amount: number } | null>(null);
 
-  const handleElementClick = (elementId: string, event?: React.MouseEvent) => {
+  const handleElementClick = (elementId: string, event?: React.MouseEvent<SVGElement>) => {
     const info = NATURE_ELEMENTS[elementId as keyof typeof NATURE_ELEMENTS];
     if (!info) return;
 
@@ -291,7 +291,7 @@ export const LifeCirclePage: React.FC = () => {
               {/* --- TRONC D'ARBRE INTERACTIF --- */}
               <AccessibleSvgHotspot 
                 aria-label={ELEMENT_DETAILS.trunk.name[language]} 
-                onClick={(e) => handleElementClick('trunk', e as any)}
+                onClick={(e) => handleElementClick('trunk', e)}
               >
                 <path 
                   id="trunk"
@@ -314,7 +314,7 @@ export const LifeCirclePage: React.FC = () => {
               {/* Racine Gauche */}
               <AccessibleSvgHotspot 
                 aria-label={ELEMENT_DETAILS.roots.name[language]} 
-                onClick={(e) => handleElementClick('roots', e as any)}
+                onClick={(e) => handleElementClick('roots', e)}
               >
                 <path 
                   id="roots"
@@ -328,7 +328,7 @@ export const LifeCirclePage: React.FC = () => {
               {/* Racine Droite */}
               <AccessibleSvgHotspot 
                 aria-label={ELEMENT_DETAILS.root.name[language]} 
-                onClick={(e) => handleElementClick('root', e as any)}
+                onClick={(e) => handleElementClick('root', e)}
               >
                 <path 
                   id="root"
@@ -351,7 +351,7 @@ export const LifeCirclePage: React.FC = () => {
               {/* --- FEUILLE INTERACTIVE --- */}
               <AccessibleSvgHotspot 
                 aria-label={ELEMENT_DETAILS.leaf.name[language]} 
-                onClick={(e) => handleElementClick('leaf', e as any)}
+                onClick={(e) => handleElementClick('leaf', e)}
               >
                 <path 
                   id="leaf"
@@ -364,7 +364,7 @@ export const LifeCirclePage: React.FC = () => {
               {/* --- FLEURS INTERACTIVES (Visibles au printemps/été) --- */}
               <AccessibleSvgHotspot 
                 aria-label={ELEMENT_DETAILS.flower.name[language]} 
-                onClick={(e) => handleElementClick('flower', e as any)}
+                onClick={(e) => handleElementClick('flower', e)}
               >
                 <g 
                   id="flower" 
@@ -395,7 +395,7 @@ export const LifeCirclePage: React.FC = () => {
               {/* --- FRUITS INTERACTIFS (Visibles été/automne) --- */}
               <AccessibleSvgHotspot 
                 aria-label={ELEMENT_DETAILS.fruit.name[language]} 
-                onClick={(e) => handleElementClick('fruit', e as any)}
+                onClick={(e) => handleElementClick('fruit', e)}
               >
                 <g 
                   id="fruit" 
@@ -415,7 +415,7 @@ export const LifeCirclePage: React.FC = () => {
               {/* --- POISSON INTERACTIF --- */}
               <AccessibleSvgHotspot 
                 aria-label={ELEMENT_DETAILS.fish.name[language]} 
-                onClick={(e) => handleElementClick('fish', e as any)}
+                onClick={(e) => handleElementClick('fish', e)}
               >
                 <g 
                   id="fish" 
@@ -436,7 +436,7 @@ export const LifeCirclePage: React.FC = () => {
               {/* --- INSECTE INTERACTIF (Abeille volante) --- */}
               <AccessibleSvgHotspot 
                 aria-label={ELEMENT_DETAILS.insect.name[language]} 
-                onClick={(e) => handleElementClick('insect', e as any)}
+                onClick={(e) => handleElementClick('insect', e)}
               >
                 <g 
                   id="insect" 
@@ -458,7 +458,7 @@ export const LifeCirclePage: React.FC = () => {
               {/* --- ANIMAL INTERACTIF (Petit Lapin au pied de l'arbre) --- */}
               <AccessibleSvgHotspot 
                 aria-label={ELEMENT_DETAILS.animal.name[language]} 
-                onClick={(e) => handleElementClick('animal', e as any)}
+                onClick={(e) => handleElementClick('animal', e)}
               >
                 <g 
                   id="animal" 

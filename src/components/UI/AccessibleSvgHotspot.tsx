@@ -2,7 +2,7 @@ import React from 'react';
 
 interface AccessibleSvgHotspotProps {
   children: React.ReactElement;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<SVGElement>) => void;
   'aria-label': string;
   className?: string;
 }
