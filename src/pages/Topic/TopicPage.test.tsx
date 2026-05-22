@@ -90,11 +90,11 @@ describe('TopicPage - Anti-spoiler Security', () => {
 
   describe('TopicPage Integration', () => {
     it('filters out the spoiler fun fact when the quiz that contains its answer is active', async () => {
-      // Mock Math.random to return 0.5.
-      // 1. selectedQuizIndex = Math.floor(0.5 * 3) = 1 (Quiz: "Combien de Terres...")
+      // Mock Math.random to return 0.3.
+      // 1. selectedQuizIndex = Math.floor(0.3 * 4) = 1 (Quiz: "Combien de Terres...")
       // 2. funFactIndex selection from 2 non-spoiler items
-      // 3. descriptionIndex selection from 3 items
-      const mockMath = vi.spyOn(Math, 'random').mockReturnValue(0.5)
+      // 3. descriptionIndex selection from 4 items
+      const mockMath = vi.spyOn(Math, 'random').mockReturnValue(0.3)
 
       render(<TopicPage handleGoHome={mockGoHome} />)
 

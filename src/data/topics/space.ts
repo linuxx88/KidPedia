@@ -27,6 +27,10 @@ export const space = [
       {
         fr: "Le Soleil est le cœur de notre système solaire. Grâce à sa gravité, toutes les planètes restent bien sagement sur leur orbite sans s'échapper.",
         en: "The Sun is the heart of our solar system. Thanks to its gravity, all the planets stay nicely on their orbit without escaping."
+      },
+      {
+        fr: "Le Soleil est une étoile géante et très chaude qui brille tout en haut dans l'Espace pour nous éclairer. De même qu'il partage sa douce chaleur avec toute la Terre sans rien demander, tu peux toi aussi réchauffer le cœur des autres avec ton plus beau sourire.",
+        en: "The Sun is a giant, hot star shining bright in space to give us light. Just like the Sun shares its warm light with everyone, you can also warm people's hearts with your kindest smile."
       }
     ],
     funFact: {

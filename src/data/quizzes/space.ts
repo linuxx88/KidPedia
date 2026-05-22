@@ -17,6 +17,11 @@ export const QUIZ_BANKS: Partial<Record<TopicId, Quiz[]>> = {
       question: { fr: "Que nous donne le Soleil ?", en: "What does the Sun give us?" },
       options: { fr: ['De la neige', 'De la lumière et de la chaleur', 'De la pluie'], en: ['Snow', 'Light and heat', 'Rain'] },
       correctAnswer: 1
+    },
+    {
+      question: { fr: "Que partage le Soleil avec la Terre pour nous réchauffer ?", en: "What does the Sun share with the Earth to keep us warm?" },
+      options: { fr: ["Des glaçons à la fraise", "Sa lumière et sa chaleur", "Du vent froid"], en: ["Strawberry ice cubes", "Its light and warmth", "Cold wind"] },
+      correctAnswer: 1
     }
   ],
   terre: [
