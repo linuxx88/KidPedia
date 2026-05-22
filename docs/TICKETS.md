@@ -791,15 +791,16 @@ Ce volet réunit les spécifications stratégiques conçues par le Product Manag
 ---
 
 ## 🎫 Ticket #R3 : Version 0.0.3 - Le Refuge des Compagnons Animés 🦄
-**Statut** : 🔴 À faire (Planifié pour v0.0.3)
+**Statut** : 🟢 Résolu (Déployé le 22 Mai 2026)
 **Sévérité** : Moyenne (Gamification / Engagement)
-**Localisation** : `src/components/CompanionRefuge/` & `src/store/useCompanionStore.ts`
+**Localisation** : `src/pages/Refuge/` & `src/store/useCompanionStore.ts`
 **Description** :
 Créer une nouvelle zone interactive appelée "Le Refuge" où l'enfant peut jouer et prendre soin de ses familiers virtuels débloqués (Bébé Dino, Petit Chien, Mini Robot). L'enfant utilise les étoiles récoltées lors des quiz pour acheter des friandises (comme des os en sucre ou des feuilles dorées), déclenchant des animations vectorielles exclusives en temps réel (le dinosaure fait un clin d'œil, le chien court chercher une balle) et des sons drôles.
 **Critères d'Acceptation (DOD)** :
-- [ ] Créer l'interface responsive `CompanionRefuge` accessible depuis la page d'accueil de KidPedia.
-- [ ] Implémenter le store `useCompanionStore` gérant le niveau d'affection des compagnons et les stocks d'objets.
-- [ ] Mettre en œuvre au moins 3 animations interactives interactives en SVG/CSS avec micro-animations de lueur pour chacun des trois familiers.
+- [x] Créer l'interface responsive `RefugePage` accessible depuis la page d'accueil de KidPedia.
+- [x] Implémenter le store `useCompanionStore` gérant le niveau d'affection des compagnons et les stocks d'objets.
+- [x] Mettre en œuvre au moins 3 animations interactives interactives en SVG/CSS avec micro-animations de lueur pour chacun des trois familiers.
+
 
 ---
 

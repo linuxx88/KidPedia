@@ -26,8 +26,9 @@ L'intelligence est répartie dans des magasins spécialisés et autonomes, synch
 2.  **`useProgressionStore` (Noyau Pur)** : Moteur générique d'XP et de badges, totalement agnostique du contexte de jeu.
 3.  **`useEnvironmentStore` (World State)** : Gère les saisons et l'état global du monde.
 4.  **`useSettingsStore`** : Gère les préférences (Thème, Langue) et les effets de bord DOM (Focus, Thème).
-5.  **`useSafariStore`** : Moteur de jeu de plateau utilisant des codes d'événements sémantiques.
+5.  **`useSafariStore`** : Gère le plateau du Safari.
 6.  **`usePlayerStore` (Sélecteur UI)** : Hook réactif agrégeant les données pour la vue (Lecture seule).
+7.  **`useCompanionStore` (Gamification / Refuge)** : Gère le refuge des compagnons, l'inventaire de friandises et le niveau d'affection/bonheur de chaque familier par profil.
 
 ### 🕹️ Logique Métier Isolée (Hooks)
 Chaque expérience interactive possède son propre "moteur" logique, isolé de la vue et du stockage :
@@ -93,10 +94,12 @@ Standardisation via le composant **`AccessibleSvgHotspot`** :
 ✅ **RÉSOLU : Indicateurs de focus clavier sur les quiz (Ticket #32)** (Traité en v3.13.0)
 ✅ **RÉSOLU : Résolution Intégrale de la Conception Visuelle de l'Accueil (Ticket #62)** (Traité en v3.15.1)
 ✅ **RÉSOLU : Sécurité anti-spoiler sur les anecdotes (Ticket #04)** (Traité en v3.15.2)
+✅ **RÉSOLU : Protection anti-quitting accidentel sur Mission Safari (Ticket #16)** (Traité en v3.16.1)
+✅ **RÉSOLU : Le Refuge des Compagnons Animés (Ticket #R3)** (Traité en v3.17.0)
 
 ---
 
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 22 mai 2026 (v3.15.2)*
+*Dernière mise à jour : 22 mai 2026 (v3.17.0)*

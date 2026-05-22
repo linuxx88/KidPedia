@@ -86,6 +86,8 @@ export interface Labels {
     civilizationOdyssey: string;
     middleAgesOdyssey: string;
     originsDesc: string;
+    refugeTitle: string;
+    refugeDesc: string;
     step: (current: number, total: number) => string;
     knowMore: string;
     otherFact: string;
@@ -233,5 +235,31 @@ export interface Labels {
     devSectionBtn: string;
     whyTitle: string;
     whyText: string;
+  };
+  refuge: {
+    title: string;
+    subtitle: string;
+    empty: string;
+    lockedTitle: string;
+    lockedDesc: string;
+    affectionLabel: string;
+    happinessLabel: string;
+    treatsTitle: string;
+    buyButton: (price: number) => string;
+    feedButton: string;
+    petButton: string;
+    activeCompanion: string;
+    adoptPrompt: (name: string) => string;
+    sugarBoneName: string;
+    goldenLeafName: string;
+    batteryCellName: string;
+    boneDesc: string;
+    leafDesc: string;
+    batteryDesc: string;
+    noTickets: string;
+    backBtn: string;
+    maxAffection: string;
+    affectionIncrease: string;
+    happinessIncrease: string;
   };
 }

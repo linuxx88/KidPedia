@@ -54,6 +54,9 @@ const GiftsPage = lazy(() =>
 const FlowDashboard = lazy(() =>
   import('./pages/Parents/FlowDashboard').then((module) => ({ default: module.FlowDashboard })),
 );
+const RefugePage = lazy(() =>
+  import('./pages/Refuge/RefugePage').then((module) => ({ default: module.RefugePage })),
+);
 
 import { PWAPrompt } from './components/UI/PWAPrompt'
 import ScrollToTop from './components/UI/ScrollToTop'
@@ -277,6 +280,14 @@ export function App() {
             element={
               <div className={styles.routeWrapper}>
                 <LifeCirclePage />
+              </div>
+            }
+          />
+          <Route
+            path="/refuge"
+            element={
+              <div className={styles.routeWrapper}>
+                <RefugePage />
               </div>
             }
           />

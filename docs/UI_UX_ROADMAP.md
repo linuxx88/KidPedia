@@ -79,9 +79,10 @@ Ce document liste les améliorations visuelles et sonores pour augmenter l'engag
 - [ ] **Extension de la Progression de Fin de Jeu (End-Game Content)** :
   - *Où :* Stores de progression et de quiz.
   - *Quoi :* Ajouter des évènements saisonniers et des quêtes hebdomadaires dynamiques pour repousser la limite de progression une fois le seuil de 5000 XP et toutes les médailles d'or obtenus.
-- [ ] **Zone d'Interaction Directe avec les Familiers ("Le Refuge")** :
-  - *Où :* Une nouvelle page d'interaction ou widget.
-  - *Quoi :* Permettre aux enfants d'interagir activement avec leurs compagnons débloqués (ex. : dépenser des étoiles pour leur donner des friandises, déclenchant des animations exclusives), simulant un aspect d'adoption et de responsabilité ("pet-care").
+- [x] **Zone d'Interaction Directe avec les Familiers ("Le Refuge")** :
+  - *Où :* `/refuge`, `src/pages/Refuge/RefugePage.tsx`
+  - *Quoi :* Permettre aux enfants d'interagir activement avec leurs compagnons débloqués (ex. : dépenser des tickets pour leur donner des friandises ou les caresser, déclenchant des animations exclusives, des particules interactives et des bruitages synthétisés en Web Audio API), simulant un aspect d'adoption et de responsabilité ("pet-care").
+  - *Statut :* **Réalisé (v3.17.0)**.
 - [x] **Générateur Dynamique de Quizz (Banque de Questions/Réponses et Choix Multiples)** :
   - *Où :* `TopicPage/index.tsx` / `quizzes.ts`
   - *Quoi :* Créer une banque enrichie de 3 à 4 questions différentes pour chaque sujet encyclopédique de l'application. Lors de l'accès au sujet par l'enfant, le système sélectionnera aléatoirement et mélangera les questions et réponses pour générer un défi unique et non répétitif à chaque session.

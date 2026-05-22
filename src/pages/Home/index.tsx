@@ -211,6 +211,15 @@ export function HomePage({ topicsData }: HomePageProps) {
               color: '#f59e0b',
               path: '/safari',
             },
+            {
+              id: 'refuge',
+              icon: <AppIcon name="paw" size="large" />,
+              title: labels.discovery.refugeTitle,
+              desc: labels.discovery.refugeDesc,
+              color: '#ec4899',
+              path: '/refuge',
+            },
+
           ].map((hub) => (
             <button
               key={hub.id}

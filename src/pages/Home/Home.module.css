@@ -205,9 +205,10 @@
 
 @media (min-width: 1024px) {
   .hubGrid {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(5, 1fr);
   }
 }
+
 
 .hubCard {
   background-color: var(--card-bg);

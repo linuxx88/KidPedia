@@ -7,7 +7,26 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
 
+### VERSION 3.17.0 - Le Refuge des Compagnons Animés 🦄 (Ticket #R3) (22 Mai 2026)
+--------------------------------------------------
+- **[Feature/UI/Store] Création de la zone premium interactive /refuge :**
+    - **RefugePage.tsx & RefugePage.module.css** :
+        - Implémentation du tableau de bord complet avec sélection de compagnon et lévitation douce.
+        - Ajout de la boutique de friandises (sugarBone, goldenLeaf, batteryCell) achetées avec les tickets (🎫).
+        - Système d'affection (0-100) et de bonheur (0-100) animés par profil avec Zustand.
+        - Synthèse sonore native (Web Audio API) pour caresser (bulle), nourrir (carillon) et acheter (chime).
+        - Particules d'étoiles et de cœurs 3D volants réactifs aux actions de l'enfant.
+    - **TransformedEmoji.module.css** :
+        - Intégration d'animations vectorielles avancées de nourrissage (.isFeeding) et de caresses (.isPetting) sur les compagnons SVG (chien qui remue la queue, robot qui tourne sur lui-même avec propulseurs, bébé dino qui danse joyeusement).
+    - **App.tsx & Home/index.tsx** :
+        - Enregistrement de la route lazy-loaded `/refuge`.
+        - Ajout du bouton premium "Le Refuge 🦄" dans la grille de navigation d'accueil (hubGrid) réaménagée à 5 colonnes sur grand écran.
+    - **useCompanionStore.ts & useCompanionStore.test.ts** :
+        - Intégration du store Zustand persistant par profil avec tests unitaires robustes (8 tests passés avec succès).
+    - **Validation Qualité** : validation globale sans régression (178 tests verts, linting et compilation TS vierges).
+
 ### VERSION 3.16.1 - Protection anti-quitting accidentel sur Mission Safari (Ticket #16) (22 Mai 2026)
+
 --------------------------------------------------
 - **[Logic/UX] Sécurisation de l'abandon de quiz dans le mode Mission Safari :**
     - **MissionSafari.tsx & MissionSafari.module.css** :
