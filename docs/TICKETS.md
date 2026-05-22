@@ -552,28 +552,28 @@ Critères d'Acceptation (DOD) :
 ---
 
 ## 🎫 Ticket #54 : Modularisation de la Banque de Questions Monolithique
-Statut : 🔴 À faire
+**Statut** : 🟢 Résolu
 
-Sévérité : Élevée (Maintenabilité & Architecture)
+**Sévérité** : Élevée (Maintenabilité & Architecture)
 
-Localisation : `src/data/quizzes.ts` (et création de `src/data/quizzes/`)
+**Localisation** : `src/data/quizzes.ts` (et création de `src/data/quizzes/`)
 
-Description : 
+**Description** : 
 Le fichier `src/data/quizzes.ts` est devenu un monolithe de 45.7 Ko et plus de 1 400 lignes, regroupant toutes les banques de questions (`QUIZ_BANKS`) et tous les quiz simples (`QUIZZES`) de l'application. Cette centralisation excessive nuit à la lisibilité, au principe de responsabilité unique (SRP) et augmente drastiquement les risques de conflits lors des fusions de branches git. Il faut diviser cette base de données en fichiers spécialisés par thématique de manière transparente.
 
 Critères d'Acceptation (DOD) :
 
-[ ] Créer un nouveau répertoire `src/data/quizzes/` pour y accueillir les banques découpées par domaine.
+[x] Créer un nouveau répertoire `src/data/quizzes/` pour y accueillir les banques découpées par domaine.
 
-[ ] Créer des fichiers de données spécialisés typés de manière stricte (ex: `space.ts`, `animals.ts`, `dinosaurs.ts`, `history.ts`, `nature.ts`, etc.) respectant la répartition par catégorie.
+[x] Créer des fichiers de données spécialisés typés de manière stricte (ex: `space.ts`, `animals.ts`, `dinosaurs.ts`, `history.ts`, `nature.ts`, etc.) respectant la répartition par catégorie.
 
-[ ] Créer un fichier de centralisation `src/data/quizzes/index.ts` qui regroupe, fusionne et ré-exporte `QUIZ_BANKS` et `QUIZZES` sous leurs structures initiales exactes.
+[x] Créer un fichier de centralisation `src/data/quizzes/index.ts` qui regroupe, fusionne et ré-exporte `QUIZ_BANKS` et `QUIZZES` sous leurs structures initiales exactes.
 
-[ ] Mettre à jour l'ancien point d'entrée `src/data/quizzes.ts` pour qu'il ré-exporte directement depuis `src/data/quizzes/index.ts` afin d'éviter tout changement cassant sur les composants consommateurs.
+[x] Mettre à jour l'ancien point d'entrée `src/data/quizzes.ts` pour qu'il ré-exporte directement depuis `src/data/quizzes/index.ts` afin d'éviter tout changement cassant sur les composants consommateurs.
 
-[ ] S'assurer que le compilateur TypeScript ne lève aucune erreur de typage (lancer `npm run type-check`).
+[x] S'assurer que le compilateur TypeScript ne lève aucune erreur de typage (lancer `npm run type-check`).
 
-[ ] S'assurer que l'intégralité de la suite de tests (Vitest) s'exécute sans aucune régression (lancer `npm run validate`).
+[x] S'assurer que l'intégralité de la suite de tests (Vitest) s'exécute sans aucune régression (lancer `npm run validate`).
 
 ---
 
