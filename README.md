@@ -40,13 +40,14 @@ Rendre l'apprentissage **amusant**, **accessible** et **gratuit** pour tous les 
 | Fonctionnalité | Description |
 |---|---|
 | 🎮 **Quizzes Interactifs** | Questions engageantes avec feedback immédiat |
+| 🎫 **Économie & Boutique** | Gain de tickets par médaille (Or/Argent/Bronze) pour acheter des accessoires |
 | 🏆 **Mission Safari** | Jeu de plateau éducatif avec énigmes |
-| 👨‍👩‍👧‍👦 **Multi-Profils** | Gérer plusieurs enfants avec leurs propres progressions |
-| 🎨 **Thème Personnalisable** | Mode clair/sombre, adaptation du genre |
+| 👨‍👩‍👧‍👦 **Multi-Profils** | Gérer plusieurs enfants avec leurs progressions et contrôle parental |
+| 🎨 **Thème Personnalisable** | Mode clair/sombre, accessoires d'avatar à porter |
 | 📊 **Système de Progression** | Badges, XP, historique des apprentissages |
-| 🔊 **Retours Auditifs** | Sons de réussite et d'encouragement |
+| 🔊 **Retours Auditifs** | Sons de réussite et synthèse vocale immersive |
 | 🌍 **Multilingue** | Plusieurs langues disponibles |
-| 📱 **Responsive** | Fonctionne parfaitement sur tous les appareils |
+| 📱 **PWA & Offline** | Mode hors-ligne résilient et installation mobile |
 
 ---
 
@@ -288,23 +289,22 @@ Ouvre une [nouvelle issue](https://github.com/linuxx88/KidPedia/issues/new) avec
 
 ### ✅ Complété
 - [x] Architecture Zustand (State Management)
-- [x] Système de Quizzes
-- [x] Mission Safari (Jeu de plateau)
-- [x] Multi-profiles
+- [x] Système de Quizzes & Économie de Tickets (Ticket #55)
+- [x] Boutique d'Accessoires d'Avatar & Compagnons Animaux (Ticket #55)
+- [x] Mission Safari (Jeu de plateau ludique et interactif)
+- [x] Multi-profiles & Contrôle Parental bilingue (Multiplication de sécurité)
+- [x] Progressive Web App (PWA) & Mode Hors-ligne résilient (Ticket #29)
 - [x] GitHub Actions (CI/CD)
-- [x] Tests E2E
+- [x] Tests de couverture (100% de réussite avec 147 tests unitaires et d'intégration)
 
 ### 🚧 En cours
 - [ ] Intégration Backend API
-- [ ] Système de achievements avancé
 - [ ] Éditeur de contenu (Admin panel)
 - [ ] Partenariats éducatifs
 
 ### 📅 Prévu
-- [ ] Progressive Web App (PWA)
-- [ ] Offline Mode
-- [ ] Multiplayer Features
-- [ ] Analytics Dashboard
+- [ ] Mode Multijoueur éducatif
+- [ ] Tableau de bord statistique parents détaillé (Analytics)
 
 ---
 
@@ -363,4 +363,4 @@ Merci à:
 
 ---
 
-*Dernière mise à jour: 21 mai 2026*
+*Dernière mise à jour: 22 mai 2026*
