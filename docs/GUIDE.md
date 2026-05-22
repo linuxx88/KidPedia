@@ -46,11 +46,18 @@ Standardisation via le composant **`AccessibleSvgHotspot`** :
 
 1. **Smart Store / Dumb UI :** Le store gère la donnée brute, le composant ou le hook métier gère l'intention de jeu, l'UI gère le texte.
 2. **Réactivité Garantie :** Pointer toujours vers la donnée brute dans les sélecteurs pour forcer le re-render.
-3. **Zéro "Any" Intégral :** 
+3. **Zéro "Any" Intégral / Typage Strict :** 
     - Inférence dynamique du type `TopicId` depuis les données réelles.
     - Éradication des casts dans les tests via les **Data Factories** (`src/test/factories.ts`).
+    - TypeScript strict absolu. Aucun `any`.
 4. **Indépendance I18n :** Les stores émettent des `eventCode` sémantiques. Le formatage textuel est délégué à l'UI.
 5. **Méthodologie "Tranche Verticale" (Proof of Concept) :** Comme une équipe professionnelle agile, on ne développe jamais de fonctionnalités lourdes en lot horizontal massif (ex: modifier toutes les bases de données d'un coup). On crée d'abord une preuve de concept (PoC) en traitant **un seul sujet de bout en bout** (Modification Data -> Mise à jour UI -> Tests validés). Une fois l'architecture approuvée sur cet élément isolé, on l'industrialise et on l'applique au reste du contenu.
+6. **Output Minimaliste :** Ne générer que le code nécessaire. Zéro texte superflu. Zéro salutation.
+7. **Architecture Stricte :** Respecter scrupuleusement la structure `/src/components` et `/src/hooks`.
+8. **Performance :** Prioriser le code performant. Éviter les re-renders inutiles en React.
+9. **Dépendances Contrôlées :** Ne jamais ajouter de bibliothèque externe sans approbation. Utiliser uniquement le code standard.
+10. **Contexte Senior & Stabilité :** Posture d'ingénieur logiciel senior travaillant sur un projet éducatif pour enfants. Les buts principaux sont la stabilité, la lisibilité et la performance.
+11. **Mode d'Exécution & Clarté :** En cas de doute, poser une question courte avant de coder. Ne pas tenter d'interpréter des spécifications floues.
 
 ---
 
@@ -88,4 +95,4 @@ Standardisation via le composant **`AccessibleSvgHotspot`** :
 **📝 Note :** Prochaine étape : Expansion de la couverture des banques de questions aux catégories Nature et Animaux.
 
 ---
-*Dernière mise à jour : 22 mai 2026 (v3.7.0)*
+*Dernière mise à jour : 22 mai 2026 (v3.11.0)*

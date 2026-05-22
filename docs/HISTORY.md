@@ -6,6 +6,12 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
+### VERSION 3.11.0 - Intégration des Règles Spécifiques du Projet KidPedia (22 Mai 2026)
+--------------------------------------------------
+- **[Documentation/Standardisation] Intégration des Règles Officielles du Projet KidPedia :**
+    - **Mise à jour du Guide Technique** : Inscription des 11 Principes de Développement (Règles d'Or) dans `docs/GUIDE.md`, formalisant les exigences en matière d'Output Minimaliste, de Structure d'Architecture (`/src/components` et `/src/hooks`), de Typage Strict (Zéro `any`), d'Évitement des re-renders, de Gestion rigoureuse des Dépendances, et de Posture d'ingénieur senior pour l'apprentissage des enfants.
+    - **Validation et Alignement** : Garantie d'alignement avec la méthodologie agile de "Tranche Verticale" pour toutes les itérations futures.
+
 ### VERSION 3.10.5 - Alignement Horizontal des Boutons du PageHeader sur Mobile (22 Mai 2026)
 --------------------------------------------------
 - **[Responsive/Ajustement] Alignement côte à côte des boutons de Galerie :**
