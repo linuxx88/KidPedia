@@ -22,7 +22,8 @@ describe('TopicDetail', () => {
     retryMsg: null,
     activeHint: null,
     language: 'fr' as const,
-    labels: fr
+    labels: fr,
+    attempts: 1
   }
 
   beforeEach(() => {

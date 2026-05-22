@@ -60,6 +60,7 @@ export interface Labels {
     categoryMore: (count: number) => string;
     searchPlaceholder: string;
     surpriseDay: string;
+    tickets: string;
   };
   ranks: {
     apprentice: { boy: string; girl: string };
@@ -211,5 +212,22 @@ export interface Labels {
     discoveryTitle: (title: string) => string;
     journalTitle: string;
     emptyJournal: string;
+  };
+  parents: {
+    gateTitle: string;
+    gateInstruction: string;
+    gatePlaceholder: string;
+    gateError: string;
+    gateValidate: string;
+    dashboardTitle: string;
+    explorersSection: string;
+    discoveryTitle: string;
+    resetBtn: string;
+    confirmReset: (name: string) => string;
+    devSectionTitle: string;
+    devSectionDesc: string;
+    devSectionBtn: string;
+    whyTitle: string;
+    whyText: string;
   };
 }

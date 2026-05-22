@@ -142,6 +142,9 @@ export const useProfileStore = create<ProfileState>((set) => ({
       localStorage.setItem(STORAGE_KEY_INDEX, JSON.stringify(newProfiles));
       localStorage.removeItem(`kp-badges-${id}`); // Nettoyage lié
       
+      // --- SYNCHRONISATION DÉCLARATIVE ---
+      useProgressionStore.getState().deleteProfileProgression(id);
+
       let newActiveId = state.activeProfileId;
       if (state.activeProfileId === id) {
         newActiveId = null;

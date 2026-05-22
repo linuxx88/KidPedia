@@ -60,6 +60,7 @@ export const fr: Labels = {
     categoryMore: (count: number) => `Voir plus (${count} de plus) 🔽`,
     searchPlaceholder: 'Cherche un sujet...',
     surpriseDay: "Il fait beau... c'est une belle journée et ? ✨",
+    tickets: 'Tickets QC',
   },
   ranks: {
     apprentice: { boy: 'Apprenti 🐣', girl: 'Apprentie 🐣' },
@@ -279,5 +280,22 @@ export const fr: Labels = {
     discoveryTitle: (title: string) => `Découverte : ${title}`,
     journalTitle: 'CARNET DE VOYAGE',
     emptyJournal: "Aucune photo pour l'instant...",
+  },
+  parents: {
+    gateTitle: "Zone Parents",
+    gateInstruction: "Pour accéder à cet espace, demande à un adulte de résoudre ce petit calcul :",
+    gatePlaceholder: "Réponse...",
+    gateError: "Oups, réessaie !",
+    gateValidate: "Valider",
+    dashboardTitle: "Tableau de Bord Parents",
+    explorersSection: " Vos Petits Explorateurs",
+    discoveryTitle: "Découverte de l'encyclopédie",
+    resetBtn: "Réinitialiser",
+    confirmReset: (name: string) => `Effacer toute la progression de ${name} ? Cette action est irréversible et effacera toutes ses médailles.`,
+    devSectionTitle: " Espace Développeur",
+    devSectionDesc: "Visualisez le flux d'architecture, la gestion d'état Zustand et le trajet des données au sein de KidPedia en temps réel.",
+    devSectionBtn: " Ouvrir la Cartographie du Projet",
+    whyTitle: " Pourquoi KidPedia ?",
+    whyText: "KidPedia est conçu pour éveiller la curiosité naturelle des enfants. Chaque médaille gagnée représente un concept compris et retenu grâce à nos quiz ludiques."
   },
 };

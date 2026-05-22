@@ -173,7 +173,11 @@ export function BadgesPage({ onBack }: BadgesPageProps) {
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
           <AppButton 
             variant="outline" 
-            onClick={clearBadges} 
+            onClick={() => {
+              if (window.confirm(labels.badges.confirmReset)) {
+                clearBadges();
+              }
+            }} 
             icon="🗑️" 
           >
             {labels.badges.reset}

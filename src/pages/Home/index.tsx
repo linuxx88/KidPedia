@@ -11,10 +11,11 @@ import { heroAssets } from '../../assets/hero'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { usePlayerStore } from '../../store/usePlayerStore'
 import { useDiscoveryStore } from '../../store/useDiscoveryStore'
+import { useProgressionStore } from '../../store/useProgressionStore'
 import { useStepNavigation } from '../../hooks/useStepNavigation'
 import { useCategorySpy } from '../../hooks/useCategorySpy'
 import { type Topic } from '../../data/topics/types'
-import { type TopicsData } from '../../types/domain'
+import { type TopicId, type TopicsData } from '../../types/domain'
 import { getMedalIcon } from '../../utils/quizMessages'
 import styles from './Home.module.css'
 import AppIcon from '../../components/UI/AppIcon'
@@ -31,11 +32,21 @@ export function HomePage({ topicsData }: HomePageProps) {
   const [searchParams, setSearchParams] = useSearchParams()
   const { setSearch, groupedTopics, handleTopicClick } = topicsData
 
+  const isUnlocked = useProgressionStore((state) => state.isUnlocked)
+
+  const handleTopicCardClick = (id: string) => {
+    if (isUnlocked(id as TopicId)) {
+      handleTopicClick(id)
+    }
+  }
+
   // SÉLECTEURS DÉCOUVERTE (ZUSTAND)
   const storedActiveCategory = useDiscoveryStore(state => state.activeCategory)
   const setActiveCategory = useDiscoveryStore(state => state.setActiveCategory)
+  const expandedCats = useDiscoveryStore(state => state.expandedCategories)
+  const toggleExpand = useDiscoveryStore(state => state.toggleCategoryExpand)
+  const setCategoryExpanded = useDiscoveryStore(state => state.setCategoryExpanded)
 
-  const [expandedCats, setExpandedCats] = useState<Record<string, boolean>>({})
   const [highlightedCat, setHighlightedCat] = useState<string | null>(null)
 
   // LOGIQUE DE DEEP LINKING (Lien Magique)
@@ -45,7 +56,7 @@ export function HomePage({ topicsData }: HomePageProps) {
       // On utilise requestAnimationFrame pour différer la mise à jour
       // et éviter les rendus en cascade immédiats dans l'effet
       requestAnimationFrame(() => {
-        setExpandedCats(prev => ({ ...prev, [categoryId]: true }))
+        setCategoryExpanded(categoryId, true)
         setHighlightedCat(categoryId)
       })
       
@@ -68,14 +79,7 @@ export function HomePage({ topicsData }: HomePageProps) {
         clearTimeout(highlightTimer)
       }
     }
-  }, [searchParams, groupedTopics, setSearchParams])
-
-  const toggleExpand = (category: string) => {
-    setExpandedCats((prev) => ({
-      ...prev,
-      [category]: !prev[category],
-    }))
-  }
+  }, [searchParams, groupedTopics, setSearchParams, setCategoryExpanded])
 
   const progressPercent = Math.round((badges.length / encyclopedia.length) * 100)
   const formattedXP = xp >= 1000 ? `${(xp / 1000).toFixed(1)}k` : xp
@@ -138,6 +142,14 @@ export function HomePage({ topicsData }: HomePageProps) {
             <span className={styles.dashIcon}>🏆</span>
             <span className={styles.dashNumber} data-testid="medal-count">{badges.length}</span>
             <span className={styles.dashLabel}>{labels.home.medals}</span>
+          </div>
+
+          <div className={styles.dashSeparator}></div>
+
+          <div className={styles.dashItem}>
+            <span className={styles.dashIcon}>🎫</span>
+            <span className={styles.dashNumber} data-testid="ticket-count">{badges.length}</span>
+            <span className={styles.dashLabel}>{labels.home.tickets}</span>
           </div>
 
           <div className={styles.dashSeparator}></div>
@@ -242,8 +254,9 @@ export function HomePage({ topicsData }: HomePageProps) {
                       exploreLabel={labels.discovery.explore('')}
                       isDiscovered={!!badge}
                       medalIcon={badge ? getMedalIcon(badge.medal) : undefined}
-                      onClick={() => handleTopicClick(topic.id)}
+                      onClick={() => handleTopicCardClick(topic.id)}
                       categoryLabel={index === 0 ? catTitle : undefined}
+                      isUnlocked={isUnlocked(topic.id)}
                     />
                   )
                 })}

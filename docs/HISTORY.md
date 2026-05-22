@@ -6,6 +6,58 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
+### VERSION 3.8.0 - Persistance d'État & Nettoyage de Données Enfant (22 Mai 2026)
+--------------------------------------------------
+- **[Feature] Persistance de l'état d'expansion des catégories (Ticket #13) :**
+    - Migration de l'état des sections affichées/repliées (`expandedCats`) de la page d'accueil (`HomePage`) de `useState` vers le store global `useDiscoveryStore`.
+    - Implémentation des actions `toggleCategoryExpand` et `setCategoryExpanded` pour gérer dynamiquement l'état d'expansion.
+    - Interfaçage de l'effet de deep-linking de la page d'accueil avec le store global pour persister de manière réactive l'état d'expansion d'une catégorie ciblée par URL.
+    - Ajout de suites de tests unitaires complètes assurant la robustesse du store lors des opérations de mise à jour d'état et de réinitialisation (`reset()`).
+- **[Feature] Nettoyage de la progression des profils supprimés (Ticket #11) :**
+    - Création de l'action `deleteProfileProgression(profileId)` dans `useProgressionStore.ts` pour purger la progression globale dans `progressions` lors de la suppression d'un profil enfant.
+    - Liaison de la suppression dans le store des profils (`useProfileStore.ts`) avec l'invalidation de progression correspondante pour garantir l'absence de fuites de données dans `localStorage`.
+    - Création de tests unitaires dédiés pour valider l'idempotence et l'ordonnancement de l'action de suppression globale de la progression d'un profil enfant.
+- **[Qualité/Ingénierie] Mocks & Suite de Tests au Vert :**
+    - Suite de validation globale entièrement réussie avec l'intégralité des **139 tests** (Vitest) à 100% au vert.
+
+### VERSION 3.7.0 - Espace Parents Localisé et Découplé (22 Mai 2026)
+--------------------------------------------------
+- **[Feature] Défi Mathématique Parental Renforcé (Ticket #08) :**
+    - Remplacement de l'addition simple par une multiplication à un chiffre avec opérandes aléatoires strictement compris entre 2 et 9 (`Math.floor(Math.random() * 8) + 2`).
+    - Présentation claire de l'opération en format mathématique standard avec le symbole `×` (`n1 × n2 = ?`), bloquant efficacement les enfants de plus de 7 ans tout en restant simple pour les adultes.
+- **[Feature] Localisation Complète de la Zone Parents (Ticket #09) :**
+    - Déclaration de la structure du dictionnaire `parents` dans `types.ts` et intégration complète des traductions françaises (`fr.ts`) et anglaises (`en.ts`).
+    - Liaison réactive de tous les messages, placeholders et boutons de `ParentalGate.tsx` et `ParentsDashboard.tsx` via `useSettingsStore(state => state.labels)`.
+- **[Feature] Découplage de la Gestion d'État & Confirmations UI (Ticket #10) :**
+    - Retrait de l'appel système bloquant `window.confirm` du store Zustand `useProgressionStore.ts`, garantissant la pureté asynchrone et la testabilité des mutations d'état.
+    - Centralisation et localisation des boîtes de dialogue de confirmation à l'aide des dictionnaires i18n dans l'interface utilisateur de réinitialisation :
+        - Dans le Tableau de Bord Parents (`ParentsDashboard.tsx`) pour chaque profil via `t.confirmReset(name)`.
+        - Dans la Galerie de collection de stickers (`BadgesPage.tsx`) pour le profil actif via `labels.badges.confirmReset`.
+- **[Qualité/Ingénierie] Mocks Globaux & Suite de Tests au Vert :**
+    - Ajout du mock pour `window.confirm` dans les tests unitaires de Vitest (`BadgesPage.test.tsx`).
+    - Validation complète et réussie : type-checking strict sans erreur, et validation de l'intégralité des **132 tests** de la suite applicative globale à 100% au vert.
+
+### VERSION 3.6.0 - Tranche Industrielle : Système de Progression et Validation "QC PASS" (21 Mai 2026)
+--------------------------------------------------
+- **[Feature] Navigation Linéaire & "Learning Path" (Ticket #45) :**
+    - Implémentation des sélecteurs réactifs `isCompleted(topicId)` et `isUnlocked(topicId)` dans `useProgressionStore.ts`.
+    - Sécurisation de la progression séquentielle : l'enfant doit réussir le quiz d'un sujet pour débloquer le suivant dans la même catégorie.
+    - Création de l'état graphique cadenassé (`🔒`) et styles grayscale dans `TopicCard.tsx` / `TopicCard.module.css`.
+    - Protection des routes dans `Topic/index.tsx` redirigeant automatiquement vers l'accueil en cas de saisie directe d'URL verrouillée.
+- **[Feature] Gamification & Validation "QC PASS" (Ticket #46) :**
+    - Ajout d'un compteur de "Tickets QC" (`🎫`) dans le Pill Dashboard de la page d'accueil.
+    - Intégration d'une synthèse sonore Web Audio pure (oscillateur glissant sans chargement d'asset réseau) pour le son de réussite ("ding").
+    - Création d'un tampon visuel animé de contrôle qualité "QC PASS / APPROUVÉ / APPROVED" avec effet d'impact élastique (bounce CSS).
+- **[Feature] Système d'Ancrage "Stations" (Ticket #47) :**
+    - Introduction de l'attribut `anchorIcon` dans `types.ts` et du dictionnaire de repli par catégorie (🚀, 🦖, etc.).
+    - Rendu de l'icône de station mémorable à côté du titre du sujet, dans l'anecdote et en remplacement du morceau de puzzle du quiz.
+- **[Feature] Assistance Pédagogique du Magicien (Ticket #49) :**
+    - Affichage d'un panneau d'aide premium "Aide du Magicien" (`🧙‍♂️`) après 3 échecs consécutifs au quiz.
+    - Intégration de la synthèse vocale native (`SpeechSynthesisUtterance`) pour lire à voix haute le rappel de cours de façon immersive et accessible.
+- **[Qualité/Ingénierie] Standardisation "Data Factory" (Ticket #48) :**
+    - Création d'un validateur ultra-robuste et strictement typé `createTopicCard` dans `src/data/factory.ts` (validation des types `unknown` sans `any`).
+    - Automatisation des validations d'intégrité de l'encyclopédie via `src/data/dataIntegrity.test.ts`.
+
 ### VERSION 3.5.6 - Résolution du Ticket #03 & Redirection de La Singularité (21 Mai 2026)
 --------------------------------------------------
 - **[Feature] Intégration de La Singularité (Ticket #03) :**

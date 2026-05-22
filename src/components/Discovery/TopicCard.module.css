@@ -153,3 +153,41 @@
   opacity: 1;
 }
 
+.locked {
+  opacity: 0.6;
+  filter: grayscale(0.8);
+  cursor: not-allowed !important;
+  background-color: #e2e8f0 !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+
+:global(.dark) .locked {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+}
+
+.locked:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.lockOverlay {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  border: 3px solid white;
+  background: linear-gradient(135deg, #64748b, #475569);
+  color: white;
+}
+

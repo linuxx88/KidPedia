@@ -75,11 +75,14 @@ describe('BadgesPage', () => {
     getUnlockedAccessories: vi.fn().mockReturnValue([]),
     getEquippedAccessoryId: vi.fn().mockReturnValue(null),
     getEquippedCompanionId: vi.fn().mockReturnValue(null),
+    isCompleted: vi.fn().mockReturnValue(false),
+    isUnlocked: vi.fn().mockReturnValue(true),
     addXP: vi.fn(),
     addBadge: vi.fn(),
     syncWithProfile: vi.fn(),
     equipAccessory: vi.fn(),
     equipCompanion: vi.fn(),
+    deleteProfileProgression: vi.fn(),
     reset: vi.fn()
   }
 
@@ -146,6 +149,7 @@ describe('BadgesPage', () => {
 
   it('appelle clearBadges quand on clique sur le bouton de réinitialisation', () => {
     playerState.badges = [{ id: 'topic1', medal: 'gold' }]
+    const confirmSpy = vi.spyOn(window, 'confirm').mockReturnValue(true)
 
     render(
       <BadgesPage onBack={mockOnBack} />
@@ -154,6 +158,7 @@ describe('BadgesPage', () => {
     const resetBtn = screen.getByText(new RegExp(LABELS.badges.reset, 'i'))
     fireEvent.click(resetBtn)
     expect(mockClearBadges).toHaveBeenCalled()
+    confirmSpy.mockRestore()
   })
 
   it('navigue vers le sujet quand on clique sur un badge gagné', () => {

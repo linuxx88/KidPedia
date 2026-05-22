@@ -23,6 +23,8 @@ interface TopicDetailProps {
   activeHint: string | null
   language: 'fr' | 'en'
   labels: Labels
+  attempts: number
+  anchorIcon?: string
 }
 
 export const TopicDetail = ({
@@ -41,6 +43,8 @@ export const TopicDetail = ({
   activeHint,
   language,
   labels,
+  attempts,
+  anchorIcon,
 }: TopicDetailProps) => {
   const [isSpeakingSystem, setIsSpeakingSystem] = useState(false)
   const [isPlayingAudio, setIsPlayingAudio] = useState(false)
@@ -227,7 +231,10 @@ export const TopicDetail = ({
             <span className={styles.topicHeroIcon}>{icon}</span>
 
             <div className={styles.topicTitleWrapper}>
-              <h2 className={styles.topicMainTitle}>{title}</h2>
+              <h2 className={styles.topicMainTitle}>
+                {anchorIcon && <span style={{ marginRight: '0.5rem' }}>{anchorIcon}</span>}
+                {title}
+              </h2>
               {badgeIcon && <span className={styles.topicTitleBadge}>{badgeIcon}</span>}
             </div>
           </div>
@@ -239,7 +246,7 @@ export const TopicDetail = ({
           <div className={styles.topicDescriptionText}>{description}</div>
 
           <div className={styles.topicFunFactBox}>
-            <div className={styles.topicFunFactIcon}>💡</div>
+            <div className={styles.topicFunFactIcon}>{anchorIcon || '💡'}</div>
             <div className={styles.topicFunFactTitle}>
               <span className={styles.funFactLine}></span>
               {labels.quiz.didYouKnow}
@@ -262,6 +269,9 @@ export const TopicDetail = ({
               activeHint={activeHint}
               onReview={handleReview}
               labels={labels}
+              attempts={attempts}
+              funFact={funFact}
+              anchorIcon={anchorIcon}
             />
           </div>
         </section>

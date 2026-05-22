@@ -15,7 +15,9 @@ describe('QuizComponent', () => {
     retryMsg: null,
     activeHint: null,
     onReview: vi.fn(),
-    labels: fr
+    labels: fr,
+    attempts: 1,
+    funFact: "Le cheval blanc est en fait gris clair."
   }
 
   it("affiche la question et les options quand il n'y a pas de résultat", () => {

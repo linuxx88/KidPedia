@@ -40,20 +40,29 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   const resetQuiz = useQuizStore(state => state.resetQuiz)
   const retryMsg = useQuizStore(state => state.retryMsg)
   const activeHint = useQuizStore(state => state.activeHint)
+  const attempts = useQuizStore(state => state.attempts)
 
   const addBadge = useProgressionStore(state => state.addBadge)
+  const isUnlocked = useProgressionStore(state => state.isUnlocked)
 
   const topic = encyclopedia.find((t) => t.id === topicId) as Topic | undefined
 
   const [currentFunFact, setCurrentFunFact] = useState<string>('');
   const [currentQuiz, setCurrentQuiz] = useState<Quiz | undefined>(undefined);
 
+  // Rediriger vers l'accueil si le sujet est verrouillé
+  useEffect(() => {
+    if (topicId && !isUnlocked(topicId as TopicId)) {
+      handleGoHome()
+    }
+  }, [topicId, isUnlocked, handleGoHome])
+
   // Initialiser le quiz pour ce sujet au montage
   useEffect(() => {
-    if (topicId) {
+    if (topicId && isUnlocked(topicId as TopicId)) {
       startQuiz(topicId as TopicId)
     }
-  }, [topicId, startQuiz])
+  }, [topicId, startQuiz, isUnlocked])
 
   /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
@@ -108,6 +117,21 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
     }
   }
 
+  const CATEGORY_ANCHOR_ICONS: Record<string, string> = {
+    animaux: '🦁',
+    espace: '🚀',
+    pourquoi: '❓',
+    'corps-humain': '🧠',
+    dinosaures: '🦖',
+    nature: '🌳',
+    histoire: '🏰',
+    geographie: '🌍',
+    inventions: '💡',
+    arts: '🎨',
+  };
+
+  const resolvedAnchorIcon = topic ? (topic.anchorIcon || CATEGORY_ANCHOR_ICONS[topic.categoryKey.toLowerCase()] || '📍') : undefined;
+
   return (
     <Suspense fallback={<LoadingFallback />}>
       <TopicDetail
@@ -126,6 +150,8 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
         activeHint={activeHint}
         language={language}
         labels={labels}
+        attempts={attempts}
+        anchorIcon={resolvedAnchorIcon}
       />
     </Suspense>
   )

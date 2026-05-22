@@ -30,14 +30,17 @@ export interface ProgressionState {
   getUnlockedAccessories: () => string[];
   getEquippedAccessoryId: () => string | null;
   getEquippedCompanionId: () => string | null;
+  isCompleted: (topicId: TopicId) => boolean;
+  isUnlocked: (topicId: TopicId) => boolean;
 
   // --- Actions ---
   addXP: (amount: number) => void;
   addBadge: (topicId: TopicId, medal: MedalType) => void;
-  clearBadges: () => void;
+  clearBadges: (profileId?: string) => void;
   syncWithProfile: (profileId: string | null) => void;
   equipAccessory: (accessoryId: string | null) => void;
   equipCompanion: (companionId: string | null) => void;
+  deleteProfileProgression: (profileId: string) => void;
   reset: () => void;
 }
 
@@ -160,6 +163,24 @@ export const useProgressionStore = create<ProgressionState>()(
       getEquippedCompanionId: () => {
         const { progressions, activeProfileId } = get();
         return (activeProfileId ? progressions[activeProfileId]?.equippedCompanionId : null) || null;
+      },
+      isCompleted: (topicId) => {
+        const { progressions, activeProfileId } = get();
+        if (!activeProfileId) return false;
+        const badges = progressions[activeProfileId]?.badges || [];
+        return badges.some((b) => b.id === topicId);
+      },
+      isUnlocked: (topicId) => {
+        const { isCompleted } = get();
+        const topic = encyclopedia.find((t) => t.id === topicId);
+        if (!topic) return false;
+
+        const categoryTopics = encyclopedia.filter((t) => t.categoryKey === topic.categoryKey);
+        const index = categoryTopics.findIndex((t) => t.id === topicId);
+        if (index <= 0) return true; // Le premier sujet est toujours débloqué
+
+        const prevTopic = categoryTopics[index - 1];
+        return isCompleted(prevTopic.id);
       },
 
       // --- Actions ---
@@ -362,16 +383,26 @@ export const useProgressionStore = create<ProgressionState>()(
         }
       },
 
-      clearBadges: () => {
-        const { activeProfileId } = get();
-        if (activeProfileId && window.confirm("Effacer toutes tes médailles ?")) {
-          set((state) => ({
-            progressions: {
-              ...state.progressions,
-              [activeProfileId]: { ...DEFAULT_PROGRESSION }
-            }
-          }));
-        }
+      clearBadges: (profileId?: string) => {
+        const targetId = profileId || get().activeProfileId;
+        if (!targetId) return;
+        set((state) => ({
+          progressions: {
+            ...state.progressions,
+            [targetId]: { ...DEFAULT_PROGRESSION }
+          }
+        }));
+      },
+
+      deleteProfileProgression: (profileId: string) => {
+        set((state) => {
+          const nextProgressions = { ...state.progressions };
+          delete nextProgressions[profileId];
+          return {
+            progressions: nextProgressions,
+            activeProfileId: state.activeProfileId === profileId ? null : state.activeProfileId
+          };
+        });
       },
 
       reset: () => {

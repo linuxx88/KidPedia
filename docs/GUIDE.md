@@ -56,13 +56,13 @@ Standardisation via le composant **`AccessibleSvgHotspot`** :
 
 ## 🧪 Qualité & Validation
 - **Validation complète :** `npm run validate`.
-- **État Actuel (v2.3.6) :** 100% validé.
-  - **Vitest :** 103 tests unitaires et d'intégration.
+- **État Actuel (v3.7.0) :** 100% validé.
+  - **Vitest :** 132 tests unitaires et d'intégration (incluant les tests structurels Data Factory, tests d'intégrité Mermaid et zoom tactile).
   - **Playwright :** 16 scénarios E2E (Navigation, Zoom, Multi-profils).
 
 ---
 
-## 🚧 Dette Technique & À Faire (v3.0)
+## 🚧 Dette Technique & À Faire (v3.6.0)
 
 ✅ **RÉSOLU : Alerte "God Object"** (Traité en v2.3.1)
 ✅ **RÉSOLU : Alerte "Abonnement Furtif"** (Traité en v2.3.0)
@@ -71,26 +71,21 @@ Standardisation via le composant **`AccessibleSvgHotspot`** :
 ✅ **RÉSOLU : Monolithes SVG** (Traité en v2.3.3)
 ✅ **RÉSOLU : Illusion du "Zero Any" dans les Tests** (Traité en v2.3.6)
 ✅ **RÉSOLU : Maintenance des Unions de Types** (Traité en v2.3.4)
-
-🚩 **Alerte : Anti-pattern Switch-Case I18n**
-*   **Action :** Abstraire la traduction dans un système polymorphe.
-
-🚩 **Alerte : Dette de Qualité (17 Problèmes de Validation)**
-*   **Action :** Résoudre les 16 erreurs et 1 warning détectés par `npm run validate`.
-    *   **Priorité 1 :** Éliminer les 9 occurrences de `any` (ExplorerGallery, AccessibleSvgHotspot, etc.).
-    *   **Priorité 2 :** Purifier le composant `ParticleSystem` (supprimer `Math.random` du render).
-    *   **Priorité 3 :** Nettoyer les variables inutilisées dans `SafariBoard.tsx`.
-    *   **Priorité 4 :** Corriger les hooks dans `ParentalGate.tsx` (cascading renders) et `useParallax.ts`.
-
-### 🚩 Alerte : Boucle d'Engagement des Cadeaux (Next Best Action)
-- **Action :** Compléter l'expérience unifiée sur `GiftsPage.tsx` après l'ouverture du coffre pour éviter que l'enfant reste bloqué sur un écran statique.
-    - **Priorité 1 :** Intégrer le bouton "Mettre sur mon avatar ! 🤠" relié au `useProfileStore` pour équiper l'accessoire en direct.
-    - **Priorité 2 :** Implémenter la mini-grille "Mes Trésors" en bas de page pour afficher la vitrine de la collection.
-    - **Priorité 3 :** Ajouter l'indicateur d'XP dynamique sous le coffre pour relancer l'enfant vers le Discovery Hub s'il n'a plus de cadeaux disponibles.
+✅ **RÉSOLU : Anti-pattern Switch-Case I18n** (Traité en v3.0.0)
+✅ **RÉSOLU : Dette de Qualité (17 Problèmes de Validation)** (Traité en v3.0.0)
+✅ **RÉSOLU : Boucle d'Engagement des Cadeaux** (Traité en v3.0.9)
+✅ **RÉSOLU : Navigation Linéaire & "Learning Path" (Ticket #45)** (Traité en v3.6.0)
+✅ **RÉSOLU : Validation Visuelle & Audio "QC PASS" (Ticket #46)** (Traité en v3.6.0)
+✅ **RÉSOLU : Ancres Mnémotechniques par Stations (Ticket #47)** (Traité en v3.6.0)
+✅ **RÉSOLU : Standardisation de la Ingestion / Data Factory (Ticket #48)** (Traité en v3.6.0)
+✅ **RÉSOLU : Assistance Pédagogique du Magicien & TTS (Ticket #49)** (Traité en v3.6.0)
+✅ **RÉSOLU : Défi Parental de Multiplication (Ticket #08)** (Traité en v3.7.0)
+✅ **RÉSOLU : Localisation Complète Zone Parents (Ticket #09)** (Traité en v3.7.0)
+✅ **RÉSOLU : Découplage `clearBadges` & Confirmation Unique UI (Ticket #10)** (Traité en v3.7.0)
 
 ---
 
-**📝 Note :** Prochaine étape : Résolution de la dette de qualité et abstraction du système de traduction.
+**📝 Note :** Prochaine étape : Expansion de la couverture des banques de questions aux catégories Nature et Animaux.
 
 ---
-*Dernière mise à jour : 17 mai 2026 (v2.3.6)*
+*Dernière mise à jour : 22 mai 2026 (v3.7.0)*

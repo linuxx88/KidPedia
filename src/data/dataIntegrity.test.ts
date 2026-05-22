@@ -6,10 +6,17 @@ import type { HistoryNode } from './origins'
 import { NATURE_ELEMENTS } from './natureData'
 import { safariMap } from './gameData'
 import { QUIZZES } from './quizzes'
+import { createTopicCard } from './factory'
 
 describe('Data Integrity Audit', () => {
   const encyclopediaIdsArray = encyclopedia.map((t) => t.id)
   const encyclopediaIds = new Set<string>(encyclopediaIdsArray)
+
+  it('toutes les fiches de l\'encyclopédie doivent respecter le schéma strict du Data Factory', () => {
+    encyclopedia.forEach((topic) => {
+      expect(() => createTopicCard(topic)).not.toThrow()
+    })
+  })
 
   it('ne devrait pas y avoir de doublons d\'ID dans l\'encyclopédie', () => {
     expect(encyclopediaIdsArray.length).toBe(encyclopediaIds.size)

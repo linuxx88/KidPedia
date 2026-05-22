@@ -60,6 +60,7 @@ export const en: Labels = {
     categoryMore: (count: number) => `See more (${count} more) 🔽`,
     searchPlaceholder: 'Search for a topic...',
     surpriseDay: "It's a beautiful day... and? ✨",
+    tickets: 'QC Tickets',
   },
   ranks: {
     apprentice: { boy: 'Apprentice 🐣', girl: 'Apprentice 🐣' },
@@ -278,5 +279,22 @@ export const en: Labels = {
     discoveryTitle: (title: string) => `Discovery: ${title}`,
     journalTitle: 'TRAVEL LOG',
     emptyJournal: 'No photos for now...',
+  },
+  parents: {
+    gateTitle: "Parents Zone",
+    gateInstruction: "To access this space, ask an adult to solve this simple math question:",
+    gatePlaceholder: "Answer...",
+    gateError: "Oops, try again!",
+    gateValidate: "Validate",
+    dashboardTitle: "Parents Dashboard",
+    explorersSection: " Your Little Explorers",
+    discoveryTitle: "Encyclopedia discovery",
+    resetBtn: "Reset",
+    confirmReset: (name: string) => `Delete all progression for ${name}? This action is irreversible and will erase all their medals.`,
+    devSectionTitle: " Developer Space",
+    devSectionDesc: "Visualize the architecture flow, Zustand state management and real-time data flow within KidPedia.",
+    devSectionBtn: " Open Project Architecture Map",
+    whyTitle: " Why KidPedia?",
+    whyText: "KidPedia is designed to spark children's natural curiosity. Every medal earned represents a concept understood and retained through our fun quizzes."
   },
 };

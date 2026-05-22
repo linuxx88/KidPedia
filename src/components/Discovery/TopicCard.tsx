@@ -14,6 +14,7 @@ interface TopicCardProps {
   className?: string
   categoryLabel?: string
   index?: number
+  isUnlocked?: boolean
 }
 
 export const TopicCard = forwardRef<HTMLButtonElement, TopicCardProps>(
@@ -31,17 +32,19 @@ export const TopicCard = forwardRef<HTMLButtonElement, TopicCardProps>(
       className = '',
       categoryLabel,
       index = 0,
+      isUnlocked = true,
     } = props
 
     return (
       <button
         ref={ref}
-        className={`${styles.topicCard} ${className}`}
+        className={`${styles.topicCard} ${!isUnlocked ? styles.locked : ''} ${className}`}
         data-category={categoryKey.toLowerCase()}
         data-testid={`topic-card-${id}`}
         style={{ '--delay': `${index * 100}ms` } as React.CSSProperties}
-        onClick={onClick}
-        aria-label={`${title}. ${description}${isDiscovered ? '. Médaille obtenue' : ''}`}
+        onClick={isUnlocked ? onClick : undefined}
+        disabled={!isUnlocked}
+        aria-label={`${title}. ${description}${!isUnlocked ? '. Verrouillé' : ''}${isDiscovered ? '. Médaille obtenue' : ''}`}
       >
         {categoryLabel && (
           <div className={styles.categoryLabel}>
@@ -49,11 +52,17 @@ export const TopicCard = forwardRef<HTMLButtonElement, TopicCardProps>(
           </div>
         )}
 
-        {isDiscovered && medalIcon && (
+        {isDiscovered && medalIcon && isUnlocked && (
           <div className={styles.medalOverlay} data-testid="medal-badge">
             <span aria-hidden="true">
               {medalIcon}
             </span>
+          </div>
+        )}
+
+        {!isUnlocked && (
+          <div className={styles.lockOverlay} data-testid="lock-badge">
+            <span aria-hidden="true">🔒</span>
           </div>
         )}
 
@@ -67,7 +76,7 @@ export const TopicCard = forwardRef<HTMLButtonElement, TopicCardProps>(
         <p className={styles.description}>{description}</p>
 
         <div className={styles.discoverHint}>
-          <span>{exploreLabel}</span>
+          <span>{isUnlocked ? exploreLabel : '🔒'}</span>
         </div>
       </button>
     )

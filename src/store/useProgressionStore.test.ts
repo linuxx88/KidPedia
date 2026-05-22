@@ -127,4 +127,39 @@ describe('useProgressionStore', () => {
     expect(listener).not.toHaveBeenCalled()
     unsub()
   })
+
+  it('devrait supprimer la progression d\'un profil lors de l\'appel à deleteProfileProgression', () => {
+    const { result } = renderHook(() => useProgressionStore())
+
+    // 1. Initialise la progression de alice et bob
+    act(() => { result.current.syncWithProfile('alice') })
+    act(() => { result.current.addBadge('lion', 'gold') })
+    
+    act(() => { result.current.syncWithProfile('bob') })
+    act(() => { result.current.addBadge('soleil', 'silver') })
+
+    expect(result.current.progressions['alice']).toBeDefined()
+    expect(result.current.progressions['bob']).toBeDefined()
+
+    // 2. Supprime la progression de alice
+    act(() => {
+      result.current.deleteProfileProgression('alice')
+    })
+
+    expect(result.current.progressions['alice']).toBeUndefined()
+    expect(result.current.progressions['bob']).toBeDefined()
+  })
+
+  it('devrait réinitialiser activeProfileId à null si le profil actif est supprimé via deleteProfileProgression', () => {
+    const { result } = renderHook(() => useProgressionStore())
+
+    act(() => { result.current.syncWithProfile('alice') })
+    expect(result.current.activeProfileId).toBe('alice')
+
+    act(() => {
+      result.current.deleteProfileProgression('alice')
+    })
+
+    expect(result.current.activeProfileId).toBeNull()
+  })
 })

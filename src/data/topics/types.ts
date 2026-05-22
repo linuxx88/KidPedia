@@ -23,4 +23,5 @@ export interface Topic {
   funFacts?: readonly LocalizedString[]
   quiz?: Quiz
   audioFile?: string
+  anchorIcon?: string
 }

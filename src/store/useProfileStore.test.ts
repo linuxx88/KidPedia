@@ -63,4 +63,20 @@ describe('useProfileStore (Declarative Orchestration)', () => {
       crypto.randomUUID = originalRandomUUID;
     }
   });
+
+  it('devrait appeler deleteProfileProgression lors de la suppression d\'un profil', () => {
+    const deleteProgressionSpy = vi.spyOn(useProgressionStore.getState(), 'deleteProfileProgression')
+
+    let profileId = ''
+    act(() => {
+      const p = useProfileStore.getState().addProfile('Alice', '👧', 'girl')
+      profileId = p.id
+    })
+
+    act(() => {
+      useProfileStore.getState().deleteProfile(profileId)
+    })
+
+    expect(deleteProgressionSpy).toHaveBeenCalledWith(profileId)
+  })
 })

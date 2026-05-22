@@ -64,6 +64,7 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
   const startQuiz = useQuizStore(state => state.startQuiz);
   const submitAnswer = useQuizStore(state => state.submitAnswer);
   const quizResult = useQuizStore(state => state.quizResult);
+  const attempts = useQuizStore(state => state.attempts);
 
   const addBadge = useProgressionStore(state => state.addBadge);
   const { playerName, avatar } = usePlayerStore();
@@ -184,6 +185,8 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
                   result={quizResult}
                   onAnswer={onQuizSubmit}
                   labels={labels}
+                  attempts={attempts}
+                  funFact={activeQuiz.funFact[language]}
                 />
               )}
             </AppOverlay>

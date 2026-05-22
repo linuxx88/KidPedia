@@ -68,34 +68,36 @@ La sélection de l'index de l'anecdote et du quiz se fait dans un `useEffect` qu
 ---
 
 ## 🎫 Ticket #08 : Parental Gate trop simple pour les enfants de plus de 7 ans
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Élevée (Sécurité / Contrôle Parental)
 **Localisation** : `src/components/UI/ParentalGate.tsx`
 **Description** :
-Le défi mathématique actuel est une addition simple de deux chiffres inférieurs à 10 (`n1 + n2 = ?`). Un enfant de plus de 7 ans peut aisément résoudre ce calcul en quelques secondes et accéder à la zone parents (contenant la réinitialisation de progression et l'espace technique). Il est nécessaire de complexifier le défi en proposant des multiplications simples (ex: `n1 * n2`) ou des questions de culture générale enfant/adulte ("En quelle année l'homme a-t-il marché sur la Lune ?", ou des questions textuelles : "Tapez le mot BLEU en lettres majuscules").
+Le défi mathématique a été renforcé en remplaçant l'addition simple de deux chiffres inférieurs à 10 par une multiplication à un chiffre (avec des opérandes `num1` et `num2` générés de manière aléatoire et stricte entre 2 et 9 inclusivement via `Math.floor(Math.random() * 8) + 2`). L'opération est présentée avec le symbole mathématique `×` (`challenge.num1 × challenge.num2 = ?`), offrant un niveau de protection robuste contre les enfants non autorisés tout en restant accessible pour un adulte.
 
 ---
 
 ## 🎫 Ticket #09 : Absence de i18n/localisation dans la barrière de contrôle parental
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Moyenne (Localisation / UX)
 **Localisation** : `src/components/UI/ParentalGate.tsx`
 **Description** :
-Les textes du composant `ParentalGate` sont entièrement codés en dur en français ("Zone Parents", "Pour accéder à cet espace, demande à un adulte...", "Réponse...", "Oups, réessaie !", "Valider"). Si un utilisateur choisit l'anglais comme langue de son profil, la barrière parentale s'affiche toujours en français. Il faut lier ces textes au store de settings via le dictionnaire `labels`.
+La barrière parentale a été entièrement localisée en déclarant le namespace de traduction structurel `parents` dans `src/locales/types.ts`. Tous les textes descriptifs, placeholders, messages d'erreurs et actions du bouton de validation ont été traduits de façon native et complète dans les dictionnaires français (`src/locales/fr.ts`) et anglais (`src/locales/en.ts`). Le composant s'appuie désormais sur le dictionnaire de labels fourni de manière réactive par `useSettingsStore`.
 
 ---
 
 ## 🎫 Ticket #10 : Double demande de confirmation lors de la réinitialisation du profil
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Moyenne (UX / Redondance)
 **Localisation** : `src/pages/Parents/ParentsDashboard.tsx` & `src/store/useProgressionStore.ts`
 **Description** :
-Lorsque le parent clique sur "Réinitialiser" pour un profil dans le tableau de bord parents, il y a un premier `window.confirm` dans `ParentsDashboard.tsx` ("Effacer toute la progression de X ?..."). S'il valide, cela appelle `useProgressionStore.getState().clearBadges()`, qui contient lui-même un deuxième `window.confirm("Effacer toutes tes médailles ?")` en dur. Le parent doit donc cliquer deux fois de suite sur des boîtes de dialogue système, ce qui nuit à l'ergonomie. Il faut centraliser la confirmation ou découpler l'action de store de l'appel système.
+L'action du store Zustand `clearBadges` a été découplée des appels d'interface graphique en supprimant le `window.confirm("Effacer toutes tes médailles ?")` codé en dur, et en lui permettant d'accepter un paramètre optionnel `profileId` pour cibler la progression d'un profil spécifique de façon synchrone et pure. Le dialogue de confirmation unique a été centralisé dans l'interface utilisateur en utilisant les chaînes de traduction localisées de manière réactive :
+- Dans le Tableau de Bord Parents (`ParentsDashboard.tsx`) via `t.confirmReset(name)`.
+- Dans l'album de collection de stickers (`BadgesPage.tsx`) via `labels.badges.confirmReset` pour le profil actif.
 
 ---
 
 ## 🎫 Ticket #11 : Fuite de données / Persistance de la progression des profils supprimés
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Élevée (Gestion de données / Performance)
 **Localisation** : `src/store/useProfileStore.ts` et `src/store/useProgressionStore.ts`
 **Description** :
@@ -113,7 +115,7 @@ Pour générer l'ID unique des profils, le store utilise `crypto.randomUUID()`. 
 ---
 
 ## 🎫 Ticket #13 : Perte de l'état d'expansion des catégories lors de la navigation de retour
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Moyenne (UX / Confort de navigation)
 **Localisation** : `src/pages/Home/index.tsx`
 **Description** :
@@ -400,4 +402,176 @@ Les sous-nœuds de `civilizations.ts` (Égypte ancienne, Mésopotamie, Grèce an
 **Localisation** : `src/data/origins/middleAges.ts` / Navigation
 **Description** :
 Les éléments emblématiques du Moyen-Âge (châteaux forts, chevaliers, cathédrales, calligraphie) de la frise `middleAges.ts` doivent être liés à des sujets d'apprentissage et des quiz réels de l'encyclopédie.
+
+---
+
+## 🎫 Ticket #45 : Implémentation du système "Learning Path" (Pipeline Industriel)
+**Statut** : 🟢 Résolu
+**Sévérité** : Élevée (Amélioration UX)
+**Localisation** : `src/store/useProgressionStore.ts` & `src/pages/Home/index.tsx`
+**Description** :
+Transformer la navigation actuelle en un parcours linéaire type "Pipeline Industriel". Chaque sujet devient une station de travail. Il faut créer un état `isCompleted` dans le store pour chaque module et ajouter une barre de progression visuelle globale. L'accès aux modules avancés sera conditionné par la validation des modules de base (faits).
+**Résolution** :
+- **useProgressionStore.ts** : Implémentation des sélecteurs réactifs `isCompleted(topicId)` et `isUnlocked(topicId)`. Les sujets d'une catégorie sont ordonnés séquentiellement ; l'accès au sujet suivant exige la réussite (obtention de badge) du sujet précédent.
+- **TopicCard.tsx / TopicCard.module.css** : Ajout d'un overlay de cadenas interactif `🔒`, application d'un filtre CSS de grisaille (`grayscale(100%)`) et blocage des animations de survol (hover) sur les stations verrouillées.
+- **Home/index.tsx** : Restriction des clics de navigation sur les cartes verrouillées.
+- **Topic/index.tsx** : Sécurisation par redirection automatique du routeur vers la page d'accueil si l'URL d'un sujet bloqué est saisie directement.
+
+---
+
+## 🎫 Ticket #46 : Système de Validation "QC PASS" (Gamification)
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne (Richesse UX)
+**Localisation** : `src/components/Learning/Quiz/index.tsx`
+**Description** :
+Remplacer le feedback textuel standard par une validation visuelle gratifiante. Implémenter une fonction `validateStep()` qui déclenche une animation type "Tampon APPROUVÉ" et un signal sonore spécifique (SFX "ding") lors de la réussite du quiz. Ajouter un compteur de "Tickets réussis" dans le dashboard de l'enfant pour renforcer le sentiment d'accomplissement.
+**Résolution** :
+- **Compteur Global** : Ajout d'une section statistique "Tickets QC" dans le Pill Dashboard de la page d'accueil (`Home/index.tsx`) affichant l'icône de ticket `🎫` et le nombre total de badges validés.
+- **Synthèse Audio Native** : Implémentation d'un synthétiseur sonore haute fidélité dans `Quiz.tsx` utilisant l'API `AudioContext` native (oscillateur sinusoïdal glissant de 1200Hz à 800Hz avec gain exponentiel) pour produire un son de clochette parfait et sans dépendances d'assets externes.
+- **Tampon "QC PASS"** : Création d'un overlay de double tampon circulaire/rectangulaire `QC PASS / APPROUVÉ / APPROVED` avec des animations CSS dynamiques d'impact (frappe, rotation et rebond élastique).
+
+---
+
+## 🎫 Ticket #47 : Système d'ancrage visuel par "Stations" (Ancres mnémotechniques)
+**Statut** : 🟢 Résolu
+**Sévérité** : Faible (Pédagogie)
+**Localisation** : `src/data/topics/` & `src/components/Learning/TopicDetail/`
+**Description** :
+Associer une icône spécifique "absurde" ou mémorable à chaque catégorie de faits pour faciliter la mémorisation (ancrage). Faire apparaître cette icône à chaque étape du ticket d'apprentissage. Il faut modifier la structure de données des topics pour inclure cette propriété `anchorIcon`.
+**Résolution** :
+- **topics/types.ts** : Déclaration du champ optionnel `anchorIcon?: string` dans l'interface de données `Topic`.
+- **Intégration Visuelle (TopicDetail.tsx & Topic/index.tsx)** : Affichage de l'icône de station mémorable à trois emplacements clés : à côté du grand titre du sujet, à l'intérieur du bloc d'anecdotes ("Le savais-tu ?"), et en en-tête du module Quiz (remplaçant la pièce de puzzle générique).
+- **Dictionnaire de Repli (Fallback)** : Configuration d'un catalogue d'ancrages mnémotechniques par défaut pour assurer l'affichage d'icônes adaptées (ex: 🚀 pour l'Espace, 🦖 pour les Dinosaures, 🦁 pour les Animaux, 🏛️ pour l'Histoire) sur les catégories existantes.
+
+---
+
+## 🎫 Ticket #48 : Refactorisation de la Data Ingestion (Standardisation Ticket)
+**Statut** : 🟢 Résolu
+**Sévérité** : Critique (Maintenabilité)
+**Localisation** : `src/data/factory.ts`
+**Description** :
+Uniformiser le format des données encyclopédiques pour qu'elles suivent toutes la structure `{ id, status, title, instruction, fact, quiz: { q, options, answer } }`. Créer un générateur automatique (Data Factory) pour valider la conformité des nouveaux faits ajoutés, assurant que chaque sujet possède sa structure de "Ticket Card" complète avant le déploiement.
+**Résolution** :
+- **factory.ts** : Création d'un générateur-validateur strict `createTopicCard(input: unknown): Topic` qui effectue des validations de schéma exhaustives (format kebab-case de l'ID, non-vacuité des objets localisés `fr` / `en`, bornes du quiz, validité des options, typage strict TypeScript sans aucun `any`).
+- **dataIntegrity.test.ts** : Intégration systématique du validateur `createTopicCard` sur toutes les données de l'encyclopédie dans la suite de tests automatisée pour intercepter toute régression de structure au build.
+
+---
+
+## 🎫 Ticket #49 : Assistance Pédagogique (Indice "Assistance")
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne (UX / Inclusion)
+**Localisation** : `src/components/Learning/Quiz/index.tsx`
+**Description** :
+Si l'enfant échoue 3 fois le même quiz, déclencher un bouton "Assistance" (ou indice). Ce bouton doit proposer une explication simplifiée ou un rappel visuel du fait appris (au lieu de bloquer l'enfant). Cela permet de transformer l'échec en opportunité d'apprentissage sans friction.
+**Résolution** :
+- **Déclenchement Dynamique** : Surveillance des échecs de validation (`attempts >= 4`). Dès le 3e échec consécutif, un bouton interactif coloré "🧙‍♂️ Demander l'aide du Magicien" est affiché de façon premium.
+- **Aide du Magicien** : Au clic, affichage d'un bloc de verre (glassmorphism) contenant un résumé pédagogique et un bouton de lecture vocale haute fidélité.
+- **Synthèse Vocale Pédagogique** : Utilisation de l'API native `speechSynthesis` configurée dynamiquement selon la langue active du profil enfant (`fr-FR` ou `en-US`) pour lire à voix haute l'explication sans latence.
+
+## 🎫 Ticket #50 : Création du Store Événementiel Saisonnier (Couche 2 : The Brain)
+Statut : 🔴 À faire
+
+Sévérité : Élevée (Infrastructure Métier)
+
+Localisation : src/store/useEnvironmentStore.ts
+
+
+Description : Pour alimenter dynamiquement la page du parallaxe, il faut s'assurer que le store useEnvironmentStore est capable de gérer l'état complet du monde (World State) de manière saine. Bien que la suppression de l'ancienne version ébauchée ait été actée en v3.0.10, ce nouveau besoin nécessite de réimplémenter une gestion fine et réactive des saisons pour piloter les vues.
+
+Critères d'Acceptation (DOD) :
+
+[ ] Définir un type strict Season = 'spring' | 'summer' | 'autumn' | 'winter' sans aucun usage du type any.
+
+[ ] Implémenter l'état initial currentSeason: 'spring'.
+
+[ ] Ajouter une action setSeason(season: Season) pour forcer un changement thématique depuis l'espace développeur ou la zone parents.
+
+[ ] Ajouter une action triggerNextSeason() permettant de basculer cycliquement d'une saison à l'autre de manière séquentielle.
+
+[ ] Connecter le middleware persist de Zustand sous la clé kp-environment-storage pour sauvegarder la saison préférée de l'enfant d'une session à l'autre.
+
+## 🎫 Ticket #51 : Composant de Vue Multicouche LifeCirclePage.tsx (Couche 1 : The Surface)
+Statut : 🔴 À faire
+
+Sévérité : Moyenne (Interface utilisateur)
+
+Localisation : src/pages/LifeCircle/LifeCirclePage.tsx et LifeCirclePage.module.css
+
+
+Description : Créer le composant de présentation principal mettant en scène le cycle de la nature à l'aide de l'effet de parallaxe CSS 3D pur (sans calculs JavaScript sur le scroll afin de préserver les performances des tablettes d'entrée de gamme).
+
+Critères d'Acceptation (DOD) :
+
+[ ] Créer une structure HTML/TSX comprenant au minimum 3 plans distincts imbriqués dans un conteneur principal configuré avec une perspective 3D (perspective: 1px et transform-style: preserve-3d).
+
+[ ] Appliquer des translations sur l'axe Z (translateZ) et des échelles de compensation (scale) pour créer l'effet de profondeur automatique lors du défilement vertical.
+
+[ ] Connecter la racine de la page au store useEnvironmentStore pour injecter dynamiquement une classe CSS correspondant à la saison active (.spring, .autumn, etc.).
+
+[ ] Assurer un scroll fluide à 60 FPS en appliquant la propriété CSS will-change: transform sur les couches en mouvement.
+
+[ ] Configurer la route /lifecircle via le système de routing principal avec chargement à la demande (Lazy Loading) pour ne pas alourdir le bundle de démarrage.
+
+## 🎫 Ticket #52 : Accessibilité, Gestion Tactile et Masquage d'Occlusion (Couche 3 : The Delight)
+Statut : 🔴 À faire
+
+Sévérité : Élevée (Inclusion & Expérience Utilisateur)
+
+Localisation : src/pages/LifeCircle/ & src/styles/
+
+
+Description : Sécuriser l'interactivité de la page vis-à-vis des interactions des enfants en situation de handicap, du comportement sur les tablettes tactiles (iPad/Android) et régler les conflits de collisions de clics induits par les agrandissements d'échelle (scale) des décors en arrière-plan.
+
+Critères d'Acceptation (DOD) :
+
+[ ] Accessibilité (A11y) : Encapsuler l'effet de profondeur dans une requête média @media (prefers-reduced-motion: reduce). Si l'appareil de l'enfant a cette option activée, l'effet parallaxe doit s'annuler automatiquement pour repasser sur un défilement à plat standard.
+
+[ ] Collisions de clics : Appliquer la propriété CSS pointer-events: none sur les éléments décoratifs d'arrière-plan et de second plan (.layerBackground et .layerMidground) afin qu'ils ne bloquent pas les clics et événements tactiles destinés aux éléments interactifs placés au premier plan.
+
+[ ] Ressources Vectorielles : Utiliser exclusivement des illustrations pures au format SVG inline injectées directement dans le DOM pour dessiner l'Arbre Sacré central et les paysages. Aucun fichier lourd .png ou .jpg ne doit être utilisé, assurant un affichage net sans flou lors du zoom et une compatibilité absolue avec l'architecture PWA hors-ligne du projet.
+
+## 🎫 Ticket #53 : Raccordement du "Cercle de la Vie" aux Hotspots d'Apprentissage (Couche 4 : The Foundation)
+Statut : 🔴 À faire
+
+Sévérité : Moyenne (Intégrité des données)
+
+Localisation : src/data/topics/nature.ts ou nouveau fichier de données dédié.
+
+Description : Donner du sens pédagogique au projet en connectant les éléments visuels de l'arbre à des fiches de micro-learning réelles. L'enfant doit pouvoir cliquer sur des zones précises (Hotspots) de la scène en mouvement pour ouvrir des popups de secrets ou de leçons, réutilisant le composant standardisé de ton infrastructure.
+
+Critères d'Acceptation (DOD) :
+
+[ ] Déclarer les identifiants uniques des éléments de la nature (ex: le-bourgeon, la-vieille-souche) et s'assurer qu'ils passent le validateur automatique de la suite de tests createTopicCard de ta Data Factory.
+
+[ ] Implémenter le composant d'interaction standardisé AccessibleSvgHotspot sur des nœuds précis du SVG de l'arbre.
+
+[ ] Assurer le blindage A11y complet de chaque hotspot : chaque zone doit supporter le focus clavier (tabindex={0}), disposer de rôles sémantiques conformes (role="button") et réagir à l'appui sur les touches Entrée et Espace.
+
+[ ] Lier l'interaction de réussite ou de découverte de ces secrets au gain d'XP du store générique global useProgressionStore.getState().addXP().
+
+---
+
+## 🎫 Ticket #54 : Modularisation de la Banque de Questions Monolithique
+Statut : 🔴 À faire
+
+Sévérité : Élevée (Maintenabilité & Architecture)
+
+Localisation : `src/data/quizzes.ts` (et création de `src/data/quizzes/`)
+
+Description : 
+Le fichier `src/data/quizzes.ts` est devenu un monolithe de 45.7 Ko et plus de 1 400 lignes, regroupant toutes les banques de questions (`QUIZ_BANKS`) et tous les quiz simples (`QUIZZES`) de l'application. Cette centralisation excessive nuit à la lisibilité, au principe de responsabilité unique (SRP) et augmente drastiquement les risques de conflits lors des fusions de branches git. Il faut diviser cette base de données en fichiers spécialisés par thématique de manière transparente.
+
+Critères d'Acceptation (DOD) :
+
+[ ] Créer un nouveau répertoire `src/data/quizzes/` pour y accueillir les banques découpées par domaine.
+
+[ ] Créer des fichiers de données spécialisés typés de manière stricte (ex: `space.ts`, `animals.ts`, `dinosaurs.ts`, `history.ts`, `nature.ts`, etc.) respectant la répartition par catégorie.
+
+[ ] Créer un fichier de centralisation `src/data/quizzes/index.ts` qui regroupe, fusionne et ré-exporte `QUIZ_BANKS` et `QUIZZES` sous leurs structures initiales exactes.
+
+[ ] Mettre à jour l'ancien point d'entrée `src/data/quizzes.ts` pour qu'il ré-exporte directement depuis `src/data/quizzes/index.ts` afin d'éviter tout changement cassant sur les composants consommateurs.
+
+[ ] S'assurer que le compilateur TypeScript ne lève aucune erreur de typage (lancer `npm run type-check`).
+
+[ ] S'assurer que l'intégralité de la suite de tests (Vitest) s'exécute sans aucune régression (lancer `npm run validate`).
 

@@ -12,6 +12,9 @@ interface DiscoveryState {
   setSearch: (query: string) => void;
   resetSearch: () => void;
   setActiveCategory: (category: string) => void;
+  expandedCategories: Record<string, boolean>;
+  toggleCategoryExpand: (category: string) => void;
+  setCategoryExpanded: (category: string, isExpanded: boolean) => void;
   reset: () => void;
   updateGroups: () => void;
 }
@@ -61,6 +64,26 @@ export const useDiscoveryStore = create<DiscoveryState>((set, get) => {
 
     setActiveCategory: (category) => set({ activeCategory: category }),
 
+    expandedCategories: {},
+
+    toggleCategoryExpand: (category) => {
+      set((state) => ({
+        expandedCategories: {
+          ...state.expandedCategories,
+          [category]: !state.expandedCategories[category]
+        }
+      }));
+    },
+
+    setCategoryExpanded: (category, isExpanded) => {
+      set((state) => ({
+        expandedCategories: {
+          ...state.expandedCategories,
+          [category]: isExpanded
+        }
+      }));
+    },
+
     updateGroups: () => {
       const { search } = get();
       const { language } = useSettingsStore.getState();
@@ -69,7 +92,7 @@ export const useDiscoveryStore = create<DiscoveryState>((set, get) => {
     },
 
     reset: () => {
-      set({ search: '', groupedTopics: {}, activeCategory: '' });
+      set({ search: '', groupedTopics: {}, activeCategory: '', expandedCategories: {} });
     }
   };
 });
