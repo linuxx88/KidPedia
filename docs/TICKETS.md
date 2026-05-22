@@ -578,9 +578,9 @@ Critères d'Acceptation (DOD) :
 ---
 
 ## 🎫 Ticket #55 : Système d'Économie de Jeu - Attribution de Tickets par palier de Médaille
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Élevée (Gamification & Économie de jeu)
-**Localisation** : `src/store/useProgressionStore.ts`, `src/components/Learning/Quiz/index.tsx`, `src/pages/Home/index.tsx`
+**Localisation** : `src/store/useProgressionStore.ts`, `src/components/Learning/Quiz/index.tsx`, `src/pages/Home/index.tsx`, `src/components/Learning/ExplorerGallery/GiftsPage.tsx`
 
 **Description** :
 Actuellement, l'application comptabilise de manière détournée le nombre de badges obtenus (`badges.length`) comme un compteur de tickets dans le Pill Dashboard. Il n'existe pas de réelle monnaie de jeu stockée et débitable permettant d'acheter des accessoires.
@@ -591,12 +591,86 @@ Pour dynamiser l'engagement de l'enfant et introduire un système d'achat d'acce
 
 Les tickets ainsi cumulés formeront la monnaie d'échange nécessaire pour acheter des accessoires ou compagnons ultérieurement.
 
+**Résolution** :
+- **Règles d'Attribution de Tickets** :
+  - **Médaille d'Or** (performance parfaite) : Attribution de **3 tickets** pour la bonne réponse du quiz.
+  - **Médaille d'Argent** (une erreur) : Attribution de **2 tickets** pour la bonne réponse du quiz.
+  - **Médaille de Bronze** (plusieurs erreurs) : Attribution de **1 ticket** pour la bonne réponse du quiz.
+  - Les tickets gagnés serviront à acheter des accessoires de personnalisation ou des compagnons dans la boutique.
+  - Gère correctement les mises à niveau de médailles en accordant le delta de tickets (ex. passer de Bronze à Or ajoute 2 tickets supplémentaires).
+- **Gestion du Solde** :
+  - Enrichissement de `ProfileProgression` dans `useProgressionStore.ts` pour stocker `tickets: number` persistant par profil.
+  - Création des actions `addTickets(amount)` et `buyAccessory(accessoryId, price)` avec vérification du solde et auto-équipement immédiat.
+- **Boutique Intégrée (GiftsPage)** :
+  - Intégration d'un système d'achat d'accessoires standard (5 tickets), premium/couronne (15 tickets) ou de compagnons animaux (10 tickets).
+  - Ajout d'une magnifique modale glassmorphic de confirmation avec gros boutons interactifs vert/rouge pour éviter les achats accidentels.
+  - Effets sonores festifs et animations de confettis déclenchés en cas de succès d'achat.
+- **Indicateur Dynamique** :
+  - Remplacement de l'ancien compteur factice par le solde réel de tickets de l'enfant sur le tableau de bord principal.
+
 **Critères d'Acceptation (DOD)** :
-- [ ] Enrichir la structure `ProfileProgression` dans `useProgressionStore.ts` pour stocker un attribut `tickets: number` persistant par profil.
-- [ ] Implémenter l'action `addTickets(amount: number)` et une action de débit `spendTickets(amount: number): boolean` retournant un succès ou un échec en cas de solde insuffisant.
-- [ ] Lors de la validation d'un quiz avec obtention d'une médaille (Or/Argent/Bronze), calculer la récompense en tickets correspondante (3, 2, ou 1) et créditer automatiquement le solde du profil.
-- [ ] Mettre à jour le Pill Dashboard (`Home/index.tsx`) et les autres indicateurs pour afficher le solde réel dynamique des tickets (`tickets` au lieu de `badges.length`).
-- [ ] Écrire les tests unitaires nécessaires dans `useProgressionStore.test.ts` pour vérifier les gains de tickets en fonction du métal de la médaille et s'assurer que le solde est débitable.
-- [ ] S'assurer de l'absence de toute régression technique en lançant `npm run validate`.
+- [x] Enrichir la structure `ProfileProgression` dans `useProgressionStore.ts` pour stocker un attribut `tickets: number` persistant par profil.
+- [x] Implémenter l'action `addTickets(amount: number)` et une action de débit `spendTickets(amount: number): boolean` (dans `buyAccessory`) retournant un succès ou un échec en cas de solde insuffisant.
+- [x] Lors de la validation d'un quiz avec obtention d'une médaille (Or/Argent/Bronze), calculer la récompense en tickets correspondante (3, 2, ou 1) et créditer automatiquement le solde du profil.
+- [x] Mettre à jour le Pill Dashboard (`Home/index.tsx`) et les autres indicateurs pour afficher le solde réel dynamique des tickets (`tickets` au lieu de `badges.length`).
+- [x] Écrire les tests unitaires nécessaires dans `useProgressionStore.test.ts` pour vérifier les gains de tickets en fonction du métal de la médaille et s'assurer que le solde est débitable.
+- [x] S'assurer de l'absence de toute régression technique en lançant `npm run validate`.
 
 
+## 🎫 Ticket #56 : Composant de Carte Parallaxe Dynamique (The Delight)
+Statut : 🔴 À faire
+
+Sévérité : Moyenne
+
+Localisation : src/components/Discovery/ParallaxTopicCard.tsx
+
+
+Description : Transformer les cartes de navigation statiques du "Grand Voyage du Temps" en cartes interactives à effet de parallaxe "léger" pour attirer le regard des enfants sans les distraire de la lecture.
+
+Critères d'Acceptation (DOD) :
+
+[ ] Créer un composant ParallaxTopicCard qui utilise onMouseMove (ou onPointerMove) pour incliner légèrement la carte vers le curseur (effet de tilt 3D).
+
+[ ] Appliquer transform-style: preserve-3d sur la carte et une perspective sur le conteneur parent.
+
+[ ] Limiter l'inclinaison maximale (ex: rotateY(10deg)) pour éviter l'effet de nausée, conformément aux standards A11y.
+
+[ ] Ajouter une ombre portée (box-shadow) qui se déplace de manière dynamique selon l'inclinaison pour renforcer l'aspect "objet 3D".
+
+## 🎫 Ticket #57 : Gestion des "Hotspots" de lecture sur carte (The Foundation)
+Statut : 🔴 À faire
+
+Sévérité : Moyenne
+
+Localisation : src/components/Discovery/ParallaxTopicCard.tsx
+
+
+Description : S'assurer que l'effet de parallaxe ne gêne pas l'accès aux fiches pédagogiques (le contenu principal de la frise chronologique).
+
+Critères d'Acceptation (DOD) :
+
+[ ] Assurer que la zone de texte (le titre du sujet) reste fixe sur le plan Z=0 (premier plan) alors que les illustrations décoratives bougent en arrière-plan (effet de parallaxe différencié).
+
+[ ] Appliquer pointer-events: none sur les éléments décoratifs pour que seuls les hotspots d'apprentissage capturent les clics.
+
+[ ] Tester la navigation clavier : la carte doit rester accessible via la touche Tab et Entrée même avec les transformations CSS activées.
+
+## 🎫 Ticket #58 : Optimisation "Kid-Friendly" et Performance (The Brain)
+Statut : 🔴 À faire
+
+Sévérité : Élevée
+
+Localisation : src/hooks/useParallaxAnimation.ts
+
+
+Description : Optimiser l'animation pour les tablettes d'entrée de gamme afin de garantir un 60 FPS constant, même avec plusieurs cartes à l'écran.
+
+Critères d'Acceptation (DOD) :
+
+[ ] Utiliser will-change: transform sur toutes les cartes parallaxe pour forcer l'accélération matérielle (GPU).
+
+[ ] Implémenter une vérification de la préférence utilisateur prefers-reduced-motion : si le système demande moins de mouvements, les cartes redeviennent fixes et plates.
+
+[ ] Définir une limite de "cartes actives" : seules les cartes dans le viewport doivent calculer leur parallaxe.
+
+[ ] S'assurer que le calcul des coordonnées de souris est nettoyé (cleanup) lors du démontage du composant pour éviter toute fuite de mémoire

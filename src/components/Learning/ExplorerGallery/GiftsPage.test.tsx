@@ -50,6 +50,7 @@ describe('GiftsPage', () => {
           unlockedAccessories: [],
           equippedAccessoryId: null,
           equippedCompanionId: null,
+          tickets: 0,
         },
       },
     });
@@ -84,6 +85,7 @@ describe('GiftsPage', () => {
           unlockedAccessories: [],
           equippedAccessoryId: null,
           equippedCompanionId: null,
+          tickets: 0,
         },
       },
     });
@@ -106,6 +108,7 @@ describe('GiftsPage', () => {
           unlockedAccessories: [],
           equippedAccessoryId: null,
           equippedCompanionId: null,
+          tickets: 0,
         },
       },
     });
@@ -137,6 +140,7 @@ describe('GiftsPage', () => {
           unlockedAccessories: ['explorer-hat'],
           equippedAccessoryId: null,
           equippedCompanionId: null,
+          tickets: 0,
         },
       },
     });
@@ -161,5 +165,44 @@ describe('GiftsPage', () => {
     const removeBtn = screen.getByRole('button', { name: /Enlever Chapeau de Brousse/i });
     fireEvent.click(removeBtn);
     expect(useProgressionStore.getState().getEquippedAccessoryId()).toBeNull();
+  });
+
+  it('allows purchasing a locked accessory and equipping it', () => {
+    useProgressionStore.setState({
+      activeProfileId: profileId,
+      progressions: {
+        [profileId]: {
+          badges: [],
+          totalXP: 500,
+          currentRankId: 'apprentice',
+          unlockedAccessories: [],
+          equippedAccessoryId: null,
+          equippedCompanionId: null,
+          tickets: 10,
+        },
+      },
+    });
+
+    render(<GiftsPage />);
+
+    // Tickets balance displayed
+    expect(screen.getByTestId('gifts-ticket-count').textContent).toBe('10');
+
+    // Click "Acheter" button for space helmet (Casque Stellaire, price 5)
+    const buyBtn = screen.getAllByRole('button', { name: /Acheter/i })[0];
+    expect(buyBtn).toBeDefined();
+    fireEvent.click(buyBtn);
+
+    // Modal is opened
+    expect(screen.getByText(/Veux-tu acheter/i)).toBeDefined();
+
+    // Confirm purchase
+    const confirmBtn = screen.getByRole('button', { name: /Oui, s'il te plaît/i });
+    fireEvent.click(confirmBtn);
+
+    // Tickets balance decremented and accessory equipped
+    expect(useProgressionStore.getState().getTickets()).toBe(5);
+    expect(useProgressionStore.getState().getUnlockedAccessories()).toContain('space-helmet');
+    expect(useProgressionStore.getState().getEquippedAccessoryId()).toBe('space-helmet');
   });
 });

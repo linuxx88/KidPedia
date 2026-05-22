@@ -16,6 +16,7 @@ export interface Accessory {
   icon: string; // Emoji pour le prototype, remplacé par image path plus tard
   unlockCondition: UnlockCondition;
   slot?: 'head' | 'companion';
+  price?: number; // Prix en tickets (optionnel, ex: cadeaux gratuits)
 }
 
 export const ACCESSORIES_DB: Accessory[] = [
@@ -25,7 +26,8 @@ export const ACCESSORIES_DB: Accessory[] = [
     category: 'espace',
     icon: '👨‍🚀',
     unlockCondition: { type: 'count', category: 'espace', value: 3, medal: 'gold' },
-    slot: 'head'
+    slot: 'head',
+    price: 5
   },
   {
     id: 'explorer-hat',
@@ -41,7 +43,8 @@ export const ACCESSORIES_DB: Accessory[] = [
     category: 'dinosaures',
     icon: '🦖',
     unlockCondition: { type: 'specific_topic', value: 'tyrannosaure', medal: 'gold' },
-    slot: 'head'
+    slot: 'head',
+    price: 5
   },
   {
     id: 'crown',
@@ -49,7 +52,8 @@ export const ACCESSORIES_DB: Accessory[] = [
     category: 'histoire',
     icon: '👑',
     unlockCondition: { type: 'xp', value: 5000 },
-    slot: 'head'
+    slot: 'head',
+    price: 15
   },
   {
     id: 'dog-companion',
@@ -57,7 +61,8 @@ export const ACCESSORIES_DB: Accessory[] = [
     category: 'animaux',
     icon: '🐶',
     unlockCondition: { type: 'count', category: 'animaux', value: 3, medal: 'gold' },
-    slot: 'companion'
+    slot: 'companion',
+    price: 10
   },
   {
     id: 'robot-companion',
@@ -65,7 +70,8 @@ export const ACCESSORIES_DB: Accessory[] = [
     category: 'espace',
     icon: '🤖',
     unlockCondition: { type: 'count', category: 'espace', value: 3, medal: 'gold' },
-    slot: 'companion'
+    slot: 'companion',
+    price: 10
   },
   {
     id: 'dino-companion',
@@ -73,6 +79,7 @@ export const ACCESSORIES_DB: Accessory[] = [
     category: 'dinosaures',
     icon: '🦕',
     unlockCondition: { type: 'count', category: 'dinosaures', value: 3, medal: 'gold' },
-    slot: 'companion'
+    slot: 'companion',
+    price: 10
   }
 ];

@@ -16,6 +16,7 @@ interface ProfileProgression {
   unlockedAccessories: string[]; // IDs des accessoires possédés
   equippedAccessoryId: string | null; // ID de l'accessoire porté
   equippedCompanionId: string | null; // ID du compagnon actif
+  tickets: number; // solde de tickets possédés
 }
 
 export interface ProgressionState {
@@ -30,12 +31,15 @@ export interface ProgressionState {
   getUnlockedAccessories: () => string[];
   getEquippedAccessoryId: () => string | null;
   getEquippedCompanionId: () => string | null;
+  getTickets: () => number;
   isCompleted: (topicId: TopicId) => boolean;
   isUnlocked: (topicId: TopicId) => boolean;
 
   // --- Actions ---
   addXP: (amount: number) => void;
   addBadge: (topicId: TopicId, medal: MedalType) => void;
+  addTickets: (amount: number) => void;
+  buyAccessory: (accessoryId: string, price: number) => boolean;
   clearBadges: (profileId?: string) => void;
   syncWithProfile: (profileId: string | null) => void;
   equipAccessory: (accessoryId: string | null) => void;
@@ -46,6 +50,7 @@ export interface ProgressionState {
 
 const xpValues: Record<string, number> = { gold: 1000, silver: 500, bronze: 250 };
 const medalTier: Record<MedalType, number> = { gold: 3, silver: 2, bronze: 1 };
+const ticketValues: Record<MedalType, number> = { gold: 3, silver: 2, bronze: 1 };
 
 /**
  * Calcule le rang correspondant au total d'XP actuel.
@@ -61,7 +66,8 @@ const DEFAULT_PROGRESSION: ProfileProgression = {
   currentRankId: 'apprentice',
   unlockedAccessories: [],
   equippedAccessoryId: null,
-  equippedCompanionId: null
+  equippedCompanionId: null,
+  tickets: 0
 };
 
 /**
@@ -124,7 +130,8 @@ const migrateLegacyProfile = (profileId: string): ProfileProgression => {
       currentRankId: calculateRankId(totalXP),
       unlockedAccessories: [],
       equippedAccessoryId: null,
-      equippedCompanionId: null
+      equippedCompanionId: null,
+      tickets: 0
     };
   } catch (e) {
     console.error("Migration error", e);
@@ -163,6 +170,10 @@ export const useProgressionStore = create<ProgressionState>()(
       getEquippedCompanionId: () => {
         const { progressions, activeProfileId } = get();
         return (activeProfileId ? progressions[activeProfileId]?.equippedCompanionId : null) || null;
+      },
+      getTickets: () => {
+        const { progressions, activeProfileId } = get();
+        return (activeProfileId ? progressions[activeProfileId]?.tickets : 0) || 0;
       },
       isCompleted: (topicId) => {
         const { progressions, activeProfileId } = get();
@@ -263,20 +274,29 @@ export const useProgressionStore = create<ProgressionState>()(
           return; 
         }
 
+        let ticketsToAdd = 0;
+        if (isFirstTime) {
+          ticketsToAdd = ticketValues[medal];
+        } else if (isUpgrade) {
+          ticketsToAdd = ticketValues[medal] - ticketValues[existing.medal];
+        }
+
         const nextXP = newBadges.reduce((acc, badge) => acc + (xpValues[badge.medal] || 0), 0);
         const nextRankId = calculateRankId(nextXP);
 
         let addedAccessories: string[] = [];
 
         set((state) => {
+          const currentProg = state.progressions[activeProfileId] || { ...DEFAULT_PROGRESSION };
           const nextProg = {
-            ...(state.progressions[activeProfileId] || { ...DEFAULT_PROGRESSION }),
+            ...currentProg,
             badges: newBadges,
             totalXP: nextXP,
-            currentRankId: nextRankId
+            currentRankId: nextRankId,
+            tickets: (currentProg.tickets || 0) + ticketsToAdd
           };
 
-          const oldUnlocked = nextProg.unlockedAccessories || [];
+          const oldUnlocked = currentProg.unlockedAccessories || [];
           const newUnlocked = checkAccessoryUnlocks(nextProg) || [];
           nextProg.unlockedAccessories = newUnlocked;
 
@@ -319,6 +339,70 @@ export const useProgressionStore = create<ProgressionState>()(
             }
           });
         }
+      },
+
+      addTickets: (amount) => {
+        const { activeProfileId } = get();
+        if (!activeProfileId) return;
+
+        set((state) => {
+          const current = state.progressions[activeProfileId] || { ...DEFAULT_PROGRESSION };
+          const nextProg = {
+            ...current,
+            tickets: (current.tickets || 0) + amount
+          };
+          return {
+            progressions: {
+              ...state.progressions,
+              [activeProfileId]: nextProg
+            }
+          };
+        });
+      },
+
+      buyAccessory: (accessoryId, price) => {
+        const { activeProfileId } = get();
+        if (!activeProfileId) return false;
+
+        let success = false;
+
+        set((state) => {
+          const current = state.progressions[activeProfileId] || { ...DEFAULT_PROGRESSION };
+          const currentTickets = current.tickets || 0;
+          if (currentTickets < price) {
+            return state;
+          }
+
+          success = true;
+          const oldUnlocked = current.unlockedAccessories || [];
+          const newUnlocked = oldUnlocked.includes(accessoryId)
+            ? oldUnlocked
+            : [...oldUnlocked, accessoryId];
+
+          const nextProg = {
+            ...current,
+            tickets: currentTickets - price,
+            unlockedAccessories: newUnlocked
+          };
+
+          const acc = ACCESSORIES_DB.find(a => a.id === accessoryId);
+          if (acc) {
+            if (acc.slot === 'companion') {
+              nextProg.equippedCompanionId = accessoryId;
+            } else {
+              nextProg.equippedAccessoryId = accessoryId;
+            }
+          }
+
+          return {
+            progressions: {
+              ...state.progressions,
+              [activeProfileId]: nextProg
+            }
+          };
+        });
+
+        return success;
       },
 
       equipAccessory: (accessoryId) => {

@@ -33,6 +33,7 @@ export function HomePage({ topicsData }: HomePageProps) {
   const { setSearch, groupedTopics, handleTopicClick } = topicsData
 
   const isUnlocked = useProgressionStore((state) => state.isUnlocked)
+  const tickets = useProgressionStore((state) => state.getTickets())
 
   const handleTopicCardClick = (id: string) => {
     if (isUnlocked(id as TopicId)) {
@@ -148,7 +149,7 @@ export function HomePage({ topicsData }: HomePageProps) {
 
           <div className={styles.dashItem}>
             <span className={styles.dashIcon}>🎫</span>
-            <span className={styles.dashNumber} data-testid="ticket-count">{badges.length}</span>
+            <span className={styles.dashNumber} data-testid="ticket-count">{tickets}</span>
             <span className={styles.dashLabel}>{labels.home.tickets}</span>
           </div>
 

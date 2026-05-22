@@ -6,6 +6,19 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
+### VERSION 3.9.0 - Économie de Jeu & Boutique d'Accessoires (22 Mai 2026)
+--------------------------------------------------
+- **[Feature] Économie de Jeu & Boutique d'Accessoires (Ticket #55) :**
+    - **Système d'Attribution de Tickets** : Intégration d'un système de récompense gratifiant attribuant **3 tickets** pour une médaille d'Or (sans faute), **2 tickets** pour une médaille d'Argent (une seule erreur) et **1 ticket** pour une médaille de Bronze (plusieurs erreurs). Gère avec précision les montées de médailles en accordant uniquement le delta de tickets restant (ex. passer de Bronze à Or ajoute 2 tickets supplémentaires).
+    - **Gestion de Solde Persistant** : Ajout du champ `tickets: number` persistant par profil enfant dans le Zustand store `useProgressionStore.ts`, avec des actions robustes `addTickets` et `buyAccessory`.
+    - **Boutique d'Accessoires Premium (GiftsPage)** : Mise en place d'une boutique haut de gamme dans le coffre magique, permettant d'acheter des accessoires standards (5 tickets), premium comme la Couronne Royale (15 tickets) et des compagnons animaux (10 tickets).
+    - **Modale de Confirmation Glassmorphic** : Création d'une interface de confirmation "Veux-tu acheter ce chapeau pour X tickets ? 🎫" sécurisée, dotée de grands boutons tactiles vert et rouge pour éliminer les clics involontaires.
+    - **Animations & Effets Sonores** : Célébrations immersives avec lancers de confettis (`canvas-confetti`) et feedback sonore triomphant lors d'un achat validé.
+    - **Intégration d'Avatar Réactive** : Équipement automatique et instantané des accessoires achetés sur l'avatar du profil actif.
+- **[Qualité/Ingénierie] Standardisation des Mocks & 100% de Tests au Vert :**
+    - Mise à jour de l'intégralité des mocks de tests unitaires (`GiftsPage.test.tsx`, `BadgesPage.test.tsx`, `ExplorerGallery.test.tsx`) pour inclure le champ `tickets` et les nouvelles actions.
+    - Exécution réussie de la suite complète de validation (`npm run validate`) avec **147 tests** au vert à 100% sans aucun avertissement technique ni erreur TypeScript.
+
 ### VERSION 3.8.0 - Persistance d'État & Nettoyage de Données Enfant (22 Mai 2026)
 --------------------------------------------------
 - **[Feature] Persistance de l'état d'expansion des catégories (Ticket #13) :**

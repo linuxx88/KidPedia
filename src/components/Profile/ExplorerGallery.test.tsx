@@ -45,7 +45,8 @@ describe('ExplorerGallery', () => {
           currentRankId: 'explorer',
           unlockedAccessories: [],
           equippedAccessoryId: null,
-          equippedCompanionId: null
+          equippedCompanionId: null,
+          tickets: 0
         }
       }
     });
@@ -83,7 +84,8 @@ describe('ExplorerGallery', () => {
           currentRankId: 'explorer',
           unlockedAccessories: [],
           equippedAccessoryId: null,
-          equippedCompanionId: null
+          equippedCompanionId: null,
+          tickets: 0
         }
       }
     });

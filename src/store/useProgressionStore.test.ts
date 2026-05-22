@@ -162,4 +162,108 @@ describe('useProgressionStore', () => {
 
     expect(result.current.activeProfileId).toBeNull()
   })
+
+  describe('Économie de Tickets & Boutique', () => {
+    it('devrait initialiser le solde de tickets à 0', () => {
+      const { result } = renderHook(() => useProgressionStore())
+      act(() => { result.current.syncWithProfile('alice') })
+      expect(result.current.getTickets()).toBe(0)
+    })
+
+    it('devrait attribuer 3 tickets pour une médaille d\'or', () => {
+      const { result } = renderHook(() => useProgressionStore())
+      act(() => { result.current.syncWithProfile('alice') })
+
+      act(() => {
+        result.current.addBadge('lion', 'gold')
+      })
+
+      expect(result.current.getTickets()).toBe(3)
+    })
+
+    it('devrait attribuer 2 tickets pour une médaille d\'argent et 1 pour du bronze', () => {
+      const { result } = renderHook(() => useProgressionStore())
+      act(() => { result.current.syncWithProfile('alice') })
+
+      act(() => {
+        result.current.addBadge('lion', 'silver')
+      })
+      expect(result.current.getTickets()).toBe(2)
+
+      // Un autre sujet pour le bronze
+      act(() => {
+        result.current.addBadge('soleil', 'bronze')
+      })
+      expect(result.current.getTickets()).toBe(3) // 2 + 1
+    })
+
+    it('devrait attribuer le delta lors d\'une amélioration (upgrade) de médaille', () => {
+      const { result } = renderHook(() => useProgressionStore())
+      act(() => { result.current.syncWithProfile('alice') })
+
+      // 1. Bronze gagné -> +1 ticket
+      act(() => {
+        result.current.addBadge('lion', 'bronze')
+      })
+      expect(result.current.getTickets()).toBe(1)
+
+      // 2. Amélioration en Or -> +2 tickets (3 - 1 = 2)
+      act(() => {
+        result.current.addBadge('lion', 'gold')
+      })
+      expect(result.current.getTickets()).toBe(3) // 1 + 2 = 3
+    })
+
+    it('devrait ajouter manuellement des tickets avec addTickets', () => {
+      const { result } = renderHook(() => useProgressionStore())
+      act(() => { result.current.syncWithProfile('alice') })
+
+      act(() => {
+        result.current.addTickets(10)
+      })
+      expect(result.current.getTickets()).toBe(10)
+    })
+
+    it('devrait acheter un accessoire si le solde est suffisant et l\'équiper', () => {
+      const { result } = renderHook(() => useProgressionStore())
+      act(() => { result.current.syncWithProfile('alice') })
+
+      // Créditer 15 tickets (prix de la couronne premium)
+      act(() => {
+        result.current.addTickets(15)
+      })
+
+      // Achat de la couronne (15 tickets, head slot)
+      let buyResult = false;
+      act(() => {
+        buyResult = result.current.buyAccessory('crown', 15)
+      })
+
+      expect(buyResult).toBe(true)
+      expect(result.current.getTickets()).toBe(0)
+      expect(result.current.getUnlockedAccessories()).toContain('crown')
+      expect(result.current.getEquippedAccessoryId()).toBe('crown')
+    })
+
+    it('devrait refuser l\'achat si le solde est insuffisant', () => {
+      const { result } = renderHook(() => useProgressionStore())
+      act(() => { result.current.syncWithProfile('alice') })
+
+      // Créditer 4 tickets (moins que le prix standard de 5)
+      act(() => {
+        result.current.addTickets(4)
+      })
+
+      let buyResult = true;
+      act(() => {
+        buyResult = result.current.buyAccessory('space-helmet', 5)
+      })
+
+      expect(buyResult).toBe(false)
+      expect(result.current.getTickets()).toBe(4) // Solde inchangé
+      expect(result.current.getUnlockedAccessories()).not.toContain('space-helmet')
+      expect(result.current.getEquippedAccessoryId()).toBeNull()
+    })
+  })
 })
+

@@ -57,6 +57,24 @@ export const GiftsPage: React.FC = () => {
   const equipAccessory = useProgressionStore(state => state.equipAccessory);
   const equipCompanion = useProgressionStore(state => state.equipCompanion);
   const totalXP = useProgressionStore(state => state.getTotalXP());
+  const tickets = useProgressionStore(state => state.getTickets());
+  const buyAccessory = useProgressionStore(state => state.buyAccessory);
+
+  // State for purchase confirmation modal
+  const [purchaseTarget, setPurchaseTarget] = React.useState<{ id: string; name: string; price: number; icon: string; isCompanion: boolean } | null>(null);
+
+  const confirmPurchase = (id: string, price: number) => {
+    const success = buyAccessory(id, price);
+    if (success) {
+      playSound('medal');
+      confetti({
+        particleCount: 150,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+    }
+    setPurchaseTarget(null);
+  };
 
   // Gift Store
   const { isChestOpened, isEligibleToOpen, checkEligibility, openChest } = useGiftStore();
@@ -116,6 +134,19 @@ export const GiftsPage: React.FC = () => {
       />
 
       <main className={styles.mainContent}>
+        {/* Solde de tickets premium */}
+        <div className={styles.ticketsBalanceContainer}>
+          <div className={styles.ticketsPill}>
+            <span className={styles.ticketsIcon}>🎫</span>
+            <span className={styles.ticketsCount} data-testid="gifts-ticket-count">
+              {tickets}
+            </span>
+            <span className={styles.ticketsLabel}>
+              {language === 'fr' ? 'Tickets' : 'Tickets'}
+            </span>
+          </div>
+        </div>
+
         {/* SECTION COFFRE MAGIQUE */}
         <section className={styles.chestSection}>
           <div className={styles.avatarPreview}>
@@ -233,7 +264,7 @@ export const GiftsPage: React.FC = () => {
                       </div>
                       
                       <h3 className={styles.giftName}>
-                        {isUnlocked ? name : '???'}
+                        {isUnlocked ? name : (accessory.price !== undefined ? name : '???')}
                       </h3>
 
                       {isUnlocked ? (
@@ -252,6 +283,21 @@ export const GiftsPage: React.FC = () => {
                         <div className={styles.lockHintWrapper}>
                           <span className={styles.lockEmoji}>🔒</span>
                           <p className={styles.lockHintText}>{hint}</p>
+                          {accessory.price !== undefined && (
+                            <button
+                              className={styles.btnBuyAccessory}
+                              disabled={tickets < accessory.price}
+                              onClick={() => setPurchaseTarget({
+                                id: accessory.id,
+                                name,
+                                price: accessory.price!,
+                                icon: accessory.icon,
+                                isCompanion: false
+                              })}
+                            >
+                              {language === 'fr' ? `Acheter (${accessory.price} 🎫)` : `Buy (${accessory.price} 🎫)`}
+                            </button>
+                          )}
                         </div>
                       )}
                     </div>
@@ -289,7 +335,7 @@ export const GiftsPage: React.FC = () => {
                       </div>
                       
                       <h3 className={styles.giftName}>
-                        {isUnlocked ? name : '???'}
+                        {isUnlocked ? name : (accessory.price !== undefined ? name : '???')}
                       </h3>
 
                       {isUnlocked ? (
@@ -308,6 +354,21 @@ export const GiftsPage: React.FC = () => {
                         <div className={styles.lockHintWrapper}>
                           <span className={styles.lockEmoji}>🔒</span>
                           <p className={styles.lockHintText}>{hint}</p>
+                          {accessory.price !== undefined && (
+                            <button
+                              className={styles.btnBuyAccessory}
+                              disabled={tickets < accessory.price}
+                              onClick={() => setPurchaseTarget({
+                                id: accessory.id,
+                                name,
+                                price: accessory.price!,
+                                icon: accessory.icon,
+                                isCompanion: true
+                              })}
+                            >
+                              {language === 'fr' ? `Acheter (${accessory.price} 🎫)` : `Buy (${accessory.price} 🎫)`}
+                            </button>
+                          )}
                         </div>
                       )}
                     </div>
@@ -326,6 +387,40 @@ export const GiftsPage: React.FC = () => {
             : 'The more you explore, the more gifts you earn! 🎖️'}
         </p>
       </footer>
+
+      {purchaseTarget && (
+        <div className={styles.modalOverlay} onClick={() => setPurchaseTarget(null)}>
+          <div className={styles.modalContent} onClick={(e) => e.stopPropagation()}>
+            <div className={styles.modalHeader}>
+              <span className={styles.modalGiftIcon}>{purchaseTarget.icon}</span>
+            </div>
+            <h3 className={styles.modalTitle}>
+              {language === 'fr' 
+                ? `Veux-tu acheter "${purchaseTarget.name}" pour ${purchaseTarget.price} tickets ? 🎫`
+                : `Do you want to buy "${purchaseTarget.name}" for ${purchaseTarget.price} tickets? 🎫`}
+            </h3>
+            <p className={styles.modalSubtitle}>
+              {language === 'fr'
+                ? 'Il sera immédiatement mis sur ton explorateur ! ✨'
+                : 'It will be immediately equipped on your explorer! ✨'}
+            </p>
+            <div className={styles.modalActions}>
+              <button 
+                className={styles.modalConfirmBtn}
+                onClick={() => confirmPurchase(purchaseTarget.id, purchaseTarget.price)}
+              >
+                {language === 'fr' ? "Oui, s'il te plaît ! 💖" : "Yes, please! 💖"}
+              </button>
+              <button 
+                className={styles.modalCancelBtn}
+                onClick={() => setPurchaseTarget(null)}
+              >
+                {language === 'fr' ? 'Non, merci ❌' : 'No, thanks ❌'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
