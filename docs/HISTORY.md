@@ -7,6 +7,16 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
 
+### VERSION 3.15.1 - Résolution Intégrale de la Conception Visuelle et des Alignements (22 Mai 2026)
+--------------------------------------------------
+- **[Aesthetics/UX/UI] Polissage esthétique complet de la page d'accueil (Ticket #62) :**
+    - **Bannière Héro (Home.module.css, index.tsx, fr.ts, en.ts, labels.ts)** : Suppression de la ponctuation de deux-points superflue, complétion de la phrase suspendue sous le titre de bienvenue en français et anglais pour un accueil engageant, et centrage vertical/horizontal complet de la bannière.
+    - **Stats & Barre d'XP (Home.module.css)** : Doublement de la hauteur de la barre de progression d'XP à `1.5rem`, ajout d'un encadrement 3D doux avec des ombres internes (`inset shadow`), et transition de ressort physique cubic-bezier fluide. Correction des décalages verticaux des pastilles de statistiques.
+    - **Grille de Raccourcis (Home.module.css)** : Restructuration complète de la grille de navigation pour offrir un layout symétrique 1 colonne sur mobile, 2x2 sur tablette, et 4 colonnes sur ordinateur, intégrant parfaitement l'ancien raccourci isolé de Mission Safari.
+    - **Fiches Sujets (TopicCard.tsx & TopicCard.module.css)** : Suppression du double cadenas redondant sur les fiches bloquées, rehaussement du contraste AAA du texte à `0.85`, uniformisation de la hauteur des cartes à 100% de la rangée de la grille avec étirement dynamique, et refonte totale du bouton "VOIR PLUS" en un bouton 3D squishy Explorer Blue réactif au survol et au clic.
+    - **Barre Latérale Flottante (CategoryScrollSpy.module.css)** : Sublimation du menu latéral flottant sur ordinateur avec l'intégration d'un magnifique panneau de verre (`glassmorphic panel`) avec bordures 3D épaisses, et mise en place d'animations physiques de survol et de boutons actifs avec lueur fluorescente 3D en mode sombre.
+    - **Data Integrity & Build** : Résolution d'un type TypeScript au niveau de la TopicPage et validation de la suite de 165 tests unitaires et de compilation de production 100% propre.
+
 ### VERSION 3.15.0 - Résolution du Défaut #1 : Ergonomie de l'En-tête & Alignements (22 Mai 2026)
 --------------------------------------------------
 - **[Aesthetics/UX/UI] Améliorations de l'En-tête globale pour le ciblage tactile (Ticket #62) :**

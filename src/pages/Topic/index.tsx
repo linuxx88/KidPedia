@@ -94,8 +94,9 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
     ? topic.funFacts[funFactIndex][language]
     : (topic ? topic.funFact[language] : '');
 
-  const currentQuiz = (topic && quizIndex !== null && QUIZ_BANKS[topic.id] && QUIZ_BANKS[topic.id][quizIndex])
-    ? QUIZ_BANKS[topic.id][quizIndex]
+  const bank = topic ? QUIZ_BANKS[topic.id] : undefined;
+  const currentQuiz = (bank && quizIndex !== null && bank[quizIndex])
+    ? bank[quizIndex]
     : (topic ? QUIZZES[topic.id] : undefined);
 
   const currentDescription = (topic && descriptionIndex !== null && topic.fullContents && topic.fullContents[descriptionIndex])

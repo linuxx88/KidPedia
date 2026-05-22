@@ -751,7 +751,7 @@ Critères d'Acceptation (DOD) :
 ---
 
 ## 🎫 Ticket #62 : Défauts de conception visuelle, de mise en page (layout) et d'ergonomie sur la page d'accueil
-**Statut** : 🟡 En cours
+**Statut** : 🟢 Résolu
 
 **Sévérité** : Moyenne (Ergonomie & UX/UI)
 
@@ -771,10 +771,11 @@ Analyse des défauts de conception visuelle et d'ergonomie relevés sur la captu
 6. **Barre Latérale Droite** : La barre d'icônes verticale flotte de manière isolée avec un contraste perfectible pour certaines icônes sombres sur le fond global de l'application.
 
 **Critères d'Acceptation (DOD)** :
-- [ ] Corriger l'erreur de ponctuation dans le titre de la bannière héro (`"Salut ! :"` ➔ `"Salut !"`) et finaliser la phrase tronquée.
+- [x] Corriger l'erreur de ponctuation dans le titre de la bannière héro (`"Salut ! :"` ➔ `"Salut !"`) et finaliser la phrase tronquée.
 - [x] Aligner harmonieusement les pastilles d'icônes du header en augmentant leur taille de contact tactile (minimum 44x44px) et leur espacement.
-- [ ] Repenser la grille de raccourcis pour équilibrer la mise en page (ex: grille symétrique 2x2 ou 4 colonnes régulières).
-- [ ] Améliorer la visibilité des fiches verrouillées en augmentant le contraste des illustrations et en éliminant la double présence du cadenas.
-- [ ] Uniformiser la hauteur des cartes et gérer l'alignement vertical homogène des textes et boutons, même en cas de titres longs.
-- [ ] Donner un aspect plus ludique et interactif aux boutons `"VOIR PLUS"` (couleurs plus vives, effet de survol engageant).
-- [ ] Augmenter la hauteur et la lisibilité de la barre d'XP et aligner parfaitement les statistiques.
+- [x] Repenser la grille de raccourcis pour équilibrer la mise en page (ex: grille symétrique 2x2 ou 4 colonnes régulières).
+- [x] Améliorer la visibilité des fiches verrouillées en augmentant le contraste des illustrations et en éliminant la double présence du cadenas.
+- [x] Uniformiser la hauteur des cartes et gérer l'alignement vertical homogène des textes et boutons, même en cas de titres longs.
+- [x] Donner un aspect plus ludique et interactif aux boutons `"VOIR PLUS"` (couleurs plus vives, effet de survol engageant).
+- [x] Augmenter la hauteur et la lisibilité de la barre d'XP et aligner parfaitement les statistiques.
+- [x] Sublimer la barre latérale flottante (contraste, ombres 3D et intégration visuelle).

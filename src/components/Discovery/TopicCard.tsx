@@ -75,9 +75,11 @@ export const TopicCard = forwardRef<HTMLButtonElement, TopicCardProps>(
         <h3 className={styles.title}>{title}</h3>
         <p className={styles.description}>{description}</p>
 
-        <div className={styles.discoverHint}>
-          <span>{isUnlocked ? exploreLabel : '🔒'}</span>
-        </div>
+        {isUnlocked && (
+          <div className={styles.discoverHint}>
+            <span>{exploreLabel}</span>
+          </div>
+        )}
       </button>
     )
   },

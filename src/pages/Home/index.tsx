@@ -124,7 +124,7 @@ export function HomePage({ topicsData }: HomePageProps) {
       >
         <div className={styles.heroContent}>
           <h1 className={styles.heroTitle}>
-            {labels.home.greeting(getGreeting())} :
+            {labels.home.greeting(getGreeting())}
           </h1>
           <p className={styles.heroSubtitle}>
             {labels.home.surpriseDay}

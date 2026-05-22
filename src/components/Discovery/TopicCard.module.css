@@ -10,6 +10,8 @@
   cursor: pointer;
   text-align: center;
   min-height: 340px;
+  height: 100%;
+  box-sizing: border-box;
   box-shadow: var(--shadow-3d);
   transition: var(--transition-bounce);
   border-radius: var(--radius-3xl);
@@ -154,18 +156,22 @@
 }
 
 .locked {
-  opacity: 0.6;
-  filter: grayscale(0.8);
+  opacity: 0.85;
   cursor: not-allowed !important;
-  background-color: #e2e8f0 !important;
+  background-color: #f1f5f9 !important;
   border-color: #cbd5e1 !important;
   box-shadow: none !important;
   pointer-events: none;
 }
 
 :global(.dark) .locked {
-  background-color: #1e293b !important;
+  background-color: #0f172a !important;
   border-color: #334155 !important;
+}
+
+.locked .iconWrapper {
+  opacity: 0.4;
+  filter: grayscale(1);
 }
 
 .locked:hover {

@@ -57,7 +57,7 @@ export const LABELS = {
     clearSearch: 'Tout effacer',
     categoryMore: (count: number) => `Voir plus (${count} de plus) 🔽`,
     searchPlaceholder: 'Cherche un sujet...',
-    surpriseDay: "Il fait beau... c'est une belle journée et ? ✨",
+    surpriseDay: "Il fait beau... c'est une belle journée pour apprendre et s'amuser ! ✨",
   },
   ranks: {
     apprentice: { boy: 'Apprenti 🐣', girl: 'Apprentie 🐣' },

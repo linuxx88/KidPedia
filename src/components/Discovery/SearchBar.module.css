@@ -58,8 +58,14 @@
   padding: 0.5rem 1rem;
 }
 
+.searchInput::placeholder {
+  font-weight: var(--fw-bold);
+  color: var(--color-app-text-light);
+  opacity: 0.75;
+}
+
 .searchContainer[data-compact="true"] .searchInput {
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
   padding: 0.25rem 0.75rem;
 }
 

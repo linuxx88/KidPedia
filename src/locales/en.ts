@@ -59,7 +59,7 @@ export const en: Labels = {
     clearSearch: 'Clear all',
     categoryMore: (count: number) => `See more (${count} more) 🔽`,
     searchPlaceholder: 'Search for a topic...',
-    surpriseDay: "It's a beautiful day... and? ✨",
+    surpriseDay: "It's a beautiful day... a perfect day to learn and have fun! ✨",
     tickets: 'QC Tickets',
   },
   ranks: {
