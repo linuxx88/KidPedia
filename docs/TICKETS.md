@@ -781,3 +781,100 @@ Analyse des défauts de conception visuelle et d'ergonomie relevés sur la captu
 - [x] Donner un aspect plus ludique et interactif aux boutons `"VOIR PLUS"` (couleurs plus vives, effet de survol engageant).
 - [x] Augmenter la hauteur et la lisibilité de la barre d'XP et aligner parfaitement les statistiques.
 - [x] Sublimer la barre latérale flottante (contraste, ombres 3D et intégration visuelle).
+
+---
+
+# 🗺️ FEUILLE DE ROUTE (ROADMAP) : Versions v0.0.3 à v0.0.9 (Contenu Premium PM)
+
+Ce volet réunit les spécifications stratégiques conçues par le Product Manager pour les futures itérations du MVP (versions 0.0.3 à 0.0.9), visant à consolider l'immersion ludique, l'ergonomie physique et l'apprentissage inclusif des 4-8 ans.
+
+---
+
+## 🎫 Ticket #R3 : Version 0.0.3 - Le Refuge des Compagnons Animés 🦄
+**Statut** : 🔴 À faire (Planifié pour v0.0.3)
+**Sévérité** : Moyenne (Gamification / Engagement)
+**Localisation** : `src/components/CompanionRefuge/` & `src/store/useCompanionStore.ts`
+**Description** :
+Créer une nouvelle zone interactive appelée "Le Refuge" où l'enfant peut jouer et prendre soin de ses familiers virtuels débloqués (Bébé Dino, Petit Chien, Mini Robot). L'enfant utilise les étoiles récoltées lors des quiz pour acheter des friandises (comme des os en sucre ou des feuilles dorées), déclenchant des animations vectorielles exclusives en temps réel (le dinosaure fait un clin d'œil, le chien court chercher une balle) et des sons drôles.
+**Critères d'Acceptation (DOD)** :
+- [ ] Créer l'interface responsive `CompanionRefuge` accessible depuis la page d'accueil de KidPedia.
+- [ ] Implémenter le store `useCompanionStore` gérant le niveau d'affection des compagnons et les stocks d'objets.
+- [ ] Mettre en œuvre au moins 3 animations interactives interactives en SVG/CSS avec micro-animations de lueur pour chacun des trois familiers.
+
+---
+
+## 🎫 Ticket #R4 : Version 0.0.4 - La Baguette Magique d'Inclusion (Synthèse Vocale) 🗣️
+**Statut** : 🔴 À faire (Planifié pour v0.0.4)
+**Sévérité** : Élevée (Accessibilité / Inclusion Jeune Âge)
+**Localisation** : `src/components/Learning/TopicDetail/` & `src/hooks/useReaderVoice.ts`
+**Description** :
+Pour les enfants de 4-6 ans qui ne savent pas encore déchiffrer couramment, la lecture des descriptions longues est un frein à l'apprentissage autonome. Il faut ajouter une fonctionnalité "Baguette de Lecture" qui lit à haute voix les paragraphes éducatifs d'un simple survol ou clic, en utilisant une voix off synthétique bienveillante via l'API Web Speech, synchronisée dynamiquement avec la langue du profil.
+**Critères d'Acceptation (DOD)** :
+- [ ] Créer le hook `useReaderVoice` encapsulant l'initialisation de l'API de synthèse vocale avec sélection de la voix enfantine ou douce.
+- [ ] Intégrer un bouton flottant "Baguette Magique" (`🪄`) sur les pages de leçons interactives.
+- [ ] Mettre en surbrillance de couleur pastel douce (`--color-primary-light` à 30% d'opacité) le mot ou la phrase actuellement lue en temps réel.
+
+---
+
+## 🎫 Ticket #R5 : Version 0.0.5 - Le Grand Quiz des Champions (Mode Défi) 🏆
+**Statut** : 🔴 À faire (Planifié pour v0.0.5)
+**Sévérité** : Moyenne (Gamification / Rétention)
+**Localisation** : `src/pages/Championship/` & `src/store/useQuizChampionshipStore.ts`
+**Description** :
+Introduire un mode de jeu compétitif et rejouable appelé "Le Grand Quiz". Contrairement aux quiz classiques de fiche, ce mode tire 10 questions aléatoires à travers toutes les catégories de l'encyclopédie. Un compte à rebours ludique de 15 secondes par question matérialisé par une mèche d'allumette qui brûle ajoute une tension excitante, récompensée par une avalanche de confettis dorés et un trophée physique à exposer.
+**Critères d'Acceptation (DOD)** :
+- [ ] Construire le composant `ChampionshipPage` avec un design premium (effet néon, dégradés d'or).
+- [ ] Implémenter le minuteur graphique interactif (SVG de mèche d'allumette qui brûle progressivement).
+- [ ] Sauvegarder les 5 meilleurs scores locaux dans le `LocalStorage` et afficher un tableau d'honneur personnalisé avec l'avatar de l'enfant.
+
+---
+
+## 🎫 Ticket #R6 : Version 0.0.6 - La Carte interactive Sonorisée 🗺️
+**Statut** : 🔴 À faire (Planifié pour v0.0.6)
+**Sévérité** : Faible (Immersion Sensorielle)
+**Localisation** : `src/components/Game/TreasureMap.tsx` & `src/hooks/useMapSounds.ts`
+**Description** :
+Sublimer la carte au trésor interactive en y intégrant un habillage sonore spatialisé de haute qualité. Le glissement (drag/pan) sur la carte doit diffuser un bruit continu et doux de vagues océaniques et de vent marin. Le survol ou le clic sur les îles thématiques déclenche des sonorités spatialisées (cris de mouettes, grondement lointain de volcan, musique mystique des étoiles pour l'île de l'Espace) renforçant le "Waouh effect".
+**Critères d'Acceptation (DOD)** :
+- [ ] Configurer un gestionnaire de contexte audio Web Audio API pour spatialiser les sons selon la position de défilement (panning) de la carte.
+- [ ] Assurer un fondu enchaîné (fade in/out) de 400ms lors de la sélection des îles pour éviter toute transition audio abrupte.
+- [ ] Lier cette ambiance au bouton général de sourdine (`MuteToggle`) de l'en-tête pour respecter la tranquillité des parents.
+
+---
+
+## 🎫 Ticket #R7 : Version 0.0.7 - La Cabane Personnalisable d'Explorateur 🎁
+**Statut** : 🔴 À faire (Planifié pour v0.0.7)
+**Sévérité** : Moyenne (Mécanique de Collectionneur)
+**Localisation** : `src/pages/Cabin/` & `src/store/useCabinStore.ts`
+**Description** :
+Offrir à l'enfant un espace virtuel personnel appelé "Ma Cabane". Dans cet espace, l'enfant peut disposer ses médailles d'or physiques sur un grand mur de trophées en bois poli et placer ses compagnons virtuels à différents endroits de la pièce. Il peut également décorer sa cabane avec des accessoires thématiques achetés en récompense de ses progrès scolaires (ex: poster du système solaire, tapis peau de dinosaure).
+**Critères d'Acceptation (DOD)** :
+- [ ] Concevoir un décor de cabane chaleureux en verre dépoli et bois 3D avec grilles d'ancrage tactiles simples (drag-and-drop d'éléments).
+- [ ] Implémenter le store de sauvegarde de la cabane persistant dans `useCabinStore`.
+- [ ] Permettre à l'enfant de faire des photos (screenshots) de sa cabane pour les sauvegarder dans son Carnet de Voyage.
+
+---
+
+## 🎫 Ticket #R8 : Version 0.0.8 - Le Journal d'Exploration Collaboratif (Enfant-Parent) 📔
+**Statut** : 🔴 À faire (Planifié pour v0.0.8)
+**Sévérité** : Moyenne (Lien Social / Pédagogie active)
+**Localisation** : `src/pages/Journal/` & `src/components/Journal/ParentBridge.tsx`
+**Description** :
+Créer une passerelle éducative interactive entre l'enfant et ses parents. Le "Journal d'Exploration" compile les accomplissements de l'enfant sous forme d'illustrations d'aventurier à compléter, et propose une section "Le savais-tu, papa et maman ?" contenant des questions insolites basées sur les leçons du jour (ex: *"Savais-tu que la Terre tourne à 1600 km/h sans qu'on s'en rende compte ?"*). Cela encourage l'échange verbal et familial à table.
+**Critères d'Acceptation (DOD)** :
+- [ ] Structurer le journal comme un véritable livre d'aventures avec des effets d'ouverture 3D et de pages qui tournent.
+- [ ] Proposer 3 questions de discussion parent-enfant générées dynamiquement chaque jour selon les sujets explorés par l'enfant.
+- [ ] Permettre aux parents d'attribuer des "Étoiles d'Encouragement" depuis leur zone sécurisée pour débloquer un cadeau spécial.
+
+---
+
+## 🎫 Ticket #R9 : Version 0.0.9 - Le Verrouillage Kid-Safe Intelligent 🔒
+**Statut** : 🔴 À faire (Planifié pour v0.0.9)
+**Sévérité** : Moyenne (Ergonomie / Sécurité)
+**Localisation** : `src/components/Parents/ParentsGate.tsx`
+**Description** :
+Le système actuel pour entrer dans la Zone Parents repose sur des multiplications simples (ex: `8 x 7`). Cependant, certains enfants précoces de 8 ans contournent ce verrou facilement. Il faut remplacer cette formule austère par des puzzles ludo-éducatifs plus élaborés mais non mathématiques (ex: "Associe le bébé animal à son parent", ou des suites logiques de constellations) insolubles pour les plus petits, tout en étant distrayants.
+**Critères d'Acceptation (DOD)** :
+- [ ] Créer une banque de 5 mini-jeux de logique/association visuels rapides (durée < 10 secondes pour un adulte).
+- [ ] Gérer l'échec de tentative en brouillant les cartes d'association pour éviter le forçage par clics aléatoires chez l'enfant.
+- [ ] Conserver l'accessibilité WCAG AA avec des descriptions vocales et des contrastes élevés sur les cartes de puzzle.
