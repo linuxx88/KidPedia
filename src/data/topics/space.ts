@@ -141,6 +141,10 @@ export const space = [
       {
         fr: "La Terre possède un bouclier magnétique invisible qui la protège des rayons dangereux du Soleil, permettant aux plantes et aux animaux de grandir en toute sécurité.",
         en: "The Earth has an invisible magnetic shield that protects it from the Sun's dangerous rays, allowing plants and animals to grow safely."
+      },
+      {
+        fr: "La Terre est notre magnifique maison, la seule planète connue dans l'univers qui abrite de la vie grâce à son eau et son air pur. Comme un grand jardin bienveillant qui nourrit et protège toutes les plantes et les animaux, la Terre prend soin de toi, et tu peux toi aussi en prendre soin par tes petits gestes chaque jour.",
+        en: "The Earth is our beautiful home, the only known planet in the universe that supports life thanks to its water and fresh air. Like a grand, caring garden that feeds and protects all plants and animals, the Earth takes care of you, and you can also take care of it with your small actions every day."
       }
     ],
     funFact: {

@@ -39,6 +39,11 @@ export const QUIZ_BANKS: Partial<Record<TopicId, Quiz[]>> = {
       question: { fr: "Qu'y a-t-il sur Terre qui permet la vie ?", en: "What is on Earth that allows life?" },
       options: { fr: ['Du feu', "De l'eau liquide", 'De la glace seulement'], en: ['Fire', 'Liquid water', 'Only ice'] },
       correctAnswer: 1
+    },
+    {
+      question: { fr: "Qu'est-ce qui rend la Terre si spéciale dans l'Espace ?", en: "What makes the Earth so special in Space?" },
+      options: { fr: ["Elle a de l'eau, de l'air et abrite de la vie", "Elle est faite entièrement en chocolat", "Elle est complètement vide et silencieuse"], en: ["It has water, air, and supports life", "It is made entirely of chocolate", "It is completely empty and silent"] },
+      correctAnswer: 0
     }
   ],
   'la-lune': [
