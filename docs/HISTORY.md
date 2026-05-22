@@ -6,6 +6,13 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
+### VERSION 3.10.2 - Optimisation CI/CD & Accélération E2E Playwright (22 Mai 2026)
+--------------------------------------------------
+- **[Qualité/CI] Optimisation du Workflow GitHub Actions :**
+    - **Mise en cache intelligente de Playwright** : Intégration d'une étape de mise en cache du répertoire `~/.cache/ms-playwright` indexée sur le hash du fichier `package-lock.json` (`actions/cache@v4`), évitant le téléchargement de plus de 300 Mo de navigateurs sur chaque exécution.
+    - **Installation conditionnelle** : Séparation des étapes d'installation de Playwright pour n'installer que les dépendances système Linux (`playwright install-deps`) en cas de succès du cache, réduisant le temps d'installation à moins de 5 secondes.
+    - **Filtrage des déclencheurs de workflow** : Ajout de la clause `paths-ignore` sur le workflow `Validate` afin de ne pas déclencher la suite de tests et E2E lors de modifications exclusives de la documentation (`docs/**`, `*.md`) ou des configurations Git (`.gitignore`).
+
 ### VERSION 3.10.1 - Optimisation Responsive & Anti-débordement Mobile (22 Mai 2026)
 --------------------------------------------------
 - **[Feature] RWD & Support Ultra-DPI (Ticket #59) :**
