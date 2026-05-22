@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <!-- Viewport sécurisé autorisant le zoom tout en assurant une flexibilité mobile optimale -->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>Gabarit Responsif Autonome - KidPedia Template System</title>
+  
+  <!-- Optimisation SEO -->
+  <meta name="description" content="Gabarit de page HTML5 ultra-rapide et responsive en CSS pur. Intègre le reset moderne, la gestion de zone sécurisée (Safe Area), et des typographies fluides.">
+  <meta name="robots" content="index, follow">
+  
+  <!-- OpenGraph pour les réseaux sociaux -->
+  <meta property="og:title" content="Gabarit Responsif Autonome - KidPedia">
+  <meta property="og:description" content="Structure moderne Mobile-First de haute performance en CSS pur sans dépendance externe.">
+  <meta property="og:type" content="website">
+
+  <!-- Typographie Premium Google Fonts (Outfit & Inter) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@500;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Lien vers la feuille de styles globale modulaire -->
+  <link rel="stylesheet" href="./gabarit-layout.css">
+</head>
+<body>
+
+  <!-- Conteneur principal auto-ajustable -->
+  <div class="app-container" id="main-container">
+
+    <!-- En-tête globale respectueuse des Safe Areas -->
+    <header class="app-header" id="global-header">
+      <a href="#" class="logo-link" id="logo-home">
+        <span>🚀</span> KidPedia Hub
+      </a>
+      
+      <!-- Menu Navigation Desktop -->
+      <nav class="nav-menu" id="desktop-nav" aria-label="Navigation principale">
+        <a href="#" class="nav-link active" id="nav-home">Accueil</a>
+        <a href="#" class="nav-link" id="nav-topics">Sujets</a>
+        <a href="#" class="nav-link" id="nav-safari">Safari</a>
+        <a href="#" class="nav-link" id="nav-parents">Parents</a>
+      </nav>
+
+      <!-- Bouton Menu Mobile -->
+      <button class="mobile-menu-btn" id="menu-toggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </header>
+
+    <!-- Corps de la page -->
+    <main class="app-main" id="main-content">
+      
+      <!-- Section Hero Premium avec typographies fluides -->
+      <section class="hero-banner" id="welcome-hero">
+        <span class="badge primary" id="hero-badge">Nouveau Template</span>
+        <h1 id="hero-title">Découvre le Monde en Grand !</h1>
+        <p id="hero-description">Une interface moderne, réactive et parfaitement adaptée à tous les écrans tactiles, des smartphones haute densité aux ordinateurs de bureau.</p>
+        <div class="flex-actions">
+          <a href="#" class="btn-primary" id="cta-explore">
+            <span>✨</span> Commencer l'Aventure
+          </a>
+        </div>
+      </section>
+
+      <!-- Layout Réactif à deux colonnes (Mobile-First) -->
+      <div class="content-layout" id="page-grid">
+        
+        <!-- Contenu Principal -->
+        <article class="main-content" id="article-view">
+          <h2 style="margin-bottom: var(--spacing-lg); font-weight: 800; font-family: var(--font-sans);" id="section-title">
+            Fiches de Découverte
+          </h2>
+
+          <!-- Grille responsive de cartes premium -->
+          <div class="card-grid" id="cards-container">
+            
+            <!-- Carte Premium 1 -->
+            <div class="premium-card" id="card-dino">
+              <span class="badge primary">Préhistoire</span>
+              <h3 style="margin: var(--spacing-sm) 0; font-weight: 700;" id="card-dino-title">Le Tyrannosaure</h3>
+              <p style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--spacing-md);">Le roi des dinosaures avec ses dents géantes et sa force incroyable. Apprends tout sur son mode de vie et ses chasses.</p>
+              <a href="#" class="btn-secondary" id="btn-read-dino">Découvrir 🦖</a>
+            </div>
+
+            <!-- Carte Premium 2 (Accent) -->
+            <div class="premium-card accent" id="card-space">
+              <span class="badge accent">Espace</span>
+              <h3 style="margin: var(--spacing-sm) 0; font-weight: 700;" id="card-space-title">Le Système Solaire</h3>
+              <p style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--spacing-md);">Explore les huit planètes incroyables qui tournent autour du Soleil, de Mercure la brûlante à Neptune la glacée.</p>
+              <a href="#" class="btn-secondary" id="btn-read-space">Décoller 🚀</a>
+            </div>
+
+            <!-- Carte Premium 3 -->
+            <div class="premium-card" id="card-ocean">
+              <span class="badge primary">Nature</span>
+              <h3 style="margin: var(--spacing-sm) 0; font-weight: 700;" id="card-ocean-title">La Grande Barrière de Corail</h3>
+              <p style="font-size: var(--fs-sm); color: var(--color-text-muted); margin-bottom: var(--spacing-md);">Plonge au cœur de l'océan pour admirer des milliers de poissons colorés et de coraux magnifiques dans l'eau tiède.</p>
+              <a href="#" class="btn-secondary" id="btn-read-ocean">Plonger 🐠</a>
+            </div>
+
+          </div>
+        </article>
+
+        <!-- Barre Latérale (Sidebar) - Se positionne en bas sur mobile, et à droite (768px+) -->
+        <aside class="sidebar" id="widgets-sidebar">
+          <div class="premium-card" style="margin-bottom: var(--spacing-lg);" id="widget-profile">
+            <h3 style="font-weight: 800; margin-bottom: var(--spacing-sm);">Statistiques</h3>
+            <ul style="display: flex; flex-direction: column; gap: var(--spacing-sm); font-size: var(--fs-sm);">
+              <li style="display: flex; justify-content: space-between;">
+                <span>🏆 Trophées gagnés</span>
+                <strong>12 / 20</strong>
+              </li>
+              <li style="display: flex; justify-content: space-between;">
+                <span>🎫 Tickets QC cumulés</span>
+                <strong>45 🎫</strong>
+              </li>
+              <li style="display: flex; justify-content: space-between;">
+                <span>⚡ Énergie XP</span>
+                <strong>850 XP</strong>
+              </li>
+            </ul>
+          </div>
+
+          <div class="premium-card accent" id="widget-info">
+            <h3 style="font-weight: 800; margin-bottom: var(--spacing-xs);">Le Saviez-vous ? 💡</h3>
+            <p style="font-size: var(--fs-sm); line-height: 1.5; color: var(--color-text-muted);">
+              Les escargots peuvent dormir jusqu'à trois ans sans se réveiller s'ils ont trop froid ou s'ils manquent d'eau !
+            </p>
+          </div>
+        </aside>
+
+      </div>
+    </main>
+
+    <!-- Pied de page respectueux de la Safe Area du bas -->
+    <footer class="app-footer" id="global-footer">
+      <p id="copyright">&copy; 2026 KidPedia. Tous droits réservés.</p>
+      <p style="margin-top: var(--spacing-xs); font-size: 10px; color: var(--color-text-light);" id="tech-stamp">
+        Modèle de page réactive &bull; CSS Pur &bull; Prise en charge Safe Area
+      </p>
+    </footer>
+
+  </div>
+
+  <!-- Script interactif minimaliste pour le menu mobile et les retours visuels -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuToggle = document.getElementById('menu-toggle');
+      const desktopNav = document.getElementById('desktop-nav');
+      
+      if (menuToggle && desktopNav) {
+        menuToggle.addEventListener('click', () => {
+          const isExpanded = menuToggle.getAttribute('aria-expanded') === 'true';
+          menuToggle.setAttribute('aria-expanded', !isExpanded);
+          
+          // Toggle navigation menu visibility for mobile
+          if (!isExpanded) {
+            desktopNav.style.display = 'flex';
+            desktopNav.style.flexDirection = 'column';
+            desktopNav.style.position = 'absolute';
+            desktopNav.style.top = '100%';
+            desktopNav.style.left = '0';
+            desktopNav.style.width = '100%';
+            desktopNav.style.background = 'var(--color-surface)';
+            desktopNav.style.padding = 'var(--spacing-md)';
+            desktopNav.style.borderBottom = '1px solid var(--color-border)';
+            desktopNav.style.boxShadow = 'var(--shadow-md)';
+          } else {
+            desktopNav.style.display = '';
+            desktopNav.style.flexDirection = '';
+            desktopNav.style.position = '';
+            desktopNav.style.top = '';
+            desktopNav.style.left = '';
+            desktopNav.style.width = '';
+            desktopNav.style.background = '';
+            desktopNav.style.padding = '';
+            desktopNav.style.borderBottom = '';
+            desktopNav.style.boxShadow = '';
+          }
+        });
+
+        // Reset style if resizing screen to desktop
+        window.addEventListener('resize', () => {
+          if (window.innerWidth >= 768) {
+            desktopNav.style.display = '';
+            desktopNav.style.flexDirection = '';
+            desktopNav.style.position = '';
+            desktopNav.style.top = '';
+            desktopNav.style.left = '';
+            desktopNav.style.width = '';
+            desktopNav.style.background = '';
+            desktopNav.style.padding = '';
+            desktopNav.style.borderBottom = '';
+            desktopNav.style.boxShadow = '';
+            menuToggle.setAttribute('aria-expanded', 'false');
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
