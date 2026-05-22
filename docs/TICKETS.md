@@ -674,3 +674,33 @@ Critères d'Acceptation (DOD) :
 [ ] Définir une limite de "cartes actives" : seules les cartes dans le viewport doivent calculer leur parallaxe.
 
 [ ] S'assurer que le calcul des coordonnées de souris est nettoyé (cleanup) lors du démontage du composant pour éviter toute fuite de mémoire
+
+---
+
+## 🎫 Ticket #59 : Débordement et surdimensionnement des éléments sur écrans mobiles haute résolution (ex: Galaxy S24 Ultra)
+Statut : 🔴 À faire
+
+Sévérité : Élevée (Expérience Utilisateur Mobile / RWD)
+
+Localisation : Fichiers CSS globaux (`src/index.css`), structures de mise en page (`TopicDetail.module.css`, `Quiz.module.css`) et configuration générale du Viewport.
+
+Description : 
+Sur les smartphones haut de gamme à haute densité de pixels (comme le Samsung Galaxy S24 Ultra, avec un ratio d'aspect allongé et une DPR élevée), certains éléments d'interface débordent de l'écran, s'affichent de manière disproportionnée ou sont surdimensionnés. Ce problème est dû à des dimensions fixes (en `px`), à des contraintes de hauteur non adaptées aux ratios d'affichage mobiles verticaux, ou à l'absence de "clamp" sur les typographies fluides et les paddings.
+
+**Causes Techniques Identifiées** :
+1. **Typographies rigides** : Utilisation de tailles de police absolues qui ne s'adaptent pas à la largeur du viewport ou au zoom d'affichage système.
+2. **Paddings et Marges fixes** : Les grands espacements rigides consomment l'espace vertical disponible, provoquant des barres de défilement ou des chevauchements d'éléments interactifs.
+3. **Dimensions de grille inflexibles** : Utilisation de `grid-template-columns` sans garde-fous de wrap (`flex-wrap: wrap`) ou de limites minimales et maximales dynamiques (`minmax`).
+4. **Balise Viewport rigide** : Manque d'adaptabilité du viewport lors du rendu sous les navigateurs mobiles modernes utilisant des facteurs d'échelle élevés (DPR ~3+).
+
+**Solutions Proposées** :
+1. **Typographie Fluide & Sécurisée** : Remplacer les polices de grande taille par des fonctions CSS `clamp()` (ex. `font-size: clamp(1rem, 4vw, 1.5rem)`) pour que le texte se contracte proprement sur mobile.
+2. **Paddings & Marges Responsives** : Remplacer les dimensions absolues de marges et de rembourrages (padding) par des valeurs relatives (en `rem` ou via des variables CSS réactives `@media`).
+3. **Garde-fous Flexbox et Grid** : S'assurer que tous les conteneurs de cartes ou d'options (`.optionsGrid`, `.quizOption`) disposent de `max-width: 100%`, `box-sizing: border-box`, et qu'aucun élément n'ait de `height` ou `width` absolue bloquante.
+4. **Breakpoints Mobiles Modernes** : Introduire une clause média `@media (max-width: 480px)` affinant spécifiquement les paddings et limitant le zoom des cartes d'apprentissage sur smartphones très denses.
+
+Critères d'Acceptation (DOD) :
+- [ ] Vérifier et adapter la balise `<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />` dans `index.html`.
+- [ ] Remplacer les tailles de police trop imposantes des titres et des descriptions par des typographies fluides utilisant `clamp()`.
+- [ ] Ajuster les règles CSS de layout (`flex`, `grid`, `padding`, `margin`) sur mobile pour s'assurer que les cartes d'options de quiz et les boutons d'apprentissage tiennent entièrement dans le viewport sans forcer de défilement horizontal.
+- [ ] Valider le bon rendu responsive sans débordement sur les simulateurs de navigateurs mobiles (ex: Chrome DevTools, profils mobiles haute densité).
