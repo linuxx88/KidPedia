@@ -7,6 +7,18 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
 
+### VERSION 3.16.1 - Protection anti-quitting accidentel sur Mission Safari (Ticket #16) (22 Mai 2026)
+--------------------------------------------------
+- **[Logic/UX] Sécurisation de l'abandon de quiz dans le mode Mission Safari :**
+    - **MissionSafari.tsx & MissionSafari.module.css** :
+        - Ajout d'un état local `showQuitConfirm` interceptant le clic de fermeture ou à l'extérieur de l'overlay de quiz.
+        - Ajout d'une fenêtre de confirmation overlay (`AppOverlay` de largeur maximale `500px`) prévenant l'enfant avec bienveillance du risque de fuite de l'animal.
+        - Option "Continuer le quiz ! 💪" (bouton primaire) permettant de reprendre l'apprentissage sans aucune interruption ni pénalité.
+        - Option "Oui, quitter 👋" (bouton secondaire) actant l'abandon du quiz et la fuite de l'animal (retour au statut initial).
+    - **Internationalisation (fr.ts, en.ts, types.ts)** :
+        - Intégration bilingue des étiquettes et messages d'avertissement (`quitConfirmTitle`, `quitConfirmMessage`, `quitConfirmYes`, `quitConfirmNo`).
+    - **TICKETS.md** : Résolution formelle du Ticket #16.
+
 ### VERSION 3.16.0 - Tranche Premium Espace Product Manager (Soleil, Lune, Terre) (22 Mai 2026)
 --------------------------------------------------
 - **[Content/Logic] Finalisation de l'intégration des contenus éducatifs et quiz Premium Product Manager pour la trilogie spatiale (Soleil, Lune, Terre) :**
