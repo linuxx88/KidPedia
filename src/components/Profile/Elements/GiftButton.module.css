@@ -44,3 +44,11 @@
 .label {
   color: var(--color-explorer-blue, #3b82f6);
 }
+
+@media (max-width: 768px) {
+  .giftButton {
+    margin-left: 0;
+    min-width: 100px;
+    padding: 0.6rem 1.25rem;
+  }
+}

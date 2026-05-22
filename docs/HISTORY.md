@@ -6,6 +6,13 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
+### VERSION 3.10.5 - Alignement Horizontal des Boutons du PageHeader sur Mobile (22 Mai 2026)
+--------------------------------------------------
+- **[Responsive/Ajustement] Alignement côte à côte des boutons de Galerie :**
+    - **Optimisation de PageHeader** : Modification de la media query `@media (max-width: 768px)` dans `PageHeader.module.css` pour forcer `.navSection` et `.rightSection` à occuper la même ligne avec une configuration `flex: 1` et un espacement fluide `gap: 1rem` (Flexbox), évitant le décalage vertical.
+    - **Ajustement de BackButton & GiftButton** : Intégration de clauses médias dans `BackButton.module.css` et `GiftButton.module.css` pour réduire la taille minimale à `100px`, ajuster le padding à `0.6rem 1.25rem` et réinitialiser les marges latérales à `0` sur mobile, éliminant tout débordement ou empilement vertical.
+    - **Validation Qualité** : Exécution réussie des 151 tests de validation unitaire et de typage strict.
+
 ### VERSION 3.10.4 - Gabarits de Pages Réactifs CSS Pur Modulaires (22 Mai 2026)
 --------------------------------------------------
 - **[Documentation/Feature] Gabarits de page réactifs autonomes :**

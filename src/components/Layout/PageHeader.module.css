@@ -57,11 +57,19 @@
     height: auto;
     padding: 0.8rem 1rem;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 1rem;
   }
   
-  .navSection, .rightSection {
-    flex: 0 0 auto;
+  .navSection {
+    flex: 1;
+    display: flex;
+    justify-content: flex-start;
+  }
+  
+  .rightSection {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
   }
   
   .titleSection {
