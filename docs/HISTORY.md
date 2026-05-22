@@ -6,6 +6,17 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
+### VERSION 3.10.0 - Synthèse Vocale (TTS - Text-To-Speech) pour Enfants Non-Lecteurs (22 Mai 2026)
+--------------------------------------------------
+- **[Feature] Synthèse Vocale (TTS) Granulaire (Ticket #24) :**
+    - **Hook Personnalisé `useTextToSpeech`** : Création d'un hook `useTextToSpeech.ts` encapsulant l'API native `SpeechSynthesis`. Gère la détection intelligente de voix selon la locale courante du profil (`fr` ou `en`), le réglage d'une cadence de lecture lente de `0.9` adaptée aux jeunes enfants (4-6 ans), l'état actif de lecture par bloc d'id unique, et l'interruption automatique ou le nettoyage lors du démontage pour éviter les cacophonies de voix qui se chevauchent.
+    - **Composant `DiscreteSpeaker` & Animations Fluides** : Implémentation d'un bouton haut-parleur discret avec style morphique en verre (glassmorphic), retour visuel dynamique par vagues/pulsations d'ondes sonores (soundwaves animation) lors de la lecture active.
+    - **Intégration Granulaire dans TopicDetail & Quiz** :
+        - Intégration de haut-parleurs individuels sur les fiches (description) et d'anecdotes (fun facts) dans `TopicDetail.tsx`.
+        - Intégration de haut-parleurs indépendants sur les questions du quiz et chaque option de réponse A/B/C dans `Quiz.tsx`.
+        - Gestion rigoureuse de l'arrêt de la propagation des clics (`e.stopPropagation()`) sur les boutons audio des options du quiz pour éviter que la lecture de l'option ne déclenche la sélection ou la validation par erreur de la réponse correspondante.
+    - **Tests Unitaires Riches** : Ajout de scénarios de validation automatique dans `TopicDetail.test.tsx` et `Quiz.test.tsx` pour tester les mocks de `speechSynthesis` et garantir le bon déclenchement de la parole à chaque clic sur les haut-parleurs sans régression.
+
 ### VERSION 3.9.0 - Économie de Jeu & Boutique d'Accessoires (22 Mai 2026)
 --------------------------------------------------
 - **[Feature] Économie de Jeu & Boutique d'Accessoires (Ticket #55) :**

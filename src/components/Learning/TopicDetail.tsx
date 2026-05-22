@@ -5,6 +5,7 @@ import { type Gender } from '../../utils/helpers'
 import { type MedalType } from '../../utils/quizMessages'
 import { type Labels } from '../../locales/types'
 import BackButton from '../UI/BackButton'
+import { useTextToSpeech } from '../../hooks/useTextToSpeech'
 import styles from './TopicDetail.module.css'
 
 interface TopicDetailProps {
@@ -27,6 +28,34 @@ interface TopicDetailProps {
   anchorIcon?: string
 }
 
+interface DiscreteSpeakerProps {
+  isSpeaking: boolean
+  onClick: (e: React.MouseEvent) => void
+  label: string
+}
+
+export const DiscreteSpeaker = ({ isSpeaking, onClick, label }: DiscreteSpeakerProps) => {
+  return (
+    <button
+      type="button"
+      className={`${styles.discreteSpeaker} ${isSpeaking ? styles.discreteSpeakerActive : ''}`}
+      onClick={onClick}
+      aria-label={label}
+      title={label}
+    >
+      {isSpeaking ? (
+        <span className={styles.discreteSpeakerAnimation}>
+          <span className={styles.discreteSpeakerWave}></span>
+          <span className={styles.discreteSpeakerWave}></span>
+          <span className={styles.discreteSpeakerWave}></span>
+        </span>
+      ) : (
+        <span className={styles.discreteSpeakerIcon}>🔊</span>
+      )}
+    </button>
+  )
+}
+
 export const TopicDetail = ({
   title,
   description,
@@ -46,37 +75,25 @@ export const TopicDetail = ({
   attempts,
   anchorIcon,
 }: TopicDetailProps) => {
-  const [isSpeakingSystem, setIsSpeakingSystem] = useState(false)
   const [isPlayingAudio, setIsPlayingAudio] = useState(false)
   const [speechError, setSpeechError] = useState<string | null>(null)
-  const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
-  const [isVoicesReady, setIsVoicesReady] = useState(false)
   const audioRef = useRef<HTMLAudioElement | null>(null)
 
-  const isSpeaking = isSpeakingSystem || isPlayingAudio
+  const handleError = (errorKey: 'speechNotSupported' | 'speechSystem') => {
+    setSpeechError(labels.errors[errorKey])
+  }
+
+  const {
+    activeSpeechId,
+    isVoicesReady,
+    speak,
+    stop: stopTTS,
+  } = useTextToSpeech({ language, onError: handleError })
+
+  const isSpeaking = activeSpeechId !== null || isPlayingAudio
 
   useEffect(() => {
-    const loadVoices = () => {
-      const availableVoices = window.speechSynthesis.getVoices()
-      if (availableVoices.length > 0) {
-        setVoices(availableVoices)
-        setIsVoicesReady(true)
-      }
-    }
-
-    // Chrome load voices asynchronously
-    if ('speechSynthesis' in window) {
-      if (window.speechSynthesis.onvoiceschanged !== undefined) {
-        window.speechSynthesis.onvoiceschanged = loadVoices
-      }
-      loadVoices()
-    }
-
     return () => {
-      if ('speechSynthesis' in window) {
-        window.speechSynthesis.cancel()
-        window.speechSynthesis.onvoiceschanged = null
-      }
       if (audioRef.current) {
         audioRef.current.pause()
         audioRef.current = null
@@ -103,10 +120,7 @@ export const TopicDetail = ({
   }
 
   const stopAllSpeech = () => {
-    if ('speechSynthesis' in window) {
-      window.speechSynthesis.cancel()
-    }
-    setIsSpeakingSystem(false)
+    stopTTS()
     if (audioRef.current) {
       audioRef.current.pause()
       audioRef.current.currentTime = 0
@@ -114,49 +128,7 @@ export const TopicDetail = ({
     setIsPlayingAudio(false)
   }
 
-  const speakSystem = () => {
-    if (!('speechSynthesis' in window)) {
-      setSpeechError(labels.errors.speechNotSupported)
-      return
-    }
-
-    window.speechSynthesis.cancel()
-
-    let currentVoices = voices
-    if (currentVoices.length === 0) {
-      currentVoices = window.speechSynthesis.getVoices()
-    }
-
-    if (currentVoices.length === 0) {
-      setSpeechError(labels.errors.speechSystem)
-      return
-    }
-
-    const textToRead = `${title}. ${description}. ${labels.quiz.didYouKnow} ${funFact}`
-    const utterance = new SpeechSynthesisUtterance(textToRead)
-
-    const voiceLang = language === 'fr' ? 'fr' : 'en'
-    const voice = currentVoices.find((v) => v.lang.toLowerCase().includes(voiceLang))
-    if (voice) utterance.voice = voice
-
-    utterance.lang = language === 'fr' ? 'fr-FR' : 'en-US'
-    utterance.rate = 0.9
-
-    utterance.onstart = () => setIsSpeakingSystem(true)
-    utterance.onend = () => setIsSpeakingSystem(false)
-    utterance.onerror = (e) => {
-      // Ignore "interrupted" errors which happen when we call cancel()
-      if (e.error !== 'interrupted') {
-        console.error('SpeechSynthesis error:', e)
-        setSpeechError(labels.errors.speechSystem)
-      }
-      setIsSpeakingSystem(false)
-    }
-
-    window.speechSynthesis.speak(utterance)
-  }
-
-  const handleSpeak = () => {
+  const handleSpeakGlobal = () => {
     setSpeechError(null)
 
     if (isSpeaking) {
@@ -167,7 +139,8 @@ export const TopicDetail = ({
     if (audioFile) {
       playAudioFile(audioFile)
     } else {
-      speakSystem()
+      const textToRead = `${title}. ${description}. ${labels.quiz.didYouKnow} ${funFact}`
+      speak(textToRead, 'global')
     }
   }
 
@@ -177,8 +150,7 @@ export const TopicDetail = ({
   }
 
   const handleReview = () => {
-    // On remonte tout en haut pour que l'enfant relise le secret
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
   const getButtonText = () => {
@@ -215,7 +187,7 @@ export const TopicDetail = ({
           )}
           <button
             className={`${styles.navBtn} ${audioBtnClass}`}
-            onClick={handleSpeak}
+            onClick={handleSpeakGlobal}
             disabled={isAudioDisabled}
             data-disabled={isAudioDisabled}
           >
@@ -243,7 +215,14 @@ export const TopicDetail = ({
         <div className={styles.topicSeparator} />
 
         <section className={styles.topicSectionContent}>
-          <div className={styles.topicDescriptionText}>{description}</div>
+          <div className={styles.descriptionContainer}>
+            <div className={styles.topicDescriptionText}>{description}</div>
+            <DiscreteSpeaker
+              isSpeaking={activeSpeechId === 'description'}
+              onClick={() => speak(description, 'description')}
+              label={language === 'fr' ? 'Écouter la description' : 'Listen to description'}
+            />
+          </div>
 
           <div className={styles.topicFunFactBox}>
             <div className={styles.topicFunFactIcon}>{anchorIcon || '💡'}</div>
@@ -251,7 +230,14 @@ export const TopicDetail = ({
               <span className={styles.funFactLine}></span>
               {labels.quiz.didYouKnow}
             </div>
-            <p className={styles.topicFunFactText}>"{funFact}"</p>
+            <div className={styles.funFactContentWrapper}>
+              <p className={styles.topicFunFactText}>"{funFact}"</p>
+              <DiscreteSpeaker
+                isSpeaking={activeSpeechId === 'funFact'}
+                onClick={() => speak(`${labels.quiz.didYouKnow}. ${funFact}`, 'funFact')}
+                label={language === 'fr' ? "Écouter l'anecdote" : 'Listen to fun fact'}
+              />
+            </div>
           </div>
         </section>
 
@@ -272,14 +258,17 @@ export const TopicDetail = ({
               attempts={attempts}
               funFact={funFact}
               anchorIcon={anchorIcon}
+              onSpeakText={speak}
+              activeSpeechId={activeSpeechId}
             />
           </div>
         </section>
       </div>
 
-      <button className={styles.topicFinishButton} onClick={onBack}>
+      <button className={styles.topicFinishButton} onClick={handleBack}>
         {labels.common.finish}
       </button>
     </div>
   )
 }
+

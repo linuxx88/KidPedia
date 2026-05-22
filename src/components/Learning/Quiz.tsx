@@ -4,6 +4,7 @@ import { type Gender } from '../../utils/helpers'
 import { type Labels } from '../../locales/types'
 import { useAudioFeedback } from '../../hooks/useAudioFeedback'
 import { useSettingsStore } from '../../store/useSettingsStore'
+import { DiscreteSpeaker } from './TopicDetail'
 import styles from './Quiz.module.css'
 
 interface QuizProps {
@@ -19,6 +20,8 @@ interface QuizProps {
   attempts: number
   funFact: string
   anchorIcon?: string
+  onSpeakText?: (text: string, id: string) => void
+  activeSpeechId?: string | null
 }
 
 export const QuizComponent = ({ 
@@ -33,7 +36,9 @@ export const QuizComponent = ({
   labels,
   attempts,
   funFact,
-  anchorIcon
+  anchorIcon,
+  onSpeakText,
+  activeSpeechId,
 }: QuizProps) => {
   const { playSound } = useAudioFeedback()
   const { language } = useSettingsStore()
@@ -112,19 +117,52 @@ export const QuizComponent = ({
 
       {!result ? (
         <div className={styles.quizBody}>
-          <p className={styles.quizQuestion} data-testid="quiz-question">{question}</p>
+          <div className={styles.questionContainer}>
+            <p className={styles.quizQuestion} data-testid="quiz-question">{question}</p>
+            {onSpeakText && (
+              <DiscreteSpeaker
+                isSpeaking={activeSpeechId === 'quiz-question'}
+                onClick={(e) => {
+                  e.stopPropagation()
+                  onSpeakText(question, 'quiz-question')
+                }}
+                label={language === 'fr' ? 'Écouter la question' : 'Listen to question'}
+              />
+            )}
+          </div>
+
           <div className={styles.optionsGrid}>
             {options.map((opt, i) => (
-              <button
+              <div
                 key={i}
+                role="button"
+                tabIndex={0}
                 className={`${styles.quizOption} ${optionClasses[i]}`}
                 onClick={() => handleAnswerClick(i)}
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault()
+                    handleAnswerClick(i)
+                  }
+                }}
                 aria-label={`Réponse ${['A', 'B', 'C'][i]} : ${opt}`}
                 data-testid={`quiz-option-${i}`}
               >
                 <div className={styles.quizOptionLetter}>{['A', 'B', 'C'][i]}</div>
-                <span className={styles.optionText}>{opt}</span>
-              </button>
+                <div className={styles.optionContentWrapper}>
+                  <span className={styles.optionText}>{opt}</span>
+                  {onSpeakText && (
+                    <DiscreteSpeaker
+                      isSpeaking={activeSpeechId === `quiz-option-${i}`}
+                      onClick={(e) => {
+                        e.stopPropagation()
+                        onSpeakText(opt, `quiz-option-${i}`)
+                      }}
+                      label={language === 'fr' ? `Écouter l'option ${['A', 'B', 'C'][i]}` : `Listen to option ${['A', 'B', 'C'][i]}`}
+                    />
+                  )}
+                </div>
+              </div>
             ))}
           </div>
 
@@ -133,12 +171,17 @@ export const QuizComponent = ({
               <h4 className={styles.hintTitle}>{labels.quiz.hintTitle}</h4>
               <p className={styles.hintText}>{activeHint}</p>
               <button 
+                type="button"
                 className={styles.hintAudioBtn}
                 onClick={() => {
-                  playSound('click');
-                  const utterance = new SpeechSynthesisUtterance(activeHint);
-                  utterance.lang = language === 'fr' ? 'fr-FR' : 'en-US';
-                  window.speechSynthesis.speak(utterance);
+                  playSound('click')
+                  if (onSpeakText) {
+                    onSpeakText(activeHint, 'hint')
+                  } else {
+                    const utterance = new SpeechSynthesisUtterance(activeHint)
+                    utterance.lang = language === 'fr' ? 'fr-FR' : 'en-US'
+                    window.speechSynthesis.speak(utterance)
+                  }
                 }}
               >
                 🔊 {labels.common.listen}
@@ -175,12 +218,14 @@ export const QuizComponent = ({
                     className={styles.wizardAudioBtn}
                     onClick={() => {
                       playSound('click')
-                      if ('speechSynthesis' in window) {
-                        window.speechSynthesis.cancel();
-                        const utterance = new SpeechSynthesisUtterance(funFact);
-                        utterance.lang = language === 'fr' ? 'fr-FR' : 'en-US';
-                        utterance.rate = 0.95;
-                        window.speechSynthesis.speak(utterance);
+                      if (onSpeakText) {
+                        onSpeakText(funFact, 'wizard-help')
+                      } else if ('speechSynthesis' in window) {
+                        window.speechSynthesis.cancel()
+                        const utterance = new SpeechSynthesisUtterance(funFact)
+                        utterance.lang = language === 'fr' ? 'fr-FR' : 'en-US'
+                        utterance.rate = 0.95
+                        window.speechSynthesis.speak(utterance)
                       }
                     }}
                   >
@@ -233,3 +278,4 @@ export const QuizComponent = ({
     </div>
   )
 }
+

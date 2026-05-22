@@ -78,4 +78,21 @@ describe('TopicDetail', () => {
     fireEvent.click(speakBtn)
     expect(window.Audio).toHaveBeenCalledWith('test.mp3')
   })
+
+  it('utilise la synthèse vocale pour lire la description', () => {
+    render(<TopicDetail {...defaultProps} />)
+
+    const speakBtn = screen.getByLabelText('Écouter la description')
+    fireEvent.click(speakBtn)
+    expect(window.speechSynthesis.speak).toHaveBeenCalled()
+  })
+
+  it("utilise la synthèse vocale pour lire l'anecdote", () => {
+    render(<TopicDetail {...defaultProps} />)
+
+    const speakBtn = screen.getByLabelText("Écouter l'anecdote")
+    fireEvent.click(speakBtn)
+    expect(window.speechSynthesis.speak).toHaveBeenCalled()
+  })
 })
+

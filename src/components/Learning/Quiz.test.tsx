@@ -92,6 +92,36 @@ describe('QuizComponent', () => {
     )
 
     expect(screen.getByText(new RegExp(fr.quiz.winMessage('BRONZE'), 'i'))).toBeInTheDocument()
+    expect(screen.getByText(new RegExp(fr.quiz.winMessage('BRONZE'), 'i'))).toBeInTheDocument()
     expect(screen.getByText('🥉')).toBeInTheDocument()
   })
+
+  it('appelle onSpeakText quand on clique sur le haut-parleur de la question', () => {
+    const mockOnSpeakText = vi.fn()
+    render(
+      <QuizComponent
+        {...defaultProps}
+        onSpeakText={mockOnSpeakText}
+      />,
+    )
+
+    const speakBtn = screen.getByLabelText('Écouter la question')
+    fireEvent.click(speakBtn)
+    expect(mockOnSpeakText).toHaveBeenCalledWith(defaultProps.question, 'quiz-question')
+  })
+
+  it('appelle onSpeakText quand on clique sur le haut-parleur d\'une option', () => {
+    const mockOnSpeakText = vi.fn()
+    render(
+      <QuizComponent
+        {...defaultProps}
+        onSpeakText={mockOnSpeakText}
+      />,
+    )
+
+    const speakBtn = screen.getByLabelText("Écouter l'option A")
+    fireEvent.click(speakBtn)
+    expect(mockOnSpeakText).toHaveBeenCalledWith(defaultProps.options[0], 'quiz-option-0')
+  })
 })
+

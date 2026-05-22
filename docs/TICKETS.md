@@ -215,7 +215,7 @@ Actuellement, l'application ne propose qu'un bouton marche/arrêt global (`isMut
 ---
 
 ## 🎫 Ticket #24 : Synthèse Vocale (TTS - Text-To-Speech) manquante pour les enfants non-lecteurs
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Élevée (Accessibilité / Inclusion)
 **Localisation** : `src/components/Learning/TopicDetail/index.tsx`
 **Description** :
