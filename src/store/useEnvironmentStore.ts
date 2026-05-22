@@ -8,6 +8,8 @@ interface EnvironmentState {
   currentSeason: Season;
   
   // --- ACTIONS ---
+  setSeason: (season: Season) => void;
+  triggerNextSeason: () => void;
   cycleSeason: () => void;
   reset: () => void;
 }
@@ -21,11 +23,19 @@ export const useEnvironmentStore = create<EnvironmentState>()(
       currentSeason: 'spring',
 
       // --- Actions ---
-      cycleSeason: () => {
+      setSeason: (season: Season) => {
+        set({ currentSeason: season });
+      },
+
+      triggerNextSeason: () => {
         const { currentSeason } = get();
         const currentIndex = SEASONS.indexOf(currentSeason);
         const nextIndex = (currentIndex + 1) % SEASONS.length;
         set({ currentSeason: SEASONS[nextIndex] });
+      },
+
+      cycleSeason: () => {
+        get().triggerNextSeason();
       },
 
       reset: () => {

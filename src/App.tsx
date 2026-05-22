@@ -21,6 +21,9 @@ import { HomePage } from './pages/Home'
 const TopicPage = lazy(() =>
   import('./pages/Topic').then((module) => ({ default: module.TopicPage })),
 )
+const LifeCirclePage = lazy(() =>
+  import('./pages/LifeCircle/LifeCirclePage').then((module) => ({ default: module.LifeCirclePage })),
+)
 const BadgesPage = lazy(() =>
   import('./components/Profile/BadgesPage').then((module) => ({ default: module.BadgesPage })),
 )
@@ -266,6 +269,14 @@ export function App() {
             element={
               <div className={styles.routeWrapper}>
                 <MissionSafari onBack={() => navigate('/')} />
+              </div>
+            }
+          />
+          <Route
+            path="/lifecircle"
+            element={
+              <div className={styles.routeWrapper}>
+                <LifeCirclePage />
               </div>
             }
           />

@@ -180,6 +180,14 @@ export function HomePage({ topicsData }: HomePageProps) {
         <div className={styles.hubGrid}>
           {[
             {
+              id: 'lifecircle',
+              icon: <AppIcon name="leaf" size="large" />,
+              title: labels.discovery.circleTitle,
+              desc: labels.discovery.circleDesc,
+              color: '#10b981',
+              path: '/lifecircle',
+            },
+            {
               id: 'origins',
               icon: <AppIcon name="hourglass" size="large" />,
               title: labels.discovery.originsTitle,

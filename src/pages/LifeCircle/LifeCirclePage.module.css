@@ -1,0 +1,557 @@
+.viewport {
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+  position: relative;
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
+  color: #f8fafc;
+  font-family: 'Outfit', 'Inter', system-ui, -apple-system, sans-serif;
+  user-select: none;
+}
+
+/* Container de parallaxe 3D */
+.parallaxContainer {
+  width: 100%;
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  perspective: 8px;
+  perspective-origin: 50% 50%;
+  scroll-behavior: smooth;
+  will-change: transform;
+}
+
+/* Groupe contenant les couches */
+.parallaxGroup {
+  position: relative;
+  height: 250vh; /* Permet un grand défilement vertical pour ressentir la parallaxe */
+  transform-style: preserve-3d;
+  width: 100%;
+}
+
+/* Couches de parallaxe */
+.layer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: 50% 50%;
+}
+
+/* Arrière-plan profond (ciel, nuages, soleil/lune) */
+.layerBackground {
+  transform: translateZ(-16px) scale(3);
+  z-index: 1;
+  pointer-events: none;
+}
+
+/* Second plan (arbres distants, montagnes, silhouette de l'arbre lointain) */
+.layerMidground {
+  transform: translateZ(-8px) scale(2);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Premier plan (Arbre interactif principal, eau, créatures) */
+.layerForeground {
+  transform: translateZ(0) scale(1);
+  z-index: 3;
+}
+
+/* Option Reduced Motion : Dégrade la parallaxe en un simple scroll plat */
+@media (prefers-reduced-motion: reduce) {
+  .parallaxContainer {
+    perspective: none;
+    overflow-y: auto;
+  }
+  .parallaxGroup {
+    transform-style: flat;
+    height: auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+  .layer {
+    position: relative;
+    height: auto;
+    transform: none !important;
+  }
+  .layerBackground {
+    height: 300px;
+  }
+  .layerMidground {
+    height: 300px;
+  }
+  .layerForeground {
+    position: relative;
+    height: auto;
+  }
+}
+
+/* --- THEMATISATION SAISONNIERE --- */
+
+/* PRINTEMPS */
+.spring .skyGradient {
+  stop-color: #a5f3fc;
+  transition: stop-color 1.5s ease-in-out;
+}
+.spring .skyGradient2 {
+  stop-color: #fbcfe8;
+  transition: stop-color 1.5s ease-in-out;
+}
+.spring .foliage {
+  fill: #86efac;
+  transition: fill 1.5s ease-in-out;
+}
+.spring .leaves {
+  fill: #4ade80;
+  transition: fill 1.5s ease-in-out;
+}
+.spring .flowers {
+  fill: #f472b6;
+  opacity: 1;
+  transform: scale(1);
+  transition: fill 1.5s ease-in-out, opacity 1.5s ease, transform 1.5s ease;
+}
+.spring .fruits {
+  fill: #fca5a5;
+  opacity: 0.2;
+  transform: scale(0.4);
+  transition: all 1.5s ease-in-out;
+}
+.spring .water {
+  fill: #38bdf8;
+  transition: fill 1.5s ease-in-out;
+}
+.spring .ground {
+  fill: #4ade80;
+  transition: fill 1.5s ease-in-out;
+}
+
+/* ÉTÉ */
+.summer .skyGradient {
+  stop-color: #38bdf8;
+  transition: stop-color 1.5s ease-in-out;
+}
+.summer .skyGradient2 {
+  stop-color: #fef08a;
+  transition: stop-color 1.5s ease-in-out;
+}
+.summer .foliage {
+  fill: #22c55e;
+  transition: fill 1.5s ease-in-out;
+}
+.summer .leaves {
+  fill: #15803d;
+  transition: fill 1.5s ease-in-out;
+}
+.summer .flowers {
+  fill: #f59e0b;
+  opacity: 0.6;
+  transform: scale(0.9);
+  transition: all 1.5s ease-in-out;
+}
+.summer .fruits {
+  fill: #ef4444;
+  opacity: 1;
+  transform: scale(1.1);
+  transition: all 1.5s ease-in-out;
+}
+.summer .water {
+  fill: #0ea5e9;
+  transition: fill 1.5s ease-in-out;
+}
+.summer .ground {
+  fill: #22c55e;
+  transition: fill 1.5s ease-in-out;
+}
+
+/* AUTOMNE */
+.autumn .skyGradient {
+  stop-color: #f97316;
+  transition: stop-color 1.5s ease-in-out;
+}
+.autumn .skyGradient2 {
+  stop-color: #fef08a;
+  transition: stop-color 1.5s ease-in-out;
+}
+.autumn .foliage {
+  fill: #ea580c;
+  transition: fill 1.5s ease-in-out;
+}
+.autumn .leaves {
+  fill: #b45309;
+  transition: fill 1.5s ease-in-out;
+}
+.autumn .flowers {
+  fill: #b45309;
+  opacity: 0.1;
+  transform: scale(0.3);
+  transition: all 1.5s ease-in-out;
+}
+.autumn .fruits {
+  fill: #b45309;
+  opacity: 0.7;
+  transform: scale(0.9);
+  transition: all 1.5s ease-in-out;
+}
+.autumn .water {
+  fill: #0284c7;
+  transition: fill 1.5s ease-in-out;
+}
+.autumn .ground {
+  fill: #ca8a04;
+  transition: fill 1.5s ease-in-out;
+}
+
+/* HIVER */
+.winter .skyGradient {
+  stop-color: #312e81;
+  transition: stop-color 1.5s ease-in-out;
+}
+.winter .skyGradient2 {
+  stop-color: #e2e8f0;
+  transition: stop-color 1.5s ease-in-out;
+}
+.winter .foliage {
+  fill: #e2e8f0;
+  transition: fill 1.5s ease-in-out;
+}
+.winter .leaves {
+  fill: #cbd5e1;
+  transition: fill 1.5s ease-in-out;
+}
+.winter .flowers {
+  opacity: 0;
+  transform: scale(0);
+  transition: all 1.5s ease-in-out;
+}
+.winter .fruits {
+  opacity: 0;
+  transform: scale(0);
+  transition: all 1.5s ease-in-out;
+}
+.winter .water {
+  fill: #93c5fd;
+  transition: fill 1.5s ease-in-out;
+}
+.winter .ground {
+  fill: #f1f5f9;
+  transition: fill 1.5s ease-in-out;
+}
+
+/* --- OVERLAY INTERFACE & BOUTONS --- */
+.backButton {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  z-index: 10;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1.25rem;
+  border-radius: 9999px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+}
+.backButton:hover {
+  background: rgba(15, 23, 42, 0.8);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.seasonControls {
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  z-index: 10;
+  background: rgba(15, 23, 42, 0.6);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  padding: 0.5rem;
+  display: flex;
+  gap: 0.5rem;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+}
+
+.seasonBtn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  color: #94a3b8;
+}
+
+.seasonBtn span {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.7;
+}
+
+.seasonBtn:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: #f1f5f9;
+}
+
+.seasonBtnActive {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transform: scale(1.05);
+}
+
+.seasonBtnActive span {
+  opacity: 1;
+}
+
+/* Message flottant d'instruction */
+.instructions {
+  position: absolute;
+  bottom: 2rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+  padding: 0.75rem 2rem;
+  text-align: center;
+  font-weight: 500;
+  pointer-events: none;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  animation: pulse 2s infinite;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0);
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateX(-50%) translateY(-5px);
+    opacity: 1;
+  }
+}
+
+/* --- CONTENU & GRAPHISMES SVG --- */
+.svgTreeWrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  display: block;
+  filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.35));
+}
+
+/* Éléments SVG animés et interactifs */
+.trunk, .roots, .leaf, .flower, .fruit, .fish, .insect, .animal {
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.interactiveElement:hover {
+  filter: drop-shadow(0 0 12px var(--glow-color, rgba(255, 255, 255, 0.8)));
+  transform-origin: center;
+  transform: scale(1.03) translateY(-2px);
+}
+
+.interactiveElement:focus-visible {
+  outline: 3px solid #6366f1 !important;
+  outline-offset: 4px;
+}
+
+/* --- MODAL PÉDAGOGIQUE --- */
+.modalOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+  background: rgba(15, 23, 42, 0.7);
+  backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: fadeIn 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modalContent {
+  background: rgba(30, 41, 59, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(16px);
+  border-radius: 28px;
+  max-width: 500px;
+  width: 100%;
+  overflow: hidden;
+  animation: scaleIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.modalHeader {
+  padding: 1.5rem 2rem 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.modalTitleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.modalIcon {
+  font-size: 2.25rem;
+}
+
+.modalTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  background: linear-gradient(135deg, #ffffff 0%, #e2e8f0 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.closeBtn {
+  background: rgba(255, 255, 255, 0.08);
+  border: none;
+  border-radius: 9999px;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #94a3b8;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.closeBtn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  color: #f1f5f9;
+}
+
+.modalBody {
+  padding: 2rem;
+}
+
+.modalDescription {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #cbd5e1;
+  margin-bottom: 1.5rem;
+}
+
+.xpBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(245, 158, 11, 0.15);
+  border: 1px solid rgba(245, 158, 11, 0.3);
+  color: #fbbf24;
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+}
+
+.didYouKnowCard {
+  background: rgba(99, 102, 241, 0.1);
+  border: 1px solid rgba(99, 102, 241, 0.2);
+  border-radius: 18px;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 2rem;
+  position: relative;
+  overflow: hidden;
+}
+
+.didYouKnowCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: #6366f1;
+}
+
+.didYouKnowTitle {
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #818cf8;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.didYouKnowText {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #cbd5e1;
+}
+
+.modalActions {
+  display: flex;
+  gap: 1rem;
+}
+
+.exploreMoreBtn {
+  flex: 1;
+  background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+  border: none;
+  color: #ffffff;
+  padding: 1rem 1.5rem;
+  border-radius: 16px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+.exploreMoreBtn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(99, 102, 241, 0.45);
+}
+
+/* Animations CSS */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.9) translateY(10px); opacity: 0; }
+  to { transform: scale(1) translateY(0); opacity: 1; }
+}

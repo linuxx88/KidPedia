@@ -469,7 +469,7 @@ Si l'enfant échoue 3 fois le même quiz, déclencher un bouton "Assistance" (ou
 - **Synthèse Vocale Pédagogique** : Utilisation de l'API native `speechSynthesis` configurée dynamiquement selon la langue active du profil enfant (`fr-FR` ou `en-US`) pour lire à voix haute l'explication sans latence.
 
 ## 🎫 Ticket #50 : Création du Store Événementiel Saisonnier (Couche 2 : The Brain)
-Statut : 🔴 À faire
+Statut : 🟢 Résolu
 
 Sévérité : Élevée (Infrastructure Métier)
 
@@ -480,18 +480,18 @@ Description : Pour alimenter dynamiquement la page du parallaxe, il faut s'assur
 
 Critères d'Acceptation (DOD) :
 
-[ ] Définir un type strict Season = 'spring' | 'summer' | 'autumn' | 'winter' sans aucun usage du type any.
+[x] Définir un type strict Season = 'spring' | 'summer' | 'autumn' | 'winter' sans aucun usage du type any.
 
-[ ] Implémenter l'état initial currentSeason: 'spring'.
+[x] Implémenter l'état initial currentSeason: 'spring'.
 
-[ ] Ajouter une action setSeason(season: Season) pour forcer un changement thématique depuis l'espace développeur ou la zone parents.
+[x] Ajouter une action setSeason(season: Season) pour forcer un changement thématique depuis l'espace développeur ou la zone parents.
 
-[ ] Ajouter une action triggerNextSeason() permettant de basculer cycliquement d'une saison à l'autre de manière séquentielle.
+[x] Ajouter une action triggerNextSeason() permettant de basculer cycliquement d'une saison à l'autre de manière séquentielle.
 
-[ ] Connecter le middleware persist de Zustand sous la clé kp-environment-storage pour sauvegarder la saison préférée de l'enfant d'une session à l'autre.
+[x] Connecter le middleware persist de Zustand sous la clé kp-environment-storage pour sauvegarder la saison préférée de l'enfant d'une session à l'autre.
 
 ## 🎫 Ticket #51 : Composant de Vue Multicouche LifeCirclePage.tsx (Couche 1 : The Surface)
-Statut : 🔴 À faire
+Statut : 🟢 Résolu
 
 Sévérité : Moyenne (Interface utilisateur)
 
@@ -502,18 +502,18 @@ Description : Créer le composant de présentation principal mettant en scène l
 
 Critères d'Acceptation (DOD) :
 
-[ ] Créer une structure HTML/TSX comprenant au minimum 3 plans distincts imbriqués dans un conteneur principal configuré avec une perspective 3D (perspective: 1px et transform-style: preserve-3d).
+[x] Créer une structure HTML/TSX comprenant au minimum 3 plans distincts imbriqués dans un conteneur principal configuré avec une perspective 3D (perspective: 1px et transform-style: preserve-3d).
 
-[ ] Appliquer des translations sur l'axe Z (translateZ) et des échelles de compensation (scale) pour créer l'effet de profondeur automatique lors du défilement vertical.
+[x] Appliquer des translations sur l'axe Z (translateZ) et des échelles de compensation (scale) pour créer l'effet de profondeur automatique lors du défilement vertical.
 
-[ ] Connecter la racine de la page au store useEnvironmentStore pour injecter dynamiquement une classe CSS correspondant à la saison active (.spring, .autumn, etc.).
+[x] Connecter la racine de la page au store useEnvironmentStore pour injecter dynamiquement une classe CSS correspondant à la saison active (.spring, .autumn, etc.).
 
-[ ] Assurer un scroll fluide à 60 FPS en appliquant la propriété CSS will-change: transform sur les couches en mouvement.
+[x] Assurer un scroll fluide à 60 FPS en appliquant la propriété CSS will-change: transform sur les couches en mouvement.
 
-[ ] Configurer la route /lifecircle via le système de routing principal avec chargement à la demande (Lazy Loading) pour ne pas alourdir le bundle de démarrage.
+[x] Configurer la route /lifecircle via le système de routing principal avec chargement à la demande (Lazy Loading) pour ne pas alourdir le bundle de démarrage.
 
 ## 🎫 Ticket #52 : Accessibilité, Gestion Tactile et Masquage d'Occlusion (Couche 3 : The Delight)
-Statut : 🔴 À faire
+Statut : 🟢 Résolu
 
 Sévérité : Élevée (Inclusion & Expérience Utilisateur)
 
@@ -524,14 +524,14 @@ Description : Sécuriser l'interactivité de la page vis-à-vis des interactions
 
 Critères d'Acceptation (DOD) :
 
-[ ] Accessibilité (A11y) : Encapsuler l'effet de profondeur dans une requête média @media (prefers-reduced-motion: reduce). Si l'appareil de l'enfant a cette option activée, l'effet parallaxe doit s'annuler automatiquement pour repasser sur un défilement à plat standard.
+[x] Accessibilité (A11y) : Encapsuler l'effet de profondeur dans une requête média @media (prefers-reduced-motion: reduce). Si l'appareil de l'enfant a cette option activée, l'effet parallaxe doit s'annuler automatiquement pour repasser sur un défilement à plat standard.
 
-[ ] Collisions de clics : Appliquer la propriété CSS pointer-events: none sur les éléments décoratifs d'arrière-plan et de second plan (.layerBackground et .layerMidground) afin qu'ils ne bloquent pas les clics et événements tactiles destinés aux éléments interactifs placés au premier plan.
+[x] Collisions de clics : Appliquer la propriété CSS pointer-events: none sur les éléments décoratifs d'arrière-plan et de second plan (.layerBackground et .layerMidground) afin qu'ils ne bloquent pas les clics et événements tactiles destinés aux éléments interactifs placés au premier plan.
 
-[ ] Ressources Vectorielles : Utiliser exclusivement des illustrations pures au format SVG inline injectées directement dans le DOM pour dessiner l'Arbre Sacré central et les paysages. Aucun fichier lourd .png ou .jpg ne doit être utilisé, assurant un affichage net sans flou lors du zoom et une compatibilité absolue avec l'architecture PWA hors-ligne du projet.
+[x] Ressources Vectorielles : Utiliser exclusivement des illustrations pures au format SVG inline injectées directement dans le DOM pour dessiner l'Arbre Sacré central et les paysages. Aucun fichier lourd .png ou .jpg ne doit être utilisé, assurant un affichage net sans flou lors du zoom et une compatibilité absolue avec l'architecture PWA hors-ligne du projet.
 
 ## 🎫 Ticket #53 : Raccordement du "Cercle de la Vie" aux Hotspots d'Apprentissage (Couche 4 : The Foundation)
-Statut : 🔴 À faire
+Statut : 🟢 Résolu
 
 Sévérité : Moyenne (Intégrité des données)
 
@@ -541,13 +541,13 @@ Description : Donner du sens pédagogique au projet en connectant les éléments
 
 Critères d'Acceptation (DOD) :
 
-[ ] Déclarer les identifiants uniques des éléments de la nature (ex: le-bourgeon, la-vieille-souche) et s'assurer qu'ils passent le validateur automatique de la suite de tests createTopicCard de ta Data Factory.
+[x] Déclarer les identifiants uniques des éléments de la nature (ex: le-bourgeon, la-vieille-souche) et s'assurer qu'ils passent le validateur automatique de la suite de tests createTopicCard de ta Data Factory.
 
-[ ] Implémenter le composant d'interaction standardisé AccessibleSvgHotspot sur des nœuds précis du SVG de l'arbre.
+[x] Implémenter le composant d'interaction standardisé AccessibleSvgHotspot sur des nœuds précis du SVG de l'arbre.
 
-[ ] Assurer le blindage A11y complet de chaque hotspot : chaque zone doit supporter le focus clavier (tabindex={0}), disposer de rôles sémantiques conformes (role="button") et réagir à l'appui sur les touches Entrée et Espace.
+[x] Assurer le blindage A11y complet de chaque hotspot : chaque zone doit supporter le focus clavier (tabindex={0}), disposer de rôles sémantiques conformes (role="button") et réagir à l'appui sur les touches Entrée et Espace.
 
-[ ] Lier l'interaction de réussite ou de découverte de ces secrets au gain d'XP du store générique global useProgressionStore.getState().addXP().
+[x] Lier l'interaction de réussite ou de découverte de ces secrets au gain d'XP du store générique global useProgressionStore.getState().addXP().
 
 ---
 
