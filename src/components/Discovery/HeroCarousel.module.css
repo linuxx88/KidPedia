@@ -1,13 +1,16 @@
 .heroContainer {
   position: relative;
   width: 100%;
-  height: 500px;
+  min-height: clamp(350px, 45vh, 500px);
+  height: auto;
   overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: #000;
   border-radius: 0 0 4rem 4rem;
+  padding: 4rem 0;
+  box-sizing: border-box;
 }
 
 .bgCoverPrev {
@@ -50,6 +53,8 @@
 
 @media (max-width: 768px) {
   .heroContainer {
-    height: 400px;
+    min-height: clamp(280px, 35vh, 400px);
+    border-radius: 0 0 2rem 2rem;
+    padding: 3rem 0;
   }
 }

@@ -6,6 +6,15 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
+### VERSION 3.10.3 - Intégration Safe Area & Dashboard Ultra-DPI (22 Mai 2026)
+--------------------------------------------------
+- **[Ajustement/Responsive] Sécurisation de l'affichage mobile & Haute Densité (Tickets #60 & #61) :**
+    - **Zone Sécurisée (Safe Area) du Header** : Ajout de padding dynamique basé sur `env(safe-area-inset-top)` pour le Header principal (`MainLayout.module.css`) et les en-têtes individuels (`PageHeader.module.css`), protégeant les boutons interactifs du masquage par les encoches d'appareils de type Galaxy S24 Ultra.
+    - **Marges tactiles d'A11y** : Maintien rigoureux d'espacements latéraux adaptatifs à l'aide de `clamp(1rem, 3vw, 2.5rem)` pour préserver la marge de respiration tactile par rapport aux bords physiques de l'écran.
+    - **Flexibilité de la Carte Hero** : Remplacement des hauteurs statiques du carrousel d'accueil par des dimensions flexibles (`min-height: clamp(...)` et paddings fluides en `rem`), permettant l'ajustement élastique de l'espace sans risque de collision ou de débordement du texte de bienvenue sur l'illustration de l'astronaute.
+    - **Responsive Pill Dashboard** : Refonte structurelle de la barre de statistiques avec `flex-wrap: wrap` et bascule à 100% de largeur pour le conteneur de progression (`progressContainer`) sous `768px`, garantissant la visibilité intégrale des scores (🏆, 🎫, ⚡) et de la progression sans coupure latérale.
+    - **Échelle Typographique Fluide** : Transition des titres et sous-titres d'accueil vers des tailles de police adaptatives contrôlées par `clamp()`, évitant le chevauchement sémantique et améliorant la lisibilité sur petits écrans.
+
 ### VERSION 3.10.2 - Optimisation CI/CD & Accélération E2E Playwright (22 Mai 2026)
 --------------------------------------------------
 - **[Qualité/CI] Optimisation du Workflow GitHub Actions :**

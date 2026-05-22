@@ -704,3 +704,38 @@ Critères d'Acceptation (DOD) :
 - [x] Remplacer les tailles de police trop imposantes des titres et des descriptions par des typographies fluides utilisant `clamp()`.
 - [x] Ajuster les règles CSS de layout (`flex`, `grid`, `padding`, `margin`) sur mobile pour s'assurer que les cartes d'options de quiz et les boutons d'apprentissage tiennent entièrement dans le viewport sans forcer de défilement horizontal.
 - [x] Valider le bon rendu responsive sans débordement sur les simulateurs de navigateurs mobiles (ex: Chrome DevTools, profils mobiles haute densité).
+
+## 🎫 Ticket #60 : Ajustement du Header et gestion de la zone sécurisée (Safe Area Context)
+Statut : 🟢 Résolu
+
+Sévérité : Élevée (Interface utilisateur cassée)
+
+Localisation : src/components/Layout/Header.tsx (ou le fichier gérant le conteneur principal)
+
+Description : Sur les appareils comme le S24 Ultra, le haut de l'application est en partie masqué par la barre d'état du système ou chevauche les éléments de navigation native. Il faut sanctuariser cet espace.
+
+Critères d'Acceptation (DOD) :
+
+- [x] Ajouter un conteneur utilisant les variables CSS d'environnement pour les zones sécurisées : padding-top: env(safe-area-inset-top, 16px);.
+
+- [x] S'assurer que les icônes du haut (Cadenas, Profil, Baguette magique) conservent une marge de respiration minimale de 1rem par rapport au bord physique de l'écran.
+
+- [x] Valider que le header reste parfaitement aligné au centre sans être tronqué sur une résolution d'écran ultra-haute (WQHD+).
+
+## 🎫 Ticket #61 : Flexbox Wrap et limitation de débordement du Pill Dashboard
+Statut : 🟢 Résolu
+
+
+Sévérité : Moyenne (Texte tronqué et CLS) 
+
+Localisation : src/pages/Home/index.tsx et feuilles de styles associées (Dashboard et Carte Hero)
+
+Description : Le texte principal de bienvenue passe par-dessus l'avatar en arrière-plan à cause d'une hauteur fixe ou d'un manque de contraintes de flexbox. De plus, la capsule de statistiques (Pill Dashboard) étouffe : la valeur 2% est coupée à droite.
+
+Critères d'Acceptation (DOD) :
+
+- [x] Carte Hero : Remplacer les hauteurs ou paddings fixes par des valeurs relatives (min-height, rem) et configurer le conteneur de texte pour qu'il s'adapte dynamiquement sans forcer le texte à déborder sur l'illustration de l'astronaute.
+
+- [x] Pill Dashboard : Appliquer display: flex; flex-wrap: wrap; justify-content: space-around; sur le composant de statistiques pour s'assurer que les trophées 🏆, les tickets QC 🎫, l'XP ⚡ et le pourcentage restent entièrement visibles sur les viewports étroits.
+
+- [x] Typographie : Utiliser des unités fluides (comme clamp()) pour les gros titres afin d'éviter le chevauchement sémantique des textes.

@@ -22,7 +22,8 @@
   justify-content: center;
   position: sticky;
   top: 0;
-  padding: 1rem 0;
+  padding-top: calc(env(safe-area-inset-top, 16px) + 0.5rem);
+  padding-bottom: 1rem;
   z-index: 100;
   background-color: var(--color-nav-bg);
   backdrop-filter: blur(10px);
