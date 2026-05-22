@@ -7,6 +7,13 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
 
+### VERSION 3.15.0 - Résolution du Défaut #1 : Ergonomie de l'En-tête & Alignements (22 Mai 2026)
+--------------------------------------------------
+- **[Aesthetics/UX/UI] Améliorations de l'En-tête globale pour le ciblage tactile (Ticket #62) :**
+    - **SearchBar.module.css** : Agrandissement de la police de saisie en mode compact à `var(--fs-base)` (1.15rem) pour une lisibilité accrue et ajout d'un style de placeholder élégant et aéré (`var(--fw-bold)` avec 75% d'opacité).
+    - **MainLayout.module.css** : Ajustement des pastilles d'icônes tactiles `.headerBtn` à `3.5rem` (56px) et de leurs emojis à `1.75rem`. Élargissement du gap à `1rem` (16px) pour une manipulation fluide et sans erreur de ciblage pour les enfants.
+    - **MuteToggle.module.css** : Augmentation du bouton compagnon sonore `.toggleBtn` à `3.5rem` et de sa police à `1.75rem` pour correspondre parfaitement aux dimensions standardisées de l'en-tête.
+
 ### VERSION 3.14.0 - Industrialisation de la Variabilité de Contenu & Traduction Stable (22 Mai 2026)
 --------------------------------------------------
 - **[Content/UX] Variabilité des descriptions et stabilité bilingue (Tickets #02 & #07) :**

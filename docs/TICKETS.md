@@ -747,3 +747,34 @@ Critères d'Acceptation (DOD) :
 - [x] Pill Dashboard : Appliquer display: flex; flex-wrap: wrap; justify-content: space-around; sur le composant de statistiques pour s'assurer que les trophées 🏆, les tickets QC 🎫, l'XP ⚡ et le pourcentage restent entièrement visibles sur les viewports étroits.
 
 - [x] Typographie : Utiliser des unités fluides (comme clamp()) pour les gros titres afin d'éviter le chevauchement sémantique des textes.
+
+---
+
+## 🎫 Ticket #62 : Défauts de conception visuelle, de mise en page (layout) et d'ergonomie sur la page d'accueil
+**Statut** : 🟡 En cours
+
+**Sévérité** : Moyenne (Ergonomie & UX/UI)
+
+**Localisation** : `src/pages/Home/index.tsx`, `src/components/`, `src/styles/` et feuilles de styles associées.
+
+**Description** :
+Analyse des défauts de conception visuelle et d'ergonomie relevés sur la capture d'écran de l'accueil (`localhost_5173_.png`) :
+1. **En-tête (Header) & Alignements** : Champ de recherche avec un texte de placeholder trop petit. Les pastilles d'icônes tactiles (profil, cadeau, sourdine, etc.) en haut à droite sont sous-dimensionnées et manquent d'espace de respiration (padding/gap), nuisant au ciblage tactile pour un enfant.
+2. **Bannière Héro (Hero Banner)** : Erreur de ponctuation dans le titre principal (`"Salut ! :"`), phrase sous le titre incomplète (`"et ? ✨"`), et texte non centré verticalement.
+3. **Barre de Progression & Stats** : La barre d'XP à 5% est extrêmement fine, sous-dimensionnée et le texte flottant à gauche manque de repères clairs. De légers décalages verticaux affectent l'alignement des icônes dans les pastilles de statistiques.
+4. **Rupture de Grille de Navigation** : Le bouton `Mission Safari` est isolé sur une nouvelle ligne à gauche, créant un grand espace vide asymétrique par rapport aux 3 autres raccourcis de la ligne supérieure.
+5. **Grille de Fiches (Cards)** :
+   - Redondance visuelle des cadenas (badge cadenas en haut à droite ET icône cadenas au centre en bas des cartes bloquées).
+   - Contraste insuffisant (illustrations grises sur fond bleu très foncé) rendant les images des cartes verrouillées presque invisibles.
+   - Sauts visuels et hauteurs de cartes asymétriques provoqués par le wrapping des titres longs sur plusieurs lignes (ex: *"Pourquoi le ciel est bleu ?"*).
+   - Boutons de pagination `"VOIR PLUS"` trop neutres, petits, de couleur sombre (austères) et peu engageants pour les enfants.
+6. **Barre Latérale Droite** : La barre d'icônes verticale flotte de manière isolée avec un contraste perfectible pour certaines icônes sombres sur le fond global de l'application.
+
+**Critères d'Acceptation (DOD)** :
+- [ ] Corriger l'erreur de ponctuation dans le titre de la bannière héro (`"Salut ! :"` ➔ `"Salut !"`) et finaliser la phrase tronquée.
+- [x] Aligner harmonieusement les pastilles d'icônes du header en augmentant leur taille de contact tactile (minimum 44x44px) et leur espacement.
+- [ ] Repenser la grille de raccourcis pour équilibrer la mise en page (ex: grille symétrique 2x2 ou 4 colonnes régulières).
+- [ ] Améliorer la visibilité des fiches verrouillées en augmentant le contraste des illustrations et en éliminant la double présence du cadenas.
+- [ ] Uniformiser la hauteur des cartes et gérer l'alignement vertical homogène des textes et boutons, même en cas de titres longs.
+- [ ] Donner un aspect plus ludique et interactif aux boutons `"VOIR PLUS"` (couleurs plus vives, effet de survol engageant).
+- [ ] Augmenter la hauteur et la lisibilité de la barre d'XP et aligner parfaitement les statistiques.
