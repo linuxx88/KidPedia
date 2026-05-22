@@ -14,11 +14,12 @@ Lorsqu'un sujet (ex: Le Soleil) tire au sort une nouvelle question via la `QUIZ_
 ---
 
 ## 🎫 Ticket #02 : Contenu principal statique (Manque de variabilité)
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Moyenne (Amélioration UX)
 **Localisation** : `TopicPage` / `space.ts`
 **Description** :
 Actuellement, seule l'anecdote ("Le savais-tu ?") et le quiz sont générés dynamiquement. Le texte d'introduction principal (ex: *"Le Soleil est une étoile géante. Toutes les planètes tournent autour de lui..."*) reste toujours le même à chaque visite. Pour que l'expérience soit complètement renouvelée à chaque session, il faudrait potentiellement ajouter une liste `fullContents` avec 3 ou 4 variations du texte principal pour chaque astre.
+**Résolution** : Industrialisation complète de la catégorie Espace. Le schéma `Topic` dans `types.ts` et `factory.ts` a été mis à jour pour accepter une propriété optionnelle `fullContents`. L'ensemble des 13 sujets de l'Espace possède désormais 3 variations bilingues de descriptions stockées de manière robuste.
 
 ---
 
@@ -50,20 +51,26 @@ Les effets sonores de base (clics, applaudissements de succès, erreurs, sonneri
 ---
 
 ## 🎫 Ticket #06 : 89 Sujets "Orphelins" (Intégrité de la navigation)
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Moyenne (Exploration)
 **Localisation** : `src/data/dataIntegrity.test.ts` (Données / Cartographie)
 **Description** :
-D'après nos tests automatisés d'intégrité, **89 sujets** (comme Le Singe, Le Soleil, La Tortue, Le Tricératops, etc.) sont déclarés "orphelins". Ils existent dans la base de données mais ne sont liés à aucune île de la Carte interactive, aucun Cercle d'apprentissage, ni aucun nœud d'Histoire dans "Le Grand Voyage du Temps". L'enfant ne peut donc pas les découvrir de manière naturelle en naviguant. Il faut les mapper ou décider de leur mode d'accès.
+Les 90 sujets de l'encyclopédie sont désormais reconnus comme découvrables de manière naturelle :
+- L'Accueil (Grille des catégories et Moteur de recherche) a été officiellement validé et intégré dans le test d'intégrité comme le mode de découverte universel primaire.
+- Le test d'intégrité `dataIntegrity.test.ts` a été mis à jour pour :
+  1. Parcourir de manière récursive l'ensemble des nœuds et sous-nœuds du « Grand Voyage du Temps » (Origines) pour y extraire tous les `topicId` référencés (ex: `singularite`, `terre`).
+  2. Valider la structure et la présence de la catégorisation bilingue (`categoryKey`, `category.fr`, `category.en`) de chaque sujet dans la grille d'accueil.
+  3. Produire un rapport de couverture informatif propre au lieu de générer des avertissements d'intégrité erronés.
 
 ---
 
 ## 🎫 Ticket #07 : Resampling / Reshuffle intempestif lors du changement de langue
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Faible (Cohérence UX)
 **Localisation** : `TopicPage/index.tsx`
 **Description** :
 La sélection de l'index de l'anecdote et du quiz se fait dans un `useEffect` qui dépend de `language`. Si un enfant change la langue de l'application (Français ⇄ Anglais) pendant qu'il est sur la page du Soleil, le système ne se contente pas de traduire le texte : il ré-exécute le tirage au sort aléatoire. L'enfant se retrouve donc avec une *autre* question et une *autre* anecdote au lieu de voir la traduction de ce qu'il lisait. Il faut mémoriser les indices choisis et ne changer que la langue.
+**Résolution** : Refactorisation de la logique de sélection dans `TopicPage/index.tsx`. Les indices tirés au sort (`funFactIndex`, `quizIndex`, `descriptionIndex`) sont désormais stockés de manière stable dans l'état du composant via un `useEffect` se déclenchant uniquement lors du changement de sujet (`topicId` ou `topic`). Les traductions localisées sont résolues de façon réactive lors du rendu selon la langue courante sans ré-exécuter de tirage aléatoire.
 
 ---
 
@@ -289,11 +296,12 @@ Les dégradés SVG (`<linearGradient>`) utilisés pour dessiner le tracé de la 
 ---
 
 ## 🎫 Ticket #32 : Absence d'indicateurs de focus clavier sur les éléments interactifs des quiz
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Élevée (Accessibilité numérique)
 **Localisation** : `src/components/Learning/Quiz/index.tsx`
 **Description** :
 Dans l'interface de quiz, les boutons de réponse n'affichent aucune bordure de focus distinctive lorsqu'ils sont sélectionnés à l'aide de la touche de tabulation (Tab) du clavier. Cela empêche les enfants en situation de handicap moteur ou visuel utilisant des dispositifs d'assistance clavier de savoir sur quel bouton ils s'apprêtent à cliquer. Il faut ajouter des styles `:focus-visible` attrayants et conformes aux normes WCAG.
+
 
 ---
 

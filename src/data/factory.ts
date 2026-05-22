@@ -121,6 +121,15 @@ export function createTopicCard(input: unknown): Topic {
     });
   }
 
+  if (obj.fullContents !== undefined) {
+    if (!Array.isArray(obj.fullContents)) {
+      throw new Error(`Validation Error: Topic [${obj.id}].fullContents must be an array.`);
+    }
+    obj.fullContents.forEach((content: unknown, index: number) => {
+      validateLocalizedString(content, `Topic [${obj.id}].fullContents[${index}]`);
+    });
+  }
+
   if (obj.quiz !== undefined && obj.quiz !== null) {
     validateQuiz(obj.quiz, obj.id);
   }
@@ -145,6 +154,7 @@ export function createTopicCard(input: unknown): Topic {
     icon: obj.icon,
     shortDesc: obj.shortDesc as LocalizedString,
     fullContent: obj.fullContent as LocalizedString,
+    fullContents: obj.fullContents as readonly LocalizedString[] | undefined,
     funFact: obj.funFact as LocalizedString,
     funFacts: obj.funFacts as readonly LocalizedString[] | undefined,
     quiz: obj.quiz as Quiz | undefined,

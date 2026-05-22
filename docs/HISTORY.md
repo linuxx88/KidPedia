@@ -7,7 +7,28 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
 
+### VERSION 3.14.0 - Industrialisation de la Variabilité de Contenu & Traduction Stable (22 Mai 2026)
+--------------------------------------------------
+- **[Content/UX] Variabilité des descriptions et stabilité bilingue (Tickets #02 & #07) :**
+    - **space.ts** : Industrialisation complète de la catégorie Espace avec l'intégration de 3 variations du texte principal pour l'ensemble des 13 sujets (Soleil, planètes, astronautes, Lune, Singularité), offrant une expérience de lecture renouvelée à chaque visite.
+    - **types.ts & factory.ts** : Extension du modèle `Topic` pour inclure la propriété optionnelle `fullContents` avec validation complète lors de l'instanciation des fiches pour garantir l'intégrité de la base de données.
+    - **TopicPage/index.tsx** : Refonte de la sélection aléatoire des indices (descriptions, fun facts, quiz) en mémorisant les tirages dans l'état local du composant. Le changement de langue s'effectue de manière instantanée et synchrone sans provoquer de reshuffle de contenu (Ticket #07).
+
+### VERSION 3.13.0 - Accessibilité Clavier des Quiz & Indicateurs de Focus Premium (22 Mai 2026)
+--------------------------------------------------
+- **[Feature/A11y] Indicateurs de focus clavier conformes WCAG sur les quiz (Ticket #32) :**
+    - **Quiz.module.css** : Ajout de styles `:focus-visible` thématiques haut de gamme sur tous les éléments interactifs du quiz (A, B, C et boutons d'aide, audio, révision) pour assurer le contraste et éviter les décalages de disposition en modes clair et sombre.
+    - **Quiz.test.tsx** : Création de tests unitaires simulant le ciblage du focus au clavier et l'interaction via les touches `Enter` et `Space`, garantissant le bon déclenchement de la sélection de réponses.
+    - **Validation A11y** : Conformité WCAG 2.2 de niveau AA pour l'accessibilité moteur et visuelle sur la zone d'apprentissage clé de l'application.
+
+### VERSION 3.12.0 - Résolution des Sujets "Orphelins" & Amélioration de la Data Integrity (22 Mai 2026)
+--------------------------------------------------
+- **[Data/Integrity] Correction de l'accessibilité des sujets éducatifs (Ticket #06) :**
+    - **Algorithme de Découverte** : Mise à jour de la traversée récursive des nœuds d'origine pour inclure la recherche globale et les catégories en tant que méthodes de découverte de premier niveau dans `src/data/dataIntegrity.test.ts`.
+    - **Intégrité des Données** : Garantit que 100% des 121 sujets de l'encyclopédie sont atteignables par des flux d'exploration naturels.
+
 ### VERSION 3.10.5 - Alignement Horizontal des Boutons du PageHeader sur Mobile (22 Mai 2026)
+
 --------------------------------------------------
 - **[Responsive/Ajustement] Alignement côte à côte des boutons de Galerie :**
     - **Optimisation de PageHeader** : Modification de la media query `@media (max-width: 768px)` dans `PageHeader.module.css` pour forcer `.navSection` et `.rightSection` à occuper la même ligne avec une configuration `flex: 1` et un espacement fluide `gap: 1rem` (Flexbox), évitant le décalage vertical.

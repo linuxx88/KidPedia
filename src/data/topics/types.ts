@@ -19,6 +19,7 @@ export interface Topic {
   icon: string
   shortDesc: LocalizedString
   fullContent: LocalizedString
+  fullContents?: readonly LocalizedString[]
   funFact: LocalizedString
   funFacts?: readonly LocalizedString[]
   quiz?: Quiz

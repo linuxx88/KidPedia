@@ -106,6 +106,63 @@
   box-shadow: 0 2px 0 #0f172a;
 }
 
+/* --- Keyboard Accessibility Focus Styles (Ticket #32) --- */
+.quizOption:focus-visible {
+  transform: translateY(-4px);
+  border-color: var(--color-primary);
+  outline: none;
+}
+
+.optionA:focus-visible {
+  outline: 4px solid #0284c7;
+  outline-offset: 4px;
+  box-shadow: 0 10px 0 var(--color-border-neutral), 0 0 20px rgba(2, 132, 199, 0.4);
+}
+
+.optionB:focus-visible {
+  outline: 4px solid #7c3aed;
+  outline-offset: 4px;
+  box-shadow: 0 10px 0 var(--color-border-neutral), 0 0 20px rgba(124, 58, 237, 0.4);
+}
+
+.optionC:focus-visible {
+  outline: 4px solid #e11d48;
+  outline-offset: 4px;
+  box-shadow: 0 10px 0 var(--color-border-neutral), 0 0 20px rgba(225, 29, 72, 0.4);
+}
+
+:global(.dark) .quizOption:focus-visible {
+  background-color: rgba(30, 41, 59, 0.8);
+}
+
+:global(.dark) .optionA:focus-visible {
+  outline: 4px solid #38bdf8;
+  border-color: #38bdf8;
+  box-shadow: 0 10px 0 #0f172a, 0 0 30px rgba(56, 189, 248, 0.5);
+}
+
+:global(.dark) .optionB:focus-visible {
+  outline: 4px solid #a78bfa;
+  border-color: #a78bfa;
+  box-shadow: 0 10px 0 #0f172a, 0 0 30px rgba(168, 85, 247, 0.5);
+}
+
+:global(.dark) .optionC:focus-visible {
+  outline: 4px solid #fb7185;
+  border-color: #fb7185;
+  box-shadow: 0 10px 0 #0f172a, 0 0 30px rgba(244, 63, 94, 0.5);
+}
+
+.quizOption:focus-visible:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 var(--color-border-neutral);
+}
+
+:global(.dark) .quizOption:focus-visible:active {
+  box-shadow: 0 2px 0 #0f172a;
+}
+
+
 .quizOptionLetter {
   width: 3rem;
   height: 3rem;
@@ -213,6 +270,18 @@
   box-shadow: 0 2px 0 #fde047;
 }
 
+.hintAudioBtn:focus-visible {
+  outline: 4px solid #facc15;
+  outline-offset: 4px;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #fde047, 0 0 15px rgba(250, 204, 21, 0.4);
+}
+
+.hintAudioBtn:focus-visible:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #fde047;
+}
+
 .reviewBtn {
   margin-top: 2rem;
   width: 100%;
@@ -232,6 +301,16 @@
   color: white;
   transform: scale(1.02);
 }
+
+.reviewBtn:focus-visible {
+  outline: 4px solid var(--color-primary);
+  outline-offset: 4px;
+  background-color: var(--color-primary);
+  color: white;
+  transform: scale(1.02);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+}
+
 
 .resultBox {
   margin-top: 1rem;
@@ -342,6 +421,35 @@
   :global(.dark) .quizOption:active {
     box-shadow: 0 2px 0 #0f172a;
   }
+  .quizOption:focus-visible {
+    transform: translateY(-2px);
+  }
+  .optionA:focus-visible {
+    box-shadow: 0 6px 0 var(--color-border-neutral), 0 0 20px rgba(2, 132, 199, 0.4);
+  }
+  .optionB:focus-visible {
+    box-shadow: 0 6px 0 var(--color-border-neutral), 0 0 20px rgba(124, 58, 237, 0.4);
+  }
+  .optionC:focus-visible {
+    box-shadow: 0 6px 0 var(--color-border-neutral), 0 0 20px rgba(225, 29, 72, 0.4);
+  }
+  :global(.dark) .optionA:focus-visible {
+    box-shadow: 0 6px 0 #0f172a, 0 0 30px rgba(56, 189, 248, 0.5);
+  }
+  :global(.dark) .optionB:focus-visible {
+    box-shadow: 0 6px 0 #0f172a, 0 0 30px rgba(168, 85, 247, 0.5);
+  }
+  :global(.dark) .optionC:focus-visible {
+    box-shadow: 0 6px 0 #0f172a, 0 0 30px rgba(244, 63, 94, 0.5);
+  }
+  .quizOption:focus-visible:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--color-border-neutral);
+  }
+  :global(.dark) .quizOption:focus-visible:active {
+    box-shadow: 0 2px 0 #0f172a;
+  }
+
   .quizOptionLetter {
     width: 2.25rem;
     height: 2.25rem;
@@ -502,6 +610,19 @@
   box-shadow: 0 2px 0 #6d28d9;
 }
 
+.wizardHelpBtn:focus-visible {
+  outline: 4px solid #c084fc;
+  outline-offset: 4px;
+  transform: translateY(-4px);
+  box-shadow: 0 10px 0 #6d28d9, 0 0 20px rgba(192, 132, 252, 0.5);
+}
+
+.wizardHelpBtn:focus-visible:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 0 #6d28d9;
+}
+
+
 .wizardHelpBox {
   margin-top: 1.5rem;
   padding: 2rem;
@@ -586,6 +707,19 @@
   transform: translateY(2px);
   box-shadow: 0 2px 0 #c084fc;
 }
+
+.wizardAudioBtn:focus-visible {
+  outline: 4px solid #a855f7;
+  outline-offset: 4px;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 #c084fc, 0 0 15px rgba(168, 85, 247, 0.4);
+}
+
+.wizardAudioBtn:focus-visible:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 #c084fc;
+}
+
 
 @keyframes slideInHelp {
   from { opacity: 0; transform: translateY(15px); }

@@ -15,6 +15,20 @@ export const space = [
       fr: 'Le Soleil est une étoile géante. Toutes les planètes tournent autour de lui. Il nous donne de la lumière et de la chaleur.',
       en: 'The Sun is a giant star. All the planets orbit around it. It gives us light and heat.',
     },
+    fullContents: [
+      {
+        fr: 'Le Soleil est une étoile géante. Toutes les planètes tournent autour de lui. Il nous donne de la lumière et de la chaleur.',
+        en: 'The Sun is a giant star. All the planets orbit around it. It gives us light and heat.',
+      },
+      {
+        fr: "Le Soleil est une gigantesque boule de gaz brûlant. C'est l'étoile la plus proche de la Terre, et elle brille si fort qu'elle éclaire toute notre journée !",
+        en: "The Sun is a giant ball of burning gas. It is the closest star to Earth, and it shines so brightly that it lights up our entire day!"
+      },
+      {
+        fr: "Le Soleil est le cœur de notre système solaire. Grâce à sa gravité, toutes les planètes restent bien sagement sur leur orbite sans s'échapper.",
+        en: "The Sun is the heart of our solar system. Thanks to its gravity, all the planets stay nicely on their orbit without escaping."
+      }
+    ],
     funFact: {
       fr: "On pourrait mettre 1 million de Terres à l'intérieur du Soleil !",
       en: 'You could fit 1 million Earths inside the Sun!',
@@ -49,6 +63,20 @@ export const space = [
       fr: "C'est la plus petite planète et la plus proche du Soleil. Il y fait très chaud le jour et très froid la nuit.",
       en: 'It is the smallest planet and the closest to the Sun. It is very hot during the day and very cold at night.',
     },
+    fullContents: [
+      {
+        fr: "C'est la plus petite planète et la plus proche du Soleil. Il y fait très chaud le jour et très froid la nuit.",
+        en: 'It is the smallest planet and the closest to the Sun. It is very hot during the day and very cold at night.',
+      },
+      {
+        fr: "Mercure ressemble beaucoup à notre Lune avec ses nombreux cratères. Comme elle n'a pas d'atmosphère pour la protéger, elle subit des températures extrêmes !",
+        en: "Mercury looks a lot like our Moon with its many craters. Since it has no atmosphere to protect it, it experiences extreme temperatures!"
+      },
+      {
+        fr: "Cette petite planète fonce à toute allure dans l'espace. Elle fait le tour du Soleil si vite qu'une année là-bas ne dure que trois mois terrestres !",
+        en: "This tiny planet speeds through space. It goes around the Sun so fast that a year there lasts only three Earth months!"
+      }
+    ],
     funFact: {
       fr: 'Une année sur Mercure dure seulement 88 jours !',
       en: 'A year on Mercury lasts only 88 days!',
@@ -66,6 +94,20 @@ export const space = [
       fr: "Vénus est recouverte de gros nuages qui gardent la chaleur. C'est comme une serre géante !",
       en: "Venus is covered in thick clouds that trap heat. It's like a giant greenhouse!",
     },
+    fullContents: [
+      {
+        fr: "Vénus est recouverte de gros nuages qui gardent la chaleur. C'est comme une serre géante !",
+        en: "Venus is covered in thick clouds that trap heat. It's like a giant greenhouse!",
+      },
+      {
+        fr: "Vénus brille si fort dans le ciel nocturne qu'on l'appelle souvent l'Étoile du Berger. C'est pourtant un monde infernal rempli de volcans !",
+        en: "Venus shines so brightly in the night sky that it is often called the Shepherd's Star. Yet, it is a hellish world full of volcanoes!"
+      },
+      {
+        fr: "Sur Vénus, l'air est tellement lourd et étouffant qu'il écraserait n'importe quel robot explorateur en quelques minutes seulement !",
+        en: "On Venus, the air is so heavy and suffocating that it would crush any explorer robot in just a few minutes!"
+      }
+    ],
     funFact: {
       fr: "Sur Vénus, le Soleil se lève à l'ouest et se couche à l'est.",
       en: 'On Venus, the Sun rises in the west and sets in the east.',
@@ -83,6 +125,20 @@ export const space = [
       fr: "La Terre est la seule planète connue avec de la vie. Elle a de l'eau, de l'air et une température parfaite.",
       en: 'Earth is the only known planet with life. It has water, air, and a perfect temperature.',
     },
+    fullContents: [
+      {
+        fr: "La Terre est la seule planète connue avec de la vie. Elle a de l'eau, de l'air et une température parfaite.",
+        en: 'Earth is the only known planet with life. It has water, air, and a perfect temperature.',
+      },
+      {
+        fr: "Notre Terre est souvent appelée la planète bleue car elle est recouverte à plus de 70% par de grands océans d'eau liquide.",
+        en: "Our Earth is often called the blue planet because more than 70% of it is covered by vast oceans of liquid water."
+      },
+      {
+        fr: "La Terre possède un bouclier magnétique invisible qui la protège des rayons dangereux du Soleil, permettant aux plantes et aux animaux de grandir en toute sécurité.",
+        en: "The Earth has an invisible magnetic shield that protects it from the Sun's dangerous rays, allowing plants and animals to grow safely."
+      }
+    ],
     funFact: {
       fr: 'La Terre tourne à 1600 km/h, mais on ne sent rien !',
       en: 'The Earth spins at 1600 km/h, but we feel nothing!',
@@ -114,6 +170,20 @@ export const space = [
       fr: 'Mars est rouge à cause de la rouille dans son sol. Des robots explorent sa surface.',
       en: 'Mars is red because of rust in its soil. Robots explore its surface.',
     },
+    fullContents: [
+      {
+        fr: 'Mars est rouge à cause de la rouille dans son sol. Des robots explorent sa surface.',
+        en: 'Mars is red because of rust in its soil. Robots explore its surface.',
+      },
+      {
+        fr: "Mars est une planète désertique très froide. Les scientifiques rêvent d'y envoyer un jour des humains pour y construire les premières bases spatiales !",
+        en: "Mars is a very cold desert planet. Scientists dream of sending humans there one day to build the first space bases!"
+      },
+      {
+        fr: "Sur Mars, on trouve des paysages grandioses comme des canyons géants et le mont Olympe, un volcan trois fois plus haut que notre mont Everest !",
+        en: "On Mars, you can find spectacular landscapes like giant canyons and Mount Olympus, a volcano three times higher than our Mount Everest!"
+      }
+    ],
     funFact: {
       fr: 'Le plus grand volcan du système solaire est sur Mars !',
       en: 'The largest volcano in the solar system is on Mars!',
@@ -131,6 +201,20 @@ export const space = [
       fr: "C'est une géante de gaz. Elle est si grande qu'on pourrait y mettre 1300 Terres !",
       en: 'It is a gas giant. It is so large that 1300 Earths could fit inside it!',
     },
+    fullContents: [
+      {
+        fr: "C'est une géante de gaz. Elle est si grande qu'on pourrait y mettre 1300 Terres !",
+        en: 'It is a gas giant. It is so large that 1300 Earths could fit inside it!',
+      },
+      {
+        fr: "Jupiter est la reine des planètes par sa taille. C'est une immense boule de gaz sans aucune surface solide pour se poser !",
+        en: "Jupiter is the queen of planets by size. It is a huge ball of gas with no solid surface to land on!"
+      },
+      {
+        fr: "Cette planète géante tourne sur elle-même à toute vitesse, ce qui crée des vents ultra-rapides et des tempêtes de couleurs qui durent depuis des siècles.",
+        en: "This giant planet spins on itself at high speed, creating ultra-fast winds and colorful storms that have lasted for centuries."
+      }
+    ],
     funFact: {
       fr: 'Sa grande tache rouge est une tempête géante.',
       en: 'Its great red spot is a giant storm.',
@@ -151,6 +235,20 @@ export const space = [
       fr: "Saturne est entourée d'anneaux de glace et de poussière. C'est aussi une géante gazeuse.",
       en: 'Saturn is surrounded by rings of ice and dust. It is also a gas giant.',
     },
+    fullContents: [
+      {
+        fr: "Saturne est entourée d'anneaux de glace et de poussière. C'est aussi une géante gazeuse.",
+        en: 'Saturn is surrounded by rings of ice and dust. It is also a gas giant.',
+      },
+      {
+        fr: "Les magnifiques anneaux de Saturne sont formés de millions de morceaux de glace, de roche et de poussière qui reflètent joliment la lumière du Soleil.",
+        en: "Saturn's magnificent rings are made of millions of pieces of ice, rock, and dust that beautifully reflect the Sun's light."
+      },
+      {
+        fr: "Saturne possède des dizaines de lunes fascinantes, dont Titan, une lune géante avec ses propres nuages et des lacs de gaz liquide !",
+        en: "Saturn has dozens of fascinating moons, including Titan, a giant moon with its own clouds and lakes of liquid gas!"
+      }
+    ],
     funFact: {
       fr: "Saturne flotterait sur l'eau si on trouvait une baignoire assez grande !",
       en: 'Saturn would float on water if we found a bathtub big enough!',
@@ -168,6 +266,20 @@ export const space = [
       fr: 'Uranus est une planète bleue très froide. Elle tourne sur le côté comme une boule qui roule.',
       en: 'Uranus is a very cold blue planet. It spins on its side like a rolling ball.',
     },
+    fullContents: [
+      {
+        fr: 'Uranus est une planète bleue très froide. Elle tourne sur le côté comme une boule qui roule.',
+        en: 'Uranus is a very cold blue planet. It spins on its side like a rolling ball.',
+      },
+      {
+        fr: "Cette géante de glace a une couleur turquoise unique grâce au gaz méthane présent dans son atmosphère. Elle possède aussi de fins anneaux sombres !",
+        en: "This ice giant has a unique turquoise color thanks to the methane gas in its atmosphere. It also has thin, dark rings!"
+      },
+      {
+        fr: "Contrairement aux autres planètes, Uranus a subi un choc dans le passé qui l'a couchée sur le côté. Ses saisons durent ainsi plus de 20 ans !",
+        en: "Unlike other planets, Uranus suffered a shock in the past that knocked it on its side. Its seasons thus last for more than 20 years!"
+      }
+    ],
     funFact: {
       fr: 'Il y fait environ -220 degrés Celsius !',
       en: 'It is about -220 degrees Celsius there!',
@@ -185,6 +297,20 @@ export const space = [
       fr: 'Neptune est la plus lointaine. Il y souffle les vents les plus forts de tout le système solaire.',
       en: 'Neptune is the farthest away. The strongest winds in the entire solar system blow there.',
     },
+    fullContents: [
+      {
+        fr: 'Neptune est la plus lointaine. Il y souffle les vents les plus forts de tout le système solaire.',
+        en: 'Neptune is the farthest away. The strongest winds in the entire solar system blow there.',
+      },
+      {
+        fr: "Neptune est une magnifique planète bleu cobalt. Elle est si éloignée du Soleil qu'il lui faut 165 ans terrestres pour faire un seul grand tour !",
+        en: "Neptune is a beautiful cobalt blue planet. It is so far from the Sun that it takes 165 Earth years to complete a single grand orbit!"
+      },
+      {
+        fr: "C'est un monde de glaces et de tempêtes extrêmes où les vents soufflent à plus de 2000 km/h, soit beaucoup plus vite que les avions de chasse !",
+        en: "It is a world of extreme ice and storms where winds blow at over 2000 km/h, much faster than jet fighter planes!"
+      }
+    ],
     funFact: {
       fr: 'Une année sur Neptune dure 165 ans terrestres !',
       en: 'A year on Neptune lasts 165 Earth years!',
@@ -202,6 +328,20 @@ export const space = [
       fr: 'Pluton est très loin et très petite. Elle a une grande plaine blanche en forme de cœur.',
       en: 'Pluto is very far away and very small. It has a large white heart-shaped plain.',
     },
+    fullContents: [
+      {
+        fr: 'Pluton est très loin et très petite. Elle a une grande plaine blanche en forme de cœur.',
+        en: 'Pluto is very far away and very small. It has a large white heart-shaped plain.',
+      },
+      {
+        fr: "Pluton a été longtemps considérée comme la neuvième planète du système solaire, avant d'être reclassée en planète naine à cause de sa petite taille.",
+        en: "Pluto was long considered the ninth planet of the solar system, before being reclassified as a dwarf planet due to its small size."
+      },
+      {
+        fr: "Cette petite planète naine glacée possède une atmosphère éphémère qui gèle et tombe comme de la neige lorsque Pluton s'éloigne trop du Soleil !",
+        en: "This tiny icy dwarf planet has a temporary atmosphere that freezes and falls as snow when Pluto gets too far from the Sun!"
+      }
+    ],
     funFact: {
       fr: 'Pluton possède 5 lunes !',
       en: 'Pluto has 5 moons!',
@@ -219,6 +359,20 @@ export const space = [
       fr: "Les astronautes sont des personnes entraînées pour voyager dans l'espace. Ils vivent dans la Station Spatiale Internationale et flottent car il n'y a pas de gravité.",
       en: 'Astronauts are people trained to travel in space. They live on the International Space Station and float because there is no gravity.',
     },
+    fullContents: [
+      {
+        fr: "Les astronautes sont des personnes entraînées pour voyager dans l'espace. Ils vivent dans la Station Spatiale Internationale et flottent car il n'y a pas de gravité.",
+        en: 'Astronauts are people trained to travel in space. They live on the International Space Station and float because there is no gravity.',
+      },
+      {
+        fr: "Pour devenir astronaute, il faut étudier la science et s'entraîner sous l'eau pour s'habituer à la sensation de flotter librement dans l'espace !",
+        en: "To become an astronaut, you must study science and train underwater to get used to the feeling of floating freely in space!"
+      },
+      {
+        fr: "Dans leur combinaison spatiale, les astronautes disposent d'une climatisation, d'eau à boire et d'une réserve d'oxygène pour pouvoir marcher dans le vide de l'espace.",
+        en: "In their spacesuit, astronauts have air conditioning, water to drink, and an oxygen supply to be able to walk in the vacuum of space."
+      }
+    ],
     funFact: {
       fr: "Dans l'espace, les astronautes grandissent de quelques centimètres car leur colonne vertébrale s'étire !",
       en: 'In space, astronauts grow a few centimeters because their spines stretch!',
@@ -239,6 +393,20 @@ export const space = [
       fr: "La Lune est l'objet le plus brillant de notre ciel nocturne, mais elle ne fabrique pas sa propre lumière : elle reflète celle du Soleil. Elle change d'apparence au fil du mois (pleine lune, croissant...) car elle tourne autour de la Terre. C'est le seul endroit dans l'espace où les humains ont déjà posé le pied !",
       en: "The Moon is the brightest object in our night sky, but it doesn't make its own light: it reflects light from the Sun. It changes appearance over the month (full moon, crescent...) because it orbits the Earth. It is the only place in space where humans have already set foot!",
     },
+    fullContents: [
+      {
+        fr: "La Lune est l'objet le plus brillant de notre ciel nocturne, mais elle ne fabrique pas sa propre lumière : elle reflète celle du Soleil. Elle change d'apparence au fil du mois (pleine lune, croissant...) car elle tourne autour de la Terre. C'est le seul endroit dans l'espace où les humains ont déjà posé le pied !",
+        en: "The Moon is the brightest object in our night sky, but it doesn't make its own light: it reflects light from the Sun. It changes appearance over the month (full moon, crescent...) because it orbits the Earth. It is the only place in space where humans have already set foot!",
+      },
+      {
+        fr: "La Lune attire l'eau de nos océans par sa force invisible de gravité, ce qui crée le phénomène magique des marées (la mer qui monte et qui descend) sur Terre !",
+        en: "The Moon attracts the water of our oceans with its invisible force of gravity, which creates the magical phenomenon of tides (the sea rising and falling) on Earth!"
+      },
+      {
+        fr: "La Lune est née il y a 4,5 milliards d'années suite à la collision d'une planète géante avec la jeune Terre. Les débris de ce choc se sont rassemblés pour former notre satellite.",
+        en: "The Moon was born 4.5 billion years ago following the collision of a giant planet with the young Earth. The debris from this impact gathered to form our satellite."
+      }
+    ],
     funFact: {
       fr: 'Sur la Lune, on pèse 6 fois moins que sur Terre. Tu pourrais faire des bonds de géant très facilement !',
       en: 'On the Moon, you weigh 6 times less than on Earth. You could make giant leaps very easily!',
@@ -273,6 +441,20 @@ export const space = [
       fr: "La singularité est le tout premier moment de notre univers. Il y a environ 13,8 milliards d'années, tout ce qui existe aujourd'hui (les étoiles, la Terre, et même nous !) était concentré en un point incroyablement minuscule, chaud et dense. Puis, ce point a commencé à s'étendre très rapidement : c'est le Big Bang !",
       en: "The singularity is the very first moment of our universe. About 13.8 billion years ago, everything that exists today (stars, Earth, and even us!) was concentrated in an incredibly tiny, hot, and dense point. Then, this point began to expand very quickly: that is the Big Bang!",
     },
+    fullContents: [
+      {
+        fr: "La singularité est le tout premier moment de notre univers. Il y a environ 13,8 milliards d'années, tout ce qui existe aujourd'hui (les étoiles, la Terre, et même nous !) était concentré en un point incroyablement minuscule, chaud et dense. Puis, ce point a commencé à s'étendre très rapidement : c'est le Big Bang !",
+        en: "The singularity is the very first moment of our universe. About 13.8 billion years ago, everything that exists today (stars, Earth, and even us!) was concentrated in an incredibly tiny, hot, and dense point. Then, this point began to expand very quickly: that is the Big Bang!",
+      },
+      {
+        fr: "Imagine que tout notre immense univers, avec toutes ses galaxies et ses étoiles, soit compressé jusqu'à devenir plus petit qu'un atome invisible. C'est le grand mystère de la singularité d'où tout est né !",
+        en: "Imagine that our entire vast universe, with all its galaxies and stars, was compressed until it became smaller than an invisible atom. That is the great mystery of the singularity from which everything was born!"
+      },
+      {
+        fr: "Au tout début, le temps et l'espace n'existaient pas encore comme aujourd'hui. La singularité a marqué le point de départ d'une incroyable expansion cosmique toujours en cours !",
+        en: "At the very beginning, time and space did not exist as they do today. The singularity marked the starting point of an incredible cosmic expansion still ongoing today!"
+      }
+    ],
     funFact: {
       fr: "Au moment de la singularité, tout l'univers tenait dans un espace plus petit qu'un grain de sable !",
       en: "At the moment of the singularity, the entire universe fit in a space smaller than a grain of sand!",
@@ -284,7 +466,7 @@ export const space = [
       },
       {
         fr: "Le mot 'singularité' désigne un endroit où les règles habituelles de la physique ne fonctionnent plus.",
-        en: "The word 'singularity' refers to a place where the usual rules of physics no longer work."
+        en: "The word 'singularité' refers to a place where the usual rules of physics no longer work."
       },
       {
         fr: "Après la singularité, l'univers a grandi si vite que cela s'appelle l'inflation cosmique.",

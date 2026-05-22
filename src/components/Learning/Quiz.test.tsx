@@ -123,5 +123,30 @@ describe('QuizComponent', () => {
     fireEvent.click(speakBtn)
     expect(mockOnSpeakText).toHaveBeenCalledWith(defaultProps.options[0], 'quiz-option-0')
   })
+
+  it("appelle onAnswer avec l'index correct quand on appuie sur Enter sur une option ayant le focus", () => {
+    mockOnAnswer.mockClear()
+    render(<QuizComponent {...defaultProps} />)
+
+    const option = screen.getByTestId('quiz-option-1')
+    option.focus()
+    expect(option).toHaveFocus()
+
+    fireEvent.keyDown(option, { key: 'Enter', code: 'Enter' })
+    expect(mockOnAnswer).toHaveBeenCalledWith(1)
+  })
+
+  it("appelle onAnswer avec l'index correct quand on appuie sur Espace sur une option ayant le focus", () => {
+    mockOnAnswer.mockClear()
+    render(<QuizComponent {...defaultProps} />)
+
+    const option = screen.getByTestId('quiz-option-2')
+    option.focus()
+    expect(option).toHaveFocus()
+
+    fireEvent.keyDown(option, { key: ' ', code: 'Space' })
+    expect(mockOnAnswer).toHaveBeenCalledWith(2)
+  })
 })
+
 

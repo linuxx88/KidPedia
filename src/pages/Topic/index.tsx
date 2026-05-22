@@ -1,5 +1,4 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { type Quiz } from '../../data/topics/types'
 import { useParams } from 'react-router-dom'
 import { encyclopedia } from '../../data/topics'
 import { useSettingsStore } from '../../store/useSettingsStore'
@@ -47,8 +46,9 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
 
   const topic = encyclopedia.find((t) => t.id === topicId) as Topic | undefined
 
-  const [currentFunFact, setCurrentFunFact] = useState<string>('');
-  const [currentQuiz, setCurrentQuiz] = useState<Quiz | undefined>(undefined);
+  const [funFactIndex, setFunFactIndex] = useState<number | null>(null);
+  const [quizIndex, setQuizIndex] = useState<number | null>(null);
+  const [descriptionIndex, setDescriptionIndex] = useState<number | null>(null);
 
   // Rediriger vers l'accueil si le sujet est verrouillé
   useEffect(() => {
@@ -65,25 +65,42 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   }, [topicId, startQuiz, isUnlocked])
 
   /* eslint-disable react-hooks/set-state-in-effect */
+  // Tirer au sort les indices stables uniquement lorsque le sujet change
   useEffect(() => {
     if (!topic) return;
-    
-    let fact = topic.funFact[language];
+
     if (topic.funFacts && topic.funFacts.length > 0) {
-      const randomIndex = Math.floor(Math.random() * topic.funFacts.length);
-      fact = topic.funFacts[randomIndex][language];
+      setFunFactIndex(Math.floor(Math.random() * topic.funFacts.length));
+    } else {
+      setFunFactIndex(null);
     }
-    setCurrentFunFact(fact);
-    
-    let q = QUIZZES[topic.id];
+
     const bank = QUIZ_BANKS[topic.id];
     if (bank && bank.length > 0) {
-      const randomIndex = Math.floor(Math.random() * bank.length);
-      q = bank[randomIndex];
+      setQuizIndex(Math.floor(Math.random() * bank.length));
+    } else {
+      setQuizIndex(null);
     }
-    setCurrentQuiz(q);
-  }, [topic, language]);
+
+    if (topic.fullContents && topic.fullContents.length > 0) {
+      setDescriptionIndex(Math.floor(Math.random() * topic.fullContents.length));
+    } else {
+      setDescriptionIndex(null);
+    }
+  }, [topicId, topic]);
   /* eslint-enable react-hooks/set-state-in-effect */
+
+  const currentFunFact = (topic && funFactIndex !== null && topic.funFacts && topic.funFacts[funFactIndex])
+    ? topic.funFacts[funFactIndex][language]
+    : (topic ? topic.funFact[language] : '');
+
+  const currentQuiz = (topic && quizIndex !== null && QUIZ_BANKS[topic.id] && QUIZ_BANKS[topic.id][quizIndex])
+    ? QUIZ_BANKS[topic.id][quizIndex]
+    : (topic ? QUIZZES[topic.id] : undefined);
+
+  const currentDescription = (topic && descriptionIndex !== null && topic.fullContents && topic.fullContents[descriptionIndex])
+    ? topic.fullContents[descriptionIndex][language]
+    : (topic ? topic.fullContent[language] : '');
 
   if (!topic) {
     return (
@@ -136,8 +153,8 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
     <Suspense fallback={<LoadingFallback />}>
       <TopicDetail
         title={topic.title[language]}
-        description={topic.fullContent[language]}
-        funFact={currentFunFact || topic.funFact[language]}
+        description={currentDescription}
+        funFact={currentFunFact}
         icon={topic.icon}
         audioFile={topic.audioFile}
         quiz={currentQuiz}
