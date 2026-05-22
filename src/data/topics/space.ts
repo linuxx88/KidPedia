@@ -409,6 +409,10 @@ export const space = [
       {
         fr: "La Lune est née il y a 4,5 milliards d'années suite à la collision d'une planète géante avec la jeune Terre. Les débris de ce choc se sont rassemblés pour former notre satellite.",
         en: "The Moon was born 4.5 billion years ago following the collision of a giant planet with the young Earth. The debris from this impact gathered to form our satellite."
+      },
+      {
+        fr: "La Lune est le satellite naturel qui tourne tout doucement autour de la Terre et change de forme dans le ciel chaque nuit. Tout comme la Lune qui grandit puis se repose en croissant discret, tu as le droit toi aussi d'avoir des jours plus calmes pour te reposer : tu restes merveilleux et entier, même quand tu te fais tout petit.",
+        en: "The Moon is the natural satellite that gently orbits the Earth and changes its shape in the night sky. Just like the Moon that grows bright and then rests as a quiet crescent, you are allowed to have calm days to rest: you are always wonderful and whole, even when you feel quiet."
       }
     ],
     funFact: {

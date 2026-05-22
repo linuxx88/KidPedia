@@ -56,6 +56,11 @@ export const QUIZ_BANKS: Partial<Record<TopicId, Quiz[]>> = {
       question: { fr: "Qui est déjà allé sur la Lune ?", en: "Who has already been to the Moon?" },
       options: { fr: ['Personne', 'Des extraterrestres', 'Des humains'], en: ['Nobody', 'Aliens', 'Humans'] },
       correctAnswer: 2
+    },
+    {
+      question: { fr: "Pourquoi la Lune semble-t-elle changer de forme dans le ciel ?", en: "Why does the Moon seem to change its shape in the sky?" },
+      options: { fr: ["Parce qu'elle tourne autour de la Terre et reflète le Soleil", "Parce qu'un dinosaure glouton en a croqué un morceau", "Parce qu'elle a trop chaud en été"], en: ["Because it orbits the Earth and reflects the Sun", "Because a greedy dinosaur took a bite out of it", "Because it gets too hot in summer"] },
+      correctAnswer: 0
     }
   ],
   singularite: [
