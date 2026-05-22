@@ -575,3 +575,28 @@ Critères d'Acceptation (DOD) :
 
 [ ] S'assurer que l'intégralité de la suite de tests (Vitest) s'exécute sans aucune régression (lancer `npm run validate`).
 
+---
+
+## 🎫 Ticket #55 : Système d'Économie de Jeu - Attribution de Tickets par palier de Médaille
+**Statut** : 🔴 À faire
+**Sévérité** : Élevée (Gamification & Économie de jeu)
+**Localisation** : `src/store/useProgressionStore.ts`, `src/components/Learning/Quiz/index.tsx`, `src/pages/Home/index.tsx`
+
+**Description** :
+Actuellement, l'application comptabilise de manière détournée le nombre de badges obtenus (`badges.length`) comme un compteur de tickets dans le Pill Dashboard. Il n'existe pas de réelle monnaie de jeu stockée et débitable permettant d'acheter des accessoires.
+Pour dynamiser l'engagement de l'enfant et introduire un système d'achat d'accessoires dans le coffre magique (`GiftsPage`), il faut implémenter une véritable gestion de solde de tickets persisté par profil, alimenté de manière gratifiante selon le palier de la médaille décrochée à la fin d'un quiz :
+- **Médaille d'Or** (Performance parfaite) ➔ **3 Tickets**
+- **Médaille d'Argent** (Une seule erreur) ➔ **2 Tickets**
+- **Médaille de Bronze** (Plusieurs erreurs) ➔ **1 Ticket**
+
+Les tickets ainsi cumulés formeront la monnaie d'échange nécessaire pour acheter des accessoires ou compagnons ultérieurement.
+
+**Critères d'Acceptation (DOD)** :
+- [ ] Enrichir la structure `ProfileProgression` dans `useProgressionStore.ts` pour stocker un attribut `tickets: number` persistant par profil.
+- [ ] Implémenter l'action `addTickets(amount: number)` et une action de débit `spendTickets(amount: number): boolean` retournant un succès ou un échec en cas de solde insuffisant.
+- [ ] Lors de la validation d'un quiz avec obtention d'une médaille (Or/Argent/Bronze), calculer la récompense en tickets correspondante (3, 2, ou 1) et créditer automatiquement le solde du profil.
+- [ ] Mettre à jour le Pill Dashboard (`Home/index.tsx`) et les autres indicateurs pour afficher le solde réel dynamique des tickets (`tickets` au lieu de `badges.length`).
+- [ ] Écrire les tests unitaires nécessaires dans `useProgressionStore.test.ts` pour vérifier les gains de tickets en fonction du métal de la médaille et s'assurer que le solde est débitable.
+- [ ] S'assurer de l'absence de toute régression technique en lançant `npm run validate`.
+
+
