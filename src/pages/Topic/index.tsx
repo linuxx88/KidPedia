@@ -11,7 +11,7 @@ import { type TopicId } from '../../types/domain'
 import BackButton from '../../components/UI/BackButton'
 import styles from './TopicPage.module.css'
 
-import { type Topic } from '../../data/topics/types'
+import { type Topic, type Quiz } from '../../data/topics/types'
 
 interface TopicPageProps {
   handleGoHome: (callback?: () => void) => void
@@ -25,6 +25,43 @@ const TopicDetail = lazy(() =>
 const LoadingFallback = () => {
   const labels = useSettingsStore(state => state.labels)
   return <div className={styles.loadingFallback}>{labels.common.loading}</div>
+}
+
+// eslint-disable-next-line react-refresh/only-export-components
+export function isSpoiler(funFact: { fr: string; en: string }, quiz: Quiz): boolean {
+  const cleanString = (str: string) =>
+    str.toLowerCase().replace(/[\s\u00a0,.;!?:'’"«»()-]/g, '');
+
+  const correctOptionFr = quiz.options.fr[quiz.correctAnswer];
+  const correctOptionEn = quiz.options.en[quiz.correctAnswer];
+
+  if (!correctOptionFr || !correctOptionEn) return false;
+
+  const funFactFrClean = cleanString(funFact.fr);
+  const funFactEnClean = cleanString(funFact.en);
+
+  const answerFrClean = cleanString(correctOptionFr);
+  const answerEnClean = cleanString(correctOptionEn);
+
+  // Évite les correspondances sur les réponses courtes génériques (ex: "Oui", "Non", "100")
+  if (answerFrClean.length > 3 && funFactFrClean.includes(answerFrClean)) {
+    return true;
+  }
+  if (answerEnClean.length > 3 && funFactEnClean.includes(answerEnClean)) {
+    return true;
+  }
+
+  // Extraction et détection des nombres clés partagés (ex: "1600", "1 000 000")
+  const numMatchesFr = correctOptionFr.match(/\d+/g);
+  if (numMatchesFr) {
+    for (const num of numMatchesFr) {
+      if (num.length >= 2 && (funFactFrClean.includes(num) || funFactEnClean.includes(num))) {
+        return true;
+      }
+    }
+  }
+
+  return false;
 }
 
 export function TopicPage({ handleGoHome }: TopicPageProps) {
@@ -69,19 +106,43 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   useEffect(() => {
     if (!topic) return;
 
-    if (topic.funFacts && topic.funFacts.length > 0) {
-      setFunFactIndex(Math.floor(Math.random() * topic.funFacts.length));
-    } else {
-      setFunFactIndex(null);
-    }
-
+    // 1. Sélectionner d'abord le quiz de manière stable
     const bank = QUIZ_BANKS[topic.id];
+    let selectedQuizIndex: number | null = null;
     if (bank && bank.length > 0) {
-      setQuizIndex(Math.floor(Math.random() * bank.length));
+      selectedQuizIndex = Math.floor(Math.random() * bank.length);
+      setQuizIndex(selectedQuizIndex);
     } else {
       setQuizIndex(null);
     }
 
+    // 2. Filtrer les anecdotes sans spoiler
+    if (topic.funFacts && topic.funFacts.length > 0) {
+      if (selectedQuizIndex !== null && bank) {
+        const quiz = bank[selectedQuizIndex];
+        const nonSpoilerIndices: number[] = [];
+        
+        topic.funFacts.forEach((ff, idx) => {
+          if (!isSpoiler(ff, quiz)) {
+            nonSpoilerIndices.push(idx);
+          }
+        });
+
+        if (nonSpoilerIndices.length > 0) {
+          const randIdx = Math.floor(Math.random() * nonSpoilerIndices.length);
+          setFunFactIndex(nonSpoilerIndices[randIdx]);
+        } else {
+          // Repli : si tout est spoiler (cas rare), sélectionner au hasard
+          setFunFactIndex(Math.floor(Math.random() * topic.funFacts.length));
+        }
+      } else {
+        setFunFactIndex(Math.floor(Math.random() * topic.funFacts.length));
+      }
+    } else {
+      setFunFactIndex(null);
+    }
+
+    // 3. Sélectionner la description stable
     if (topic.fullContents && topic.fullContents.length > 0) {
       setDescriptionIndex(Math.floor(Math.random() * topic.fullContents.length));
     } else {

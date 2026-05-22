@@ -63,13 +63,13 @@ Standardisation via le composant **`AccessibleSvgHotspot`** :
 
 ## 🧪 Qualité & Validation
 - **Validation complète :** `npm run validate`.
-- **État Actuel (v3.15.0) :** 100% validé.
-  - **Vitest :** 165 tests unitaires et d'intégration (incluant les tests structurels Data Factory, tests d'intégrité Mermaid et zoom tactile).
+- **État Actuel (v3.15.2) :** 100% validé.
+- **Vitest :** 170 tests unitaires et d'intégration (incluant les tests de sécurité anti-spoiler, les tests structurels Data Factory, tests d'intégrité Mermaid et zoom tactile).
   - **Playwright :** 16 scénarios E2E (Navigation, Zoom, Multi-profils).
 
 ---
 
-## 🚧 Dette Technique & À Faire (v3.15.0)
+## 🚧 Dette Technique & À Faire (v3.15.2)
 
 ✅ **RÉSOLU : Alerte "God Object"** (Traité en v2.3.1)
 ✅ **RÉSOLU : Alerte "Abonnement Furtif"** (Traité en v2.3.0)
@@ -91,11 +91,12 @@ Standardisation via le composant **`AccessibleSvgHotspot`** :
 ✅ **RÉSOLU : Découplage `clearBadges` & Confirmation Unique UI (Ticket #10)** (Traité en v3.7.0)
 ✅ **RÉSOLU : Sujets "Orphelins" & Validation d'Accès (Ticket #06)** (Traité en v3.12.0)
 ✅ **RÉSOLU : Indicateurs de focus clavier sur les quiz (Ticket #32)** (Traité en v3.13.0)
-✅ **RÉSOLU : Ergonomie de l'En-tête & Alignements tactiles (Ticket #62 - Défaut #1)** (Traité en v3.15.0)
+✅ **RÉSOLU : Résolution Intégrale de la Conception Visuelle de l'Accueil (Ticket #62)** (Traité en v3.15.1)
+✅ **RÉSOLU : Sécurité anti-spoiler sur les anecdotes (Ticket #04)** (Traité en v3.15.2)
 
 ---
 
-**📝 Note :** Prochaine étape : Poursuite de la résolution des défauts de conception de la page d'accueil (Bannière héro, grille de raccourcis, barre de progression et visibilité des fiches bloquées).
+**📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 22 mai 2026 (v3.15.0)*
+*Dernière mise à jour : 22 mai 2026 (v3.15.2)*

@@ -7,6 +7,20 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
 
+### VERSION 3.15.2 - Sécurité Anti-Spoiler Pédagogique (Ticket #04) (22 Mai 2026)
+--------------------------------------------------
+- **[Content/Logic] Implémentation de la sécurité anti-spoiler sur les anecdotes (Ticket #04) :**
+    - **TopicPage/index.tsx** :
+        - Implémentation d'une fonction `isSpoiler` comparant sémantiquement les réponses correctes en français et anglais avec les anecdotes ("Le savais-tu ?").
+        - Nettoyage et normalisation rigoureuse des chaînes de caractères (suppression de la ponctuation, des espaces insécables et mise en minuscules) pour un matching sémantique robuste.
+        - Exclusion intelligente des réponses courtes (longueur <= 3 caractères, comme "Oui" ou "Non") pour éviter les faux positifs.
+        - Analyse et comparaison stricte des nombres de 2 chiffres ou plus (ex: "1600", "1 million") pour bloquer les spoilers numériques.
+        - Réordonnancement de l'effet d'initialisation de la page : le quiz actif est sélectionné d'abord, puis les anecdotes sont filtrées pour n'afficher que les anecdotes garanties sans spoiler (avec repli aléatoire si toutes les anecdotes contiennent un spoiler).
+        - Maintien parfait de la stabilité des états (`funFactIndex`, `quizIndex`, `descriptionIndex`) pour éviter les reshuffles intempestifs lors du changement de langue.
+    - **TopicPage.test.tsx** :
+        - Création d'une suite complète de tests unitaires pour `isSpoiler` couvrant le matching de texte intégral, l'exclusion des réponses courtes et la détection numérique stricte.
+        - Ajout d'un test d'intégration asynchrone sur le sujet `soleil` simulant le rendu de la page et vérifiant l'exclusion effective de l'anecdote spoiler liée à la bonne réponse "1 million".
+
 ### VERSION 3.15.1 - Résolution Intégrale de la Conception Visuelle et des Alignements (22 Mai 2026)
 --------------------------------------------------
 - **[Aesthetics/UX/UI] Polissage esthétique complet de la page d'accueil (Ticket #62) :**

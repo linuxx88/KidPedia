@@ -33,11 +33,12 @@ Un clic sur le bouton "La singularité" (situé dans la catégorie des Origines 
 ---
 
 ## 🎫 Ticket #04 : Sécurité anti-spoiler (Pédagogie Quiz / Anecdotes)
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Faible (Qualité / Pédagogie)
 **Localisation** : `TopicPage` / logique de sélection
 **Description** :
 Éviter que l'anecdote ("Le savais-tu ?") ne donne la réponse directe au quiz affiché juste en dessous. Par exemple, si le quiz est *"Combien de Terres peut-on mettre dans le Soleil ?"*, il faut s'assurer que l'anecdote choisie ne soit pas *"On pourrait mettre 1 million de Terres à l'intérieur du Soleil !"*. Il faut implémenter un filtre d'exclusion mutuelle pour ces cas de doublons sémantiques.
+**Résolution** : Implémentation de la fonction utilitaire `isSpoiler` nettoyant et comparant sémantiquement les options de réponse correcte avec les anecdotes candidates en français et en anglais (via filtrage regex). L'exclusion contourne les réponses courtes (<= 3 chars, ex: "Oui") pour éviter les faux positifs, mais extrait et teste les nombres de 2 chiffres ou plus pour bloquer les spoilers numériques directs (comme "1600" ou "1 million"). Mise à jour du `useEffect` dans `TopicPage/index.tsx` pour d'abord figer la question de quiz, puis filtrer et sélectionner une anecdote parmi les candidates sécurisées.
 
 ---
 
