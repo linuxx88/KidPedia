@@ -6,6 +6,14 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
+### VERSION 3.10.1 - Optimisation Responsive & Anti-débordement Mobile (22 Mai 2026)
+--------------------------------------------------
+- **[Feature] RWD & Support Ultra-DPI (Ticket #59) :**
+    - **Configuration du Viewport** : Mise à jour de la balise meta viewport dans `index.html` pour supporter `maximum-scale=5.0` garantissant une flexibilité optimale sans artificialisation des proportions de rendu sur les grands écrans tactiles mobiles.
+    - **Échelle Typographique Fluide** : Surcharge réactive des variables de tailles de police globales `--fs-*` sous `@media (max-width: 480px)` dans `vars.css`, convertissant les tailles de titres et de textes en typographies fluides auto-ajustables sur mobile.
+    - **Optimisations TopicDetail** : Passage des titres et contenus de `TopicDetail.module.css` sous des dimensions fluides et intégration d'une media query `@media (max-width: 480px)` pour réduire le padding global de la fiche à `1.25rem` et diviser par deux la taille d'icône Hero (`3.5rem`), libérant 40% de surface d'affichage supplémentaire.
+    - **Optimisations Quiz** : Refonte de la grille de réponses `.optionsGrid` sur une seule colonne et transition des choix de réponses du quiz en listes horizontales compactes (`flex-direction: row; padding: 1.15rem 1rem;`) éliminant définitivement les débordements sur la hauteur d'affichage.
+
 ### VERSION 3.10.0 - Synthèse Vocale (TTS - Text-To-Speech) pour Enfants Non-Lecteurs (22 Mai 2026)
 --------------------------------------------------
 - **[Feature] Synthèse Vocale (TTS) Granulaire (Ticket #24) :**

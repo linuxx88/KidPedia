@@ -678,7 +678,7 @@ Critères d'Acceptation (DOD) :
 ---
 
 ## 🎫 Ticket #59 : Débordement et surdimensionnement des éléments sur écrans mobiles haute résolution (ex: Galaxy S24 Ultra)
-Statut : 🔴 À faire
+Statut : 🟢 Résolu
 
 Sévérité : Élevée (Expérience Utilisateur Mobile / RWD)
 
@@ -700,7 +700,7 @@ Sur les smartphones haut de gamme à haute densité de pixels (comme le Samsung 
 4. **Breakpoints Mobiles Modernes** : Introduire une clause média `@media (max-width: 480px)` affinant spécifiquement les paddings et limitant le zoom des cartes d'apprentissage sur smartphones très denses.
 
 Critères d'Acceptation (DOD) :
-- [ ] Vérifier et adapter la balise `<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />` dans `index.html`.
-- [ ] Remplacer les tailles de police trop imposantes des titres et des descriptions par des typographies fluides utilisant `clamp()`.
-- [ ] Ajuster les règles CSS de layout (`flex`, `grid`, `padding`, `margin`) sur mobile pour s'assurer que les cartes d'options de quiz et les boutons d'apprentissage tiennent entièrement dans le viewport sans forcer de défilement horizontal.
-- [ ] Valider le bon rendu responsive sans débordement sur les simulateurs de navigateurs mobiles (ex: Chrome DevTools, profils mobiles haute densité).
+- [x] Vérifier et adapter la balise `<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />` dans `index.html`.
+- [x] Remplacer les tailles de police trop imposantes des titres et des descriptions par des typographies fluides utilisant `clamp()`.
+- [x] Ajuster les règles CSS de layout (`flex`, `grid`, `padding`, `margin`) sur mobile pour s'assurer que les cartes d'options de quiz et les boutons d'apprentissage tiennent entièrement dans le viewport sans forcer de défilement horizontal.
+- [x] Valider le bon rendu responsive sans débordement sur les simulateurs de navigateurs mobiles (ex: Chrome DevTools, profils mobiles haute densité).

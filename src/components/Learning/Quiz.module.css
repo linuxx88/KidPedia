@@ -37,7 +37,7 @@
 }
 
 .quizQuestion {
-  font-size: 1.5rem;
+  font-size: var(--fs-xl);
   font-weight: 800;
   margin-bottom: 2.5rem;
   line-height: 1.4;
@@ -294,6 +294,121 @@
 @media (max-width: 640px) {
   .resultTitle { font-size: 1.75rem; }
   .resultIcon { font-size: 4rem; }
+}
+
+@media (max-width: 480px) {
+  .quizHeader {
+    margin-bottom: 1.25rem;
+    gap: 0.75rem;
+  }
+  .quizHeaderIcon {
+    font-size: 1.5rem;
+  }
+  .quizHeaderTitle {
+    font-size: 1.15rem;
+  }
+  .questionContainer {
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
+  .optionsGrid {
+    grid-template-columns: 1fr;
+    gap: 0.85rem;
+  }
+  .quizOption {
+    padding: 1.15rem 1rem;
+    border-radius: 1.5rem;
+    border-width: 3px;
+    box-shadow: 0 4px 0 var(--color-border-neutral);
+    flex-direction: row;
+    gap: 0.75rem;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  :global(.dark) .quizOption {
+    box-shadow: 0 4px 0 #0f172a;
+  }
+  .quizOption:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 var(--color-border-neutral);
+  }
+  :global(.dark) .quizOption:hover {
+    box-shadow: 0 6px 0 #0f172a;
+  }
+  .quizOption:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--color-border-neutral);
+  }
+  :global(.dark) .quizOption:active {
+    box-shadow: 0 2px 0 #0f172a;
+  }
+  .quizOptionLetter {
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.65rem;
+    font-size: 1rem;
+    flex-shrink: 0;
+    margin-bottom: 0; /* reset column spacing */
+  }
+  .optionText {
+    font-size: 1rem;
+    text-align: left;
+  }
+  .optionContentWrapper {
+    gap: 0.75rem;
+  }
+  .hintBox {
+    margin-top: 1.5rem;
+    padding: 1.25rem;
+    border-radius: 1.5rem;
+  }
+  .hintTitle {
+    font-size: 1.1rem;
+  }
+  .hintText {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+  .hintAudioBtn {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
+    border-radius: 0.75rem;
+    box-shadow: 0 3px 0 #fde047;
+  }
+  .wizardHelpBtn {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    border-radius: 1.5rem;
+    border-width: 3px;
+    box-shadow: 0 4px 0 #6d28d9;
+  }
+  .wizardHelpBox {
+    margin-top: 1rem;
+    padding: 1.25rem;
+    border-radius: 1.75rem;
+  }
+  .wizardTitle {
+    font-size: 1.1rem;
+  }
+  .wizardText {
+    font-size: 0.95rem;
+    margin-bottom: 1rem;
+  }
+  .wizardAudioBtn {
+    padding: 0.5rem 1.5rem;
+    font-size: 0.9rem;
+    border-radius: 1rem;
+    box-shadow: 0 3px 0 #c084fc;
+  }
+  .qcPassStamp {
+    top: 1rem;
+    right: 1rem;
+    padding: 0.35rem 0.65rem;
+    border-width: 3px;
+  }
+  .qcPassBadge {
+    font-size: 1rem;
+  }
 }
 
 /* --- Gamification: QC PASS Stamp --- */

@@ -166,7 +166,7 @@
 }
 
 .topicMainTitle {
-  font-size: 3.5rem;
+  font-size: var(--fs-2xl);
   font-weight: 950;
   color: var(--color-app-text);
   letter-spacing: -0.05em;
@@ -189,7 +189,7 @@
 }
 
 .topicDescriptionText {
-  font-size: 1.25rem;
+  font-size: var(--fs-base);
   line-height: 1.8;
   color: var(--color-app-text-muted);
   font-weight: 500;
@@ -248,7 +248,7 @@
 }
 
 .topicFunFactText {
-  font-size: 1.35rem;
+  font-size: var(--fs-lg);
   font-weight: 800;
   color: #92400e;
   line-height: 1.5;
@@ -298,8 +298,59 @@
 
 @media (max-width: 768px) {
   .topicGlassSheet { padding: 2rem; }
-  .topicMainTitle { font-size: 2.5rem; }
-  .topicHeroIcon { font-size: 4rem; }
+  .topicMainTitle { font-size: 2.25rem; }
+  .topicHeroIcon { font-size: 4.5rem; }
+}
+
+@media (max-width: 480px) {
+  .topicGlassSheet {
+    padding: 1.25rem;
+    border-radius: 2rem;
+    border-width: 3px;
+  }
+  .topicMainTitle {
+    font-size: 1.75rem;
+  }
+  .topicHeroIcon {
+    font-size: 3.5rem;
+  }
+  .topicSeparator {
+    margin: 1.5rem 0;
+  }
+  .topicDescriptionText {
+    margin-bottom: 1.5rem;
+  }
+  .descriptionContainer {
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .topicFunFactBox {
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    border-width: 3px;
+  }
+  .topicFunFactIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    top: -1.25rem;
+    left: 1.5rem;
+    border-radius: 0.75rem;
+  }
+  .topicFunFactTitle {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .funFactContentWrapper {
+    gap: 1rem;
+  }
+  .topicFinishButton {
+    padding: 1rem 2.5rem;
+    font-size: 1.25rem;
+    margin: 2rem auto;
+    border-radius: 1.5rem;
+    box-shadow: 0 6px 0 var(--color-primary-dark);
+  }
 }
 
 .descriptionContainer {
