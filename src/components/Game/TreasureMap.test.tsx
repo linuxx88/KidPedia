@@ -335,4 +335,18 @@ describe('TreasureMap', () => {
 
     fireEvent.touchEnd(mapWrapper)
   })
+
+  it('applique un facteur d\'échelle inverse sur les marqueurs selon le niveau de zoom', () => {
+    render(<TreasureMap onBack={onBack} markers={mockMarkers} />)
+    
+    // Au zoom initial (x1)
+    const marker1 = screen.getByTestId('map-point-grand-canyon')
+    expect(marker1.style.transform).toContain('scale(1)')
+
+    // Augmenter le zoom à x2
+    fireEvent.click(screen.getByLabelText('Zoomer'))
+    
+    // Le zoom est x2, donc l'échelle du marqueur doit être 1/2 = 0.5
+    expect(marker1.style.transform).toContain('scale(0.5)')
+  })
 })

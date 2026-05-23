@@ -8,6 +8,12 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 
 
+### VERSION 3.20.11 - Dimensionnement Dynamique Compensé & Test de Scale Inverse des Marqueurs de Carte 🗺️🔍 (23 Mai 2026)
+--------------------------------------------------
+- **[UX/QA/Aesthetics] Dimensionnement dynamique des marqueurs de la carte interactive (Ticket #35) :**
+    - **TreasureMap.tsx** : Passage réactif du `zoom` actuel au composant `MapPoint` et application du style inline compensé `transform: translate(-50%, -50%) scale(${1 / zoom})`. Cette formule neutralise le grossissement lié au zoom global CSS, conservant la lisibilité et des dimensions parfaites pour les émojis et les étoiles de médailles sans overlapping visuel.
+    - **TreasureMap.test.tsx** : Écriture d'un nouveau test unitaire (`applique un facteur d'échelle inverse sur les marqueurs selon le niveau de zoom`) vérifiant formellement le passage à l'échelle `scale(1)` à zoom `x1`, puis le recalcul à `scale(0.5)` à zoom `x2`.
+
 ### VERSION 3.20.10 - Suggestions de Recherche Interactives & Résolution du Dead End d'Exploration 🔍✨ (23 Mai 2026)
 --------------------------------------------------
 - **[UX/i18n/Aesthetics/A11y/QA] Éradication de l'impasse ergonomique de recherche sans résultat (Ticket #33) :**

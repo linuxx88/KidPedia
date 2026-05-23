@@ -66,7 +66,7 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 
 ## 🧪 Qualité & Validation
 - **Validation complète :** `npm run validate`.
-- **État Actuel (v3.20.10) :** 100% validé.
+- **État Actuel (v3.20.11) :** 100% validé.
 - **Vitest :** 170 tests unitaires et d'intégration (incluant les tests de sécurité anti-spoiler, les tests structurels Data Factory, tests d'intégrité Mermaid et zoom tactile).
   - **Playwright :** 16 scénarios E2E (Navigation, Zoom, Multi-profils).
 
@@ -113,10 +113,11 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Absence de variété dans les descriptions introductives des sujets (Ticket #20)** (Traité en v3.20.8)
 ✅ **RÉSOLU : Variables de couleurs CSS codées en dur dans les grilles vectorielles d'Origins (Ticket #31)** (Traité en v3.20.9)
 ✅ **RÉSOLU : Zone de recherche vide sans chemin de repli (Ticket #33)** (Traité en v3.20.10)
+✅ **RÉSOLU : Dimensionnement dynamique des marqueurs de la Carte interactive (Ticket #35)** (Traité en v3.20.11)
 
 ---
 
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 23 mai 2026 (v3.20.10)*
+*Dernière mise à jour : 23 mai 2026 (v3.20.11)*

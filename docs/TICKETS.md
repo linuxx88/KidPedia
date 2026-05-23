@@ -191,11 +191,14 @@ Si un enfant tape une recherche farfelue qui ne correspond à aucun sujet, l'éc
 ---
 
 ## 🎫 Ticket #35 : Dimensionnement dynamique des marqueurs de la Carte interactive (Overlapping lors du zoom)
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Moyenne (UX / Lisibilité)
 **Localisation** : `src/components/Game/TreasureMap.tsx` & `TreasureMap.module.css`
 **Description** :
 Lorsqu'un zoom avant est effectué sur la carte, les marqueurs de points d'intérêt (boutons d'îles/sujets) grandissent proportionnellement avec le zoom visuel CSS (`transform: scale(zoom)`). Par conséquent, à zoom élevé (ex: x3), les émojis et les étoiles de médailles deviennent gigantesques, s'empilent, se chevauchent et cachent complètement les détails de la carte environnante. Il faut appliquer un facteur d'échelle inverse (`scale(1 / zoom)`) sur les marqueurs individels afin qu'ils conservent une taille visuelle propre, constante et lisible quel que soit le niveau de zoom.
+**Résolution** : Implémentation d'une compensation d'échelle inverse et écriture de tests de non-régression :
+1. **Facteur d'Échelle Inverse Réactif** : Raccordement du composant mémoïsé `MapPoint` au niveau de `zoom` du hook `useMapZoom()`, et application dynamique du style inline `transform: translate(-50%, -50%) scale(${1 / zoom})`. Les marqueurs conservent une dimension physique stable à l'écran quel que soit le grossissement.
+2. **Robustesse unitaire** : Ajout d'un test dédié dans `TreasureMap.test.tsx` (`applique un facteur d'échelle inverse sur les marqueurs selon le niveau de zoom`) vérifiant formellement l'application des échelles `scale(1)` puis `scale(0.5)` à zoom `x2`.
 
 ---
 
