@@ -437,48 +437,11 @@ Le système actuel pour entrer dans la Zone Parents repose sur des multiplicatio
 - [ ] Gérer l'échec de tentative en brouillant les cartes d'association pour éviter le forçage par clics aléatoires chez l'enfant.
 - [ ] Conserver l'accessibilité WCAG AA avec des descriptions vocales et des contrastes élevés sur les cartes de puzzle.
 
-### 📑 Rapport d'Analyse QA : Incohérences de `z-index`
+### 📑 Rapport d'Analyse QA : Incohérences de `z-index` (🟢 Résolu en v3.19.0)
 
-#### 1. Conflits d'empilement au sommet de l'application (`z-index: 9999`)
-Plusieurs overlays et composants globaux critiques partagent exactement le même niveau d'affichage, rendant leur ordre de superposition indéterministe (dépendant uniquement de l'ordre d'insertion dans le DOM) :
-*   [OrientationGuard.module.css:4](file:///J:/KIDPEDIA/KidPedia/src/components/Layout/OrientationGuard.module.css#L4) : `.overlay { z-index: 9999; }`
-*   [OfflineFallback.module.css:13](file:///J:/KIDPEDIA/KidPedia/src/components/UI/OfflineFallback.module.css#L13) : `.container { z-index: 9999; }`
-*   [ParentalGate.module.css:9](file:///J:/KIDPEDIA/KidPedia/src/components/UI/ParentalGate.module.css#L9) : `.overlay { z-index: 9999; }`
-*   [ToastContainer.module.css:5](file:///J:/KIDPEDIA/KidPedia/src/components/UI/Toast/ToastContainer.module.css#L5) : `.container { z-index: 9999; }`
-*   **Impact :** Un toast de notification peut s'afficher *derrière* la barrière parentale ou l'écran hors-ligne. De plus, l'écran de garde d'orientation (bloquant) peut être masqué par d'autres overlays.
-*   **Solution recommandée :** Hiérarchiser les priorités : `OrientationGuard` (ex: `100000`), `ToastContainer` (ex: `90000`), puis `OfflineFallback` / `ParentalGate` (ex: `80000`).
-
----
-
-#### 2. Collisions avec le Header global (`z-index: 100`)
-Des overlays censés bloquer l'écran partagent le même `z-index` que le header global collant (`z-index: 100`), ce qui génère un chevauchement visuel incorrect :
-*   [LifeCirclePage.module.css:390](file:///J:/KIDPEDIA/KidPedia/src/pages/LifeCircle/LifeCirclePage.module.css#L390) : `.modalOverlay { z-index: 100; }` (Modal pédagogique)
-*   [MissionSafari.module.css:199](file:///J:/KIDPEDIA/KidPedia/src/components/Game/MissionSafari.module.css#L199) : `.quizOverlay { z-index: 100; }` (Overlay du Quiz actif)
-*   [PageHeader.module.css:15](file:///J:/KIDPEDIA/KidPedia/src/components/Layout/PageHeader.module.css#L15) & [MainLayout.module.css:27](file:///J:/KIDPEDIA/KidPedia/src/components/Layout/MainLayout.module.css#L27) : `.header` / `.appHeader { z-index: 100; }`
-*   **Impact :** Le header global de l'application ou d'autres éléments collants peuvent s'afficher *au-dessus* ou *au travers* du modal pédagogique ou de l'overlay de quiz.
-*   **Solution recommandée :** Augmenter le z-index de ces overlays bloquants pour qu'ils soient cohérents avec le reste de l'application (ex: `z-index: 1000`).
-
----
-
-#### 3. Conflits d'overlays standards et d'éléments flottants (`z-index: 1000`)
-Plusieurs overlays et boutons d'actions partagent le niveau `1000`, créant des risques de superposition indésirables :
-*   [AppOverlay.module.css:4](file:///J:/KIDPEDIA/KidPedia/src/components/UI/AppOverlay.module.css#L4) : `.overlayContainer { z-index: 1000; }`
-*   [GiftsPage.module.css:760](file:///J:/KIDPEDIA/KidPedia/src/components/Learning/ExplorerGallery/GiftsPage.module.css#L760) : `.modalOverlay { z-index: 1000; }`
-*   [PWAPrompt.module.css:9](file:///J:/KIDPEDIA/KidPedia/src/components/UI/PWAPrompt.module.css#L9) : `.prompt { z-index: 1000; }`
-*   [TopicDetail.module.css:481](file:///J:/KIDPEDIA/KidPedia/src/components/Learning/TopicDetail.module.css#L481) : `.baguetteFloatingBtn { z-index: 1000; }`
-*   **Impact :** Le bouton d'action flottant (`.baguetteFloatingBtn`) peut apparaître au-dessus des modals de confirmation ou du prompt PWA, perturbant l'interface utilisateur.
-*   **Solution recommandée :** Réduire le z-index du bouton flottant (ex: `z-index: 900`) pour s'assurer qu'il soit toujours couvert par les overlays.
-
----
-
-#### 4. Anomalie de z-index inline (`zIndex: 999`)
-*   [LifeCirclePage.tsx:225](file:///J:/KIDPEDIA/KidPedia/src/pages/LifeCircle/LifeCirclePage.tsx#L225) : `zIndex: 999` (Animation d'XP flottante `+XP`)
-*   **Impact :** L'animation de gain d'XP s'affiche au-dessus du modal de la page (`z-index: 100`), mais passera en dessous si des overlays standards de l'application (`z-index: 1000`) sont affichés.
-*   **Solution recommandée :** Aligner la gestion des animations d'XP flottantes avec les autres composants d'effets visuels et l'abaisser sous le niveau des modals.
-
----
-
-#### 5. Contexte d'empilement global inutile sur `#root`
-*   [reset.css:66](file:///J:/KIDPEDIA/KidPedia/src/styles/reset.css#L66) : `#root { position: relative; z-index: 1; }`
-*   **Impact :** Crée un contexte d'empilement racine pour toute l'application. Bien que bénin si tout est dans React, cela enferme tous les overlays `fixed` (ex: `z-index: 9999`) sous le niveau d'autres éléments qui seraient injectés directement dans le `<body>` par des scripts tiers ou extensions de navigateur.
-*   **Solution recommandée :** Supprimer le `z-index: 1` sur `#root`.
+Toutes les incohérences de z-index ont été auditées et résolues à l'aide de variables CSS globales dans `src/styles/vars.css` :
+1. **Priorisation des Overlays de Tête** : Mappé via les variables `--z-index-orientation-guard: 100000`, `--z-index-toast: 90000`, `--z-index-offline-fallback: 80000`, `--z-index-parental-gate: 80000` assurant qu'aucun toast ne passe derrière un overlay.
+2. **Harmonisation des Modals et En-têtes** : Définition de `--z-index-header: 100` et `--z-index-modal-overlay: 1000` / `--z-index-quiz-overlay: 1000`, résolvant tout débordement d'en-tête collant.
+3. **Boutons Flottants Réajustés** : Attribution de `--z-index-floating-btn: 90` sur `.baguetteFloatingBtn` de sorte qu'il s'affiche sous les modals et prompts standards.
+4. **XP Flottante Inline Sécurisée** : Abaissement de l'animation d'XP à `zIndex: 50` dans `LifeCirclePage.tsx`.
+5. **Stacking Context de #root Nettoyé** : Retrait du `z-index: 1` sur `#root` dans `reset.css`.
