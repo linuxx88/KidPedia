@@ -54,6 +54,9 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
     setHighlightIndex(-1)
     setHighlightLength(0)
     utteranceRef.current = null
+    if (typeof window !== 'undefined') {
+      delete (window as unknown as { activeUtterance?: SpeechSynthesisUtterance }).activeUtterance
+    }
   }, [])
 
   const toggleBaguetteMode = useCallback(() => {
@@ -92,19 +95,26 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
 
       const utterance = new SpeechSynthesisUtterance(text)
       utteranceRef.current = utterance
+      
+      // Stockage global sur l'objet window pour empêcher le Garbage Collection sur Chrome
+      if (typeof window !== 'undefined') {
+        (window as unknown as { activeUtterance?: SpeechSynthesisUtterance }).activeUtterance = utterance
+      }
 
-      // Sélection fine d'une voix bienveillante et naturelle ("doux", "natural", "google", etc.)
+      // Sélection fine d'une voix : PRIORITÉ ABSOLUE aux voix locales (localService === true)
+      // car les voix cloud de Google dans Chrome ne déclenchent pas l'événement "onboundary".
       const voiceLang = language === 'fr' ? 'fr' : 'en'
       const langVoices = currentVoices.filter((v) =>
         v.lang.toLowerCase().includes(voiceLang)
       )
 
-      // Recherche de voix douces ou Google de haute qualité
-      let voice = langVoices.find((v) => {
+      // Filtrer d'abord pour les voix locales
+      const localLangVoices = langVoices.filter((v) => v.localService === true)
+
+      let voice = localLangVoices.find((v) => {
         const name = v.name.toLowerCase()
         return (
           name.includes('natural') ||
-          name.includes('google') ||
           name.includes('soft') ||
           name.includes('doux') ||
           name.includes('sweet') ||
@@ -112,8 +122,22 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
         )
       })
 
+      if (!voice && localLangVoices.length > 0) {
+        voice = localLangVoices[0]
+      }
+
       if (!voice && langVoices.length > 0) {
-        voice = langVoices[0]
+        // Fallback ultime sur les voix cloud si aucune voix locale n'est disponible
+        voice = langVoices.find((v) => {
+          const name = v.name.toLowerCase()
+          return (
+            name.includes('natural') ||
+            name.includes('soft') ||
+            name.includes('doux') ||
+            name.includes('sweet') ||
+            name.includes('child')
+          )
+        }) || langVoices[0]
       }
 
       if (voice) {
@@ -135,6 +159,9 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
             setHighlightIndex(-1)
             setHighlightLength(0)
             utteranceRef.current = null
+            if (typeof window !== 'undefined') {
+              delete (window as unknown as { activeUtterance?: SpeechSynthesisUtterance }).activeUtterance
+            }
             return null
           }
           return current
@@ -169,6 +196,9 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
             setHighlightIndex(-1)
             setHighlightLength(0)
             utteranceRef.current = null
+            if (typeof window !== 'undefined') {
+              delete (window as unknown as { activeUtterance?: SpeechSynthesisUtterance }).activeUtterance
+            }
             return null
           }
           return current

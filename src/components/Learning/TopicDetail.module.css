@@ -519,39 +519,39 @@
 
 .baguetteInteractiveText {
   cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px'><text y='24'>🪄</text></svg>") 0 24, cell;
-  transition: background-color 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
-  border-radius: 1rem;
-  padding: 0.25rem 0.75rem;
-  display: inline-block;
+  transition: background-color 0.2s ease, border-color 0.2s ease;
+  border-radius: 0.75rem;
+  padding: 0.15rem 0.5rem;
+  display: inline;
   border: 2px dashed transparent;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 .baguetteInteractiveText:hover {
   background-color: rgba(167, 139, 250, 0.12);
   border-color: rgba(167, 139, 250, 0.4);
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-sm);
 }
 
 .highlightedWord {
-  background-color: rgba(167, 139, 250, 0.35);
+  background-color: rgba(167, 139, 250, 0.38);
   color: inherit;
-  border-radius: 0.5rem;
-  padding: 0.1rem 0.4rem;
+  border-radius: 0.4rem;
+  padding: 0.1rem 0.3rem;
   font-weight: 850;
-  box-shadow: 0 0 12px rgba(167, 139, 250, 0.6);
+  box-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
   animation: pulseHighlight 1s infinite alternate;
-  display: inline-block;
+  display: inline;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
 }
 
 @keyframes pulseHighlight {
   from {
     background-color: rgba(167, 139, 250, 0.3);
-    transform: scale(1);
   }
   to {
     background-color: rgba(167, 139, 250, 0.6);
-    transform: scale(1.05);
   }
 }
 
