@@ -79,6 +79,55 @@ describe('TopicPage - Anti-spoiler Security', () => {
       expect(isSpoiler(fact, numericQuiz)).toBe(true)
     })
 
+    it('returns true when there is a significant word overlap (>= 2 words) between the quiz and the fun fact', () => {
+      const overlapQuiz = {
+        question: { fr: "Quelle est la température interne ?", en: "What is the internal temperature?" },
+        options: {
+          fr: ['10 millions', '15 millions', '20 millions'],
+          en: ['10 million', '15 million', '20 million'],
+        },
+        correctAnswer: 1,
+      }
+      const overlappingFact = {
+        fr: "La température interne est extrêmement chaude.",
+        en: "The internal temperature is extremely hot.",
+      }
+      expect(isSpoiler(overlappingFact, overlapQuiz)).toBe(true)
+    })
+
+    it('returns false when the only overlap is the topic title word to avoid deadlocks', () => {
+      const sunQuiz = {
+        question: { fr: "Que fait le Soleil ?", en: "What does the Sun do?" },
+        options: {
+          fr: ['Briller', 'Geler', 'Dormir'],
+          en: ['Shine', 'Freeze', 'Sleep'],
+        },
+        correctAnswer: 0,
+      }
+      const fact = {
+        fr: "Le Soleil est beau.",
+        en: "The Sun is beautiful.",
+      }
+      const topicTitle = { fr: "Le Soleil", en: "The Sun" }
+      expect(isSpoiler(fact, sunQuiz, topicTitle)).toBe(false)
+    })
+
+    it('returns true when a number from the incorrect options is in the trivia', () => {
+      const quiz = {
+        question: { fr: "Quel âge a la Terre ?", en: "How old is the Earth?" },
+        options: {
+          fr: ['4 milliards', '99 milliards'],
+          en: ['4 billion', '99 billion'],
+        },
+        correctAnswer: 0,
+      }
+      const fact = {
+        fr: "Le chiffre 99 est marrant.",
+        en: "The number 99 is funny.",
+      }
+      expect(isSpoiler(fact, quiz)).toBe(true)
+    })
+
     it('returns false when no overlap exists', () => {
       const safeFunFact = {
         fr: "Le Soleil brille fort.",

@@ -34,11 +34,18 @@ Les médailles d'or, d'argent et de bronze rapportent respectivement 1000, 500 e
 ---
 
 ## 🎫 Ticket #19 : Mutual-Exclusion défaillante entre FunFacts (Anecdotes) et Quiz
-**Statut** : 🔴 À faire
+**Statut** : 🟢 Résolu
 **Sévérité** : Moyenne (Pédagogie / Richesse de contenu)
 **Localisation** : `src/pages/Topic/index.tsx`
 **Description** :
 Même s'il existe une logique d'exclusion mutuelle basique (Ticket #04), le code actuel tire au sort séparément l'anecdote de manière aléatoire (`Math.random()`) et la question du quiz dans la banque de questions. Il arrive encore trop souvent que l'anecdote "Le savais-tu ?" et la question du quiz traitent exactement du même fait dans la même vue (ex: l'anecdote mentionne la température du noyau solaire et le quiz demande "Quelle est la température au cœur du Soleil ?"). Il faut mettre en œuvre un algorithme d'exclusion sémantique plus strict.
+**Résolution** : Implémentation d'un algorithme de filtrage sémantique hybride avancé dans `isSpoiler` :
+1. **Normalisation de texte** : Nettoyage diacritique et ponctuel complet (accent-agnostique et insensible à la casse).
+2. **Filtrage des stop words** : Dictionnaire bilingue (fr/en) filtrant les mots grammaticaux triviaux.
+3. **Exclusion thématique du sujet** : Filtrage automatique du nom de la fiche active (ex: "Soleil", "Sun") pour éviter les impasses et blocages.
+4. **Collision de nombres globale** : Extraction de tous les nombres de 2 chiffres ou plus présents dans l'ensemble du quiz (question + toutes les options) et rejet si présents dans l'anecdote.
+5. **Intersection de mots-clés significatifs** : Rejet systématique si l'anecdote partage 2 mots significatifs ou plus avec le quiz (question + toutes les options).
+6. **Robustesse unitaire** : Ajout de 4 scénarios de test exhaustifs dans `TopicPage.test.tsx` validant l'exclusion.
 
 ---
 
