@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { useReaderVoice } from './useReaderVoice'
 import { setupSpeechMock } from '../test/mockUtils'
 
@@ -7,6 +7,11 @@ describe('useReaderVoice', () => {
   beforeEach(() => {
     vi.clearAllMocks()
     setupSpeechMock()
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
   })
 
   it('devrait initialiser avec le mode baguette inactif et aucun texte actif', () => {
@@ -37,6 +42,7 @@ describe('useReaderVoice', () => {
 
     act(() => {
       result.current.speak('Le Soleil est une étoile.', 'description')
+      vi.advanceTimersByTime(250)
     })
 
     expect(window.speechSynthesis.speak).toHaveBeenCalled()
@@ -53,6 +59,7 @@ describe('useReaderVoice', () => {
 
     act(() => {
       result.current.speak('Soleil', 'description')
+      vi.advanceTimersByTime(250)
     })
 
     const mockUtterance = vi.mocked(window.speechSynthesis.speak).mock.calls[0][0]
@@ -96,6 +103,7 @@ describe('useReaderVoice', () => {
 
     act(() => {
       result.current.speak('Terre bleue', 'description')
+      vi.advanceTimersByTime(250)
     })
 
     const mockUtterance = vi.mocked(window.speechSynthesis.speak).mock.calls[0][0]

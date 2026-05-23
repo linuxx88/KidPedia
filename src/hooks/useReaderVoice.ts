@@ -13,6 +13,7 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
   const [isVoicesReady, setIsVoicesReady] = useState(false)
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
+  const speakTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   // Charger les voix disponibles dans le navigateur
   useEffect(() => {
@@ -42,6 +43,10 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
   }, [])
 
   const stop = useCallback(() => {
+    if (speakTimeoutRef.current) {
+      clearTimeout(speakTimeoutRef.current)
+      speakTimeoutRef.current = null
+    }
     if ('speechSynthesis' in window) {
       window.speechSynthesis.cancel()
     }
@@ -66,6 +71,10 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
       if (!('speechSynthesis' in window)) {
         if (onError) onError('Speech synthesis not supported')
         return
+      }
+
+      if (speakTimeoutRef.current) {
+        clearTimeout(speakTimeoutRef.current)
       }
 
       window.speechSynthesis.cancel()
@@ -166,7 +175,11 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
         })
       }
 
-      window.speechSynthesis.speak(utterance)
+      // Délai de 250ms pour contourner le bug asynchrone de Chrome après cancel()
+      speakTimeoutRef.current = setTimeout(() => {
+        window.speechSynthesis.speak(utterance)
+        speakTimeoutRef.current = null
+      }, 250)
     },
     [voices, language, activeTextId, stop, onError]
   )

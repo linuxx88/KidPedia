@@ -1,6 +1,6 @@
-import { screen, fireEvent } from '@testing-library/react'
+import { screen, fireEvent, act } from '@testing-library/react'
 import { render } from '../../test/test-utils'
-import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { TopicDetail } from './TopicDetail'
 import { fr } from '../../locales/fr'
 import { setupSpeechMock, setupAudioMock } from '../../test/mockUtils'
@@ -30,6 +30,11 @@ describe('TopicDetail', () => {
     vi.clearAllMocks()
     setupSpeechMock()
     setupAudioMock()
+    vi.useFakeTimers()
+  })
+
+  afterEach(() => {
+    vi.useRealTimers()
   })
 
   it('affiche les informations du sujet correctement', () => {
@@ -120,7 +125,10 @@ describe('TopicDetail', () => {
 
     // La description est maintenant un texte interactif Baguette
     const interactiveText = screen.getByText('Ceci est le contenu complet du sujet de test.')
-    fireEvent.click(interactiveText)
+    act(() => {
+      fireEvent.click(interactiveText)
+      vi.advanceTimersByTime(250)
+    })
 
     expect(window.speechSynthesis.speak).toHaveBeenCalled()
     const mockUtterance = vi.mocked(window.speechSynthesis.speak).mock.calls[0][0]
