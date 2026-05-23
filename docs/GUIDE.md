@@ -35,11 +35,13 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 - **`useMapZoom.ts`** : Moteur de navigation spatiale intelligente (Zoom centré, Drag-to-Pan).
 - **`useNatureGame.ts`** : Orchestre les règles de la scène Nature.
 - **`useVisualEffects.ts`** : Gestionnaire robuste d'animations éphémères (Nettoyage automatique des timers).
+- **`useReaderVoice.ts`** : Hook d'accessibilité (Baguette Magique) pour les jeunes non-lecteurs (4-6 ans), intégrant la synthèse vocale avec suivi en temps réel de l'index des mots.
 
-### ♿ Accessibilité & SVG
-Standardisation via le composant **`AccessibleSvgHotspot`** :
-- Navigation clavier native (tabindex, Enter/Space).
-- Sémantique ARIA (roles, labels) sur tous les éléments graphiques complexes.
+### ♿ Accessibilité (A11y), Synthèse Vocale & SVG
+*   **Baguette de Lecture Assistée :** Intégration dans `TopicDetail.tsx` du système "Baguette Magique" (`useReaderVoice`) qui permet de lire les paragraphes éducatifs au clic ou au survol (debounce `500ms`), avec surbrillance dynamique mot par mot.
+*   **Standardisation SVG :** Standardisation via le composant **`AccessibleSvgHotspot`** :
+    - Navigation clavier native (tabindex, Enter/Space).
+    - Sémantique ARIA (roles, labels) sur tous les éléments graphiques complexes.
 
 ---
 

@@ -6,7 +6,7 @@ import { vi } from 'vitest';
  */
 export const setupSpeechMock = () => {
   // On utilise une classe pour que "new SpeechSynthesisUtterance()" fonctionne
-  const MockUtterance = vi.fn(function(this: Partial<SpeechSynthesisUtterance>) {
+  const MockUtterance = vi.fn(function(this: Partial<SpeechSynthesisUtterance>, text?: string) {
     this.lang = '';
     this.rate = 1;
     this.voice = null;
@@ -14,7 +14,7 @@ export const setupSpeechMock = () => {
     this.onend = null;
     this.onerror = null;
     this.pitch = 1;
-    this.text = '';
+    this.text = text || '';
     this.volume = 1;
   });
 

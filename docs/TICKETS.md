@@ -805,15 +805,18 @@ Créer une nouvelle zone interactive appelée "Le Refuge" où l'enfant peut joue
 ---
 
 ## 🎫 Ticket #R4 : Version 0.0.4 - La Baguette Magique d'Inclusion (Synthèse Vocale) 🗣️
-**Statut** : 🔴 À faire (Planifié pour v0.0.4)
+**Statut** : 🟢 Résolu
 **Sévérité** : Élevée (Accessibilité / Inclusion Jeune Âge)
-**Localisation** : `src/components/Learning/TopicDetail/` & `src/hooks/useReaderVoice.ts`
+**Localisation** : `src/components/Learning/TopicDetail.tsx` & `src/hooks/useReaderVoice.ts`
 **Description** :
 Pour les enfants de 4-6 ans qui ne savent pas encore déchiffrer couramment, la lecture des descriptions longues est un frein à l'apprentissage autonome. Il faut ajouter une fonctionnalité "Baguette de Lecture" qui lit à haute voix les paragraphes éducatifs d'un simple survol ou clic, en utilisant une voix off synthétique bienveillante via l'API Web Speech, synchronisée dynamiquement avec la langue du profil.
 **Critères d'Acceptation (DOD)** :
-- [ ] Créer le hook `useReaderVoice` encapsulant l'initialisation de l'API de synthèse vocale avec sélection de la voix enfantine ou douce.
-- [ ] Intégrer un bouton flottant "Baguette Magique" (`🪄`) sur les pages de leçons interactives.
-- [ ] Mettre en surbrillance de couleur pastel douce (`--color-primary-light` à 30% d'opacité) le mot ou la phrase actuellement lue en temps réel.
+- [x] Créer le hook `useReaderVoice` encapsulant l'initialisation de l'API de synthèse vocale avec sélection de la voix enfantine ou douce.
+- [x] Intégrer un bouton flottant "Baguette Magique" (`🪄`) sur les pages de leçons interactives.
+- [x] Mettre en surbrillance de couleur pastel douce (`--color-primary-light` à 30% d'opacité) le mot ou la phrase actuellement lue en temps réel.
+**Résolution** :
+- **useReaderVoice.ts** : Création d'un hook gérant le mode baguette magique et l'écouteur `onboundary` sur l'événement `word` de la synthèse vocale pour suivre en temps réel l'index du caractère et sa longueur, avec fallback si `charLength` n'est pas fourni.
+- **TopicDetail.tsx & TopicDetail.module.css** : Intégration d'un bouton flottant `🪄` pulsant et scintillant avec ombres portées et dégradés magiques. Ajout d'un composant interne `HighlightedText` découpant et surlignant dynamiquement en temps réel les mots en cours de prononciation à l'aide d'un fond pastel animé avec un léger zoom. Configuration des gestionnaires de survol (avec debounce de 500ms) et de clic. Le pointeur change pour un curseur personnalisé `🪄` lors du survol des zones interactives en mode baguette.
 
 ---
 

@@ -94,5 +94,37 @@ describe('TopicDetail', () => {
     fireEvent.click(speakBtn)
     expect(window.speechSynthesis.speak).toHaveBeenCalled()
   })
+
+  it("affiche le bouton flottant de la Baguette Magique et bascule l'état au clic", () => {
+    render(<TopicDetail {...defaultProps} />)
+
+    const wandBtn = screen.getByLabelText("Activer la baguette magique de lecture")
+    expect(wandBtn).toBeInTheDocument()
+
+    // Clic pour activer
+    fireEvent.click(wandBtn)
+    expect(wandBtn).toHaveClass(/baguetteFloatingBtnActive/)
+
+    // Clic pour désactiver
+    fireEvent.click(wandBtn)
+    expect(wandBtn).not.toHaveClass(/baguetteFloatingBtnActive/)
+  })
+
+  it("utilise la Baguette Magique pour lire un texte interactif au clic", () => {
+    render(<TopicDetail {...defaultProps} />)
+
+    const wandBtn = screen.getByLabelText("Activer la baguette magique de lecture")
+    
+    // Activer le mode baguette
+    fireEvent.click(wandBtn)
+
+    // La description est maintenant un texte interactif Baguette
+    const interactiveText = screen.getByText('Ceci est le contenu complet du sujet de test.')
+    fireEvent.click(interactiveText)
+
+    expect(window.speechSynthesis.speak).toHaveBeenCalled()
+    const mockUtterance = vi.mocked(window.speechSynthesis.speak).mock.calls[0][0]
+    expect(mockUtterance.text).toBe('Ceci est le contenu complet du sujet de test.')
+  })
 })
 

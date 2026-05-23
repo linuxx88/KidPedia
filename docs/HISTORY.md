@@ -7,6 +7,23 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 ## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
 
 
+
+### VERSION 3.18.0 - La Baguette Magique d'Inclusion 🗣️🪄 (Ticket #R4) (23 Mai 2026)
+--------------------------------------------------
+- **[Feature/UI/A11y] Implémentation du système de lecture interactive réactive "Baguette Magique" :**
+    - **useReaderVoice.ts** :
+        - Création du hook gérant la synthèse vocale SpeechSynthesis avec configuration d'une vitesse lente (`0.85`) adaptée aux enfants.
+        - Suivi des mots en temps réel via l'écouteur `onboundary` d'événement `word` (calcul dynamique de la longueur avec fallback pour les navigateurs non standards).
+        - Mode "Baguette de Lecture" activable/désactivable.
+    - **TopicDetail.tsx & TopicDetail.module.css** :
+        - Intégration d'un bouton flottant `🪄` premium avec dégradés rose/violet, pulsation lumineuse tridimensionnelle en état actif et ressorts physiques au survol/clic.
+        - Composant `HighlightedText` découpant et surlignant dynamiquement en temps réel le mot en cours de lecture avec une surbrillance pastel douce `--color-primary-light` (35% d'opacité) animée.
+        - Ajout de gestionnaires de survol temporisés (debounce de `500ms` pour éviter le spam sonore) et de clic.
+        - Curseur de souris personnalisé en émoji `🪄` sur les textes écoutables en mode actif.
+    - **TopicDetail.test.tsx & useReaderVoice.test.ts** :
+        - Suite de tests unitaires vérifiant l'affichage, les transitions d'état du bouton flottant, la lecture au clic, le suivi de surbrillance et le calcul de fallback de mot.
+    - **Validation Qualité** : 100% de la suite de 185 tests unitaires et d'intégration validée avec succès via `npm run validate`.
+
 ### VERSION 3.17.0 - Le Refuge des Compagnons Animés 🦄 (Ticket #R3) (22 Mai 2026)
 --------------------------------------------------
 - **[Feature/UI/Store] Création de la zone premium interactive /refuge :**

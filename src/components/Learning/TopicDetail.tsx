@@ -6,6 +6,7 @@ import { type MedalType } from '../../utils/quizMessages'
 import { type Labels } from '../../locales/types'
 import BackButton from '../UI/BackButton'
 import { useTextToSpeech } from '../../hooks/useTextToSpeech'
+import { useReaderVoice } from '../../hooks/useReaderVoice'
 import styles from './TopicDetail.module.css'
 
 interface TopicDetailProps {
@@ -26,6 +27,73 @@ interface TopicDetailProps {
   labels: Labels
   attempts: number
   anchorIcon?: string
+}
+
+interface HighlightedTextProps {
+  text: string
+  textId: string
+  activeTextId: string | null
+  highlightIndex: number
+  highlightLength: number
+  isBaguetteMode: boolean
+  onClick: () => void
+  onMouseEnter: () => void
+  onMouseLeave: () => void
+}
+
+export const HighlightedText = ({
+  text,
+  textId,
+  activeTextId,
+  highlightIndex,
+  highlightLength,
+  isBaguetteMode,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+}: HighlightedTextProps) => {
+  const isCurrentlyActive = activeTextId === textId
+
+  const handleClick = (e: React.MouseEvent) => {
+    if (isBaguetteMode) {
+      e.stopPropagation()
+      onClick()
+    }
+  }
+
+  if (!isBaguetteMode) {
+    return <>{text}</>
+  }
+
+  if (!isCurrentlyActive || highlightIndex < 0 || highlightLength <= 0) {
+    return (
+      <span
+        className={styles.baguetteInteractiveText}
+        onClick={handleClick}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
+      >
+        {text}
+      </span>
+    )
+  }
+
+  const before = text.substring(0, highlightIndex)
+  const highlighted = text.substring(highlightIndex, highlightIndex + highlightLength)
+  const after = text.substring(highlightIndex + highlightLength)
+
+  return (
+    <span
+      className={styles.baguetteInteractiveText}
+      onClick={handleClick}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
+      {before}
+      <span className={styles.highlightedWord}>{highlighted}</span>
+      {after}
+    </span>
+  )
 }
 
 interface DiscreteSpeakerProps {
@@ -78,6 +146,7 @@ export const TopicDetail = ({
   const [isPlayingAudio, setIsPlayingAudio] = useState(false)
   const [speechError, setSpeechError] = useState<string | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
+  const hoverTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const handleError = (errorKey: 'speechNotSupported' | 'speechSystem') => {
     setSpeechError(labels.errors[errorKey])
@@ -90,13 +159,29 @@ export const TopicDetail = ({
     stop: stopTTS,
   } = useTextToSpeech({ language, onError: handleError })
 
-  const isSpeaking = activeSpeechId !== null || isPlayingAudio
+  const {
+    isBaguetteMode,
+    activeTextId: activeReaderTextId,
+    highlightIndex,
+    highlightLength,
+    toggleBaguetteMode,
+    speak: speakReader,
+    stop: stopReader,
+  } = useReaderVoice({
+    language,
+    onError: (err) => setSpeechError(err),
+  })
+
+  const isSpeaking = activeSpeechId !== null || isPlayingAudio || activeReaderTextId !== null
 
   useEffect(() => {
     return () => {
       if (audioRef.current) {
         audioRef.current.pause()
         audioRef.current = null
+      }
+      if (hoverTimeoutRef.current) {
+        clearTimeout(hoverTimeoutRef.current)
       }
     }
   }, [])
@@ -121,6 +206,7 @@ export const TopicDetail = ({
 
   const stopAllSpeech = () => {
     stopTTS()
+    stopReader()
     if (audioRef.current) {
       audioRef.current.pause()
       audioRef.current.currentTime = 0
@@ -130,6 +216,7 @@ export const TopicDetail = ({
 
   const handleSpeakGlobal = () => {
     setSpeechError(null)
+    stopReader()
 
     if (isSpeaking) {
       stopAllSpeech()
@@ -141,6 +228,37 @@ export const TopicDetail = ({
     } else {
       const textToRead = `${title}. ${description}. ${labels.quiz.didYouKnow} ${funFact}`
       speak(textToRead, 'global')
+    }
+  }
+
+  const handleSpeakReader = (text: string, id: string) => {
+    stopTTS()
+    if (audioRef.current) {
+      audioRef.current.pause()
+      setIsPlayingAudio(false)
+    }
+    speakReader(text, id)
+  }
+
+  const handleMouseEnterText = (text: string, id: string) => {
+    if (!isBaguetteMode) return
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current)
+    }
+    hoverTimeoutRef.current = setTimeout(() => {
+      stopTTS()
+      if (audioRef.current) {
+        audioRef.current.pause()
+        setIsPlayingAudio(false)
+      }
+      speakReader(text, id)
+    }, 500)
+  }
+
+  const handleMouseLeaveText = () => {
+    if (hoverTimeoutRef.current) {
+      clearTimeout(hoverTimeoutRef.current)
+      hoverTimeoutRef.current = null
     }
   }
 
@@ -205,7 +323,17 @@ export const TopicDetail = ({
             <div className={styles.topicTitleWrapper}>
               <h2 className={styles.topicMainTitle}>
                 {anchorIcon && <span style={{ marginRight: '0.5rem' }}>{anchorIcon}</span>}
-                {title}
+                <HighlightedText
+                  text={title}
+                  textId="title"
+                  activeTextId={activeReaderTextId}
+                  highlightIndex={highlightIndex}
+                  highlightLength={highlightLength}
+                  isBaguetteMode={isBaguetteMode}
+                  onClick={() => handleSpeakReader(title, 'title')}
+                  onMouseEnter={() => handleMouseEnterText(title, 'title')}
+                  onMouseLeave={handleMouseLeaveText}
+                />
               </h2>
               {badgeIcon && <span className={styles.topicTitleBadge}>{badgeIcon}</span>}
             </div>
@@ -216,12 +344,29 @@ export const TopicDetail = ({
 
         <section className={styles.topicSectionContent}>
           <div className={styles.descriptionContainer}>
-            <div className={styles.topicDescriptionText}>{description}</div>
-            <DiscreteSpeaker
-              isSpeaking={activeSpeechId === 'description'}
-              onClick={() => speak(description, 'description')}
-              label={language === 'fr' ? 'Écouter la description' : 'Listen to description'}
-            />
+            <div className={styles.topicDescriptionText}>
+              <HighlightedText
+                text={description}
+                textId="description"
+                activeTextId={activeReaderTextId}
+                highlightIndex={highlightIndex}
+                highlightLength={highlightLength}
+                isBaguetteMode={isBaguetteMode}
+                onClick={() => handleSpeakReader(description, 'description')}
+                onMouseEnter={() => handleMouseEnterText(description, 'description')}
+                onMouseLeave={handleMouseLeaveText}
+              />
+            </div>
+            {!isBaguetteMode && (
+              <DiscreteSpeaker
+                isSpeaking={activeSpeechId === 'description'}
+                onClick={() => {
+                  stopReader()
+                  speak(description, 'description')
+                }}
+                label={language === 'fr' ? 'Écouter la description' : 'Listen to description'}
+              />
+            )}
           </div>
 
           <div className={styles.topicFunFactBox}>
@@ -231,12 +376,31 @@ export const TopicDetail = ({
               {labels.quiz.didYouKnow}
             </div>
             <div className={styles.funFactContentWrapper}>
-              <p className={styles.topicFunFactText}>"{funFact}"</p>
-              <DiscreteSpeaker
-                isSpeaking={activeSpeechId === 'funFact'}
-                onClick={() => speak(`${labels.quiz.didYouKnow}. ${funFact}`, 'funFact')}
-                label={language === 'fr' ? "Écouter l'anecdote" : 'Listen to fun fact'}
-              />
+              <p className={styles.topicFunFactText}>
+                "
+                <HighlightedText
+                  text={funFact}
+                  textId="funFact"
+                  activeTextId={activeReaderTextId}
+                  highlightIndex={highlightIndex}
+                  highlightLength={highlightLength}
+                  isBaguetteMode={isBaguetteMode}
+                  onClick={() => handleSpeakReader(funFact, 'funFact')}
+                  onMouseEnter={() => handleMouseEnterText(funFact, 'funFact')}
+                  onMouseLeave={handleMouseLeaveText}
+                />
+                "
+              </p>
+              {!isBaguetteMode && (
+                <DiscreteSpeaker
+                  isSpeaking={activeSpeechId === 'funFact'}
+                  onClick={() => {
+                    stopReader()
+                    speak(`${labels.quiz.didYouKnow}. ${funFact}`, 'funFact')
+                  }}
+                  label={language === 'fr' ? "Écouter l'anecdote" : 'Listen to fun fact'}
+                />
+              )}
             </div>
           </div>
         </section>
@@ -258,7 +422,10 @@ export const TopicDetail = ({
               attempts={attempts}
               funFact={funFact}
               anchorIcon={anchorIcon}
-              onSpeakText={speak}
+              onSpeakText={(text, id) => {
+                stopReader()
+                speak(text, id)
+              }}
               activeSpeechId={activeSpeechId}
             />
           </div>
@@ -268,7 +435,16 @@ export const TopicDetail = ({
       <button className={styles.topicFinishButton} onClick={handleBack}>
         {labels.common.finish}
       </button>
+
+      <button
+        type="button"
+        className={`${styles.baguetteFloatingBtn} ${isBaguetteMode ? styles.baguetteFloatingBtnActive : ''}`}
+        onClick={toggleBaguetteMode}
+        title={language === 'fr' ? 'Baguette Magique de Lecture' : 'Magic Reading Wand'}
+        aria-label={language === 'fr' ? 'Activer la baguette magique de lecture' : 'Activate magic reading wand'}
+      >
+        🪄
+      </button>
     </div>
   )
 }
-
