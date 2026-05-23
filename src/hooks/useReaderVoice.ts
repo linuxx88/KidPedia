@@ -172,14 +172,11 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
         // S'assurer que nous sommes sur une frontière de mot
         if (event.name === 'word') {
           const charIndex = event.charIndex
-          let charLength = event.charLength
-
-          // Calculer manuellement la longueur du mot pour les navigateurs non conformes
-          if (charLength === undefined || charLength === 0) {
-            const remainingText = text.substring(charIndex)
-            const match = remainingText.match(/^[\w\dÀ-ÿ]+/u)
-            charLength = match ? match[0].length : 1
-          }
+          
+          // Toujours calculer la longueur exacte du mot en ignorant les incohérences du navigateur (qui renvoie parfois la phrase entière)
+          const remainingText = text.substring(charIndex)
+          const match = remainingText.match(/^[\w\dÀ-ÿ’'-]+/u)
+          const charLength = match ? match[0].length : 1
 
           setHighlightIndex(charIndex)
           setHighlightLength(charLength)

@@ -534,24 +534,34 @@
 }
 
 .highlightedWord {
-  background-color: rgba(167, 139, 250, 0.38);
-  color: inherit;
+  background-color: #fef08a; /* Jaune pastel éducatif ultra-lumineux */
+  color: #1e293b !important; /* Texte sombre pour un contraste AAA absolu */
   border-radius: 0.4rem;
-  padding: 0.1rem 0.3rem;
-  font-weight: 850;
-  box-shadow: 0 0 8px rgba(167, 139, 250, 0.5);
+  padding: 0.15rem 0.35rem;
+  font-weight: 900;
+  box-shadow: 0 0 10px rgba(234, 179, 8, 0.7);
+  border: 2px solid #eab308;
   animation: pulseHighlight 1s infinite alternate;
   display: inline;
   box-decoration-break: clone;
   -webkit-box-decoration-break: clone;
 }
 
+:global(.dark) .highlightedWord {
+  background-color: #eab308; /* Orange-jaune chaud en mode sombre */
+  color: #0f172a !important; /* Contraste sombre optimal */
+  box-shadow: 0 0 12px rgba(234, 179, 8, 0.9);
+  border-color: #fef08a;
+}
+
 @keyframes pulseHighlight {
   from {
-    background-color: rgba(167, 139, 250, 0.3);
+    box-shadow: 0 0 6px rgba(234, 179, 8, 0.4);
+    filter: brightness(1);
   }
   to {
-    background-color: rgba(167, 139, 250, 0.6);
+    box-shadow: 0 0 14px rgba(234, 179, 8, 0.8);
+    filter: brightness(1.08);
   }
 }
 
