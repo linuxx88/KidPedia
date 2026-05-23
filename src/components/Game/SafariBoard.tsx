@@ -43,30 +43,30 @@ const HexCell: React.FC<HexCellProps> = ({
       <div className={`${styles.hexContent} ${styles[type]}`}>
         <span className={styles.idBadge}>{id}</span>
         <span className={styles.icon}>{icon}</span>
-        
-        {effect !== undefined && effect !== 0 && (
-          <span className={`${styles.effectBadge} ${effect > 0 ? styles.effectPlus : styles.effectMinus}`}>
-            {effect > 0 ? `+${effect}` : effect}
-          </span>
-        )}
-
-        {isPlayerHere && (
-          <div className={`${styles.playerPawn} ${styles.pawnJump}`}>
-            {playerAvatar ? (
-              <AvatarDisplay 
-                avatar={playerAvatar} 
-                name={playerName} 
-                accessoryId={accessoryId}
-                companionId={companionId}
-                size="small" 
-              />
-            ) : (
-              <span className={styles.pawnIcon}>{gender === 'girl' ? '👧' : '👦'}</span>
-            )}
-            <div className={`${styles.pawnShadow} ${styles.shadowPulse}`}></div>
-          </div>
-        )}
       </div>
+        
+      {effect !== undefined && effect !== 0 && (
+        <span className={`${styles.effectBadge} ${effect > 0 ? styles.effectPlus : styles.effectMinus}`}>
+          {effect > 0 ? `+${effect}` : effect}
+        </span>
+      )}
+
+      {isPlayerHere && (
+        <div className={`${styles.playerPawn} ${styles.pawnJump}`}>
+          {playerAvatar ? (
+            <AvatarDisplay 
+              avatar={playerAvatar} 
+              name={playerName} 
+              accessoryId={accessoryId}
+              companionId={companionId}
+              size="small" 
+            />
+          ) : (
+            <span className={styles.pawnIcon}>{gender === 'girl' ? '👧' : '👦'}</span>
+          )}
+          <div className={`${styles.pawnShadow} ${styles.shadowPulse}`}></div>
+        </div>
+      )}
     </div>
   );
 };
@@ -117,21 +117,33 @@ export const SafariBoard: React.FC<{
       const rows = boardRef.current.querySelectorAll('.row');
       if (rows.length === 0) return;
 
-      const points: { x: number, y: number }[] = [];
+      const pointsMap: Record<number, { x: number, y: number }> = {};
 
       rows.forEach((row) => {
         const hexes = row.querySelectorAll('[data-hex-id]');
         hexes.forEach((hex) => {
           const rect = hex.getBoundingClientRect();
           const boardRect = boardRef.current!.getBoundingClientRect();
-          points.push({
-            x: rect.left - boardRect.left + rect.width / 2,
-            y: rect.top - boardRect.top + rect.height / 2
-          });
+          const idAttr = hex.getAttribute('data-hex-id');
+          if (idAttr !== null) {
+            const id = parseInt(idAttr, 10);
+            pointsMap[id] = {
+              x: rect.left - boardRect.left + rect.width / 2,
+              y: rect.top - boardRect.top + rect.height / 2
+            };
+          }
         });
       });
       
-      const d = points.reduce((acc, p, i) => 
+      const sortedPoints: { x: number, y: number }[] = [];
+      const totalCells = safariMap.length;
+      for (let i = 0; i < totalCells; i++) {
+        if (pointsMap[i] !== undefined) {
+          sortedPoints.push(pointsMap[i]);
+        }
+      }
+      
+      const d = sortedPoints.reduce((acc, p, i) => 
         i === 0 ? `M ${p.x} ${p.y}` : `${acc} L ${p.x} ${p.y}`, "");
       
       setPathData(d);

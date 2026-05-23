@@ -27,7 +27,6 @@ const LoadingFallback = () => {
   return <div className={styles.loadingFallback}>{labels.common.loading}</div>
 }
 
-// eslint-disable-next-line react-refresh/only-export-components
 const STOP_WORDS = new Set([
   // French
   'le', 'la', 'les', 'de', 'du', 'des', 'un', 'une', 'et', 'est', 'estce', 'qui', 'que', 'aux',

@@ -158,5 +158,35 @@ describe('TopicPage - Anti-spoiler Security', () => {
 
       mockMath.mockRestore()
     })
+
+    it('selects a stable random variation if fullContents and funFacts exist', async () => {
+      // Mock params to point to 'arbres' (Trees)
+      mockParams.topicId = 'arbres'
+
+      // Mock random index selections
+      const mockMath = vi.spyOn(Math, 'random').mockReturnValue(0.6) // Math.floor(0.6 * 3) = 1
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      // The description from index 1 should be displayed:
+      // "Les arbres sont comme les poumons géants..."
+      expect(await screen.findByText(/poumons géants/i)).toBeInTheDocument()
+
+      mockMath.mockRestore()
+      mockParams.topicId = 'soleil' // Restore default
+    })
+
+    it('falls back to single fullContent and funFact if variations do not exist', async () => {
+      // Mock params to point to 'pluie' (Rain) which doesn't have variations
+      mockParams.topicId = 'pluie'
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      // The standard fullContent should be displayed:
+      // "La pluie se forme quand l'eau des rivières..."
+      expect(await screen.findByText(/eau des rivières et des mers s'évapore/i)).toBeInTheDocument()
+
+      mockParams.topicId = 'soleil' // Restore default
+    })
   })
 })

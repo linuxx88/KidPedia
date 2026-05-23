@@ -97,6 +97,16 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
     }
   };
 
+  const getCompanionIcon = () => {
+    if (equippedCompanionId === 'chien') return '🐶';
+    if (equippedCompanionId === 'dino') return '🦕';
+    if (equippedCompanionId === 'robot') return '🤖';
+    if (equippedCompanionId === 'chat') return '🐱';
+    if (equippedCompanionId === 'perroquet') return '🦜';
+    if (equippedCompanionId === 'licorne') return '🦄';
+    return '🦁'; // Guide Safari par défaut
+  };
+
   return (
     <OrientationGuard>
       <div className={styles.safariContainer}>
@@ -143,6 +153,9 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
                   </div>
                   
                   <div className={styles.messageBox} data-testid="safari-message">
+                    <div className={styles.messageIcon}>
+                      {getCompanionIcon()}
+                    </div>
                     <p>{message}</p>
                     {lastRoll > 0 && status === 'IDLE' && (
                       <span className={styles.rollBadge}>+{lastRoll}</span>

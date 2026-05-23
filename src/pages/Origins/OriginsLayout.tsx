@@ -64,60 +64,60 @@ export const OriginsLayout: React.FC = () => {
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>
         <defs>
           <linearGradient id="snakeGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#0f172a" />
-            <stop offset="20%" stopColor="#ef4444" />
-            <stop offset="40%" stopColor="#f97316" />
-            <stop offset="60%" stopColor="#fcd34d" />
-            <stop offset="80%" stopColor="#10b981" />
-            <stop offset="100%" stopColor="#0ea5e9" />
+            <stop offset="0%" stopColor="var(--color-origins-snake-0)" />
+            <stop offset="20%" stopColor="var(--color-origins-snake-20)" />
+            <stop offset="40%" stopColor="var(--color-origins-snake-40)" />
+            <stop offset="60%" stopColor="var(--color-origins-snake-60)" />
+            <stop offset="80%" stopColor="var(--color-origins-snake-80)" />
+            <stop offset="100%" stopColor="var(--color-origins-snake-100)" />
           </linearGradient>
 
           <linearGradient id="marineGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#0369a1" />
-            <stop offset="50%" stopColor="#2dd4bf" />
-            <stop offset="100%" stopColor="#10b981" />
+            <stop offset="0%" stopColor="var(--color-origins-marine-start)" />
+            <stop offset="50%" stopColor="var(--color-origins-marine-mid)" />
+            <stop offset="100%" stopColor="var(--color-origins-marine-end)" />
           </linearGradient>
 
           <linearGradient id="landGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#10b981" />
-            <stop offset="50%" stopColor="#84cc16" />
-            <stop offset="100%" stopColor="#b45309" />
+            <stop offset="0%" stopColor="var(--color-origins-land-start)" />
+            <stop offset="50%" stopColor="var(--color-origins-land-mid)" />
+            <stop offset="100%" stopColor="var(--color-origins-land-end)" />
           </linearGradient>
 
           <linearGradient id="dinoGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#f97316" />
-            <stop offset="50%" stopColor="#78350f" />
-            <stop offset="100%" stopColor="#064e3b" />
+            <stop offset="0%" stopColor="var(--color-origins-dino-start)" />
+            <stop offset="50%" stopColor="var(--color-origins-dino-mid)" />
+            <stop offset="100%" stopColor="var(--color-origins-dino-end)" />
           </linearGradient>
 
           <linearGradient id="humanGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#f59e0b" />
-            <stop offset="50%" stopColor="#92400e" />
-            <stop offset="100%" stopColor="#475569" />
+            <stop offset="0%" stopColor="var(--color-origins-human-start)" />
+            <stop offset="50%" stopColor="var(--color-origins-human-mid)" />
+            <stop offset="100%" stopColor="var(--color-origins-human-end)" />
           </linearGradient>
 
           <linearGradient id="evolutionGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#f97316" />
-            <stop offset="50%" stopColor="#ef4444" />
-            <stop offset="100%" stopColor="#fcd34d" />
+            <stop offset="0%" stopColor="var(--color-origins-evolution-start)" />
+            <stop offset="50%" stopColor="var(--color-origins-evolution-mid)" />
+            <stop offset="100%" stopColor="var(--color-origins-evolution-end)" />
           </linearGradient>
 
           <linearGradient id="villageGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#92400e" />
-            <stop offset="50%" stopColor="#10b981" />
-            <stop offset="100%" stopColor="#fcd34d" />
+            <stop offset="0%" stopColor="var(--color-origins-village-start)" />
+            <stop offset="50%" stopColor="var(--color-origins-village-mid)" />
+            <stop offset="100%" stopColor="var(--color-origins-village-end)" />
           </linearGradient>
 
           <linearGradient id="civilizationGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#f59e0b" />
-            <stop offset="50%" stopColor="#8b5cf6" />
-            <stop offset="100%" stopColor="#f1f5f9" />
+            <stop offset="0%" stopColor="var(--color-origins-civilization-start)" />
+            <stop offset="50%" stopColor="var(--color-origins-civilization-mid)" />
+            <stop offset="100%" stopColor="var(--color-origins-civilization-end)" />
           </linearGradient>
 
           <linearGradient id="middleAgesGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#475569" />
-            <stop offset="50%" stopColor="#8b5cf6" />
-            <stop offset="100%" stopColor="#94a3b8" />
+            <stop offset="0%" stopColor="var(--color-origins-middleages-start)" />
+            <stop offset="50%" stopColor="var(--color-origins-middleages-mid)" />
+            <stop offset="100%" stopColor="var(--color-origins-middleages-end)" />
           </linearGradient>
         </defs>
       </svg>

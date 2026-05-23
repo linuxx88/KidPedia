@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate, Link, useSearchParams } from 'react-router-dom'
 
-import { TopicCard } from '../../components/Discovery/TopicCard'
+import { ParallaxTopicCard } from '../../components/Discovery/ParallaxTopicCard'
 import { HeroCarousel } from '../../components/Discovery/HeroCarousel'
 import { CategoryScrollSpy } from '../../components/Discovery/CategoryScrollSpy'
 
@@ -261,7 +261,7 @@ export function HomePage({ topicsData }: HomePageProps) {
                 {visibleTopics.map((topic: Topic, index: number) => {
                   const badge = badges.find((b) => b.id === topic.id)
                   return (
-                    <TopicCard
+                    <ParallaxTopicCard
                       key={topic.id}
                       id={topic.id}
                       index={index}
@@ -303,6 +303,22 @@ export function HomePage({ topicsData }: HomePageProps) {
           >
             {labels.home.clearSearch}
           </button>
+
+          <div className={styles.suggestionsContainer}>
+            <span className={styles.suggestionsTitle}>{labels.home.trySearching}</span>
+            <div className={styles.suggestionsList}>
+              {labels.home.popularSuggestions.map((suggestion) => (
+                <button
+                  key={suggestion.query}
+                  className={styles.suggestionPill}
+                  onClick={() => setSearch(suggestion.query)}
+                  aria-label={`${labels.home.trySearching} ${suggestion.label}`}
+                >
+                  {suggestion.label}
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -462,3 +462,35 @@ Pour les enfants de 4-6 ans qui ne savent pas encore déchiffrer couramment, la 
 **Résolution** :
 - **useReaderVoice.ts** : Création d'un hook gérant le mode baguette magique et l'écouteur `onboundary` sur l'événement `word` de la synthèse vocale pour suivre en temps réel l'index du caractère et sa longueur, avec fallback si `charLength` n'est pas fourni.
 - **TopicDetail.tsx & TopicDetail.module.css** : Intégration d'un bouton flottant `🪄` pulsant et scintillant avec ombres portées et dégradés magiques. Ajout d'un composant interne `HighlightedText` découpant et surlignant dynamiquement en temps réel les mots en cours de prononciation à l'aide d'un fond pastel animé avec un léger zoom. Configuration des gestionnaires de survol (avec debounce de 500ms) et de clic. Le pointeur change pour un curseur personnalisé `🪄` lors du survol des zones interactives en mode baguette.
+
+---
+
+## 🎫 Ticket #59 : Défauts visuels de conception sur le plateau Mission Safari
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne (Design Sensoriel & Cohérence Visuelle)
+**Localisation** : `src/components/Game/MissionSafari.module.css`, `MissionSafari.tsx` et styles associés
+**Description** :
+L'audit visuel du mode Safari (basé sur la capture d'écran de l'interface) a révélé plusieurs défauts de conception graphique, d'alignement et de superposition qui nuisent à l'expérience ludique et haut de gamme destinée aux enfants :
+1. **Lignes de débogage parasites** : Présence de barres colorées verticales (rouges, vertes, bleues) flottant anormalement dans les espaces séparant les colonnes d'hexagones.
+2. **Décalage vertical et distorsion des icônes** :
+   - Case 0 (Drapeau à damier) : Drapeau écrasé/déformé (aspect-ratio incorrect).
+   - Case 14 (Trophée de fin) et Case 13 (Lion) : Icônes fortement décalées vers le haut, créant un grand vide inesthétique en bas de la case.
+3. **Format brut et chevauchement des indicateurs de cases** :
+   - Les cercles noirs de numéros de cases `(0)` à `(14)` sont bruts, superflus (utilisation de parenthèses) et chevauchent le sommet des hexagones de manière abrupte.
+4. **Superposition agressive des modificateurs de score** :
+   - Les badges noirs (`+2`, `-2`, `-3`, `+3`, `-5`) se superposent directement sur les icônes clés (arbre, fusée, coupe, dinosaure), masquant le dessin sous-jacent et rendant l'ensemble confus.
+5. **Défauts d'UI dans le panneau de gauche et le header** :
+   - Le texte `CARNET DE VOYAGE` est partiellement tronqué et chevauché par un effet visuel blanc brillant sur son flanc droit.
+   - La bulle de dialogue « Nouvelle aventure ! » possède un appendice pointant vers le bas à gauche dans le vide.
+   - Les éléments décoratifs (feuilles, pierres, fleurs) ont des contours d'ombres rognés de façon abrupte ou flottent de manière incohérente.
+   - Le sélecteur de thème (icône soleil) dans l'en-tête est trop proche du bord supérieur et mal aligné.
+**Résolution** :
+Assainissement et polissage esthétique intégral du plateau :
+- **Ligne de chemin SVG** : Tri par ID séquentiel (`0` à `14`) des coordonnées physiques de cases dans `calculatePath` pour un tracé fluide, éliminant les sauts diagonaux parasites.
+- **Grille de Décors Épurée** : Remplacement du générateur de décors aléatoires par un tableau de coordonnées fixes pré-calculées en marges et hors de la zone de jeu pour éviter toute collision visuelle. Ajout d'ombres douces `.decorItem` dans le CSS.
+- **Centrage & Z-Index** : Redéfinition des styles `.icon` en flex (`display: flex; align-items: center; justify-content: center; width: 100%; height: 100%; line-height: 1;`) pour recentrer parfaitement le Lion, le Trophée et le Drapeau à damier sans distorsion.
+- **Badges de Score Cartoons** : Déplacement de `.effectBadge` (`+2`, `-3` etc.) hors du conteneur `hexContent` (qui a un `clip-path` restrictif) vers `hexWrapper`, et repositionnement en haut à droite en forme de petite bulle 3D circulaire contrastée.
+- **Bulle de Dialogue Compagnon** : Intégration de l'icône animée du compagnon équipé (ou émoji `🦁` par défaut) à gauche de la boîte de dialogue, et réorientation de l'appendice de la bulle (`::after`) vers la gauche (vers sa tête) pour éliminer le pointage dans le vide.
+- **Cartes de Panneau Latéral** : Structure complète des classes `.statsCard` et `.controlsCard` avec la charte graphique premium de verre dépoli (`glassmorphic`) de l'application.
+- **Carnet de Voyage** : Sécurisation de la largeur et du style textuel de `.journalTitle` avec `white-space: nowrap; text-overflow: ellipsis; overflow: hidden;` pour empêcher les chevauchements et troncages.
+- **Sélecteur de Thème** : Centrage vertical parfait de `.ThemeToggle` par ajout d'un `align-items: center` sur `.rightSection` dans `PageHeader.module.css`.

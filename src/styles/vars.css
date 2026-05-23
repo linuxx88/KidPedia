@@ -98,6 +98,62 @@
   --color-nature-leaf: #2e7d32;
   --color-nature-trunk: #795548;
   --color-nature-water: #0288d1;
+
+  /* --- COUCHES D'EMPILEMENT (Z-INDEX LAYERS) --- */
+  --z-index-orientation-guard: 100000;
+  --z-index-toast: 90000;
+  --z-index-offline-fallback: 80000;
+  --z-index-parental-gate: 80000;
+  --z-index-profile-selection: 2000;
+  --z-index-victory-celebration: 1001;
+  --z-index-victory-overlay: 1000;
+  --z-index-modal-overlay: 1000;
+  --z-index-quiz-overlay: 1000;
+  --z-index-app-overlay: 1000;
+  --z-index-pwa-prompt: 1000;
+  --z-index-header: 100;
+  --z-index-scrollspy: 90;
+  --z-index-floating-btn: 90;
+
+  /* --- ORIGINS TIMELINE GRADIENTS (Ticket #31) --- */
+  --color-origins-snake-0: #0f172a;
+  --color-origins-snake-20: #ef4444;
+  --color-origins-snake-40: #f97316;
+  --color-origins-snake-60: #fcd34d;
+  --color-origins-snake-80: #10b981;
+  --color-origins-snake-100: #0ea5e9;
+
+  --color-origins-marine-start: #0369a1;
+  --color-origins-marine-mid: #2dd4bf;
+  --color-origins-marine-end: #10b981;
+
+  --color-origins-land-start: #10b981;
+  --color-origins-land-mid: #84cc16;
+  --color-origins-land-end: #b45309;
+
+  --color-origins-dino-start: #f97316;
+  --color-origins-dino-mid: #78350f;
+  --color-origins-dino-end: #064e3b;
+
+  --color-origins-human-start: #f59e0b;
+  --color-origins-human-mid: #92400e;
+  --color-origins-human-end: #475569;
+
+  --color-origins-evolution-start: #f97316;
+  --color-origins-evolution-mid: #ef4444;
+  --color-origins-evolution-end: #fcd34d;
+
+  --color-origins-village-start: #92400e;
+  --color-origins-village-mid: #10b981;
+  --color-origins-village-end: #fcd34d;
+
+  --color-origins-civilization-start: #f59e0b;
+  --color-origins-civilization-mid: #8b5cf6;
+  --color-origins-civilization-end: #f1f5f9;
+
+  --color-origins-middleages-start: #475569;
+  --color-origins-middleages-mid: #8b5cf6;
+  --color-origins-middleages-end: #94a3b8;
 }
 
 /* --- VARIATIONS SAISONNIÈRES (NATURE EXPLORER) --- */
@@ -197,6 +253,46 @@ html[data-theme='dark'],
 
   --color-nebula-1: rgba(14, 165, 233, 0.15);
   --color-nebula-2: rgba(168, 85, 247, 0.15);
+
+  /* --- ORIGINS TIMELINE GRADIENTS (Ticket #31) --- */
+  --color-origins-snake-0: #6366f1; /* Vibrant indigo instead of dark blue #0f172a */
+  --color-origins-snake-20: #f43f5e; /* Bright rose */
+  --color-origins-snake-40: #fb923c; /* Bright orange */
+  --color-origins-snake-60: #fef08a; /* Bright yellow */
+  --color-origins-snake-80: #34d399; /* Bright green */
+  --color-origins-snake-100: #38bdf8; /* Bright cyan */
+
+  --color-origins-marine-start: #38bdf8;
+  --color-origins-marine-mid: #2dd4bf;
+  --color-origins-marine-end: #34d399;
+
+  --color-origins-land-start: #34d399;
+  --color-origins-land-mid: #a3e635;
+  --color-origins-land-end: #fb923c;
+
+  --color-origins-dino-start: #fb923c;
+  --color-origins-dino-mid: #d97706;
+  --color-origins-dino-end: #34d399;
+
+  --color-origins-human-start: #fbbf24;
+  --color-origins-human-mid: #d97706;
+  --color-origins-human-end: #94a3b8;
+
+  --color-origins-evolution-start: #fb923c;
+  --color-origins-evolution-mid: #f43f5e;
+  --color-origins-evolution-end: #fef08a;
+
+  --color-origins-village-start: #d97706;
+  --color-origins-village-mid: #34d399;
+  --color-origins-village-end: #fef08a;
+
+  --color-origins-civilization-start: #fbbf24;
+  --color-origins-civilization-mid: #c084fc;
+  --color-origins-civilization-end: #94a3b8;
+
+  --color-origins-middleages-start: #94a3b8;
+  --color-origins-middleages-mid: #c084fc;
+  --color-origins-middleages-end: #cbd5e1;
 }
 
 /* Accents en mode Sombre - Amélioration du contraste pour WCAG AA */

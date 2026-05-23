@@ -66,7 +66,7 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 
 ## 🧪 Qualité & Validation
 - **Validation complète :** `npm run validate`.
-- **État Actuel (v3.15.2) :** 100% validé.
+- **État Actuel (v3.20.10) :** 100% validé.
 - **Vitest :** 170 tests unitaires et d'intégration (incluant les tests de sécurité anti-spoiler, les tests structurels Data Factory, tests d'intégrité Mermaid et zoom tactile).
   - **Playwright :** 16 scénarios E2E (Navigation, Zoom, Multi-profils).
 
@@ -98,10 +98,25 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Sécurité anti-spoiler sur les anecdotes (Ticket #04)** (Traité en v3.15.2)
 ✅ **RÉSOLU : Protection anti-quitting accidentel sur Mission Safari (Ticket #16)** (Traité en v3.16.1)
 ✅ **RÉSOLU : Le Refuge des Compagnons Animés (Ticket #R3)** (Traité en v3.17.0)
+✅ **RÉSOLU : La Baguette Magique d'Inclusion (Ticket #R4)** (Traité en v3.18.0)
+✅ **RÉSOLU : Conflits de z-index & Stacking Context (Rapport QA)** (Traité en v3.19.0)
+✅ **RÉSOLU : Dead Code, sélecteurs CSS orphelins & linter (Ticket #28)** (Traité en v3.19.0)
+✅ **RÉSOLU : Le Composant de Carte Parallaxe Dynamique (Ticket #56)** (Traité en v3.19.0)
+✅ **RÉSOLU : Défauts visuels de conception sur le plateau Mission Safari (Ticket #59)** (Traité en v3.20.0)
+✅ **RÉSOLU : MuteToggle asynchrone & Doublons Audio (Ticket #21)** (Traité en v3.20.1)
+✅ **RÉSOLU : Saut de mise en page (CLS) du Carousel Hero (Ticket #27)** (Traité en v3.20.2)
+✅ **RÉSOLU : Lenteur de désérialisation du Zustand Store (Ticket #30)** (Traité en v3.20.3)
+✅ **RÉSOLU : Hotspots & Accessibilité Clavier de la Carte Parallaxe (Ticket #57)** (Traité en v3.20.4)
+✅ **RÉSOLU : Optimisations de Performance de la Carte Parallaxe (Ticket #58)** (Traité en v3.20.5)
+✅ **RÉSOLU : Sauts visuels et positionnement erratique lors du zoom sur mobile (Ticket #15)** (Traité en v3.20.6)
+✅ **RÉSOLU : Système de scoring d'XP linéaire et dévaluant pour le mode parfait (Ticket #18)** (Traité en v3.20.7)
+✅ **RÉSOLU : Absence de variété dans les descriptions introductives des sujets (Ticket #20)** (Traité en v3.20.8)
+✅ **RÉSOLU : Variables de couleurs CSS codées en dur dans les grilles vectorielles d'Origins (Ticket #31)** (Traité en v3.20.9)
+✅ **RÉSOLU : Zone de recherche vide sans chemin de repli (Ticket #33)** (Traité en v3.20.10)
 
 ---
 
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 22 mai 2026 (v3.17.0)*
+*Dernière mise à jour : 23 mai 2026 (v3.20.10)*

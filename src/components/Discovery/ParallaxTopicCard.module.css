@@ -1,0 +1,209 @@
+.parallaxCard {
+  position: relative;
+  border-radius: var(--radius-3xl);
+  background-color: var(--color-nav-bg);
+  border: 4px solid var(--color-border-neutral);
+  transition: border-color 0.3s ease;
+  min-height: 340px;
+  height: 100%;
+  box-sizing: border-box;
+  transform-style: preserve-3d;
+  display: flex;
+  flex-direction: column;
+  will-change: transform; /* Force l'accélération matérielle GPU */
+}
+
+.cardInteractiveArea {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  padding: 3.5rem 2rem 2.5rem;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  text-align: center;
+  outline: none;
+  transform-style: preserve-3d;
+}
+
+.cardInteractiveArea:focus-visible {
+  outline: none;
+}
+
+.parallaxCard:has(.cardInteractiveArea:focus-visible),
+.parallaxCard:focus-within {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4), var(--shadow-lg) !important;
+}
+
+.foreGround {
+  transform: translateZ(0px);
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+.backGround {
+  position: absolute;
+  inset: 0;
+  transform: translateZ(-15px);
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  overflow: hidden;
+  border-radius: var(--radius-3xl);
+}
+
+.iconWrapper {
+  font-size: 5rem;
+  opacity: 0.15;
+  filter: blur(1px);
+  transition: transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease;
+}
+
+.parallaxCard:hover .iconWrapper {
+  transform: scale(1.15) translateZ(-5px);
+  opacity: 0.25;
+  filter: blur(0px);
+}
+
+/* Category Labels & Colors */
+.categoryLabel {
+  position: absolute;
+  top: -5rem;
+  left: 50%;
+  transform: translateX(-50%) translateZ(0px);
+  padding: 0.75rem 2rem;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-black);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: white;
+  box-shadow: var(--shadow-md);
+  white-space: nowrap;
+}
+
+.parallaxCard[data-category="animaux"] .categoryLabel { background: linear-gradient(135deg, #10b981, #059669); }
+.parallaxCard[data-category="animaux"]:hover { border-color: #10b981; }
+
+.parallaxCard[data-category="espace"] .categoryLabel { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.parallaxCard[data-category="espace"]:hover { border-color: #3b82f6; }
+
+.parallaxCard[data-category="pourquoi"] .categoryLabel { background: linear-gradient(135deg, #ec4899, #db2777); }
+.parallaxCard[data-category="pourquoi"]:hover { border-color: #ec4899; }
+
+.parallaxCard[data-category="corps-humain"] .categoryLabel { background: linear-gradient(135deg, #f97316, #ea580c); }
+.parallaxCard[data-category="corps-humain"]:hover { border-color: #f97316; }
+
+.parallaxCard[data-category="dinosaures"] .categoryLabel { background: linear-gradient(135deg, #dc2626, #b91c1c); }
+.parallaxCard[data-category="dinosaures"]:hover { border-color: #dc2626; }
+
+.parallaxCard[data-category="nature"] .categoryLabel { background: linear-gradient(135deg, #16a34a, #15803d); }
+.parallaxCard[data-category="nature"]:hover { border-color: #16a34a; }
+
+.parallaxCard[data-category="histoire"] .categoryLabel { background: linear-gradient(135deg, #a855f7, #9333ea); }
+.parallaxCard[data-category="histoire"]:hover { border-color: #a855f7; }
+
+.parallaxCard[data-category="geographie"] .categoryLabel { background: linear-gradient(135deg, #0ea5e9, #0284c7); }
+.parallaxCard[data-category="geographie"]:hover { border-color: #0ea5e9; }
+
+.parallaxCard[data-category="inventions"] .categoryLabel { background: linear-gradient(135deg, #f59e0b, #d97706); }
+.parallaxCard[data-category="inventions"]:hover { border-color: #f59e0b; }
+
+.parallaxCard[data-category="arts"] .categoryLabel { background: linear-gradient(135deg, #f43f5e, #e11d48); }
+.parallaxCard[data-category="arts"]:hover { border-color: #f43f5e; }
+
+.medalOverlay {
+  position: absolute;
+  top: -2.5rem;
+  right: -0.5rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border: 3px solid white;
+  background: white;
+  transform: translateZ(20px);
+}
+
+.lockOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) translateZ(25px);
+  font-size: 3rem;
+  opacity: 0.9;
+}
+
+.title {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-black);
+  margin-top: 1rem;
+  margin-bottom: 0.75rem;
+  color: var(--color-app-text);
+}
+
+.description {
+  font-size: var(--fs-base);
+  color: var(--color-app-text-muted);
+  line-height: 1.5;
+  font-weight: var(--fw-normal);
+  flex-grow: 1;
+  margin-bottom: 1.5rem;
+}
+
+.discoverHint {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-black);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-primary);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .parallaxCard {
+    transform: none !important;
+    transition: none !important;
+    will-change: auto !important;
+    box-shadow: var(--shadow-md) !important;
+  }
+  .cardInteractiveArea {
+    transform: none !important;
+    transition: none !important;
+  }
+  .foreGround {
+    transform: none !important;
+  }
+  .backGround {
+    transform: none !important;
+  }
+  .iconWrapper {
+    transform: none !important;
+    transition: none !important;
+  }
+  .parallaxCard:hover .iconWrapper {
+    transform: none !important;
+  }
+}

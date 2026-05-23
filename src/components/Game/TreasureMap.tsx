@@ -143,8 +143,25 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
     const targetScrollLeft = rx * wMap - viewportWidth / 2;
     const targetScrollTop = ry * hMap - viewportHeight / 2;
     
-    container.scrollLeft = Math.max(0, Math.min(targetScrollLeft, container.scrollWidth - viewportWidth));
-    container.scrollTop = Math.max(0, Math.min(targetScrollTop, container.scrollHeight - viewportHeight));
+    // Utiliser requestAnimationFrame pour s'assurer que le navigateur a fini d'ajuster
+    // les limites de scroll (scrollWidth/scrollHeight) avant d'appliquer la position.
+    const rafId = requestAnimationFrame(() => {
+      const scrollX = Math.max(0, Math.min(targetScrollLeft, container.scrollWidth - viewportWidth));
+      const scrollY = Math.max(0, Math.min(targetScrollTop, container.scrollHeight - viewportHeight));
+      
+      if (typeof container.scrollTo === 'function') {
+        container.scrollTo({
+          left: scrollX,
+          top: scrollY,
+          behavior: 'smooth'
+        });
+      } else {
+        container.scrollLeft = scrollX;
+        container.scrollTop = scrollY;
+      }
+    });
+
+    return () => cancelAnimationFrame(rafId);
   }, [zoom]);
 
   // --- RACCOURCIS CLAVIER ---

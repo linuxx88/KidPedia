@@ -28,6 +28,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
         webpSrc={images[previousStep].webp}
         alt=""
         className={styles.bgCoverPrev}
+        loader={<div className={styles.skeleton} />}
       />
 
       {/* Image de fond actuelle avec animation Ken Burns */}
@@ -37,6 +38,7 @@ export const HeroCarousel: React.FC<HeroCarouselProps> = ({
         webpSrc={images[activeStep].webp}
         alt=""
         className={styles.bgCoverCurrent}
+        loader={<div className={styles.skeleton} />}
       />
 
       <div className={styles.heroGradient} />

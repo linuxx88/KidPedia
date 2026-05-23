@@ -126,6 +126,12 @@
   font-weight: 600;
 }
 
+.profileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
 @media (max-width: 600px) {
   .profilesGrid {
     grid-template-columns: 1fr;

@@ -387,7 +387,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  z-index: 100;
+  z-index: var(--z-index-modal-overlay);
   background: rgba(15, 23, 42, 0.7);
   backdrop-filter: blur(12px);
   display: flex;

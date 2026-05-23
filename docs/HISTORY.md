@@ -8,6 +8,156 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 
 
+### VERSION 3.20.10 - Suggestions de Recherche Interactives & Résolution du Dead End d'Exploration 🔍✨ (23 Mai 2026)
+--------------------------------------------------
+- **[UX/i18n/Aesthetics/A11y/QA] Éradication de l'impasse ergonomique de recherche sans résultat (Ticket #33) :**
+    - **types.ts / fr.ts / en.ts** : Déclaration sémantique et implémentation bilingue des traductions `trySearching` ("Essaie de rechercher :" / "Try searching:") et `popularSuggestions` mappant les sujets populaires phares avec leurs mots-clés (Soleil, Dinosaures, Lion, Volcan, Espace).
+    - **Home.module.css** : Création de styles interactifs cartoons de type bouton 3D. L'ombre physique 3D s'enfonce au clic (`:active`) et s'anime en douceur au survol, offrant un retour sensoriel gratifiant. Surcharges du mode sombre garantissant un contraste parfait sur fond bleu nuit.
+    - **Home/index.tsx** : Intégration de la zone de suggestions sous le message de non-résultat, permettant de mettre à jour instantanément la recherche et de relancer le filtrage réactif du store Zustand au clic.
+    - **App.test.tsx** : Écriture d'un test d'intégration complet validant l'absence de résultats, l'apparition des étiquettes de suggestion, leur clic interactif, la synchronisation du champ et le filtrage dynamique.
+- **[QA] Alignement des assertions de test d'intégration d'XP :**
+    - **XPAndMedals.integration.test.tsx** : Ajustement des attentes de score (`1.0k` ➔ `1.5k`). La médaille d'or octroie désormais 1500 XP en raison du bonus de fierté Perfect de `+500 XP` introduit lors du Ticket #18, résolvant un conflit d'assertion bloquant dans la suite de tests.
+
+### VERSION 3.20.9 - Dégradés Vectoriels d'Origins Adaptatifs & Haut Contraste 🕰️🎨 (23 Mai 2026)
+--------------------------------------------------
+- **[Aesthetics/UX/A11y/QA] Thémisation dynamique et résiliente des dégradés vectoriels d'Origins (Ticket #31) :**
+    - **vars.css** :
+        - Déclaration de 24 nouvelles variables CSS de gradients de frise chronologique (`--color-origins-...`) au niveau de la racine `:root` pour le thème clair, assurant la fidélité avec la palette historique d'Origins.
+        - Conception d'une palette adaptative haute visibilité et haut de gamme dans le bloc `html[data-theme='dark']` / `.dark`. Les teintes excessivement sombres du mode clair (ex: bleu nuit `#0f172a` pour le Big Bang, marrons et verts sapin sombres) sont surchargées en mode nuit par des dégradés de néons cosmiques éclatants (indigo électrique, rose, cyan vibrant, émeraude) pour garantir un contraste WCAG AAA exceptionnel sans perturber le confort oculaire.
+    - **OriginsLayout.tsx** :
+        - Remplacement intégral des valeurs statiques `stopColor` des 9 définitions `<linearGradient>` du SVG de tracé par les variables CSS dynamiques `var(--color-origins-...)`.
+        - Permet la réactualisation instantanée et fluide à 60 FPS du style de la frise chronologique lors du basculement de thème sans aucun coût de rendu React ou re-render JS synchrone.
+
+### VERSION 3.20.8 - Variabilité de Contenu & PoC Catégorie Nature 🌳🌋 (23 Mai 2026)
+--------------------------------------------------
+- **[Content/UX/QA] Preuve de Concept (PoC) de la variabilité de contenu pour la thématique Nature (Ticket #20) :**
+    - **nature.ts** :
+        - Les Arbres (`arbres`) : Enrichissement avec un tableau `fullContents` (3 variations graduelles décrivant le rôle des feuilles, l'absorption de CO2, le réseau racinaire et les abris de faune) et `funFacts` (3 anecdotes, dont la communication via réseau fongique sous-terrain).
+        - Le Volcan (`volcan`) : Enrichissement avec un tableau `fullContents` (3 variations décrivant la structure géologique en cheminée, le magma sous pression et les coulées de lave créant des îles) et `funFacts` (3 anecdotes, dont les volcans sous-marins et Olympus Mons).
+    - **Rétrocompatibilité & Robustesse** :
+        - Préservation du comportement par défaut dans `TopicPage/index.tsx` qui retombe de façon transparente sur les propriétés uniques `fullContent` et `funFact` pour les sujets n'ayant pas encore de variations de contenu, empêchant tout plantage de rendu.
+    - **TopicPage.test.tsx** :
+        - Ajout de tests d'intégration validant le chargement stable et conforme de la variation sélectionnée par index.
+        - Ajout de tests de régression validant le repli automatique et transparent sur les structures simples pour les sujets dépourvus de variations (ex. `pluie`).
+
+### VERSION 3.20.7 - Mode Parfait, Scoring XP Premium & Fanfare Cristalline 🏆✨ (23 Mai 2026)
+--------------------------------------------------
+- **[Logic/Aesthetics/UX/i18n/QA] Implémentation du système de récompense "Mode Parfait" (Ticket #18) :**
+    - **useProgressionStore.ts** :
+        - Définition du bonus `PERFECT_BONUS_XP = 500`.
+        - Mise à jour du calcul d'XP dans `addBadge` et de la migration rétroactive `migrateLegacyProfile`. Une médaille d'or (sans-faute au premier essai) rapporte désormais `1500 XP` (1000 base + 500 bonus) de manière consistante.
+    - **Quiz.tsx** :
+        - Implémentation de la fonction de synthèse Web Audio API native `playSynthesizedPerfectFanfare()` jouant un arpeggio ascendant majeur de 4 notes aiguës cristallines (`C6`, `E6`, `G6`, `C7`) à intervalles de `80ms` sur la médaille d'or, contrastant avec le son classique `playSynthesizedDing`.
+        - Rendu conditionnel du ruban cartoons `.perfectBanner` au sommet de la boîte de résultats si la médaille d'or est obtenue.
+    - **Quiz.module.css** :
+        - Design cartoons 3D du ruban `.perfectBanner` : inclinaison à `-15deg`, fond en dégradé de couleur feu/or (`#facc15` ➔ `#ef4444`), bordures épaisses, relief et ombres portées physiques.
+        - Animation `@keyframes pulseRibbon` appliquant une pulsation tridimensionnelle dimensionnelle et lumineuse fluide et continue.
+    - **Internationalisation (locales)** :
+        - Ajout de la clé `perfectBadge` déclarée dans `types.ts` et traduite dans `fr.ts` (`"PARFAIT !"`) et `en.ts` (`"PERFECT !"`).
+    - **useProgressionStore.test.ts & Quiz.test.tsx** :
+        - Ajustement complet de la suite de tests de progression pour valider le nouveau score d'XP à 1500 XP pour l'or.
+        - Ajout d'un test spécifique validant le rendu conditionnel de l'élément de bannière parfait et de ses traductions dans le DOM.
+
+### VERSION 3.20.6 - Panning de zoom fluide & Résolution du Clamping de la Carte au Trésor 🗺️✨ (23 Mai 2026)
+--------------------------------------------------
+- **[Logic/UX/A11y/QA] Suppression des sauts visuels et du clamping lors du double-clic/double-tap sur la carte au trésor (Ticket #15) :**
+    - **TreasureMap.tsx** :
+        - Remplacement du scroll synchrone dans `useLayoutEffect` par un scroll différé via `requestAnimationFrame` (`rafId`). Cela permet au navigateur d'effectuer la mise à l'échelle CSS (`transform: scale(zoom)`) et d'actualiser complètement les limites physiques réelles (`scrollWidth`/`scrollHeight`) du conteneur parent avant de définir le scroll, évitant tout clamping géométrique et saccade visuelle.
+        - Recentrage parfait : Calcul précis des coordonnées cibles en fonction de l'échelle visuelle (`zoom`) et recentrage fluide de la caméra au milieu de l'écran du conteneur parent.
+        - Panning fluide premium : Utilisation de `.scrollTo({ left, top, behavior: 'smooth' })` pour faire glisser élégamment la vue vers la destination.
+        - Sécurisation unitaire (JSDOM) : Intégration de gardes de type de détection de support (`typeof container.scrollTo === 'function'`) afin de garantir une rétrocompatibilité parfaite avec les environnements de test headless et JSDOM (qui n'implémentent pas `.scrollTo` nativement) sans aucun plantage.
+        - Nettoyage des timers : Annulation de toute frame d'animation en attente via `cancelAnimationFrame` lors du démontage du composant.
+
+### VERSION 3.20.5 - Optimisations de performance Kid-Friendly de la parallaxe 🚀🧠 (23 Mai 2026)
+--------------------------------------------------
+- **[Logic/Performance/QA] Optimisation des FPS et de la mémoire de la carte parallaxe (Ticket #58) :**
+    - **ParallaxTopicCard.tsx** :
+        - Définition de "cartes actives" : Intégration de `IntersectionObserver` pour suivre l'état de visibilité de chaque carte dans la zone d'affichage (`isInViewport`), limitant à zéro les calculs CPU dynamiques d'inclinaison 3D sur les dizaines de cartes masquées par le scroll.
+        - Respect de `prefers-reduced-motion` : Écoute via `window.matchMedia` de la préférence système d'économie de mouvement pour court-circuiter tous les calculs d'inclinaison JS.
+        - Prévention des fuites mémoire : Déconnexion systématique de l'observer (`observer.disconnect()`) lors du démontage du composant.
+    - **ParallaxTopicCard.module.css** :
+        - Accélération matérielle GPU : Application de la directive `will-change: transform` sur le conteneur `.parallaxCard` pour allouer des calques composites en amont et supprimer les saccades de scrolling.
+        - Sécurisation visuelle : Ajout du bloc média CSS `@media (prefers-reduced-motion: reduce)` figeant les cartes à plat, désactivant les transitions et réinitialisant `will-change: auto`.
+
+### VERSION 3.20.4 - Optimisation de la parallaxe et focus clavier de carte 🧙‍♂️🪄 (23 Mai 2026)
+--------------------------------------------------
+- **[Aesthetics/UX/UI/A11y] Résolution de l'alignement 3D et du focus clavier des cartes parallaxes (Ticket #57) :**
+    - **ParallaxTopicCard.module.css** :
+        - Stabilisation du plan textuel : Configuration de `.foreGround` à `transform: translateZ(0px)` et de `.categoryLabel` à `translateZ(0px)`. Les titres et descriptions éducatives restent parfaitement plats, garantissant une lisibilité sans aucune distorsion visuelle ni fatigue oculaire.
+        - Profondeur décorative renforcée : Repoussement de l'icône d'arrière-plan `.backGround` à `transform: translateZ(-15px)`, élargissant le fossé tridimensionnel pour un effet de parallaxe plus dynamique.
+        - Focus clavier premium unifié : Retrait de l'outline du bouton de clic interne invisible et ajout d'un contour de focus de `4px` et halo lumineux doux thématique entourant la *carte entière* (`.parallaxCard`) via les sélecteurs modernes `:has()` et `:focus-within`.
+
+### VERSION 3.20.3 - Résolution de la désérialisation synchrone lente par compression ⚡💾 (23 Mai 2026)
+--------------------------------------------------
+- **[Logic/Performance/QA] Optimisation des temps de chargement du store de progression (Ticket #30) :**
+    - **useProgressionStore.ts** :
+        - Implémentation de deux algorithmes purs de sérialisation `compressState` et `decompressState` convertissant toutes les clés verbeuses de l'état persistant en identifiants ultra-courts d'un ou deux caractères (ex. `badges` ➔ `b`, `totalXP` ➔ `x`, `unlockedAccessories` ➔ `u`, etc.).
+        - Gain d'espace de plus de **60%** dans le `localStorage`, réduisant de manière spectaculaire la charge de parsing synchrone du CPU et éradiquant tout micro-freeze au démarrage.
+        - Conception d'un moteur de stockage personnalisé `customStateStorage` implémentant l'interface `StateStorage` de Zustand pour exécuter la compression/décompression à la volée.
+        - Gestion d'une rétrocompatibilité transparente : détection automatique des données héritées (legacy non-compressées) pour les hydrater sans altération ni perte de progression.
+    - **useProgressionStore.test.ts** :
+        - Ajout d'une suite exhaustive de tests unitaires validant l'écriture compressée sous clés dictionnaire dans le `localStorage` et le chargement transparent des structures de données legacy.
+
+### VERSION 3.20.2 - Éradication du CLS & Intégration du Skeleton Shimmer 🖼️✨ (23 Mai 2026)
+--------------------------------------------------
+- **[Aesthetics/UX/UI] Résolution du Saut de Mise en Page du Carousel Hero (Ticket #27) :**
+    - **HeroCarousel.tsx** :
+        - Intégration du squelette de chargement en passant la prop `loader={<div className={styles.skeleton} />}` aux deux instances `AppImage` (`bgCoverPrev` et `bgCoverCurrent`), garantissant un chargement fluide sans flash blanc ni transition brutale.
+    - **HeroCarousel.module.css** :
+        - Définition d'un rapport d'aspect mathématique rigoureux (`aspect-ratio: 16 / 7` sur écran de bureau et `aspect-ratio: 16 / 10` sur terminaux mobiles) couplé à des contraintes de hauteur maximale (`max-height`). Le navigateur réserve ainsi l'espace d'affichage exact avant que les images ne soient chargées, résolvant 100% du CLS.
+        - Remplacement de la couleur de fond noire brute (`#000`) par un fond thématique sombre premium `#0c101b` en accord parfait avec la palette graphique nuit de l'application.
+        - Création de la classe `.skeleton` exploitant un dégradé de blanc translucide linéaire animé avec des `@keyframes shimmer` pour simuler un balayage lumineux continu très premium.
+
+### VERSION 3.20.1 - Résolution du MuteToggle Asynchrone & Singleton Audio 🔊🔒 (23 Mai 2026)
+--------------------------------------------------
+- **[Logic/Aesthetics/QA] Résolution du Problème de Superposition Audio (Ticket #21) :**
+    - **useAudioFeedback.ts** :
+        - Migration vers un singleton `globalAudioInstance` partagé au niveau du module pour éliminer le gaspillage de ressources et les instanciations de doublons en mémoire.
+        - Implémentation d'une réutilisation d'instance dans `playSound` : l'appel à un nouveau son interrompt proprement tout chargement et lecture en cours via `pause()` et une réinitialisation de `currentTime = 0`.
+        - Ajout d'un abonnement global réactif (`useSettingsStore.subscribe`) coupant instantanément la lecture sonore active dès que l'état `isMuted` du store passe à vrai.
+        - Sécurisation de la méthode `subscribe` par un typecheck (`typeof useSettingsStore.subscribe === 'function'`) assurant une robustesse et compatibilité totale avec les tests unitaires existants qui mockent le store de configuration.
+        - Interception propre des exceptions `AbortError` renvoyées par le navigateur lors de coupures réseau de flux audio.
+    - **useAudioFeedback.test.ts** :
+        - Création d'une suite de tests unitaires validant l'inhibition du son en sourdine, l'arrêt instantané via abonnement global et la réutilisation de l'instance unique de singleton.
+
+### VERSION 3.20.0 - Polissage du Plateau de Jeu, Chemin SVG, Décors Fixes & Companion Bubbles 🦁🎮 (23 Mai 2026)
+--------------------------------------------------
+- **[Aesthetics/UX/UI] Résolution des Anomalies Visuelles de Mission Safari (Ticket #59) :**
+    - **SafariBoard.tsx & SafariBoard.module.css** :
+        - Réécriture de l'algorithme `calculatePath` : tri rigoureux des coordonnées physiques de cases par ID de `0` à `14` plutôt qu'en ordre DOM (qui inversait les rangées paires/impaires pour le tracé serpent). Résolution totale des tracés diagonaux parasites croisant le plateau.
+        - Standardisation du centrage et de l'aspect-ratio de `.icon` via flexbox (`display: flex; align-items: center; justify-content: center; line-height: 1;`) pour les emojis de départ (🏁), lion (🦁) et d'arrivée (🏆) sans déformation ni décalage.
+        - Isolation et déplacement de `.effectBadge` (`+2`, `-3`, etc.) et du pion joueur `.playerPawn` en dehors du conteneur `hexContent` (qui a un `clip-path` restrictif) vers `hexWrapper`, pour éliminer tout rognage. Positionnement des modificateurs de score en haut à droite sous forme de petite pilule 3D cartoon contrastée.
+    - **SafariDecorations.tsx & SafariDecorations.module.css** :
+        - Remplacement du générateur de décors dynamique (`Math.random()`) par un tableau de coordonnées fixes pré-calculées situées en dehors du plateau de jeu et des panneaux pour éliminer les chevauchements et l'encombrement graphique.
+        - Ajout d'ombres portées fluides `.decorItem` (`filter: drop-shadow(...)`) et protection du titre `.journalTitle` avec `white-space: nowrap; text-overflow: ellipsis;` pour éviter le troncage de "CARNET DE VOYAGE".
+    - **MissionSafari.tsx & MissionSafari.module.css** :
+        - Intégration de l'icône animée du compagnon équipé (ou émoji `🦁` guide de brousse par défaut) à gauche du message de jeu (`messageBox`).
+        - Réorientation de la flèche de bulle de dialogue (`::after`) vers la gauche (vers le compagnon) plutôt que vers le bas dans le vide, avec synchronisation du `translateY(-50%)` dans l'animation de salutation `wave`.
+        - Définition complète des styles manquants pour `.statsCard` et `.controlsCard` dans la feuille de styles, harmonisant le panneau de contrôle latéral avec l'esthétique générale de verre dépoli (glassmorphism) de l'application.
+    - **PageHeader.module.css** : Alignement vertical parfait du bouton de changement de thème (`ThemeToggle`) au sein de l'en-tête globale `.rightSection`.
+
+### VERSION 3.19.0 - Standardisation de l'Empilement Global, Cartes Parallaxes & CSS Cleanups 🎨🧹 (23 Mai 2026)
+--------------------------------------------------
+- **[Aesthetics/UX/UI] Implémentation de la Carte Parallaxe Dynamique (Ticket #56) :**
+    - **ParallaxTopicCard.tsx & ParallaxTopicCard.module.css** :
+        - Création d'un nouveau composant réactif capturant les déplacements de pointeur (`onPointerMove`) et appliquant une inclinaison 3D fluide limitée à 8 degrés pour le confort oculaire.
+        - Séparation physique tridimensionnelle des couches (`preserve-3d`) : Textes au premier plan ($Z = 15px$) et icônes thématiques décoratives en arrière-plan ($Z = -10px$).
+        - Système d'ombre tridimensionnelle réactive (box-shadow décalée à l'opposé du mouvement) pour renforcer la profondeur physique.
+        - Retour à plat amorti (`cubic-bezier`) lors du survol sortant (`onPointerLeave`).
+    - **Home/index.tsx** : Intégration globale du nouveau composant `ParallaxTopicCard` à la place de `TopicCard` pour tous les sujets d'apprentissage de l'accueil.
+- **[Logic/Aesthetics/QA] Résolution des Incohérences de z-index (Audit QA) :**
+    - **vars.css** : Centralisation de tous les niveaux d'empilement (`z-index`) de l'application sous forme de variables CSS typées dans `:root`.
+    - **reset.css** : Suppression du `z-index: 1` parasite sur `#root` pour libérer le flot de superposition standard.
+    - **Restructuration globale des calques** : `OrientationGuard` (100000), `ToastContainer` (90000), `OfflineFallback` & `ParentalGate` (80000), `ProfileSelection` (2000), et overlays de modals/quiz (`modalOverlay`, `quizOverlay`, `overlayContainer`, etc.) à 1000.
+    - **Ajustement de composants** : Abaissement de l'animation inline `zIndex` de l'XP flottante dans `LifeCirclePage.tsx` à `50` (sous les modals) et réglage du bouton flottant d'accessibilité Baguette Magique à `90` (sous le header et sous les overlays).
+- **[Refactor/CSS/Logic] Résolution du Ticket #28 (Dead Code & CSS Pruning) :**
+    - **App.tsx & App.module.css** : Correction et utilisation de `styles.notFoundContainer` et `styles.notFoundTitle` pour éliminer le style indéfini `errorContainer` et utiliser tous les sélecteurs.
+    - **ParentsDashboard.module.css** : Ajout et implémentation de la classe `.profileInfo` qui était référencée mais absente de la feuille de style.
+    - **Topic/index.tsx** : Nettoyage d'une directive d'inhibition linter inutilisée (`// eslint-disable-next-line react-refresh/only-export-components`).
+- **[QA/Documentation] Audit Visuel Safari & Ticket #59 :**
+    - **TICKETS.md** : Enregistrement formel des résultats d'audit visuel du plateau Safari sous forme de Ticket #59 (lignes verticales parasites, icônes décalées case 13/14, superposition des modificateurs de score et distorsion de drapeau case 0) avec sa Définition de Fini (DOD).
+- **Validation Qualité** : 100% de la suite de 188 scénarios de tests unitaires/intégration validée avec succès via `npm run validate`.
+
 ### VERSION 3.18.0 - La Baguette Magique d'Inclusion 🗣️🪄 (Ticket #R4) (23 Mai 2026)
 --------------------------------------------------
 - **[Feature/UI/A11y] Implémentation du système de lecture interactive réactive "Baguette Magique" :**

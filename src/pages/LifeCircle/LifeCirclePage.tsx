@@ -222,7 +222,7 @@ export const LifeCirclePage: React.FC = () => {
             fontSize: '1.5rem',
             textShadow: '0 0 10px rgba(245,158,11,0.5)',
             pointerEvents: 'none',
-            zIndex: 999,
+            zIndex: 50,
             animation: 'fadeIn 0.8s ease-out forwards'
           }}
         >

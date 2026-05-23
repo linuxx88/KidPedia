@@ -77,11 +77,51 @@ export const QuizComponent = ({
     }
   }
 
+  // Synthesized perfect fanfare sound using native Web Audio API
+  const playSynthesizedPerfectFanfare = () => {
+    const isMuted = useSettingsStore.getState().isMuted
+    if (isMuted) return
+
+    try {
+      const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+      if (!AudioContextClass) return
+
+      const ctx = new AudioContextClass()
+      
+      // Ascending major chord notes: C6, E6, G6, C7
+      const notes = [1046.50, 1318.51, 1567.98, 2093.00]
+      notes.forEach((freq, idx) => {
+        const timeOffset = idx * 0.08 // Fast sparkling arpeggio
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+
+        osc.type = 'sine'
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + timeOffset)
+
+        gain.gain.setValueAtTime(0, ctx.currentTime + timeOffset)
+        gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + timeOffset + 0.02)
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + timeOffset + 0.4)
+
+        osc.start(ctx.currentTime + timeOffset)
+        osc.stop(ctx.currentTime + timeOffset + 0.4)
+      })
+    } catch (e) {
+      console.warn('Web Audio API perfect arpeggio failed to play', e)
+    }
+  }
+
   // Trigger sounds when a result appears
   useEffect(() => {
     if (result) {
       playSound('success')
-      playSynthesizedDing()
+      if (result.medal === 'gold') {
+        playSynthesizedPerfectFanfare()
+      } else {
+        playSynthesizedDing()
+      }
     }
   }, [result, playSound])
 
@@ -253,6 +293,12 @@ export const QuizComponent = ({
           className={styles.resultBox}
           data-medal={result.medal}
         >
+          {result.medal === 'gold' && (
+            <div className={styles.perfectBanner} data-testid="perfect-banner">
+              <span>{labels.quiz.perfectBadge}</span>
+            </div>
+          )}
+
           {/* Dynamic QC PASS stamp validation overlay */}
           <div className={styles.qcPassStamp} data-testid="qc-pass-stamp">
             <div className={styles.qcPassTitle}>★ KIDPEDIA ★</div>

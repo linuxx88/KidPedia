@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { persist, createJSONStorage, type StateStorage } from 'zustand/middleware';
 import { type MedalType } from '../utils/quizMessages';
 import { type TopicId, type EarnedBadge } from '../types/domain';
 import { ACCESSORIES_DB } from '../data/accessories';
@@ -51,6 +51,7 @@ export interface ProgressionState {
 const xpValues: Record<string, number> = { gold: 1000, silver: 500, bronze: 250 };
 const medalTier: Record<MedalType, number> = { gold: 3, silver: 2, bronze: 1 };
 const ticketValues: Record<MedalType, number> = { gold: 3, silver: 2, bronze: 1 };
+const PERFECT_BONUS_XP = 500;
 
 /**
  * Calcule le rang correspondant au total d'XP actuel.
@@ -119,7 +120,11 @@ const migrateLegacyProfile = (profileId: string): ProfileProgression => {
     const badgeList = parsed.map((b: string | EarnedBadge) =>
       typeof b === 'string' ? { id: b, medal: 'gold' } : b
     );
-    const totalXP = badgeList.reduce((acc: number, badge: EarnedBadge) => acc + (xpValues[badge.medal] || 0), 0);
+    const totalXP = badgeList.reduce((acc: number, badge: EarnedBadge) => {
+      const baseXP = xpValues[badge.medal] || 0;
+      const bonus = badge.medal === 'gold' ? PERFECT_BONUS_XP : 0;
+      return acc + baseXP + bonus;
+    }, 0);
     
     // Nettoyage après migration réussie
     localStorage.removeItem(`kp-badges-${profileId}`);
@@ -136,6 +141,134 @@ const migrateLegacyProfile = (profileId: string): ProfileProgression => {
   } catch (e) {
     console.error("Migration error", e);
     return { ...DEFAULT_PROGRESSION };
+  }
+};
+
+interface CompressedProfileProgression {
+  b: { i: string; m: MedalType }[];
+  x: number;
+  r: string;
+  u: string[];
+  ea: string | null;
+  ec: string | null;
+  t: number;
+}
+
+interface PersistedStateWrapper {
+  state: {
+    progressions?: Record<string, ProfileProgression>;
+    activeProfileId?: string | null;
+    p?: Record<string, CompressedProfileProgression>;
+    a?: string | null;
+  };
+  version?: number;
+}
+
+/**
+ * Compresse l'état du store de progression pour optimiser l'espace localStorage et le parsing
+ */
+const compressState = (persisted: PersistedStateWrapper | null): PersistedStateWrapper | null => {
+  if (!persisted || !persisted.state) return persisted;
+
+  const { progressions, activeProfileId } = persisted.state;
+  
+  const compressedProgressions: Record<string, CompressedProfileProgression> = {};
+  if (progressions) {
+    Object.keys(progressions).forEach((profileId) => {
+      const p = progressions[profileId];
+      if (p) {
+        compressedProgressions[profileId] = {
+          b: p.badges?.map((b: EarnedBadge) => ({ i: b.id, m: b.medal })) || [],
+          x: p.totalXP || 0,
+          r: p.currentRankId || 'apprentice',
+          u: p.unlockedAccessories || [],
+          ea: p.equippedAccessoryId,
+          ec: p.equippedCompanionId,
+          t: p.tickets || 0
+        };
+      }
+    });
+  }
+
+  return {
+    state: {
+      p: compressedProgressions,
+      a: activeProfileId
+    },
+    version: persisted.version
+  };
+};
+
+/**
+ * Décompresse l'état pour restaurer le format complet en mémoire, avec compatibilité héritée
+ */
+const decompressState = (persisted: PersistedStateWrapper | null): PersistedStateWrapper | null => {
+  if (!persisted || !persisted.state) return persisted;
+
+  const { state } = persisted;
+
+  // Si c'est déjà au format décompressé / hérité, retourner tel quel
+  if (state.progressions || (state.activeProfileId !== undefined && !state.p)) {
+    return persisted;
+  }
+
+  const { p, a } = state;
+  const decompressedProgressions: Record<string, ProfileProgression> = {};
+  
+  if (p) {
+    Object.keys(p).forEach((profileId) => {
+      const cp = p[profileId];
+      if (cp) {
+        decompressedProgressions[profileId] = {
+          badges: cp.b?.map((cb: { i: string; m: MedalType }) => ({ id: cb.i as TopicId, medal: cb.m })) || [],
+          totalXP: cp.x || 0,
+          currentRankId: cp.r || 'apprentice',
+          unlockedAccessories: cp.u || [],
+          equippedAccessoryId: cp.ea || null,
+          equippedCompanionId: cp.ec || null,
+          tickets: cp.t || 0
+        };
+      }
+    });
+  }
+
+  return {
+    state: {
+      progressions: decompressedProgressions,
+      activeProfileId: a || null
+    },
+    version: persisted.version
+  };
+};
+
+/**
+ * Moteur de stockage synchrone customisé effectuant la compression dictionnaire à la volée
+ */
+const customStateStorage: StateStorage = {
+  getItem: (name: string): string | null => {
+    const raw = localStorage.getItem(name);
+    if (!raw) return null;
+    try {
+      const parsed = JSON.parse(raw);
+      const decompressed = decompressState(parsed);
+      return JSON.stringify(decompressed);
+    } catch (e) {
+      console.warn("[Progression Storage] Failed to decompress state, returning raw:", e);
+      return raw;
+    }
+  },
+  setItem: (name: string, value: string): void => {
+    try {
+      const parsed = JSON.parse(value);
+      const compressed = compressState(parsed);
+      localStorage.setItem(name, JSON.stringify(compressed));
+    } catch (e) {
+      console.error("[Progression Storage] Failed to compress state, writing raw:", e);
+      localStorage.setItem(name, value);
+    }
+  },
+  removeItem: (name: string): void => {
+    localStorage.removeItem(name);
   }
 };
 
@@ -281,7 +414,11 @@ export const useProgressionStore = create<ProgressionState>()(
           ticketsToAdd = ticketValues[medal] - ticketValues[existing.medal];
         }
 
-        const nextXP = newBadges.reduce((acc, badge) => acc + (xpValues[badge.medal] || 0), 0);
+        const nextXP = newBadges.reduce((acc, badge) => {
+          const baseXP = xpValues[badge.medal] || 0;
+          const bonus = badge.medal === 'gold' ? PERFECT_BONUS_XP : 0;
+          return acc + baseXP + bonus;
+        }, 0);
         const nextRankId = calculateRankId(nextXP);
 
         let addedAccessories: string[] = [];
@@ -498,7 +635,7 @@ export const useProgressionStore = create<ProgressionState>()(
     }),
     {
       name: 'kp-progression-storage',
-      storage: createJSONStorage(() => localStorage)
+      storage: createJSONStorage(() => customStateStorage)
     }
   )
 );

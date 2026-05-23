@@ -47,11 +47,11 @@
 
 .messageBox {
   background: var(--card-bg);
-  padding: 1.2rem;
+  padding: 1rem 1.2rem 1rem 3.4rem;
   border-radius: 1.5rem;
-  border: 3px solid var(--color-primary);
+  border: 3.5px solid var(--color-primary);
   position: relative;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
   margin-bottom: 0.5rem;
   display: flex;
   align-items: center;
@@ -59,44 +59,124 @@
   transition: var(--theme-transition);
 }
 
-/* Petit triangle pour l'effet bulle de BD */
+/* Petit triangle pointant vers le compagnon à gauche */
 .messageBox::after {
   content: '';
   position: absolute;
-  bottom: -12px;
-  left: 30px;
-  border-left: 12px solid transparent;
-  border-right: 12px solid transparent;
-  border-top: 12px solid var(--color-primary);
+  left: -12px;
+  top: 50%;
+  transform: translateY(-50%);
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-right: 12px solid var(--color-primary);
+  z-index: 4;
 }
 
 
 .messageBox p {
-  font-size: clamp(1rem, 1.3vw, 1.25rem);
+  font-size: clamp(0.95rem, 1.2vw, 1.2rem);
   font-weight: 900;
   color: var(--color-app-text);
   margin: 0;
-  line-height: 1.4;
+  line-height: 1.3;
   flex: 1;
 }
 
 .messageIcon {
-  font-size: 2rem;
+  position: absolute;
+  left: -22px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 2.2rem;
   background: var(--color-app-bg);
-  width: 50px;
-  height: 50px;
+  width: 56px;
+  height: 56px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  border: 2px solid var(--color-primary);
+  border: 3.5px solid var(--color-primary);
   flex-shrink: 0;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15);
   animation: wave 2s infinite ease-in-out;
+  z-index: 5;
+}
+
+.statsCard {
+  background: var(--glass-bg);
+  border: 2.5px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 1.2rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  transition: var(--theme-transition);
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.statsCard h3 {
+  font-size: clamp(0.95rem, 1.3vw, 1.15rem);
+  color: var(--color-primary);
+  margin: 0;
+  font-weight: 950;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.progressBar {
+  width: 100%;
+  height: 16px;
+  background: var(--color-border-neutral);
+  border-radius: 999px;
+  overflow: hidden;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.15);
+  border: 2px solid var(--color-border-dark);
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  border-radius: 999px;
+  transition: width 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.statsCard p {
+  font-size: 0.95rem;
+  color: var(--color-app-text-light);
+  margin: 0;
+  font-weight: 900;
+  text-align: center;
+}
+
+.controlsCard {
+  background: var(--glass-bg);
+  border: 2.5px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  padding: 1.2rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  transition: var(--theme-transition);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: center;
+}
+
+.diceSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
 }
 
 @keyframes wave {
-  0%, 100% { transform: rotate(-10deg); }
-  50% { transform: rotate(10deg); }
+  0%, 100% { transform: translateY(-50%) rotate(-10deg); }
+  50% { transform: translateY(-50%) rotate(10deg); }
 }
 
 .controls {
@@ -196,7 +276,7 @@
 .quizOverlay {
   position: fixed;
   inset: 0;
-  z-index: 100;
+  z-index: var(--z-index-quiz-overlay);
   background: rgba(0, 0, 0, 0.85);
   backdrop-filter: blur(15px);
   display: flex;

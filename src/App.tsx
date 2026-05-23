@@ -295,8 +295,8 @@ export function App() {
           <Route
             path="*"
             element={
-              <div className={styles.errorContainer}>
-                <h2>{labels.errors.pageNotFound}</h2>
+              <div className={styles.notFoundContainer}>
+                <h2 className={styles.notFoundTitle}>{labels.errors.pageNotFound}</h2>
                 <AppButton onClick={() => navigate('/')}>
                   {labels.common.goHome}
                 </AppButton>

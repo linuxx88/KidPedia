@@ -12,7 +12,7 @@
   backdrop-filter: var(--glass-blur);
   border-bottom: 2px solid var(--glass-border);
   position: relative;
-  z-index: 100;
+  z-index: var(--z-index-header);
   box-sizing: border-box;
 }
 
@@ -49,6 +49,7 @@
   flex: 1;
   display: flex;
   justify-content: flex-end;
+  align-items: center;
 }
 
 /* Responsive adjustments */

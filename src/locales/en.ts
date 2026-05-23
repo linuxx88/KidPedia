@@ -61,6 +61,14 @@ export const en: Labels = {
     searchPlaceholder: 'Search for a topic...',
     surpriseDay: "It's a beautiful day... a perfect day to learn and have fun! ✨",
     tickets: 'QC Tickets',
+    trySearching: 'Try searching:',
+    popularSuggestions: [
+      { label: 'The Sun ☀️', query: 'Sun' },
+      { label: 'Dinosaurs 🦖', query: 'Dinosaurs' },
+      { label: 'The Lion 🦁', query: 'Lion' },
+      { label: 'Volcano 🌋', query: 'Volcano' },
+      { label: 'Space 🚀', query: 'Space' },
+    ],
   },
   ranks: {
     apprentice: { boy: 'Apprentice 🐣', girl: 'Apprentice 🐣' },
@@ -117,6 +125,7 @@ export const en: Labels = {
     goldMedal: 'GOLD',
     silverMedal: 'SILVER',
     bronzeMedal: 'BRONZE',
+    perfectBadge: 'PERFECT !',
     winMessage: (medal: string) => `You won a ${medal} medal!`,
     didYouKnow: 'Did you know?',
     hintTitle: '💡 A little hint...',

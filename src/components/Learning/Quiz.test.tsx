@@ -71,6 +71,18 @@ describe('QuizComponent', () => {
     expect(screen.getByText('🥇')).toBeInTheDocument()
   })
 
+  it("affiche la bannière de perfection quand la médaille d'or est obtenue", () => {
+    render(
+      <QuizComponent
+        {...defaultProps}
+        result={{ medal: 'gold' }}
+      />,
+    )
+
+    expect(screen.getByTestId('perfect-banner')).toBeInTheDocument()
+    expect(screen.getByText(fr.quiz.perfectBadge)).toBeInTheDocument()
+  })
+
   it("affiche la médaille d'argent", () => {
     render(
       <QuizComponent

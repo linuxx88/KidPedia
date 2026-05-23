@@ -44,7 +44,7 @@ describe('useProgressionStore', () => {
     })
 
     expect(result.current.getBadges()).toContainEqual({ id: 'lion', medal: 'gold' })
-    expect(result.current.getTotalXP()).toBe(1000)
+    expect(result.current.getTotalXP()).toBe(1500)
     expect(result.current.getCurrentRankId()).toBe('explorer')
   })
 
@@ -62,12 +62,12 @@ describe('useProgressionStore', () => {
     expect(result.current.getTotalXP()).toBe(250)
     expect(result.current.getCurrentRankId()).toBe('apprentice')
 
-    // Or (1000 XP) -> Rang Explorer
+    // Or (1500 XP) -> Rang Explorer
     act(() => {
       result.current.addBadge('lion', 'gold')
     })
     expect(result.current.getBadges()).toContainEqual({ id: 'lion', medal: 'gold' })
-    expect(result.current.getTotalXP()).toBe(1000)
+    expect(result.current.getTotalXP()).toBe(1500)
     expect(result.current.getCurrentRankId()).toBe('explorer')
   })
 
@@ -77,7 +77,7 @@ describe('useProgressionStore', () => {
     // Alice gagne de l'XP
     act(() => { result.current.syncWithProfile('alice') })
     act(() => { result.current.addBadge('lion', 'gold') })
-    expect(result.current.getTotalXP()).toBe(1000)
+    expect(result.current.getTotalXP()).toBe(1500)
 
     // On switch sur Bob (qui est vide)
     act(() => { result.current.syncWithProfile('bob') })
@@ -86,7 +86,7 @@ describe('useProgressionStore', () => {
 
     // Retour sur Alice
     act(() => { result.current.syncWithProfile('alice') })
-    expect(result.current.getTotalXP()).toBe(1000)
+    expect(result.current.getTotalXP()).toBe(1500)
   })
 
   it('devrait gagner de l\'XP via l\'action générique addXP', () => {
@@ -264,6 +264,70 @@ describe('useProgressionStore', () => {
       expect(result.current.getUnlockedAccessories()).not.toContain('space-helmet')
       expect(result.current.getEquippedAccessoryId()).toBeNull()
     })
+  })
+
+  describe('Compression & Rétrocompatibilité du Stockage', () => {
+    it('devrait correctement compresser l\'état et l\'enregistrer avec des clés raccourcies', () => {
+      act(() => {
+        useProgressionStore.persist.clearStorage();
+      });
+
+      // Mettre à jour l'état du store
+      act(() => {
+        useProgressionStore.getState().syncWithProfile('alice');
+        useProgressionStore.getState().addBadge('lion', 'gold');
+        useProgressionStore.getState().addTickets(3);
+        useProgressionStore.getState().equipAccessory('crown');
+      });
+
+      // Lire la valeur brute dans le localStorage
+      const rawStored = localStorage.getItem('kp-progression-storage');
+      expect(rawStored).toBeDefined();
+      
+      const parsed = JSON.parse(rawStored!);
+      // Vérifier le format compressé (clés raccourcies : p, b, x, etc.)
+      expect(parsed.state.p).toBeDefined();
+      expect(parsed.state.p.alice).toBeDefined();
+      expect(parsed.state.p.alice.b).toContainEqual({ i: 'lion', m: 'gold' });
+      expect(parsed.state.p.alice.x).toBe(1500);
+      expect(parsed.state.p.alice.t).toBe(6);
+      expect(parsed.state.p.alice.ea).toBe('crown');
+      expect(parsed.state.progressions).toBeUndefined(); // Pas de clés longues
+    });
+
+    it('devrait décompresser de manière transparente les données legacy (non-compressées)', () => {
+      const legacyState = {
+        state: {
+          progressions: {
+            bob: {
+              badges: [{ id: 'soleil', medal: 'silver' }],
+              totalXP: 500,
+              currentRankId: 'apprentice',
+              unlockedAccessories: [],
+              equippedAccessoryId: null,
+              equippedCompanionId: null,
+              tickets: 2
+            }
+          },
+          activeProfileId: 'bob'
+        },
+        version: 0
+      };
+
+      // Écrire directement du JSON non-compressé dans le localStorage
+      localStorage.setItem('kp-progression-storage', JSON.stringify(legacyState));
+
+      // Forcer la réhydratation du store
+      act(() => {
+        useProgressionStore.persist.rehydrate();
+      });
+
+      // Vérifier que le store a correctement chargé les données de Bob
+      expect(useProgressionStore.getState().activeProfileId).toBe('bob');
+      expect(useProgressionStore.getState().getTotalXP()).toBe(500);
+      expect(useProgressionStore.getState().getBadges()).toContainEqual({ id: 'soleil', medal: 'silver' });
+      expect(useProgressionStore.getState().getTickets()).toBe(2);
+    });
   })
 })
 

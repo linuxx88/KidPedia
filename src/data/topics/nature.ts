@@ -12,11 +12,38 @@ export const nature = [
       fr: "Les arbres sont très importants. Ils respirent le gaz que nous rejetons et fabriquent de l'oxygène, ce qui nous permet de bien respirer. Ils sont aussi la maison de nombreux oiseaux et insectes.",
       en: 'Trees are very important. They breathe in the gas we give off and produce oxygen, which allows us to breathe well. They are also home to many birds and insects.',
     },
+    fullContents: [
+      {
+        fr: "Les arbres sont très importants. Ils respirent le gaz que nous rejetons et fabriquent de l'oxygène, ce qui nous permet de bien respirer. Ils sont aussi la maison de nombreux oiseaux et insectes.",
+        en: 'Trees are very important. They breathe in the gas we give off and produce oxygen, which allows us to breathe well. They are also home to many birds and insects.',
+      },
+      {
+        fr: "Les arbres sont comme les poumons géants de la Terre. Grâce à leurs feuilles, ils absorbent le gaz carbonique de l'air pour nous fabriquer un oxygène pur et frais à respirer au quotidien.",
+        en: "Trees are like the Earth's giant lungs. Thanks to their leaves, they absorb carbon dioxide from the air to make pure, fresh oxygen for us to breathe every day."
+      },
+      {
+        fr: "En plus de purifier notre air, les arbres protègent le sol avec leurs racines géantes et offrent un abri sûr et de la nourriture à des milliers d'oiseaux, d'écureuils et de petits insectes de la forêt.",
+        en: "In addition to purifying our air, trees protect the soil with their giant roots and offer safe shelter and food to thousands of birds, squirrels, and little forest insects."
+      }
+    ],
     funFact: {
       fr: 'Certains arbres peuvent vivre plus de 4 000 ans, comme le séquoia !',
       en: 'Some trees can live for more than 4,000 years, like the sequoia!',
     },
-    
+    funFacts: [
+      {
+        fr: 'Certains arbres peuvent vivre plus de 4 000 ans, comme le séquoia !',
+        en: 'Some trees can live for more than 4,000 years, like the sequoia!',
+      },
+      {
+        fr: "Les arbres peuvent communiquer entre eux sous la terre grâce à un réseau de champignons microscopiques branché sur leurs racines !",
+        en: "Trees can communicate with each other underground through a network of microscopic fungi connected to their roots!"
+      },
+      {
+        fr: "Le plus vieil arbre connu de la planète a plus de 5 000 ans et a commencé à pousser bien avant la construction des pyramides d'Égypte !",
+        en: "The oldest known tree on the planet is over 5,000 years old and began growing long before the Pyramids of Egypt were built!"
+      }
+    ]
   },
   {
     id: 'volcan',
@@ -29,11 +56,38 @@ export const nature = [
       fr: "Un volcan est une ouverture dans la Terre d'où s'échappe de la roche fondue très chaude appelée lave. Quand un volcan se réveille, on appelle cela une éruption.",
       en: 'A volcano is an opening in the Earth from which very hot molten rock called lava escapes. When a volcano wakes up, it is called an eruption.',
     },
+    fullContents: [
+      {
+        fr: "Un volcan est une ouverture dans la Terre d'où s'échappe de la roche fondue très chaude appelée lave. Quand un volcan se réveille, on appelle cela une éruption.",
+        en: 'A volcano is an opening in the Earth from which very hot molten rock called lava escapes. When a volcano wakes up, it is called an eruption.',
+      },
+      {
+        fr: "Un volcan est comme une cheminée géante reliée au cœur brûlant de la Terre. Sous la pression, la roche fondue (le magma) monte et s'échappe sous forme de lave incandescente.",
+        en: "A volcano is like a giant chimney connected to the hot heart of the Earth. Under pressure, molten rock (magma) rises and escapes as glowing lava."
+      },
+      {
+        fr: "Lors d'une éruption volcanique, de grands nuages de cendres et des jets de lave s'échappent dans le ciel. En refroidissant, cette lave durcit et forme de nouvelles montagnes ou des îles entières !",
+        en: "During a volcanic eruption, vast clouds of ash and fountains of lava escape into the sky. As it cools, this lava hardens to form new mountains or entire islands!"
+      }
+    ],
     funFact: {
       fr: "Il existe des volcans tout en bas de l'océan !",
       en: 'There are volcanoes at the very bottom of the ocean!',
     },
-    
+    funFacts: [
+      {
+        fr: "Il existe des volcans tout en bas de l'océan !",
+        en: 'There are volcanoes at the very bottom of the ocean!',
+      },
+      {
+        fr: "Plus de la moitié des volcans actifs du monde forment un grand cercle dans l'océan Pacifique appelé la Ceinture de Feu !",
+        en: "More than half of the world's active volcanoes form a grand circle in the Pacific Ocean called the Ring of Fire!"
+      },
+      {
+        fr: "Le plus grand volcan connu du système solaire est le Mont Olympe, situé sur la planète Mars et culminant à plus de 21 km de hauteur !",
+        en: "The largest known volcano in the solar system is Olympus Mons, located on the planet Mars and standing over 21 km high!"
+      }
+    ]
   },
   {
     id: 'pluie',

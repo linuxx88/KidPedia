@@ -8,12 +8,29 @@ export const EnvironmentDecor: React.FC = () => {
   
   React.useEffect(() => {
     const decors = ['🌳', '🌿', '🪨', '🌵', '🌸', '🍃', '☁️'];
-    const generated = Array.from({ length: 15 }).map((_, i) => ({
+    // Liste fixe et épurée de coordonnées pour éviter les collisions avec la grille active et le panneau
+    const fixedCoordinates = [
+      { top: '3%', left: '32%' },
+      { top: '5%', left: '88%' },
+      { top: '15%', left: '94%' },
+      { top: '45%', left: '95%' },
+      { top: '78%', left: '92%' },
+      { top: '88%', left: '33%' },
+      { top: '92%', left: '62%' },
+      { top: '85%', left: '80%' },
+      { top: '28%', left: '26%' },
+      { top: '58%', left: '28%' },
+      { top: '88%', left: '25%' },
+      { top: '12%', left: '45%' },
+      { top: '2%', left: '72%' }
+    ];
+    
+    const generated = fixedCoordinates.map((coord, i) => ({
       id: i,
-      icon: decors[Math.floor(Math.random() * decors.length)],
-      top: `${Math.random() * 90}%`,
-      left: `${Math.random() * 90}%`,
-      delay: `${Math.random() * 5}s`
+      icon: decors[i % decors.length],
+      top: coord.top,
+      left: coord.left,
+      delay: `${(i * 0.4) % 5}s`
     }));
     setStaticDecor(generated);
   }, []); 

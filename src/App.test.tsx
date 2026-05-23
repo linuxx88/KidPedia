@@ -43,4 +43,30 @@ describe('App Integration', () => {
       { timeout: 2000 },
     )
   })
+
+  it('displays popular suggestions when search yields no results and filters when clicked', async () => {
+    render(<App />)
+
+    const searchInput = await screen.findByPlaceholderText(
+      /Cherche un sujet/i,
+      {},
+      { timeout: 5000 },
+    )
+    // Saisir un mot farfelu
+    fireEvent.change(searchInput, { target: { value: 'farfelu-non-existent' } })
+
+    // Attendre l'affichage de l'écran d'erreur de recherche
+    expect(await screen.findByText(/Aucun trésor trouvé/i)).toBeInTheDocument()
+
+    // Vérifier que la suggestion du Soleil est présente
+    const sunSuggestion = screen.getByRole('button', { name: /Soleil/i })
+    expect(sunSuggestion).toBeInTheDocument()
+
+    // Cliquer sur la suggestion
+    fireEvent.click(sunSuggestion)
+
+    // Vérifier que le champ de recherche s'est mis à jour et que "Le Soleil" s'affiche de nouveau
+    expect(searchInput).toHaveValue('Soleil')
+    expect(await screen.findByText('Le Soleil')).toBeInTheDocument()
+  })
 })

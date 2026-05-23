@@ -61,6 +61,8 @@ export interface Labels {
     searchPlaceholder: string;
     surpriseDay: string;
     tickets: string;
+    trySearching: string;
+    popularSuggestions: { label: string; query: string }[];
   };
   ranks: {
     apprentice: { boy: string; girl: string };
@@ -117,6 +119,7 @@ export interface Labels {
     goldMedal: string;
     silverMedal: string;
     bronzeMedal: string;
+    perfectBadge: string;
     winMessage: (medal: string) => string;
     didYouKnow: string;
     hintTitle: string;

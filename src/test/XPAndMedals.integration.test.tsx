@@ -54,7 +54,7 @@ describe('Integration: XP and Medals System', () => {
 
     // Vérifier l'XP sur le dashboard de l'accueil
     await waitFor(() => {
-      expect(screen.getByText(/1\.0k/i)).toBeDefined();
+      expect(screen.getByText(/1\.5k/i)).toBeDefined();
     });
   })
 
@@ -87,10 +87,10 @@ describe('Integration: XP and Medals System', () => {
     const optionB_new = await screen.findByLabelText(/Réponse B/i);
     fireEvent.click(optionB_new); // Réussite du premier coup cette fois
 
-    // Vérifier Upgrade vers Or (1.0k total)
+    // Vérifier Upgrade vers Or (1.5k total)
     fireEvent.click(screen.getByText(/fini/i));
     await waitFor(() => {
-      expect(screen.getByText(/1\.0k/i)).toBeDefined();
+      expect(screen.getByText(/1\.5k/i)).toBeDefined();
     });
     expect(screen.queryByText(/250/i)).toBeNull();
   })
@@ -112,7 +112,7 @@ describe('Integration: XP and Medals System', () => {
 
     // Vérifier que les données sont rechargées (Alice devrait être auto-chargée)
     await waitFor(() => {
-      expect(screen.getByText(/1\.0k/i)).toBeDefined();
+      expect(screen.getByText(/1\.5k/i)).toBeDefined();
     }, { timeout: 3000 })
   })
 })
