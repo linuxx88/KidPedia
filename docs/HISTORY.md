@@ -8,6 +8,25 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 
 
+### VERSION 3.20.14 - Intégration de la sourdine globale au Refuge des Animaux 🤫🐾 (24 Mai 2026)
+--------------------------------------------------
+- **[Aesthetics/UX/A11y/QA] Conformité de la sourdine globale (isMuted) dans Le Refuge (Ticket #65) :**
+    - **RefugePage.tsx** : Récupération réactive de la variable `isMuted` depuis le store de préférences `useSettingsStore` et ajout d'un garde-fou `if (isMuted) return;` au tout début de la fonction de synthèse Web Audio `playSound`. Tous les effets sonores synthétisés interactifs (actions de caresse "pet", alimentation "feed", achat de friandises "buy" et alertes d'erreurs "error") respectent désormais instantanément la sourdine générale demandée par les parents, assurant une tranquillité d'usage absolue.
+
+### VERSION 3.20.13 - Résolution de la fuite de données de compagnons lors de la suppression de profil 🦄🧹 (24 Mai 2026)
+--------------------------------------------------
+- **[Logic/QA/DataSecurity] Suppression sécurisée et synchronisée des données des compagnons (Ticket #63) :**
+    - **useProfileStore.ts** : Importation de `useCompanionStore` et mise à jour de l'action `deleteProfile` pour appeler de manière coordonnée `useCompanionStore.getState().deleteProfileCompanionData(id)`. Cela garantit que la suppression d'un profil détruit immédiatement toutes les données de compagnons associées et prévient toute accumulation orpheline de données persistantes dans `localStorage` (clé `kp-companion-storage`).
+    - **useProfileStore.test.ts** : Écriture d'un test d'intégration unitaire robustement isolé validant l'appel correct de `deleteProfileCompanionData(id)` lors de l'appel à `deleteProfile`, et intégration de `useCompanionStore.getState().reset()` dans le hook global `beforeEach` pour maintenir une parfaite isolation des tests.
+
+### VERSION 3.20.12 - Liaison Encyclopédique & Quizz Interactifs des sous-nœuds du Big Bang 💥🌌 (24 Mai 2026)
+--------------------------------------------------
+- **[Content/Logic/i18n/QA] Liaison interactive et élimination des culs-de-sac pédagogiques de la frise chronologique d'Origins (Ticket #36) :**
+    - **bigBang.ts (Navigation)** : Association réussie de chacun des 7 nœuds intermédiaires (`bb2` à `bb8`) à son identifiant de sujet unique (`soupe-particules`, `naissance-atomes`, `expansion`, `premieres-etoiles`, `premieres-galaxies`, `voie-lactee`, `systeme-solaire`), débloquant l'accès à la fiche détaillée et au quiz associé pour toute la frise du Big Bang.
+    - **topics/space.ts (Encyclopédie)** : Création et intégration de 7 nouvelles fiches éducatives riches et bilingues adaptées pour les 4-8 ans. Chaque fiche dispose d'icônes spécifiques, de descriptions courtes, de variations de paragraphes pédagogiques complets (`fullContent` / `fullContents`) et d'anecdotes rigolotes (`funFact` / `funFacts`) en français et en anglais.
+    - **quizzes/space.ts (Banque de Quizz)** : Déclaration de 7 nouveaux quiz interactifs et stimulants dans le dictionnaire global `QUIZZES`. Chaque quiz offre des questions captivantes bilingues, des choix multiples adaptés et des indices pédagogiques localisés (`hint`) en français et en anglais pour encourager les enfants en cas d'erreur.
+    - **dataIntegrity.test.ts (Validation)** : Intégration complète dans la suite de tests de validation d'intégrité de la base de données, garantissant le typage dynamique strict des nouveaux identifiants kebab-case et s'assurant qu'aucun sujet ou quiz n'est orphelin ou brisé.
+
 ### VERSION 3.20.11 - Dimensionnement Dynamique Compensé & Test de Scale Inverse des Marqueurs de Carte 🗺️🔍 (23 Mai 2026)
 --------------------------------------------------
 - **[UX/QA/Aesthetics] Dimensionnement dynamique des marqueurs de la carte interactive (Ticket #35) :**

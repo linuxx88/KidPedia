@@ -16,7 +16,8 @@ export const bigBangSubNodes: HistoryNode[] = [
     color: '#f97316', 
     icon: '🥣', 
     title: { fr: 'Soupe de Particules', en: 'Particle Soup' }, 
-    description: { fr: 'C\'est le grand mélange ! Tout est très chaud et s\'agite.', en: 'It\'s a big mix! Everything is very hot and moving.' } 
+    description: { fr: 'C\'est le grand mélange ! Tout est très chaud et s\'agite.', en: 'It\'s a big mix! Everything is very hot and moving.' },
+    topicId: 'soupe-particules'
   },
   { 
     id: 'bb3', 
@@ -24,7 +25,8 @@ export const bigBangSubNodes: HistoryNode[] = [
     color: '#f59e0b', 
     icon: '⚛️', 
     title: { fr: 'Naissance des Atomes', en: 'Birth of Atoms' }, 
-    description: { fr: 'L\'univers refroidit et les petites briques de matière apparaissent.', en: 'The universe cools down and tiny bricks of matter appear.' } 
+    description: { fr: 'L\'univers refroidit et les petites briques de matière apparaissent.', en: 'The universe cools down and tiny bricks of matter appear.' },
+    topicId: 'naissance-atomes'
   },
   { 
     id: 'bb4', 
@@ -32,7 +34,8 @@ export const bigBangSubNodes: HistoryNode[] = [
     color: '#3b82f6', 
     icon: '✨', 
     title: { fr: "L'Expansion", en: 'Expansion' }, 
-    description: { fr: "L'univers grandit très vite, comme un ballon qui gonfle !", en: 'The universe grows very fast, like a balloon inflating!' } 
+    description: { fr: "L'univers grandit très vite, comme un ballon qui gonfle !", en: 'The universe grows very fast, like a balloon inflating!' },
+    topicId: 'expansion'
   },
   { 
     id: 'bb5', 
@@ -40,7 +43,8 @@ export const bigBangSubNodes: HistoryNode[] = [
     color: '#6366f1', 
     icon: '⭐', 
     title: { fr: 'Premières Étoiles', en: 'First Stars' }, 
-    description: { fr: "La lumière apparaît ! Les premières étoiles s'allument.", en: 'Light appears! The first stars light up.' } 
+    description: { fr: "La lumière apparaît ! Les premières étoiles s'allument.", en: 'Light appears! The first stars light up.' },
+    topicId: 'premieres-etoiles'
   },
   { 
     id: 'bb6', 
@@ -48,7 +52,8 @@ export const bigBangSubNodes: HistoryNode[] = [
     color: '#8b5cf6', 
     icon: '🌀', 
     title: { fr: 'Premières Galaxies', en: 'First Galaxies' }, 
-    description: { fr: 'Les étoiles se regroupent pour former de grandes familles.', en: 'Stars group together to form large families.' } 
+    description: { fr: 'Les étoiles se regroupent pour former de grandes familles.', en: 'Stars group together to form large families.' },
+    topicId: 'premieres-galaxies'
   },
   { 
     id: 'bb7', 
@@ -56,7 +61,8 @@ export const bigBangSubNodes: HistoryNode[] = [
     color: '#a855f7', 
     icon: '🌌', 
     title: { fr: 'La Voie Lactée', en: 'The Milky Way' }, 
-    description: { fr: 'Voici notre galaxie, c\'est là que nous habitons !', en: 'Here is our galaxy, this is where we live!' } 
+    description: { fr: 'Voici notre galaxie, c\'est là que nous habitons !', en: 'Here is our galaxy, this is where we live!' },
+    topicId: 'voie-lactee'
   },
   { 
     id: 'bb8', 
@@ -64,7 +70,8 @@ export const bigBangSubNodes: HistoryNode[] = [
     color: '#fcd34d', 
     icon: '☀️', 
     title: { fr: 'Système Solaire', en: 'Solar System' }, 
-    description: { fr: 'Notre Soleil et ses planètes se forment enfin.', en: 'Our Sun and its planets finally form.' } 
+    description: { fr: 'Notre Soleil et ses planètes se forment enfin.', en: 'Our Sun and its planets finally form.' },
+    topicId: 'systeme-solaire'
   },
   { 
     id: 'bb9', 

@@ -64,3 +64,9 @@ html.dark body {
   width: 100%;
   position: relative;
 }
+
+/* Fluid Media Reset for Responsiveness */
+img, video, svg {
+  max-width: 100%;
+  height: auto;
+}

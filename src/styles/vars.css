@@ -344,3 +344,11 @@ html[data-theme='dark'][data-gender='space'] {
   }
 }
 
+/* --- STANDARDS DE BREAKPOINTS POUR KIDPEDIA ---
+   - Mobile Portrait        : max-width: 480px
+   - Tablette Portrait      : min-width: 481px  et max-width: 768px
+   - Tablette Paysage/Laptop: min-width: 769px  et max-width: 1024px
+   - Desktop Standard       : min-width: 1025px et max-width: 1280px
+   - Grand Desktop          : min-width: 1281px
+----------------------------------------------- */
+

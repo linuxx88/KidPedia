@@ -19,7 +19,7 @@ interface Particle {
 
 export function RefugePage() {
   const navigate = useNavigate();
-  const { labels, language } = useSettingsStore();
+  const { labels, language, isMuted } = useSettingsStore();
   
   // Stores
   const activeProfileId = useProgressionStore((state) => state.activeProfileId);
@@ -47,6 +47,7 @@ export function RefugePage() {
 
   // Sound generator
   const playSound = (type: 'pet' | 'feed' | 'buy' | 'error') => {
+    if (isMuted) return;
     try {
       const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (!AudioContextClass) return;

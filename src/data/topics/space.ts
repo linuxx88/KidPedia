@@ -486,4 +486,249 @@ export const space = [
       }
     ]
   },
+  {
+    id: 'soupe-particules',
+    title: { fr: 'Soupe de Particules', en: 'Particle Soup' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
+    icon: '🥣',
+    shortDesc: {
+      fr: "Un mélange super chaud et agité !",
+      en: "A super hot and moving mix!"
+    },
+    fullContent: {
+      fr: "Juste après le Big Bang, l'univers était incroyablement chaud, comme une soupe brûlante ! De toutes petites pièces d'énergie s'agitaient et se rentraient dedans à toute vitesse sans pouvoir s'associer.",
+      en: "Just after the Big Bang, the universe was incredibly hot, like a burning soup! Tiny bits of energy moved and crashed into each other at high speed without being able to join together."
+    },
+    fullContents: [
+      {
+        fr: "Juste après le Big Bang, l'univers était incroyablement chaud, comme une soupe brûlante ! De toutes petites pièces d'énergie s'agitaient et se rentraient dedans à toute vitesse sans pouvoir s'associer.",
+        en: "Just after the Big Bang, the universe was incredibly hot, like a burning soup! Tiny bits of energy moved and crashed into each other at high speed without being able to join together."
+      },
+      {
+        fr: "Imagine une tempête de feu cosmique géante où rien ne peut rester tranquille. C'était la soupe de particules de la naissance de l'univers !",
+        en: "Imagine a giant cosmic firestorm where nothing can stay still. That was the particle soup at the birth of the universe!"
+      }
+    ],
+    funFact: {
+      fr: "Cette soupe était des milliards de fois plus chaude que le centre de notre Soleil !",
+      en: "This soup was billions of times hotter than the center of our Sun!"
+    },
+    funFacts: [
+      {
+        fr: "Cette soupe était des milliards de fois plus chaude que le centre de notre Soleil !",
+        en: "This soup was billions of times hotter than the center of our Sun!"
+      }
+    ]
+  },
+  {
+    id: 'naissance-atomes',
+    title: { fr: 'Naissance des Atomes', en: 'Birth of Atoms' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
+    icon: '⚛️',
+    shortDesc: {
+      fr: "Les petites briques de la matière apparaissent.",
+      en: "The tiny bricks of matter appear."
+    },
+    fullContent: {
+      fr: "En grandissant, l'univers a commencé à se refroidir un peu. Les particules de la soupe ont enfin pu se calmer et s'assembler pour former les tout premiers atomes, qui sont les petites briques de tout ce qui existe !",
+      en: "As it grew, the universe began to cool down a bit. The particles in the soup could finally calm down and assemble to form the very first atoms, which are the tiny bricks of everything that exists!"
+    },
+    fullContents: [
+      {
+        fr: "En grandissant, l'univers a commencé à se refroidir un peu. Les particules de la soupe ont enfin pu se calmer et s'assembler pour former les tout premiers atomes, qui sont les petites briques de tout ce qui existe !",
+        en: "As it grew, the universe began to cool down a bit. The particles in the soup could finally calm down and assemble to form the very first atoms, which are the tiny bricks of everything that exists!"
+      },
+      {
+        fr: "Tout ce qui t'entoure : tes jouets, ton chat, et même tes propres mains, est fabriqué à partir de ces petits atomes nés il y a très longtemps !",
+        en: "Everything around you: your toys, your cat, and even your own hands, is made from these tiny atoms born a very long time ago!"
+      }
+    ],
+    funFact: {
+      fr: "L'hydrogène a été le tout premier atome fabriqué dans l'univers !",
+      en: "Hydrogen was the very first atom made in the universe!"
+    },
+    funFacts: [
+      {
+        fr: "L'hydrogène a été le tout premier atome fabriqué dans l'univers !",
+        en: "Hydrogen was the very first atom made in the universe!"
+      }
+    ]
+  },
+  {
+    id: 'expansion',
+    title: { fr: "L'Expansion", en: 'Expansion' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
+    icon: '✨',
+    shortDesc: {
+      fr: "L'univers grandit à toute vitesse !",
+      en: "The universe grows at high speed!"
+    },
+    fullContent: {
+      fr: "Depuis sa naissance, l'univers ne s'arrête jamais de grandir ! Il s'étend dans toutes les directions à une vitesse incroyable, emportant toutes les galaxies de plus en plus loin les unes des autres.",
+      en: "Since its birth, the universe never stops growing! It expands in all directions at an incredible speed, carrying all galaxies further and further apart."
+    },
+    fullContents: [
+      {
+        fr: "Depuis sa naissance, l'univers ne s'arrête jamais de grandir ! Il s'étend dans toutes les directions à une vitesse incroyable, emportant toutes les galaxies de plus en plus loin les unes des autres.",
+        en: "Since its birth, the universe never stops growing! It expands in all directions at an incredible speed, carrying all galaxies further and further apart."
+      },
+      {
+        fr: "L'expansion ne pousse pas les objets, c'est l'espace lui-même entre les galaxies qui s'étire, comme de la pâte à gâteau qui gonfle au four !",
+        en: "Expansion doesn't push objects; it is space itself between galaxies that stretches, like cake dough rising in the oven!"
+      }
+    ],
+    funFact: {
+      fr: "L'univers s'étend si vite que même la lumière a du mal à le rattraper !",
+      en: "The universe expands so fast that even light has a hard time catching up!"
+    },
+    funFacts: [
+      {
+        fr: "L'univers s'étend si vite que même la lumière a du mal à le rattraper !",
+        en: "The universe expands so fast that even light has a hard time catching up!"
+      }
+    ]
+  },
+  {
+    id: 'premieres-etoiles',
+    title: { fr: 'Premières Étoiles', en: 'First Stars' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
+    icon: '⭐',
+    shortDesc: {
+      fr: "La lumière s'allume enfin !",
+      en: "The light finally turns on!"
+    },
+    fullContent: {
+      fr: "Après des millions d'années d'obscurité, la gravité a rassemblé de grands nuages de gaz. Ces nuages sont devenus si denses et chauds qu'ils se sont allumés : les toutes premières étoiles sont nées !",
+      en: "After millions of years of darkness, gravity gathered huge clouds of gas. These clouds became so dense and hot that they ignited: the very first stars were born!"
+    },
+    fullContents: [
+      {
+        fr: "Après des millions d'années d'obscurité, la gravité a rassemblé de grands nuages de gaz. Ces nuages sont devenus si denses et chauds qu'ils se sont allumés : les toutes premières étoiles sont nées !",
+        en: "After millions of years of darkness, gravity gathered huge clouds of gas. These clouds became so dense and hot that they ignited: the very first stars were born!"
+      },
+      {
+        fr: "Ces soleils géants ont fabriqué dans leur cœur brûlant les premiers métaux et éléments chimiques lourds de tout notre univers !",
+        en: "These giant suns manufactured the first metals and heavy chemical elements of our entire universe in their hot core!"
+      }
+    ],
+    funFact: {
+      fr: "Les premières étoiles étaient de véritables géantes, des centaines de fois plus grandes que notre Soleil !",
+      en: "The first stars were true giants, hundreds of times larger than our Sun!"
+    },
+    funFacts: [
+      {
+        fr: "Les premières étoiles étaient de véritables géantes, des centaines de fois plus grandes que notre Soleil !",
+        en: "The first stars were true giants, hundreds of times larger than our Sun!"
+      }
+    ]
+  },
+  {
+    id: 'premieres-galaxies',
+    title: { fr: 'Premières Galaxies', en: 'First Galaxies' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
+    icon: '🌀',
+    shortDesc: {
+      fr: "Les étoiles se regroupent en familles.",
+      en: "Stars group into families."
+    },
+    fullContent: {
+      fr: "Les étoiles ne restent pas seules dans l'espace. Attirées les unes par les autres, elles se sont regroupées par milliards pour former les premières galaxies, de grands tourbillons de lumière céleste.",
+      en: "Stars do not stay alone in space. Attracted to each other, they grouped together by the billions to form the first galaxies, large swirls of celestial light."
+    },
+    fullContents: [
+      {
+        fr: "Les étoiles ne restent pas seules dans l'espace. Attirées les unes par les autres, elles se sont regroupées par milliards pour former les premières galaxies, de grands tourbillons de lumière céleste.",
+        en: "Stars do not stay alone in space. Attracted to each other, they grouped together by the billions to form the first galaxies, large swirls of celestial light."
+      },
+      {
+        fr: "Les premières galaxies étaient plus petites et plus agitées que nos galaxies actuelles, se télescopant souvent pour former de plus grands ensembles.",
+        en: "The first galaxies were smaller and more turbulent than today's galaxies, often colliding to form larger systems."
+      }
+    ],
+    funFact: {
+      fr: "Il existe des centaines de milliards de galaxies dans notre univers visible !",
+      en: "There are hundreds of billions of galaxies in our visible universe!"
+    },
+    funFacts: [
+      {
+        fr: "Il existe des centaines de milliards de galaxies dans notre univers visible !",
+        en: "There are hundreds of billions of galaxies in our visible universe!"
+      }
+    ]
+  },
+  {
+    id: 'voie-lactee',
+    title: { fr: 'La Voie Lactée', en: 'The Milky Way' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
+    icon: '🌌',
+    shortDesc: {
+      fr: "Notre merveilleuse maison galactique.",
+      en: "Our wonderful galactic home."
+    },
+    fullContent: {
+      fr: "La Voie Lactée est notre galaxie. C'est une magnifique spirale qui tourne lentement sur elle-même. Elle contient plus de 200 milliards d'étoiles, dont notre Soleil, situé sur l'un de ses bras de lumière.",
+      en: "The Milky Way is our galaxy. It is a beautiful spiral that slowly spins on itself. It contains over 200 billion stars, including our Sun, located on one of its arms of light."
+    },
+    fullContents: [
+      {
+        fr: "La Voie Lactée est notre galaxie. C'est une magnifique spirale qui tourne lentement sur elle-même. Elle contient plus de 200 milliards d'étoiles, dont notre Soleil, situé sur l'un de ses bras de lumière.",
+        en: "The Milky Way is our galaxy. It is a beautiful spiral that slowly spins on itself. It contains over 200 billion stars, including our Sun, located on one of its arms of light."
+      },
+      {
+        fr: "Si nous pouvions voyager à la vitesse de la lumière, il nous faudrait 100 000 ans pour traverser entièrement la Voie Lactée !",
+        en: "If we could travel at the speed of light, it would take us 100,000 years to cross the Milky Way entirely!"
+      }
+    ],
+    funFact: {
+      fr: "Elle s'appelle 'Voie Lactée' car elle ressemble à une traînée de lait blanc dans le ciel de nuit !",
+      en: "It is called the 'Milky Way' because it looks like a trail of white milk in the night sky!"
+    },
+    funFacts: [
+      {
+        fr: "Elle s'appelle 'Voie Lactée' car elle ressemble à une traînée de lait blanc dans le ciel de nuit !",
+        en: "It is called the 'Milky Way' because it looks like a trail of white milk in the night sky!"
+      }
+    ]
+  },
+  {
+    id: 'systeme-solaire',
+    title: { fr: 'Système Solaire', en: 'Solar System' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
+    icon: '☀️',
+    shortDesc: {
+      fr: "Notre Soleil et sa famille de planètes.",
+      en: "Our Sun and its family of planets."
+    },
+    fullContent: {
+      fr: "Il y a 4,6 milliards d'années, un grand nuage de poussière s'est effondré pour former notre Soleil au centre, et huit magnifiques planètes tout autour, dont notre Terre !",
+      en: "4.6 billion years ago, a large cloud of dust collapsed to form our Sun at the center, and eight beautiful planets all around, including our Earth!"
+    },
+    fullContents: [
+      {
+        fr: "Il y a 4,6 milliards d'années, un grand nuage de poussière s'est effondré pour former notre Soleil au centre, et huit magnifiques planètes tout autour, dont notre Terre !",
+        en: "4.6 billion years ago, a large cloud of dust collapsed to form our Sun at the center, and eight beautiful planets all around, including our Earth!"
+      },
+      {
+        fr: "Les huit planètes se partagent en quatre planètes rocheuses près du Soleil, et quatre planètes géantes de gaz et de glace plus éloignées !",
+        en: "The eight planets are divided into four rocky planets near the Sun, and four giant gas and ice planets further away!"
+      }
+    ],
+    funFact: {
+      fr: "Toutes les planètes du système solaire tournent dans le même sens autour du Soleil !",
+      en: "All planets in the solar system orbit in the same direction around the Sun!"
+    },
+    funFacts: [
+      {
+        fr: "Toutes les planètes du système solaire tournent dans le même sens autour du Soleil !",
+        en: "All planets in the solar system orbit in the same direction around the Sun!"
+      }
+    ]
+  },
 ] as const

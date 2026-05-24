@@ -86,9 +86,18 @@
   cursor: help;
 }
 
+:global(.dark) .locked {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
 .locked .icon {
   font-size: 3rem;
   filter: grayscale(1) brightness(0.3) opacity(0.3);
+}
+
+:global(.dark) .locked .icon {
+  filter: grayscale(1) brightness(0.8) opacity(0.2);
 }
 
 .locked .questionMark {
@@ -101,8 +110,16 @@
   transform: translate(-50%, -50%);
 }
 
+:global(.dark) .locked .questionMark {
+  color: rgba(255, 255, 255, 0.25);
+}
+
 .locked:hover .icon {
   filter: grayscale(1) brightness(0.5) opacity(0.5);
+}
+
+:global(.dark) .locked:hover .icon {
+  filter: grayscale(1) brightness(1) opacity(0.4);
 }
 
 .medalIcon {
@@ -134,5 +151,37 @@
   }
   .unlocked .icon {
     font-size: 3rem;
+  }
+}
+
+/* Landscape/Horizontal view on mobile devices (S20+, iPhones, etc.) */
+@media (max-height: 550px) {
+  .galleryContainer {
+    padding: 0.75rem;
+  }
+  .galleryHeader {
+    margin-bottom: 0.5rem;
+  }
+  .galleryTitle {
+    font-size: 1.5rem;
+    margin-bottom: 0.25rem;
+  }
+  .gallerySubtitle {
+    font-size: 0.9rem;
+  }
+  .stickerGrid {
+    grid-template-columns: repeat(auto-fill, minmax(95px, 1fr));
+    gap: 0.75rem;
+    padding: 0.5rem;
+  }
+  .unlocked .icon {
+    font-size: 2.2rem;
+    margin-bottom: 0.25rem;
+  }
+  .locked .icon {
+    font-size: 1.8rem;
+  }
+  .unlocked .name {
+    font-size: 0.75rem;
   }
 }

@@ -114,10 +114,13 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Variables de couleurs CSS codées en dur dans les grilles vectorielles d'Origins (Ticket #31)** (Traité en v3.20.9)
 ✅ **RÉSOLU : Zone de recherche vide sans chemin de repli (Ticket #33)** (Traité en v3.20.10)
 ✅ **RÉSOLU : Dimensionnement dynamique des marqueurs de la Carte interactive (Ticket #35)** (Traité en v3.20.11)
+✅ **RÉSOLU : Liaison et Quizz pour les sous-nœuds du Big Bang (Ticket #36)** (Traité en v3.20.12)
+✅ **RÉSOLU : Nettoyage des compagnons lors de la suppression d'un profil (Ticket #63)** (Traité en v3.20.13)
+✅ **RÉSOLU : Non-respect de la sourdine globale dans Le Refuge des Animaux (Ticket #65)** (Traité en v3.20.14)
 
 ---
 
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 23 mai 2026 (v3.20.11)*
+*Dernière mise à jour : 24 mai 2026 (v3.20.14)*
