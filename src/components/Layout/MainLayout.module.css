@@ -8,9 +8,9 @@
   gap: 1rem;
   
   /* Background Animé et Subtil */
-  background: radial-gradient(circle at 20% 30%, var(--color-nebula-1), transparent 40%),
+  /*background: radial-gradient(circle at 20% 30%, var(--color-nebula-1), transparent 40%),
               radial-gradient(circle at 80% 70%, var(--color-nebula-2), transparent 40%),
-              var(--color-app-bg);
+              var(--color-app-bg);*/
   background-size: 150% 150%;
   animation: var(--bg-animation);
   transition: background-color var(--theme-transition);
