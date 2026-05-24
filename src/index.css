@@ -61,3 +61,8 @@ html.theme-ready [class*="Wrapper"] {
 .svg-accessible-hotspot:hover {
   filter: brightness(1.1) saturate(1.1);
 }
+
+html, body, #root {
+	overflow-x: hidden;
+	max-width: 100%;
+}

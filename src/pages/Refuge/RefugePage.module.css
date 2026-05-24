@@ -92,7 +92,7 @@
 
 /* Main Grid Layout */
 .dashboardGrid {
-  display: grid;
+  /*display: grid;  Laisser en commentaire*/
   grid-template-columns: 1fr;
   gap: 2rem;
 }
@@ -278,8 +278,13 @@
 .playZone {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  gap:1.5rem;
   width: 100%;
+  max-width:100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  align-items: center;
+  
 }
 
 .companionDisplay {
@@ -373,7 +378,7 @@
 .actionPanel {
   display: flex;
   gap: 1.5rem;
-  width: 100%;
+  /*width: 100%; Laisser en commentaire */
   max-width: 450px;
 }
 
