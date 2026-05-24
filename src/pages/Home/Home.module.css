@@ -157,6 +157,7 @@
 
 .progressBarBg {
   width: 180px;
+  flex: auto;
   height: 1.5rem;
   background-color: #f1f5f9;
   border-radius: 9999px;
