@@ -924,7 +924,63 @@ Le tableau de bord parents initial était une simple ébauche avec des réglages
    - Micro-animations de rebonds physiques tridimensionnels sur l'état `:hover` et `:active` de l'ensemble des boutons et des cartes thématiques.
    - Conception élastique responsif s'adaptant parfaitement aux smartphones d'écrans haute densité et aux tablettes/ordinateurs.
 
+---
 
+## 🎫 Ticket #37 : Liaison et Quizz pour les sous-nœuds des Premières espèces marines (Origines h2)
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/marine.ts` / Navigation
+**Description** :
+Actuellement, seul le dernier nœud de la frise marine est interactif. Tous les sous-nœuds de `marine.ts` (comme les premières bactéries, algues ou trilobites) doivent être liés à des sujets de l'encyclopédie (probablement dans `nature.ts` ou `animals.ts`) avec des quiz interactifs dédiés.
+**Résolution** :
+- Liaison de tous les 8 sous-nœuds (`ms1` à `ms8`) à des fiches réelles de l'encyclopédie.
+- Création du sujet `premieres-cellules` dans `src/data/topics/nature.ts` et de son quiz associé dans `src/data/quizzes/nature.ts`.
+- Création des 7 sujets (`meduses-eponges`, `trilobites`, `vers-marins`, `coquillages-primitifs`, `anomalocaris`, `poissons-sans-machoires`, `poissons-ecailles`) dans `src/data/topics/animals.ts` et de leurs quiz associés dans `src/data/quizzes/animals.ts`.
 
+---
 
+## 🎫 Ticket #38 : Liaison et Quizz pour les sous-nœuds des Premières espèces terrestres (Origines h3)
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/land.ts` / Navigation
+**Description** :
+Les sous-nœuds de `land.ts` (premiers amphibiens, fougères géantes, insectes géants) n'ont pas de `topicId` actif. Ils doivent être liés à de nouveaux sujets et quiz pour enrichir l'exploration de la sortie des eaux.
+**Résolution** :
+- Liaison de tous les 8 sous-nœuds (`ls1` à `ls8`) à des fiches réelles de l'encyclopédie.
+- Création des 4 sujets (`air-pur`, `premieres-forets`, `climat-change`, `apparition-fleurs`) dans `src/data/topics/nature.ts` et de leurs quiz associés dans `src/data/quizzes/nature.ts`.
+- Création des 4 sujets (`sortie-des-eaux`, `insectes-geants`, `peau-reptile`, `oeuf-solide`) dans `src/data/topics/animals.ts` et de leurs quiz associés dans `src/data/quizzes/animals.ts`.
 
+---
+
+## 🎫 Ticket #39 : Liaison et Quizz pour les sous-nœuds des Dinosaures (Origines h4)
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/dinosaurs.ts` / Navigation
+**Description** :
+La frise des dinosaures (`dinosaurs.ts`) présente des espèces fascinantes (T-Rex, Diplodocus, Tricératops) qui ne redirigent vers aucun quiz ou fiche individuelle. Il faut mapper ces sous-nœuds vers les sujets de `dinosaurs.ts` de l'encyclopédie.
+**Résolution** :
+- Liaison de tous les 8 sous-nœuds (`dn1` à `dn8`) à des fiches réelles de l'encyclopédie dans `src/data/origins/dinosaurs.ts` (`velociraptor`, `diplodocus`, `pterodactyle`, `brachiosaure`, `stegosaure`, `spinosaure`, `t-rex`, `triceratops`).
+
+---
+
+## 🎫 Ticket #40 : Liaison et Quizz pour les sous-nœuds des Premières formes humaines (Origines h5)
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/humans.ts` / Navigation
+**Description** :
+Les différentes étapes de l'évolution des hominidés (Toumaï, Lucy, etc.) dans `humans.ts` manquent de redirection pédagogique. Il faut créer des mini-sujets historiques correspondants et les connecter.
+**Résolution** :
+- Liaison de tous les 8 sous-nœuds (`hf1` à `hf8`) à des fiches réelles de l'encyclopédie.
+- Création de 8 nouveaux sujets historiques (`berceau-afrique`, `debout-deux-pieds`, `artisan-pierres`, `dompteur-feu`, `grand-voyage`, `cousins-neandertal`, `artistes-cavernes`, `premiers-villages`) dans `src/data/topics/history.ts`.
+- Création des 8 quiz associés dans `src/data/quizzes/history.ts`.
+
+---
+
+## 🎫 Ticket #41 : Liaison et Quizz pour les sous-nœuds de l'Évolution de l'homme (Origines h6)
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/evolution.ts` / Navigation
+**Description** :
+Les grandes avancées humaines de la frise `evolution.ts` (maîtrise du feu, premiers outils, art pariétal) doivent être connectées à des sujets dans `history.ts` ou dans un nouveau fichier thématique avec des quiz correspondants.
+**Résolution** :
+- Liaison de chacun des 8 sous-nœuds intermédiaires (`ev1` à `ev8`) à des identifiants de sujets uniques existants (`dompteur-feu`, `prehistoire`, `artisan-pierres`, `artistes-cavernes`, `loup`), ouvrant l'accès interactif complet à leurs fiches et quiz respectifs sur la frise chronologique d'Origins.

@@ -7,7 +7,8 @@ export const evolutionSubNodes: HistoryNode[] = [
     color: '#f97316', 
     icon: '🔥', 
     title: { fr: 'Le Feu Apprivoisé', en: 'Tamed Fire' }, 
-    description: { fr: 'On apprend enfin à garder et transporter le feu précieusement.', en: 'We finally learn to keep and carry fire preciouslly.' } 
+    description: { fr: 'On apprend enfin à garder et transporter le feu précieusement.', en: 'We finally learn to keep and carry fire preciouslly.' },
+    topicId: 'dompteur-feu'
   },
   { 
     id: 'ev2', 
@@ -15,7 +16,8 @@ export const evolutionSubNodes: HistoryNode[] = [
     color: '#ef4444', 
     icon: '🥘', 
     title: { fr: 'Cuisiner pour Grandir', en: 'Cooking to Grow' }, 
-    description: { fr: 'Faire cuire la nourriture a aidé notre cerveau à devenir plus gros !', en: 'Cooking food helped our brain become bigger!' } 
+    description: { fr: 'Faire cuire la nourriture a aidé notre cerveau à devenir plus gros !', en: 'Cooking food helped our brain become bigger!' },
+    topicId: 'dompteur-feu'
   },
   { 
     id: 'ev3', 
@@ -23,7 +25,8 @@ export const evolutionSubNodes: HistoryNode[] = [
     color: '#fcd34d', 
     icon: '🧥', 
     title: { fr: 'L\'Invention des Habits', en: 'Invention of Clothes' }, 
-    description: { fr: 'On fabrique des vêtements en peau pour explorer les pays froids.', en: 'We make skin clothes to explore cold countries.' } 
+    description: { fr: 'On fabrique des vêtements en peau pour explorer les pays froids.', en: 'We make skin clothes to explore cold countries.' },
+    topicId: 'prehistoire'
   },
   { 
     id: 'ev4', 
@@ -31,7 +34,8 @@ export const evolutionSubNodes: HistoryNode[] = [
     color: '#b45309', 
     icon: '🏹', 
     title: { fr: 'Chasseurs Ingénieux', en: 'Ingenious Hunters' }, 
-    description: { fr: 'On invente des arcs pour attraper de gros gibiers.', en: 'We invent bows to catch big game.' } 
+    description: { fr: 'On invente des arcs pour attraper de gros gibiers.', en: 'We invent bows to catch big game.' },
+    topicId: 'artisan-pierres'
   },
   { 
     id: 'ev5', 
@@ -39,7 +43,8 @@ export const evolutionSubNodes: HistoryNode[] = [
     color: '#f59e0b', 
     icon: '🗣️', 
     title: { fr: 'Le Langage naît', en: 'Language is Born' }, 
-    description: { fr: 'On commence à se parler et à se raconter des histoires.', en: 'We start talking to each other and telling stories.' } 
+    description: { fr: 'On commence à se parler et à se raconter des histoires.', en: 'We start talking to each other and telling stories.' },
+    topicId: 'prehistoire'
   },
   { 
     id: 'ev6', 
@@ -47,7 +52,8 @@ export const evolutionSubNodes: HistoryNode[] = [
     color: '#78350f', 
     icon: '🛖', 
     title: { fr: 'S\'abriter des Orages', en: 'Sheltering from Storms' }, 
-    description: { fr: 'On construit les premières huttes avec des branches.', en: 'We build the first huts with branches.' } 
+    description: { fr: 'On construit les premières huttes avec des branches.', en: 'We build the first huts with branches.' },
+    topicId: 'prehistoire'
   },
   { 
     id: 'ev7', 
@@ -55,7 +61,8 @@ export const evolutionSubNodes: HistoryNode[] = [
     color: '#8b5cf6', 
     icon: '🐚', 
     title: { fr: 'L\'Esprit des Ancêtres', en: 'Spirit of Ancestors' }, 
-    description: { fr: 'On commence à fabriquer des bijoux et des colliers.', en: 'We start making jewelry and necklaces.' } 
+    description: { fr: 'On commence à fabriquer des bijoux et des colliers.', en: 'We start making jewelry and necklaces.' },
+    topicId: 'artistes-cavernes'
   },
   { 
     id: 'ev8', 
@@ -63,7 +70,8 @@ export const evolutionSubNodes: HistoryNode[] = [
     color: '#6366f1', 
     icon: '🐕', 
     title: { fr: 'Le Loup devient Ami', en: 'The Wolf becomes Friend' }, 
-    description: { fr: 'Le chien devient le meilleur ami de l\'homme !', en: 'The dog becomes man\'s best friend!' } 
+    description: { fr: 'Le chien devient le meilleur ami de l\'homme !', en: 'The dog becomes man\'s best friend!' },
+    topicId: 'loup'
   },
   { 
     id: 'ev9', 

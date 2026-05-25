@@ -220,4 +220,132 @@ export const history = [
     },
     
   },
+  {
+    id: 'berceau-afrique',
+    title: { fr: "Le Berceau de l'Afrique", en: "The African Cradle" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🏜️',
+    shortDesc: { fr: "Là où a commencé la grande aventure humaine.", en: "Where the great human adventure began." },
+    fullContent: {
+      fr: "Il y a des millions d'années, nos tout premiers ancêtres vivaient en Afrique, dans une région appelée le Grand Rift. C'est pour cela que l'Afrique est souvent appelée le 'berceau de l'humanité', car c'est là que notre histoire a commencé !",
+      en: "Millions of years ago, our very first ancestors lived in Africa, in a region called the Great Rift. That's why Africa is often called the 'cradle of humanity', because that is where our story began!"
+    },
+    funFact: {
+      fr: "Le plus ancien fossile pré-humain retrouvé s'appelle Toumaï et a environ 7 millions d'années !",
+      en: "The oldest pre-human fossil found is called Toumaï and is about 7 million years old!"
+    }
+  },
+  {
+    id: 'debout-deux-pieds',
+    title: { fr: "Debout sur deux pieds", en: "Standing on two feet" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🚶',
+    shortDesc: { fr: "Apprendre à marcher pour libérer ses mains.", en: "Learning to walk to free up hands." },
+    fullContent: {
+      fr: "Un jour, nos ancêtres ont commencé à se tenir debout et à marcher sur deux pieds. Cela s'appelle la bipédie ! En marchant debout, ils pouvaient voir plus loin au-dessus des hautes herbes de la savane et utiliser leurs mains pour porter des objets ou cueillir des fruits.",
+      en: "One day, our ancestors started to stand up and walk on two feet. This is called bipedalism! By walking upright, they could see further over the tall savanna grasses and use their hands to carry objects or pick fruit."
+    },
+    funFact: {
+      fr: "La plus célèbre de nos ancêtres à marcher debout s'appelle Lucy, une jeune australopithèque découverte en Éthiopie !",
+      en: "The most famous of our ancestors to walk upright is Lucy, a young Australopithecus discovered in Ethiopia!"
+    }
+  },
+  {
+    id: 'artisan-pierres',
+    title: { fr: "L'Artisan des Pierres", en: "The Stone Artisan" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🛠️',
+    shortDesc: { fr: "L'invention des tout premiers outils.", en: "The invention of the very first tools." },
+    fullContent: {
+      fr: "Pour couper de la viande ou casser des noix, les premiers humains ont eu une idée géniale : taper deux cailloux l'un contre l'autre pour les rendre tranchants. Cet ancêtre inventeur s'appelle Homo Habilis (l'homme habile) et a créé les premiers outils !",
+      en: "To cut meat or crack nuts, early humans had a brilliant idea: tapping two stones together to make them sharp. This inventor ancestor is called Homo Habilis (handy man) and created the very first tools!"
+    },
+    funFact: {
+      fr: "Les premiers outils étaient de simples galets taillés appelés des 'choppers' !",
+      en: "The first tools were simple chipped pebbles called 'choppers'!"
+    }
+  },
+  {
+    id: 'dompteur-feu',
+    title: { fr: "Le Dompteur de Feu", en: "The Fire Tamer" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🔥',
+    shortDesc: { fr: "Découvrir comment se réchauffer et cuisiner.", en: "Discovering how to warm up and cook." },
+    fullContent: {
+      fr: "Il y a environ 400 000 ans, l'Homo Erectus a appris à apprivoiser le feu. Grâce au feu, les humains pouvaient s'éclairer la nuit, se réchauffer quand il faisait froid, faire peur aux animaux sauvages et surtout faire cuire leur nourriture !",
+      en: "About 400,000 years ago, Homo Erectus learned to tame fire. Thanks to fire, humans could light up the night, warm themselves when cold, scare wild animals away and, above all, cook their food!"
+    },
+    funFact: {
+      fr: "La nourriture cuite était beaucoup plus facile à mâcher et a aidé le cerveau humain à grandir très vite !",
+      en: "Cooked food was much easier to chew and helped the human brain grow very fast!"
+    }
+  },
+  {
+    id: 'grand-voyage',
+    title: { fr: "Le Grand Voyage", en: "The Great Journey" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🌍',
+    shortDesc: { fr: "La grande exploration de notre planète.", en: "The great exploration of our planet." },
+    fullContent: {
+      fr: "Petit à petit, les humains sont devenus de grands explorateurs. Ils ont quitté l'Afrique pour voyager en Asie, en Europe, puis en Amérique et en Australie. Ils ont traversé des rivières, des montagnes et des déserts pour peupler le monde entier !",
+      en: "Little by little, humans became great explorers. They left Africa to travel to Asia, Europe, then America and Australia. They crossed rivers, mountains and deserts to inhabit the whole world!"
+    },
+    funFact: {
+      fr: "Pour passer de l'Asie à l'Amérique, les premiers humains ont marché sur de la glace géante qui reliait les deux continents !",
+      en: "To cross from Asia to America, early humans walked on giant ice that connected the two continents!"
+    }
+  },
+  {
+    id: 'cousins-neandertal',
+    title: { fr: "Cousins Néandertal", en: "Neanderthal Cousins" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '❄️',
+    shortDesc: { fr: "Des humains super costauds adaptés au froid.", en: "Super strong humans adapted to the cold." },
+    fullContent: {
+      fr: "L'Homme de Néandertal était notre cousin. Il vivait en Europe pendant l'âge de glace. Il était plus petit mais beaucoup plus costaud que nous, avec un grand nez pour réchauffer l'air glacial avant de le respirer.",
+      en: "Neanderthal man was our cousin. He lived in Europe during the Ice Age. He was shorter but much stronger than us, with a large nose to warm the freezing air before breathing it in."
+    },
+    funFact: {
+      fr: "Néandertal prenait soin des malades de sa tribu et offrait des fleurs lors des enterrements !",
+      en: "Neanderthal cared for the sick of his tribe and offered flowers during burials!"
+    }
+  },
+  {
+    id: 'artistes-cavernes',
+    title: { fr: "Artistes des Cavernes", en: "Cave Artists" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🎨',
+    shortDesc: { fr: "Les toutes premières peintures sur les murs.", en: "The very first paintings on the walls." },
+    fullContent: {
+      fr: "Nos ancêtres étaient de grands artistes ! À la lueur des torches, ils dessinaient des mammouths, des chevaux et des bisons sur les parois sombres des grottes. Ils utilisaient de la terre colorée, du charbon de bois et soufflaient de la peinture pour laisser l'empreinte de leurs mains.",
+      en: "Our ancestors were great artists! By the light of torches, they drew mammoths, horses and bison on the dark walls of caves. They used colored earth, charcoal, and blew paint to leave their handprints."
+    },
+    funFact: {
+      fr: "La grotte de Lascaux en France est si belle qu'elle est souvent appelée la 'Chapelle Sixtine de la préhistoire' !",
+      en: "The Lascaux Cave in France is so beautiful that it is often called the 'Sistine Chapel of prehistory'!"
+    }
+  },
+  {
+    id: 'premiers-villages',
+    title: { fr: "Les Premiers Villages", en: "The First Villages" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🛖',
+    shortDesc: { fr: "La naissance des premières maisons fixes.", en: "The birth of the first permanent homes." },
+    fullContent: {
+      fr: "Au lieu de voyager tout le temps pour chasser, les humains ont appris à faire pousser des plantes (l'agriculture) et à élever des animaux. Ils ont construit les premières maisons solides en terre et en bois, formant les tout premiers villages de l'histoire !",
+      en: "Instead of traveling all the time to hunt, humans learned to grow plants (agriculture) and raise animals. They built the first solid houses out of mud and wood, forming the very first villages in history!"
+    },
+    funFact: {
+      fr: "L'invention de l'agriculture s'appelle la révolution néolithique !",
+      en: "The invention of agriculture is called the Neolithic Revolution!"
+    }
+  },
 ] as const

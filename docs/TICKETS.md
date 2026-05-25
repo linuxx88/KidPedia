@@ -6,53 +6,6 @@ Vous pouvez consulter l'historique de tous les tickets déjà résolus et clôtu
 
 ---
 
-
-
-## 🎫 Ticket #37 : Liaison et Quizz pour les sous-nœuds des Premières espèces marines (Origines h2)
-**Statut** : 🔴 À faire
-**Sévérité** : Moyenne
-**Localisation** : `src/data/origins/marine.ts` / Navigation
-**Description** :
-Actuellement, seul le dernier nœud de la frise marine est interactif. Tous les sous-nœuds de `marine.ts` (comme les premières bactéries, algues ou trilobites) doivent être liés à des sujets de l'encyclopédie (probablement dans `nature.ts` ou `animals.ts`) avec des quiz interactifs dédiés.
-
----
-
-## 🎫 Ticket #38 : Liaison et Quizz pour les sous-nœuds des Premières espèces terrestres (Origines h3)
-**Statut** : 🔴 À faire
-**Sévérité** : Moyenne
-**Localisation** : `src/data/origins/land.ts` / Navigation
-**Description** :
-Les sous-nœuds de `land.ts` (premiers amphibiens, fougères géantes, insectes géants) n'ont pas de `topicId` actif. Ils doivent être liés à de nouveaux sujets et quiz pour enrichir l'exploration de la sortie des eaux.
-
----
-
-## 🎫 Ticket #39 : Liaison et Quizz pour les sous-nœuds des Dinosaures (Origines h4)
-**Statut** : 🔴 À faire
-**Sévérité** : Moyenne
-**Localisation** : `src/data/origins/dinosaurs.ts` / Navigation
-**Description** :
-La frise des dinosaures (`dinosaurs.ts`) présente des espèces fascinantes (T-Rex, Diplodocus, Tricératops) qui ne redirigent vers aucun quiz ou fiche individuelle. Il faut mapper ces sous-nœuds vers les sujets de `dinosaurs.ts` de l'encyclopédie.
-
----
-
-## 🎫 Ticket #40 : Liaison et Quizz pour les sous-nœuds des Premières formes humaines (Origines h5)
-**Statut** : 🔴 À faire
-**Sévérité** : Moyenne
-**Localisation** : `src/data/origins/humans.ts` / Navigation
-**Description** :
-Les différentes étapes de l'évolution des hominidés (Toumaï, Lucy, etc.) dans `humans.ts` manquent de redirection pédagogique. Il faut créer des mini-sujets historiques correspondants et les connecter.
-
----
-
-## 🎫 Ticket #41 : Liaison et Quizz pour les sous-nœuds de l'Évolution de l'homme (Origines h6)
-**Statut** : 🔴 À faire
-**Sévérité** : Moyenne
-**Localisation** : `src/data/origins/evolution.ts` / Navigation
-**Description** :
-Les grandes avancées humaines de la frise `evolution.ts` (maîtrise du feu, premiers outils, art pariétal) doivent être connectées à des sujets dans `history.ts` ou dans un nouveau fichier thématique avec des quiz correspondants.
-
----
-
 ## 🎫 Ticket #42 : Liaison et Quizz pour les sous-nœuds des Regroupements primitifs (Origines h7)
 **Statut** : 🔴 À faire
 **Sévérité** : Moyenne

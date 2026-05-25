@@ -7,7 +7,8 @@ export const marineSpeciesSubNodes: HistoryNode[] = [
     color: '#0ea5e9', 
     icon: '🔬', 
     title: { fr: 'Les premières cellules', en: 'The first cells' }, 
-    description: { fr: 'La vie commence tout doucement dans l\'eau.', en: 'Life begins very slowly in the water.' } 
+    description: { fr: 'La vie commence tout doucement dans l\'eau.', en: 'Life begins very slowly in the water.' },
+    topicId: 'premieres-cellules'
   },
   { 
     id: 'ms2', 
@@ -15,7 +16,8 @@ export const marineSpeciesSubNodes: HistoryNode[] = [
     color: '#0284c7', 
     icon: '🪼', 
     title: { fr: 'Méduses et Éponges', en: 'Jellyfish and Sponges' }, 
-    description: { fr: 'Des corps mous qui flottent au gré des courants.', en: 'Soft bodies floating with the currents.' } 
+    description: { fr: 'Des corps mous qui flottent au gré des courants.', en: 'Soft bodies floating with the currents.' },
+    topicId: 'meduses-eponges'
   },
   { 
     id: 'ms3', 
@@ -23,7 +25,8 @@ export const marineSpeciesSubNodes: HistoryNode[] = [
     color: '#0369a1', 
     icon: '🐚', 
     title: { fr: 'Les Trilobites', en: 'Trilobites' }, 
-    description: { fr: 'Les premiers à avoir une carapace pour se protéger.', en: 'The first to have a shell to protect themselves.' } 
+    description: { fr: 'Les premiers à avoir une carapace pour se protéger.', en: 'The first to have a shell to protect themselves.' },
+    topicId: 'trilobites'
   },
   { 
     id: 'ms4', 
@@ -31,7 +34,8 @@ export const marineSpeciesSubNodes: HistoryNode[] = [
     color: '#075985', 
     icon: '🪱', 
     title: { fr: 'Vers marins', en: 'Marine worms' }, 
-    description: { fr: 'Ils explorent le sable au fond des océans.', en: 'They explore the sand at the bottom of the oceans.' } 
+    description: { fr: 'Ils explorent le sable au fond des océans.', en: 'They explore the sand at the bottom of the oceans.' },
+    topicId: 'vers-marins'
   },
   { 
     id: 'ms5', 
@@ -39,7 +43,8 @@ export const marineSpeciesSubNodes: HistoryNode[] = [
     color: '#0ea5e9', 
     icon: '🐚', 
     title: { fr: 'Coquillages primitifs', en: 'Primitive shells' }, 
-    description: { fr: 'Des maisons solides pour les petits animaux.', en: 'Solid houses for small animals.' } 
+    description: { fr: 'Des maisons solides pour les petits animaux.', en: 'Solid houses for small animals.' },
+    topicId: 'coquillages-primitifs'
   },
   { 
     id: 'ms6', 
@@ -47,7 +52,8 @@ export const marineSpeciesSubNodes: HistoryNode[] = [
     color: '#2dd4bf', 
     icon: '🦂', 
     title: { fr: 'Anomalocaris', en: 'Anomalocaris' }, 
-    description: { fr: 'Le premier grand chasseur des mers !', en: 'The first great hunter of the seas!' } 
+    description: { fr: 'Le premier grand chasseur des mers !', en: 'The first great hunter of the seas!' },
+    topicId: 'anomalocaris'
   },
   { 
     id: 'ms7', 
@@ -55,7 +61,8 @@ export const marineSpeciesSubNodes: HistoryNode[] = [
     color: '#14b8a6', 
     icon: '🐟', 
     title: { fr: 'Poissons sans mâchoires', en: 'Jawless fish' }, 
-    description: { fr: 'Les ancêtres de tous les poissons.', en: 'The ancestors of all fish.' } 
+    description: { fr: 'Les ancêtres de tous les poissons.', en: 'The ancestors of all fish.' },
+    topicId: 'poissons-sans-machoires'
   },
   { 
     id: 'ms8', 
@@ -63,7 +70,8 @@ export const marineSpeciesSubNodes: HistoryNode[] = [
     color: '#10b981', 
     icon: '🐠', 
     title: { fr: 'Poissons à écailles', en: 'Scaly fish' }, 
-    description: { fr: 'Ils deviennent plus rapides et agiles.', en: 'They become faster and more agile.' } 
+    description: { fr: 'Ils deviennent plus rapides et agiles.', en: 'They become faster and more agile.' },
+    topicId: 'poissons-ecailles'
   },
   { 
     id: 'ms9', 

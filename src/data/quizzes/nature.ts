@@ -133,5 +133,80 @@ export const QUIZZES: Partial<Record<TopicId, Quiz>> = {
       en: ['Stalagmites', 'Stalactites', 'Stone lollipops'],
     },
     correctAnswer: 1,
+  },
+  'premieres-cellules': {
+    question: {
+      fr: "Où sont apparues les toutes premières cellules vivantes ?",
+      en: "Where did the very first living cells appear?",
+    },
+    options: {
+      fr: ["Dans les nuages", "Dans les océans", "Dans le sable du désert"],
+      en: ["In the clouds", "In the oceans", "In the desert sand"],
+    },
+    correctAnswer: 1,
+    hint: {
+      fr: "C'est un grand endroit rempli d'eau salée où l'on adore nager !",
+      en: "It is a large place filled with salty water where we love to swim!"
+    }
+  },
+  'air-pur': {
+    question: {
+      fr: "Quel organe a remplacé les branchies pour respirer sur terre ?",
+      en: "Which organ replaced gills to breathe on land?",
+    },
+    options: {
+      fr: ["Les oreilles", "Les poumons", "L'estomac"],
+      en: ["The ears", "The lungs", "The stomach"],
+    },
+    correctAnswer: 1,
+    hint: {
+      fr: "C'est l'organe magique qui se gonfle dans ta poitrine quand tu respires fort !",
+      en: "It is the magic organ that inflates in your chest when you breathe deeply!"
+    }
+  },
+  'premieres-forets': {
+    question: {
+      fr: "De quelles plantes géantes étaient faites les premières forêts ?",
+      en: "What giant plants made up the first forests?",
+    },
+    options: {
+      fr: ["Des rosiers géants", "Des fougères et des mousses", "Des arbres en bonbon"],
+      en: ["Giant rose bushes", "Ferns and mosses", "Candy trees"],
+    },
+    correctAnswer: 1,
+    hint: {
+      fr: "Ce sont des plantes vertes toutes douces qui adorent l'ombre !",
+      en: "They are soft green plants that love the shade!"
+    }
+  },
+  'climat-change': {
+    question: {
+      fr: "Qu'est-ce qui est apparu sur Terre lorsque le climat est devenu très sec ?",
+      en: "What appeared on Earth when the climate became very dry?",
+    },
+    options: {
+      fr: ["Des glaciers géants", "De grands déserts chauds et secs", "Des rivières de chocolat"],
+      en: ["Giant glaciers", "Large hot and dry deserts", "Chocolate rivers"],
+    },
+    correctAnswer: 1,
+    hint: {
+      fr: "Pense à de grands espaces remplis de sable très chaud !",
+      en: "Think of large spaces filled with very hot sand!"
+    }
+  },
+  'apparition-fleurs': {
+    question: {
+      fr: "Pourquoi les fleurs ont-elles inventé de jolies couleurs et des parfums ?",
+      en: "Why did flowers invent pretty colors and scents?",
+    },
+    options: {
+      fr: ["Pour faire joli sur les photos", "Pour attirer les insectes pollinisateurs", "Pour cacher le soleil"],
+      en: ["To look pretty in photos", "To attract pollinating insects", "To hide the sun"],
+    },
+    correctAnswer: 1,
+    hint: {
+      fr: "Elles ont besoin des petites abeilles et papillons pour voyager !",
+      en: "They need little bees and butterflies to travel!"
+    }
   }
 };

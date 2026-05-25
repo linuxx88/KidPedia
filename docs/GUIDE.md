@@ -126,6 +126,11 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Troncatures visuelles sur mobile Galaxy S24 Ultra (Ticket #67, Ticket #68)** (Traité en v3.21.0)
 ✅ **RÉSOLU : En-tête immersif et indicateur de défilement au Refuge (Ticket #70, Ticket #71)** (Traité en v3.21.0)
 ✅ **RÉSOLU : Correctifs d'affichage responsifs, d'overflow et de layout sur Le Cercle de la Vie (Ticket #72)** (Traité en v3.21.1)
+✅ **RÉSOLU : Liaison et Quizz pour les sous-nœuds des Premières espèces marines (Ticket #37)** (Traité en v3.22.1)
+✅ **RÉSOLU : Liaison et Quizz pour les sous-nœuds des Premières espèces terrestres (Ticket #38)** (Traité en v3.22.2)
+✅ **RÉSOLU : Liaison et Quizz pour les sous-nœuds des Dinosaures (Ticket #39)** (Traité en v3.22.3)
+✅ **RÉSOLU : Liaison et Quizz pour les sous-nœuds des Premières formes humaines (Ticket #40)** (Traité en v3.22.4)
+✅ **RÉSOLU : Liaison et Quizz pour les sous-nœuds de l'Évolution de l'homme (Ticket #41)** (Traité en v3.22.5)
 
 
 ---
@@ -133,4 +138,4 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 24 mai 2026 (v3.21.1)*
+*Dernière mise à jour : 25 mai 2026 (v3.22.5)*

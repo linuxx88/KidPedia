@@ -6,6 +6,43 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## Espace Parents & Limites de Temps
 
+### VERSION 3.22.5 - Liaison Encyclopédique & Quizz Interactifs de l'Évolution de l'homme 🚶🔥 (25 Mai 2026)
+--------------------------------------------------
+- **[Content/Logic/QA] Liaison interactive et fiches de quiz pour l'Évolution de l'homme (Ticket #41) :**
+    - **evolution.ts (Navigation)** : Association de chacun des 8 sous-nœuds intermédiaires (`ev1` à `ev8`) à des identifiants de sujets uniques existants (`dompteur-feu`, `prehistoire`, `artisan-pierres`, `artistes-cavernes`, `loup`), ouvrant l'accès interactif complet à leurs fiches et quiz respectifs sur la frise chronologique d'Origins.
+
+### VERSION 3.22.4 - Liaison Encyclopédique & Quizz Interactifs des Premières formes humaines 🏜️🚶 (25 Mai 2026)
+--------------------------------------------------
+- **[Content/Logic/QA] Liaison interactive et fiches pédagogiques pour les Premières formes humaines (Ticket #40) :**
+    - **humans.ts (Navigation)** : Association de chacun des 8 sous-nœuds intermédiaires (`hf1` à `hf8`) à des identifiants de sujets uniques (`berceau-afrique`, `debout-deux-pieds`, `artisan-pierres`, `dompteur-feu`, `grand-voyage`, `cousins-neandertal`, `artistes-cavernes`, `premiers-villages`), ouvrant l'accès interactif complet à leurs fiches et quiz respectifs sur la frise chronologique d'Origins.
+    - **topics/history.ts (Encyclopédie)** : Conception et intégration de 8 nouvelles fiches éducatives bilingues adaptées pour le jeune public de 4-8 ans.
+    - **quizzes/history.ts (Quizz)** : Création de 8 nouveaux quiz interactifs et stimulants pour chaque nouveau sujet afin de valider et consolider l'apprentissage de l'évolution humaine.
+
+### VERSION 3.22.3 - Liaison Encyclopédique & Quizz Interactifs des Dinosaures 🦖🦕 (25 Mai 2026)
+--------------------------------------------------
+- **[Content/Logic/QA] Liaison interactive des sous-nœuds des Dinosaures dans la frise chronologique (Ticket #39) :**
+    - **dinosaurs.ts (Navigation)** : Association de chacun des 8 sous-nœuds intermédiaires (`dn1` à `dn8`) à des identifiants de sujets uniques existants (`velociraptor`, `diplodocus`, `pterodactyle`, `brachiosaure`, `stegosaure`, `spinosaure`, `t-rex`, `triceratops`), ouvrant l'accès interactif complet à leurs fiches et quiz respectifs sur la frise chronologique des dinosaures d'Origins.
+
+### VERSION 3.22.2 - Liaison Encyclopédique & Quizz Interactifs des Premières espèces terrestres 🦎🍃 (25 Mai 2026)
+--------------------------------------------------
+- **[Content/Logic/i18n/QA] Liaison interactive et suppression des impasses pédagogiques pour les Premières espèces terrestres (Ticket #38) :**
+    - **land.ts (Navigation)** : Association de chacun des 8 sous-nœuds intermédiaires (`ls1` à `ls8`) à des identifiants de sujets uniques (`sortie-des-eaux`, `air-pur`, `premieres-forets`, `insectes-geants`, `peau-reptile`, `oeuf-solide`, `climat-change`, `apparition-fleurs`), ouvrant l'accès interactif complet à leurs fiches et quiz respectifs sur la frise chronologique d'Origins.
+    - **topics/nature.ts (Encyclopédie)** : Création de 4 fiches bilingues détaillées (`air-pur`, `premieres-forets`, `climat-change`, `apparition-fleurs`), incluant des descriptions adaptées pour les enfants de 4-8 ans et des anecdotes amusantes en français et en anglais.
+    - **topics/animals.ts (Encyclopédie)** : Conception et intégration de 4 nouvelles fiches éducatives captivantes (`sortie-des-eaux`, `insectes-geants`, `peau-reptile`, `oeuf-solide`) avec un vocabulaire bilingue riche et adapté.
+    - **quizzes/nature.ts (Quizz)** : Création de 4 quiz interactifs pour les nouveaux sujets de la nature avec questions, options de réponse, réponses correctes et indices pédagogiques localisés.
+    - **quizzes/animals.ts (Quizz)** : Création de 4 nouveaux quiz interactifs et intuitifs pour chaque nouvelle espèce terrestre préhistorique afin de consolider la gamification et l'évaluation continue.
+    - **constants/ids.ts (Typage & Intégration)** : Déclaration de tous les nouveaux identifiants de sujet dans l'array global `TOPIC_IDS` pour assurer un typage strict automatique dans toute l'application et la suite de tests.
+
+### VERSION 3.22.1 - Liaison Encyclopédique & Quizz Interactifs des Premières espèces marines 🔬🐟 (25 Mai 2026)
+--------------------------------------------------
+- **[Content/Logic/i18n/QA] Liaison interactive et suppression des impasses pédagogiques pour les Premières espèces marines (Ticket #37) :**
+    - **marine.ts (Navigation)** : Association de chacun des 8 sous-nœuds intermédiaires (`ms1` à `ms8`) à des identifiants de sujets uniques (`premieres-cellules`, `meduses-eponges`, `trilobites`, `vers-marins`, `coquillages-primitifs`, `anomalocaris`, `poissons-sans-machoires`, `poissons-ecailles`), ouvrant l'accès interactif complet à leurs fiches et quiz respectifs sur la frise chronologique d'Origins.
+    - **topics/nature.ts (Encyclopédie)** : Création d'une fiche bilingue détaillée pour `premieres-cellules`, incluant des descriptions adaptées pour les enfants de 4-8 ans et des anecdotes amusantes en français et en anglais.
+    - **topics/animals.ts (Encyclopédie)** : Conception et intégration de 7 nouvelles fiches éducatives captivantes (`meduses-eponges`, `trilobites`, `vers-marins`, `coquillages-primitifs`, `anomalocaris`, `poissons-sans-machoires`, `poissons-ecailles`) avec un vocabulaire bilingue riche et adapté.
+    - **quizzes/nature.ts (Quizz)** : Création d'un quiz interactif pour `premieres-cellules` avec questions, options de réponse, réponses correctes et indices pédagogiques localisés.
+    - **quizzes/animals.ts (Quizz)** : Création de 7 nouveaux quiz interactifs et intuitifs pour chaque nouvelle espèce marine préhistorique afin de consolider la gamification et l'évaluation continue.
+    - **constants/ids.ts (Typage & Intégration)** : Déclaration de tous les nouveaux identifiants de sujet dans l'array global `TOPIC_IDS` pour assurer un typage strict automatique dans toute l'application et la suite de tests.
+
 ### VERSION 3.22.0 - Refonte Premium du Tableau de Bord Parents & Contrôle du Temps d'Écran 📊⏱️ (25 Mai 2026)
 --------------------------------------------------
 - **[UX/UI/Logic/ParentalControl] Refonte complète et premium de l'Espace Parents pour un produit haut de gamme fini (Ticket #73) :**

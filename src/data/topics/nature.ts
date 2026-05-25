@@ -259,4 +259,159 @@ export const nature = [
     },
     
   },
+  {
+    id: 'premieres-cellules',
+    title: { fr: 'Les premières cellules', en: 'The first cells' },
+    category: { fr: 'Nature 🌿', en: 'Nature 🌿' },
+    categoryKey: 'nature',
+    icon: '🔬',
+    shortDesc: {
+      fr: "Le tout premier début de la vie sur Terre !",
+      en: 'The very first beginning of life on Earth!',
+    },
+    fullContent: {
+      fr: "Il y a plus de 3,5 milliards d'années, la vie est apparue dans les océans sous la forme de minuscules cellules invisibles à l'œil nu. Ces toutes premières cellules, comme des petites bulles magiques, ont appris à utiliser la lumière du soleil pour fabriquer de l'oxygène !",
+      en: "More than 3.5 billion years ago, life appeared in the oceans in the form of tiny cells invisible to the naked eye. These very first cells, like tiny magic bubbles, learned to use sunlight to make oxygen!",
+    },
+    fullContents: [
+      {
+        fr: "Il y a plus de 3,5 milliards d'années, la vie est apparue dans les océans sous la forme de minuscules cellules invisibles à l'œil nu. Ces toutes premières cellules, comme des petites bulles magiques, ont appris à utiliser la lumière du soleil pour fabriquer de l'oxygène !",
+        en: "More than 3.5 billion years ago, life appeared in the oceans in the form of tiny cells invisible to the naked eye. These very first cells, like tiny magic bubbles, learned to use sunlight to make oxygen!",
+      }
+    ],
+    funFact: {
+      fr: "Les toutes premières cellules ont créé l'oxygène qui nous permet aujourd'hui de respirer !",
+      en: "The very first cells created the oxygen that allows us to breathe today!",
+    },
+    funFacts: [
+      {
+        fr: "Les toutes premières cellules ont créé l'oxygène qui nous permet aujourd'hui de respirer !",
+        en: "The very first cells created the oxygen that allows us to breathe today!",
+      }
+    ]
+  },
+  {
+    id: 'air-pur',
+    title: { fr: "L'air pur", en: 'Fresh air' },
+    category: { fr: 'Nature 🌿', en: 'Nature 🌿' },
+    categoryKey: 'nature',
+    icon: '🌬️',
+    shortDesc: {
+      fr: "Les premiers poumons pour respirer hors de l'eau !",
+      en: 'The first lungs to breathe out of the water!',
+    },
+    fullContent: {
+      fr: "Pour vivre sur la terre ferme, les animaux ont dû apprendre à respirer l'air directement au lieu de filtrer l'eau. Leurs branchies se sont transformées en poumons magiques, leur permettant de courir et de respirer à plein nez !",
+      en: "To live on dry land, animals had to learn to breathe air directly instead of filtering water. Their gills transformed into magic lungs, allowing them to run and breathe deeply!",
+    },
+    fullContents: [
+      {
+        fr: "Pour vivre sur la terre ferme, les animaux ont dû apprendre à respirer l'air directement au lieu de filtrer l'eau. Leurs branchies se sont transformées en poumons magiques, leur permettant de courir et de respirer à plein nez !",
+        en: "To live on dry land, animals had to learn to breathe air directly instead of filtering water. Their gills transformed into magic lungs, allowing them to run and breathe deeply!",
+      }
+    ],
+    funFact: {
+      fr: "Certains poissons préhistoriques avaient à la fois des branchies et des poumons !",
+      en: "Some prehistoric fish had both gills and lungs!",
+    },
+    funFacts: [
+      {
+        fr: "Certains poissons préhistoriques avaient à la fois des branchies et des poumons !",
+        en: "Some prehistoric fish had both gills and lungs!",
+      }
+    ]
+  },
+  {
+    id: 'premieres-forets',
+    title: { fr: 'Premières forêts', en: 'First forests' },
+    category: { fr: 'Nature 🌿', en: 'Nature 🌿' },
+    categoryKey: 'nature',
+    icon: '🌳',
+    shortDesc: {
+      fr: "La Terre se couvre de fougères géantes !",
+      en: 'The Earth gets covered with giant ferns!',
+    },
+    fullContent: {
+      fr: "Les toutes premières forêts de la Terre n'étaient pas faites d'arbres ordinaires, mais de fougères et de mousses géantes aussi hautes que des immeubles de trois étages ! Elles ont créé un magnifique manteau vert plein d'humidité.",
+      en: "The very first forests on Earth were not made of ordinary trees, but of giant ferns and mosses as tall as three-story buildings! They created a beautiful green cloak full of humidity.",
+    },
+    fullContents: [
+      {
+        fr: "Les toutes premières forêts de la Terre n'étaient pas faites d'arbres ordinaires, mais de fougères et de mousses géantes aussi hautes que des immeubles de trois étages ! Elles ont créé un magnifique manteau vert plein d'humidité.",
+        en: "The very first forests on Earth were not made of ordinary trees, but of giant ferns and mosses as tall as three-story buildings! They created a beautiful green cloak full of humidity.",
+      }
+    ],
+    funFact: {
+      fr: "Les fougères de ces forêts géantes mesuraient plus de 10 mètres de haut !",
+      en: "The ferns of these giant forests were over 10 meters high!",
+    },
+    funFacts: [
+      {
+        fr: "Les fougères de ces forêts géantes mesuraient plus de 10 mètres de haut !",
+        en: "The ferns of these giant forests were over 10 meters high!",
+      }
+    ]
+  },
+  {
+    id: 'climat-change',
+    title: { fr: 'Le climat change', en: 'Changing climate' },
+    category: { fr: 'Nature 🌿', en: 'Nature 🌿' },
+    categoryKey: 'nature',
+    icon: '☀️',
+    shortDesc: {
+      fr: "La Terre devient plus chaude et sèche !",
+      en: 'The Earth becomes warmer and drier!',
+    },
+    fullContent: {
+      fr: "Il y a 250 millions d'années, le climat a changé de façon spectaculaire. Les marais humides ont rétréci et de grands déserts très chauds sont apparus au milieu des continents. Les plantes et les animaux ont dû s'adapter pour économiser l'eau !",
+      en: "About 250 million years ago, the climate changed spectacularly. Humid swamps shrank, and large, very hot deserts appeared in the middle of continents. Plants and animals had to adapt to save water!",
+    },
+    fullContents: [
+      {
+        fr: "Il y a 250 millions d'années, le climat a changé de façon spectaculaire. Les marais humides ont rétréci et de grands déserts très chauds sont apparus au milieu des continents. Les plantes et les animaux ont dû s'adapter pour économiser l'eau !",
+        en: "About 250 million years ago, the climate changed spectacularly. Humid swamps shrank, and large, very hot deserts appeared in the middle of continents. Plants and animals had to adapt to save water!",
+      }
+    ],
+    funFact: {
+      fr: "Ces changements ont regroupé les continents en un seul super-continent appelé la Pangée !",
+      en: "These changes grouped the continents into a single supercontinent called Pangaea!",
+    },
+    funFacts: [
+      {
+        fr: "Ces changements ont regroupé les continents en un seul super-continent appelé la Pangée !",
+        en: "These changes grouped the continents into a single supercontinent called Pangaea!",
+      }
+    ]
+  },
+  {
+    id: 'apparition-fleurs',
+    title: { fr: 'Apparition des fleurs', en: 'Flowers appearance' },
+    category: { fr: 'Nature 🌿', en: 'Nature 🌿' },
+    categoryKey: 'nature',
+    icon: '🌸',
+    shortDesc: {
+      fr: "La Terre se pare de ses toutes premières couleurs !",
+      en: 'The Earth adorns itself with its very first colors!',
+    },
+    fullContent: {
+      fr: "Pendant très longtemps, la Terre était uniquement verte et marron. Puis, les toutes premières fleurs sont apparues ! Elles ont inventé de jolies couleurs et de délicieux parfums pour attirer les insectes et fabriquer plus de graines.",
+      en: "For a very long time, the Earth was only green and brown. Then, the very first flowers appeared! They invented pretty colors and delicious scents to attract insects and produce more seeds.",
+    },
+    fullContents: [
+      {
+        fr: "Pendant très longtemps, la Terre était uniquement verte et marron. Puis, les toutes premières fleurs sont apparues ! Elles ont inventé de jolies couleurs et de délicieux parfums pour attirer les insectes et fabriquer plus de graines.",
+        en: "For a very long time, the Earth was only green and brown. Then, the very first flowers appeared! They invented pretty colors and delicious scents to attract insects and produce more seeds.",
+      }
+    ],
+    funFact: {
+      fr: "Les dinosaures comme le Tricératops ont connu la naissance des toutes premières fleurs de la planète !",
+      en: "Dinosaurs like Triceratops witnessed the birth of the very first flowers on the planet!",
+    },
+    funFacts: [
+      {
+        fr: "Les dinosaures comme le Tricératops ont connu la naissance des toutes premières fleurs de la planète !",
+        en: "Dinosaurs like Triceratops witnessed the birth of the very first flowers on the planet!",
+      }
+    ]
+  },
 ] as const
