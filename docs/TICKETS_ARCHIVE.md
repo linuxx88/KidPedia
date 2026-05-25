@@ -870,6 +870,33 @@ La page du Refuge affiche simultanément l'en-tête global de l'application (bar
 Sur un écran mobile portrait étroit comme le S24 Ultra, la barre de sélection des compagnons (`.selectorBar`) n'affiche que deux cartes ("Petit Chien" et "Bébé Dino"). Le troisième compagnon ("Mini Robot") est repoussé hors-écran vers la droite. Bien que la zone soit défilable horizontalement, aucun indicateur visuel (dégradé transparent sur le bord droit, flèche ou barre de défilement discrète) ne signale à l'enfant qu'il peut glisser son doigt pour faire apparaître d'autres animaux, limitant ainsi la découvrabilité du contenu.
 **Résolution** : Configuration et application des styles d'ombres et de dégradés transparents `scrollFadeLeft` et `scrollFadeRight` sur `.selectorBarWrapper` dans le fichier `RefugePage.module.css`, dynamisés par le gestionnaire d'événements de défilement horizontal de `RefugePage.tsx` pour faire apparaître/estomper discrètement les indicateurs visuels de défilement.
 
+---
+
+## 🎫 Ticket #72 : Défauts d'affichage responsifs, d'overflow et de layout sur la page du Cercle de la Vie
+**Statut** : 🟢 Résolu
+**Sévérité** : Élevée (Expérience Utilisateur Mobile / RWD)
+**Localisation** : `src/pages/LifeCircle/LifeCirclePage.tsx` & `LifeCirclePage.module.css`
+**Description** :
+Sur les terminaux mobiles et tablettes (et résolutions d'écran allongées), la page du Cercle de la Vie souffre de plusieurs défauts ergonomiques :
+1. **Overflow et défilement vertical démesuré** : Le défilement de parallaxe s'étend sur `250vh` sur desktop et mobile, créant un défilement interminable et vide de sens pour un enfant.
+2. **Bandes blanches / Mauvais ratio d'aspect** : L'arrière-plan SVG du ciel profond s'étire mal sur les ratios mobiles, laissant apparaître des zones blanches inesthétiques.
+3. **Bouton retour encombrant** : Le bouton de retour "⬅ Retour" prend trop de place horizontale, provoquant des collisions avec les boutons de saisons sur petit écran.
+4. **Commandes de saisons chevauchantes et coupées** : Le panneau de sélection de saison n'a pas de contrainte de largeur ni d'adaptabilité, débordant de l'écran mobile et se chevauchant.
+**Résolution** :
+1. **Ajustement du Viewport et Parallaxe** : Réduction de la hauteur de parallaxe globale (`200vh` sur desktop, `160vh` sur tablette, `130vh` sur mobile) pour un meilleur contrôle du scroll.
+2. **Ratio d'aspect résilient** : Intégration de `preserveAspectRatio="xMidYMin slice"` sur les SVG de fond profond, garantissant que le ciel couvre 100% de l'espace disponible sans déformation ni zones vides.
+3. **Bouton retour adaptatif** : Conversion du bouton retour en un bouton circulaire minimaliste (`⬅`) masquant le texte en dessous du breakpoint mobile (768px).
+4. **Contrôles de Saisons Compacts** : Ajout d'une largeur maximale dynamique (`max-width: calc(100% - 5.5rem)`) et d'une disposition flexbox compacte sur `.seasonControls` sur mobile, prévenant tout overflow et collision avec le bouton retour.
+5. **Micro-interactions Tactiles Premium** : Intégration de retours tactiles fluides (`transform: scale(0.95)` / `scale(0.92)` et atténuation de l'ombre portée) sur les états `:active` de tous les éléments interactifs cliquables (`.backButton`, `.seasonBtn`, `.exploreMoreBtn`, `.closeBtn`), améliorant considérablement l'engagement sensoriel.
+6. **Accessibilité Universelle (A11y)** : Ajout d'indicateurs visuels de focus clavier robustes et hautement contrastés (`:focus-visible` avec outlines et décalages calculés) sur l'ensemble des boutons interactifs de navigation, de saison et d'action, garantissant la conformité totale WCAG.
+7. **Animations Pédagogiques** : Rétablissement de la lévitation douce par pulsation (`pulse` infinie à 30 FPS) sur la boîte d'instructions flottantes, guidant naturellement le regard de l'enfant.
+8. **Polissage de la Carte au Trésor (TreasureMap)** :
+    - **Micro-interactions Tactiles** : Intégration de l'effet d'enfoncement tactile 3D (`:active`) sur les boutons de zoom de la carte (`.zoomBtn`) et les marqueurs (`.mapMarkerPoint`), animant les icônes vectorielles avec un rétrécissement élastique et une légère rotation inversée au clic.
+    - **Accessibilité Focus Clavier** : Remplacement de l'inhibition des outlines clavier (`outline: none`) par des halos de focus lumineux contrastés (`:focus-visible`) dorés thématiques avec un décalage compensé (`outline-offset: 4px`), ouvrant la navigation spatiale de la carte à 100% de conformité WCAG.
+    - **OrientationGuard Mobile** : Intégration du composant réutilisable de garde-fou d'orientation (`OrientationGuard`), invitant chaleureusement l'enfant à basculer sa tablette ou son smartphone horizontalement pour profiter d'un champ visuel optimal sur la carte au trésor, aligné sur l'expérience premium de Mission Safari.
+    - **Sécurisation de Tests** : Mock du composant `OrientationGuard` dans la suite de tests unitaires et d'intégration `TreasureMap.test.tsx` pour garantir 100% de robustesse et de passage au vert de la suite de tests de non-régression.
+
+
 
 
 

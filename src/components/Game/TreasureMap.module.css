@@ -90,6 +90,13 @@
   color: white;
   border-color: var(--color-primary);
 }
+.zoomBtn:focus-visible {
+  outline: 3px solid var(--color-primary);
+  outline-offset: 2px;
+}
+.zoomBtn:active:not(:disabled) {
+  transform: scale(0.92);
+}
 
 .zoomBtn:disabled {
   opacity: 0.3;
@@ -117,6 +124,15 @@
   border: none;
   padding: 0;
   outline: none;
+}
+.mapMarkerPoint:focus-visible {
+  outline: 4px solid var(--color-accent, #fbbf24);
+  outline-offset: 4px;
+  border-radius: 50%;
+}
+.mapMarkerPoint:active .markerIcon {
+  transform: scale(0.9) rotate(-5deg);
+  transition: transform 0.1s ease;
 }
 
 .markerIcon {

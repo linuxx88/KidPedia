@@ -125,6 +125,7 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Synthèse vocale TTS et Baguette de lecture au Refuge (Ticket #66)** (Traité en v3.21.0)
 ✅ **RÉSOLU : Troncatures visuelles sur mobile Galaxy S24 Ultra (Ticket #67, Ticket #68)** (Traité en v3.21.0)
 ✅ **RÉSOLU : En-tête immersif et indicateur de défilement au Refuge (Ticket #70, Ticket #71)** (Traité en v3.21.0)
+✅ **RÉSOLU : Correctifs d'affichage responsifs, d'overflow et de layout sur Le Cercle de la Vie (Ticket #72)** (Traité en v3.21.1)
 
 
 ---
@@ -132,4 +133,4 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 24 mai 2026 (v3.21.0)*
+*Dernière mise à jour : 24 mai 2026 (v3.21.1)*

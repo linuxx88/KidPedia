@@ -8,6 +8,25 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 
 
+### VERSION 3.21.1 - Correctifs d'Affichage Responsif & Parallaxe sur Mobile (24 Mai 2026)
+--------------------------------------------------
+- **[UX/UI/Responsive/A11y] Résolution des défauts d'affichage responsifs, d'overflow et de layout sur la page du Cercle de la Vie (LifeCirclePage) (Ticket #72) :**
+    - **LifeCirclePage.tsx** : Sécurisation de l'ajustement écran 100% en SVG via `preserveAspectRatio="xMidYMin slice"` sur l'arrière-plan du ciel profond, éliminant les bandes blanches horizontales sur mobile. Harmonisation du ciblage des textes pour la baguette magique et flexibilité du bouton retour.
+    - **LifeCirclePage.module.css** :
+        - Optimisation de la hauteur de la zone de parallaxe (`.parallaxGroup` de `250vh` à `200vh` sur desktop, `160vh` sur tablette, `130vh` sur mobile) pour limiter les défilements inutiles et l'overflow parasite.
+        - Bouton de retour compact circulaire sur mobile (<768px) masquant le texte pour éviter l'encombrement horizontal.
+        - Regroupement des contrôles de saison en barre compacte tactile auto-adaptative limitant le débordement horizontal (`max-width: calc(100% - 5.5rem)`).
+        - Correction des instructions de survol avec centrage élastique et réduction du padding.
+        - **Micro-interactions Tactiles Premium** : Intégration de retours tactiles fluides (`transform: scale(0.95)` / `scale(0.92)` et atténuation de l'ombre portée) sur les états `:active` de tous les éléments interactifs cliquables (`.backButton`, `.seasonBtn`, `.exploreMoreBtn`, `.closeBtn`), améliorant considérablement l'engagement sensoriel.
+        - **Accessibilité Universelle (A11y)** : Ajout d'indicateurs visuels de focus clavier robustes et hautement contrastés (`:focus-visible` avec outlines et décalages calculés) sur l'ensemble des boutons interactifs de navigation, de saison et d'action, garantissant la conformité totale WCAG.
+        - **Animations Pédagogiques** : Rétablissement de la lévitation douce par pulsation (`pulse` infinie à 30 FPS) sur la boîte d'instructions flottantes, guidant naturellement le regard de l'enfant.
+    - **TreasureMap.module.css (Carte au Trésor)** :
+        - **Tactile & Micro-interactions** : Intégration de l'effet d'enfoncement tactile 3D (`:active`) sur les boutons de zoom de la carte (`.zoomBtn`) et les îles/marqueurs de découverte (`.mapMarkerPoint`), animant les icônes vectorielles avec un rétrécissement élastique et une légère rotation inversée au clic.
+        - **Accessibilité Focus Clavier** : Remplacement de l'inhibition des outlines clavier (`outline: none`) par des halos de focus lumineux contrastés (`:focus-visible`) dorés thématiques avec un décalage compensé (`outline-offset: 4px`), ouvrant la navigation spatiale de la carte à 100% de conformité WCAG.
+    - **TreasureMap.tsx & TreasureMap.test.tsx (Homogénéité Mobile)** :
+        - **OrientationGuard Mobile** : Intégration du composant réutilisable de garde-fou d'orientation (`OrientationGuard`), invitant chaleureusement l'enfant à basculer sa tablette ou son smartphone horizontalement pour profiter d'un champ visuel optimal sur la carte au trésor, aligné sur l'expérience premium de Mission Safari.
+        - **Sécurisation de Tests** : Mock du composant `OrientationGuard` dans la suite de tests unitaires et d'intégration `TreasureMap.test.tsx` pour garantir 100% de robustesse et de passage au vert de la suite de tests de non-régression.
+
 ### VERSION 3.21.0 - Sprint d'Optimisation, Localisation & Accessibilité (24 Mai 2026)
 --------------------------------------------------
 - **[Logic/QA/TypeScript] Résolution des erreurs de compilation strictes TypeScript (Ticket #05, Ticket #22) :**

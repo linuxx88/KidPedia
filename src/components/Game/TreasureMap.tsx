@@ -11,6 +11,7 @@ import { useVisualEffects } from '../../hooks/useVisualEffects';
 import { getMedalIcon, type MedalType } from '../../utils/quizMessages';
 import { type MapMarker } from '../../data/mapData';
 import { type Labels } from '../../locales/types';
+import { OrientationGuard } from '../Layout/OrientationGuard';
 import styles from './TreasureMap.module.css';
 
 interface MapPointProps {
@@ -345,113 +346,115 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
   };
 
   return (
-    <div className={styles.mapPage} role="main" aria-label={labels.discovery.mapTitle}>
-      <PageHeader 
-        title={labels.discovery.mapTitle}
-        icon="🗺️"
-        onBack={onBack}
-        rightElement={
-          <div className={styles.zoomSidebar} role="group" aria-label="Contrôles du zoom">
-            <button 
-              className={styles.zoomBtn} 
-              onClick={() => {
-                captureViewportCenterAsZoomTarget();
-                zoomOut();
-              }} 
-              disabled={zoom === 1} 
-              title={`${labels.discovery.zoomOut} (-)`} 
-              aria-label={labels.discovery.zoomOut}
-            >-</button>
-            <span className={styles.zoomLevelBadge} data-testid="zoom-level" aria-live="polite">x{zoom}</span>
-            <button 
-              className={styles.zoomBtn} 
-              onClick={() => {
-                captureViewportCenterAsZoomTarget();
-                zoomIn();
-              }} 
-              disabled={zoom === MAP_SVG_CONFIG.MAX_ZOOM} 
-              title={`${labels.discovery.zoomIn} (+)`} 
-              aria-label={labels.discovery.zoomIn}
-            >+</button>
-            <button 
-              className={styles.zoomBtn} 
-              onClick={() => {
-                zoomTargetRef.current = { rx: 0.5, ry: 0.5 };
-                resetZoom();
-              }} 
-              title={labels.discovery.globalView} 
-              aria-label={labels.discovery.globalView}
-            >🏠</button>
-          </div>
-        }
-      />
-      
-      <div 
-        className={`${styles.mapWrapperScroll} ${isDragging ? styles.isDragging : ''}`} 
-        ref={containerRef}
-        role="region"
-        aria-label="Contenu de la carte"
-        tabIndex={-1}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseUp}
-        onTouchStart={handleTouchStart}
-        onTouchMove={handleTouchMove}
-        onTouchEnd={handleTouchEnd}
-        onTouchCancel={handleTouchEnd}
-      >
+    <OrientationGuard>
+      <div className={styles.mapPage} role="main" aria-label={labels.discovery.mapTitle}>
+        <PageHeader 
+          title={labels.discovery.mapTitle}
+          icon="🗺️"
+          onBack={onBack}
+          rightElement={
+            <div className={styles.zoomSidebar} role="group" aria-label="Contrôles du zoom">
+              <button 
+                className={styles.zoomBtn} 
+                onClick={() => {
+                  captureViewportCenterAsZoomTarget();
+                  zoomOut();
+                }} 
+                disabled={zoom === 1} 
+                title={`${labels.discovery.zoomOut} (-)`} 
+                aria-label={labels.discovery.zoomOut}
+              >-</button>
+              <span className={styles.zoomLevelBadge} data-testid="zoom-level" aria-live="polite">x{zoom}</span>
+              <button 
+                className={styles.zoomBtn} 
+                onClick={() => {
+                  captureViewportCenterAsZoomTarget();
+                  zoomIn();
+                }} 
+                disabled={zoom === MAP_SVG_CONFIG.MAX_ZOOM} 
+                title={`${labels.discovery.zoomIn} (+)`} 
+                aria-label={labels.discovery.zoomIn}
+              >+</button>
+              <button 
+                className={styles.zoomBtn} 
+                onClick={() => {
+                  zoomTargetRef.current = { rx: 0.5, ry: 0.5 };
+                  resetZoom();
+                }} 
+                title={labels.discovery.globalView} 
+                aria-label={labels.discovery.globalView}
+              >🏠</button>
+            </div>
+          }
+        />
+        
         <div 
-          className={styles.mapContainerRelative} 
-          style={canvasStyle}
-          onDoubleClick={handleDoubleClick}
+          className={`${styles.mapWrapperScroll} ${isDragging ? styles.isDragging : ''}`} 
+          ref={containerRef}
+          role="region"
+          aria-label="Contenu de la carte"
+          tabIndex={-1}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseUp}
+          onTouchStart={handleTouchStart}
+          onTouchMove={handleTouchMove}
+          onTouchEnd={handleTouchEnd}
+          onTouchCancel={handleTouchEnd}
         >
-          <picture>
-            <source srcSet="/assets/images/world-map.webp" type="image/webp" />
-            <source srcSet="/assets/images/world-map.jpg" type="image/jpeg" />
-            <img
-              src="/assets/images/world-map.jpg"
-              alt="Carte du monde décorative"
-              className={styles.worldMapImage}
-              data-testid="treasure-map-image"
-              draggable="false" // Empêcher le drag natif de l'image qui casse notre logique
-            />
-          </picture>
-          {ripples.map(ripple => (
-            <div 
-              key={ripple.id} 
-              className={styles.clickRipple} 
-              style={{ left: ripple.x, top: ripple.y }} 
-              data-testid="click-ripple"
-              aria-hidden="true"
-            />
-          ))}
-          
-          {visibleMarkers}
-        </div>
-      </div>
-
-      <AppOverlay
-        isOpen={!!selectedPoint}
-        onClose={() => setSelectedPoint(null)}
-        closeLabel={labels.common.close}
-        title={selectedPoint?.title[language]}
-        data-testid="discovery-popup"
-      >
-        {selectedPoint && (
-          <div className={styles.popupContent}>
-            <span className={styles.popupIcon} aria-hidden="true">{selectedPoint.icon}</span>
-            <p className={styles.popupText}>{labels.discovery.discoveryMessage}</p>
-            <AppButton 
-              onClick={() => navigate(`/topic/${selectedPoint.topicId}`)}
-              className={styles.explorerBtnMap}
-            >
-              {labels.discovery.explore(selectedPoint.title[language])}
-            </AppButton>
+          <div 
+            className={styles.mapContainerRelative} 
+            style={canvasStyle}
+            onDoubleClick={handleDoubleClick}
+          >
+            <picture>
+              <source srcSet="/assets/images/world-map.webp" type="image/webp" />
+              <source srcSet="/assets/images/world-map.jpg" type="image/jpeg" />
+              <img
+                src="/assets/images/world-map.jpg"
+                alt="Carte du monde décorative"
+                className={styles.worldMapImage}
+                data-testid="treasure-map-image"
+                draggable="false" // Empêcher le drag natif de l'image qui casse notre logique
+              />
+            </picture>
+            {ripples.map(ripple => (
+              <div 
+                key={ripple.id} 
+                className={styles.clickRipple} 
+                style={{ left: ripple.x, top: ripple.y }} 
+                data-testid="click-ripple"
+                aria-hidden="true"
+              />
+            ))}
+            
+            {visibleMarkers}
           </div>
-        )}
-      </AppOverlay>
-    </div>
+        </div>
+
+        <AppOverlay
+          isOpen={!!selectedPoint}
+          onClose={() => setSelectedPoint(null)}
+          closeLabel={labels.common.close}
+          title={selectedPoint?.title[language]}
+          data-testid="discovery-popup"
+        >
+          {selectedPoint && (
+            <div className={styles.popupContent}>
+              <span className={styles.popupIcon} aria-hidden="true">{selectedPoint.icon}</span>
+              <p className={styles.popupText}>{labels.discovery.discoveryMessage}</p>
+              <AppButton 
+                onClick={() => navigate(`/topic/${selectedPoint.topicId}`)}
+                className={styles.explorerBtnMap}
+              >
+                {labels.discovery.explore(selectedPoint.title[language])}
+              </AppButton>
+            </div>
+          )}
+        </AppOverlay>
+      </div>
+    </OrientationGuard>
   );
 };
 

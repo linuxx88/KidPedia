@@ -174,7 +174,7 @@ export const LifeCirclePage: React.FC = () => {
         onClick={() => navigate('/')}
         aria-label={labels.common.goHome}
       >
-        <span>⬅</span> {labels.common.goHome}
+        <span>⬅</span> <span className={styles.backButtonText}>{labels.common.goHome}</span>
       </button>
 
       {/* Sélecteur de Saisons */}
@@ -236,15 +236,7 @@ export const LifeCirclePage: React.FC = () => {
           
           {/* LAYER 1: Deep Background (Sky and Atmosphere) */}
           <div className={`${styles.layer} ${styles.layerBackground}`}>
-            <svg viewBox="0 0 1000 1000" className={styles.svgTreeWrapper} style={{ width: '100%', height: '100%' }}>
-              <defs>
-                <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                  <stop offset="0%" className={styles.skyGradient} />
-                  <stop offset="100%" className={styles.skyGradient2} />
-                </linearGradient>
-              </defs>
-              <rect width="1000" height="1000" fill="url(#skyGrad)" />
-              
+            <svg viewBox="0 0 1000 1000" className={styles.svgTreeWrapper} style={{ width: '100%', height: '100%' }} preserveAspectRatio="xMidYMin slice">
               {/* Soleil / Lune selon la saison */}
               {currentSeason === 'winter' ? (
                 <circle cx="850" cy="180" r="50" fill="#e2e8f0" opacity="0.8" filter="drop-shadow(0 0 20px #94a3b8)" />
@@ -274,7 +266,7 @@ export const LifeCirclePage: React.FC = () => {
 
           {/* LAYER 3: Foreground (Main Interactive Sacred Tree & Ground) */}
           <div className={`${styles.layer} ${styles.layerForeground}`}>
-            <svg viewBox="0 0 1000 1000" className={styles.svgTreeWrapper}>
+            <svg viewBox="0 0 1000 1000" className={styles.svgTreeWrapper} style={{ width: '100%', height: '100%' }}>
               <defs>
                 <radialGradient id="canopyGrad" cx="50%" cy="50%" r="50%">
                   <stop offset="0%" className={styles.foliage} />

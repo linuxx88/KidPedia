@@ -29,6 +29,10 @@ vi.mock('react-router-dom', async () => {
   }
 })
 
+vi.mock('../Layout/OrientationGuard', () => ({
+  OrientationGuard: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+}))
+
 describe('TreasureMap', () => {
   const onBack = vi.fn()
   
