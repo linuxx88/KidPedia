@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PageHeader } from '../../components/Layout/PageHeader';
 import { AppButton } from '../../components/UI/AppButton';
 import { MermaidDiagram } from '../../components/UI/MermaidDiagram';
@@ -18,12 +18,14 @@ flowchart TB
     %% 1. COUCHE VIEWS & ROUTING (Pages principales)
     subgraph ViewsLayer ["🎬 ENTRÉE, VUES & NAVIGATION"]
         main_entry["main.tsx / App.tsx\\n(Point d'entrée & Router)"]:::entry
-        profile_sel["ProfileSelectionPage\\n(Choix / Création Profil)"]:::views
+        profile_sel["ProfileSelection\\n(Choix / Création Profil)"]:::views
         map_view["InteractiveMap\\n(Exploration thématique)"]:::views
         safari_view["SafariPage\\n(Chasse aux autocollants)"]:::views
         gifts_view["GiftsPage\\n(Boutique des cadeaux & Garde-robe)"]:::views
         topic_view["TopicDetailPage\\n(Lecture & Fiche audio)"]:::views
         quiz_view["QuizPage\\n(Défis de connaissances)"]:::views
+        refuge_view["RefugePage\\n(Adoption de compagnons)"]:::views
+        championship_view["ChampionshipPage\\n(Le Grand Quiz 15s)"]:::views
     end
 
     %% 2. COUCHE GESTION D'ÉTAT (Zustand Stores réactifs)
@@ -34,6 +36,8 @@ flowchart TB
         store_safari["useSafariStore\\n(Stickers collectés dans la nature)"]:::stores
         store_gift["useGiftStore\\n(Achat d'accessoires & familiers)"]:::stores
         store_settings["useSettingsStore\\n(Volume global, Langue fr/en, Audio)"]:::stores
+        store_companion["useCompanionStore\\n(Friandises & compagnons)"]:::stores
+        store_championship["useQuizChampionshipStore\\n(Scores locaux & minuterie)"]:::stores
     end
 
     %% 3. COUCHE GRAPHISMES ET COMPOSANTS UI
@@ -57,11 +61,13 @@ flowchart TB
     main_entry --> profile_sel
     profile_sel --> store_profile
     profile_sel --> map_view
+    main_entry --> championship_view
 
     %% Flux de Navigation Enfant
     map_view --> topic_view
     map_view --> gifts_view
     map_view --> safari_view
+    map_view --> refuge_view
 
     %% Flux d'Apprentissage & Quiz
     topic_view --> db_topics
@@ -72,6 +78,17 @@ flowchart TB
     quiz_view --> store_player
     quiz_view --> store_progression
     safari_view --> store_safari
+
+    %% Le Grand Quiz des Champions (Mode Défi)
+    championship_view --> store_championship
+    championship_view --> store_profile
+    championship_view --> store_progression
+    championship_view --> confetti_fx
+    championship_view --> audio_feedback
+
+    %% Le Refuge des Compagnons
+    refuge_view --> store_companion
+    refuge_view --> store_progression
 
     %% Flux de l'Inventaire (Gifts) & Personnalisation
     gifts_view --> db_accessories
@@ -90,7 +107,12 @@ flowchart TB
     map_view --> audio_feedback
 `;
 
+type LayerType = 'all' | 'entry' | 'views' | 'components' | 'stores' | 'data' | 'hooks';
+
 export const FlowDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) => {
+  const [highlightedLayer, setHighlightedLayer] = useState<LayerType>('all');
+  const [zoomScale, setZoomScale] = useState<number>(1.0);
+
   const handleCopyCode = () => {
     navigator.clipboard.writeText(PROJECT_FLOW_CHART).then(() => {
       useNotificationStore.getState().addNotification({
@@ -105,65 +127,79 @@ export const FlowDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     });
   };
 
-  const handleDownloadSVG = () => {
+  const handleZoomIn = () => {
+    setZoomScale(prev => Math.min(prev + 0.1, 1.6));
+  };
+
+  const handleZoomOut = () => {
+    setZoomScale(prev => Math.max(prev - 0.1, 0.5));
+  };
+
+  const handleZoomReset = () => {
+    setZoomScale(1.0);
+  };
+
+  const handleToggleHighlight = (layer: LayerType) => {
+    setHighlightedLayer(prev => prev === layer ? 'all' : layer);
+  };
+
+  const getInlinedSvgBlob = () => {
     const container = document.querySelector('.mermaid-interactive-container');
     const svgEl = container?.querySelector('svg');
-    if (svgEl) {
-      // Cloner le SVG d'origine pour ne pas impacter l'affichage en direct
-      const clonedSvg = svgEl.cloneNode(true) as SVGSVGElement;
+    if (!svgEl) return null;
 
-      // Fonction récursive pour injecter les styles résolus (variables CSS et classes) comme attributs
-      const inlineStyles = (original: Element, clone: Element) => {
-        const computed = window.getComputedStyle(original);
-        
-        // Liste des propriétés et attributs de style cruciaux pour le rendu universel SVG
-        const propertiesToCopy = [
-          'fill',
-          'stroke',
-          'stroke-width',
-          'stroke-dasharray',
-          'font-family',
-          'font-size',
-          'font-weight',
-          'text-anchor',
-          'opacity'
-        ];
+    const clonedSvg = svgEl.cloneNode(true) as SVGSVGElement;
 
-        propertiesToCopy.forEach(prop => {
-          const val = computed.getPropertyValue(prop);
-          if (val) {
-            clone.setAttribute(prop, val);
-          }
-        });
+    const inlineStyles = (original: Element, clone: Element) => {
+      const computed = window.getComputedStyle(original);
+      const propertiesToCopy = [
+        'fill',
+        'stroke',
+        'stroke-width',
+        'stroke-dasharray',
+        'font-family',
+        'font-size',
+        'font-weight',
+        'text-anchor',
+        'opacity'
+      ];
 
-        // Parcourir récursivement les enfants en parallèle
-        const originalChildren = Array.from(original.children);
-        const cloneChildren = Array.from(clone.children);
-        
-        for (let i = 0; i < originalChildren.length; i++) {
-          if (cloneChildren[i]) {
-            inlineStyles(originalChildren[i] as Element, cloneChildren[i] as Element);
-          }
+      propertiesToCopy.forEach(prop => {
+        const val = computed.getPropertyValue(prop);
+        if (val) {
+          clone.setAttribute(prop, val);
         }
-      };
+      });
 
-      // Exécuter l'inliner sur l'élément racine et ses enfants
-      inlineStyles(svgEl, clonedSvg);
-
-      // Ajouter des attributs explicites de taille si manquants, pour une meilleure compatibilité
-      const bbox = svgEl.getBoundingClientRect();
-      if (bbox.width && bbox.height) {
-        if (!clonedSvg.getAttribute('width')) {
-          clonedSvg.setAttribute('width', `${bbox.width}px`);
-        }
-        if (!clonedSvg.getAttribute('height')) {
-          clonedSvg.setAttribute('height', `${bbox.height}px`);
+      const originalChildren = Array.from(original.children);
+      const cloneChildren = Array.from(clone.children);
+      
+      for (let i = 0; i < originalChildren.length; i++) {
+        if (cloneChildren[i]) {
+          inlineStyles(originalChildren[i] as Element, cloneChildren[i] as Element);
         }
       }
+    };
 
-      // Convertir en chaîne de caractères XML
-      const svgData = new XMLSerializer().serializeToString(clonedSvg);
-      const svgBlob = new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+    inlineStyles(svgEl, clonedSvg);
+
+    const bbox = svgEl.getBoundingClientRect();
+    if (bbox.width && bbox.height) {
+      if (!clonedSvg.getAttribute('width')) {
+        clonedSvg.setAttribute('width', `${bbox.width}px`);
+      }
+      if (!clonedSvg.getAttribute('height')) {
+        clonedSvg.setAttribute('height', `${bbox.height}px`);
+      }
+    }
+
+    const svgData = new XMLSerializer().serializeToString(clonedSvg);
+    return new Blob([svgData], { type: 'image/svg+xml;charset=utf-8' });
+  };
+
+  const handleDownloadSVG = () => {
+    const svgBlob = getInlinedSvgBlob();
+    if (svgBlob) {
       const svgUrl = URL.createObjectURL(svgBlob);
       const downloadLink = document.createElement('a');
       downloadLink.href = svgUrl;
@@ -189,64 +225,16 @@ export const FlowDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     const container = document.querySelector('.mermaid-interactive-container');
     const svgEl = container?.querySelector('svg');
     if (svgEl) {
-      // Cloner le SVG d'origine pour ne pas impacter l'affichage en direct
-      const clonedSvg = svgEl.cloneNode(true) as SVGSVGElement;
+      const svgBlob = getInlinedSvgBlob();
+      if (!svgBlob) return;
+      const svgUrl = URL.createObjectURL(svgBlob);
 
-      // Fonction récursive pour injecter les styles résolus (variables CSS et classes) comme attributs
-      const inlineStyles = (original: Element, clone: Element) => {
-        const computed = window.getComputedStyle(original);
-        
-        // Liste des propriétés et attributs de style cruciaux pour le rendu universel SVG
-        const propertiesToCopy = [
-          'fill',
-          'stroke',
-          'stroke-width',
-          'stroke-dasharray',
-          'font-family',
-          'font-size',
-          'font-weight',
-          'text-anchor',
-          'opacity'
-        ];
-
-        propertiesToCopy.forEach(prop => {
-          const val = computed.getPropertyValue(prop);
-          if (val) {
-            clone.setAttribute(prop, val);
-          }
-        });
-
-        // Parcourir récursivement les enfants en parallèle
-        const originalChildren = Array.from(original.children);
-        const cloneChildren = Array.from(clone.children);
-        
-        for (let i = 0; i < originalChildren.length; i++) {
-          if (cloneChildren[i]) {
-            inlineStyles(originalChildren[i] as Element, cloneChildren[i] as Element);
-          }
-        }
-      };
-
-      // Exécuter l'inliner sur l'élément racine et ses enfants
-      inlineStyles(svgEl, clonedSvg);
-
-      // Calculer les dimensions de rendu réelles
       const bbox = svgEl.getBoundingClientRect();
       const width = bbox.width || 1000;
       const height = bbox.height || 750;
 
-      clonedSvg.setAttribute('width', `${width}px`);
-      clonedSvg.setAttribute('height', `${height}px`);
-
-      // Convertir en chaîne de caractères XML et encoder en Base64 de manière sécurisée UTF-8
-      const svgData = new XMLSerializer().serializeToString(clonedSvg);
-      const svgBase64 = btoa(unescape(encodeURIComponent(svgData)));
-      const svgUrl = `data:image/svg+xml;base64,${svgBase64}`;
-
-      // Charger le SVG dans une image HTML
       const img = new Image();
       img.onload = () => {
-        // Rendu Canvas Haute Résolution (zoom x2 pour un rendu ultra-net des tracés et textes)
         const scale = 2;
         const canvas = document.createElement('canvas');
         canvas.width = width * scale;
@@ -254,15 +242,11 @@ export const FlowDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         
         const ctx = canvas.getContext('2d');
         if (ctx) {
-          // Fond blanc opaque (important pour l'affichage propre dans les visionneuses d'images)
           ctx.fillStyle = '#ffffff';
           ctx.fillRect(0, 0, canvas.width, canvas.height);
-          
-          // Mettre à l'échelle et dessiner l'image
           ctx.scale(scale, scale);
           ctx.drawImage(img, 0, 0, width, height);
 
-          // Exporter en PNG standard
           try {
             const pngUrl = canvas.toDataURL('image/png');
             const downloadLink = document.createElement('a');
@@ -284,11 +268,13 @@ export const FlowDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             alert('Impossible de générer le fichier PNG.');
           }
         }
+        URL.revokeObjectURL(svgUrl);
       };
 
       img.onerror = (err) => {
         console.error('[FlowDashboard] Image load error :', err);
         alert('Erreur lors du chargement des ressources graphiques.');
+        URL.revokeObjectURL(svgUrl);
       };
 
       img.src = svgUrl;
@@ -329,32 +315,94 @@ export const FlowDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) => {
             les animations et effets visuels ou sonores.
           </p>
 
-          <div className={styles.diagramWrapper}>
-            <MermaidDiagram chart={PROJECT_FLOW_CHART} />
+          {/* Interactive Layer filters */}
+          <span className={styles.filterLabel}>🔍 Mettre en valeur une couche technique :</span>
+          <div className={styles.filterBar}>
+            <button 
+              className={`${styles.filterBtn} ${styles.filterBtnAll} ${highlightedLayer === 'all' ? styles.filterBtnActive : ''}`}
+              onClick={() => setHighlightedLayer('all')}
+            >
+              🔄 Tout afficher
+            </button>
+            <button 
+              className={`${styles.filterBtn} ${styles.dotEntry} ${highlightedLayer === 'entry' ? styles.filterBtnActive : ''}`}
+              onClick={() => handleToggleHighlight('entry')}
+            >
+              🏁 Points d'Entrée
+            </button>
+            <button 
+              className={`${styles.filterBtn} ${styles.dotViews} ${highlightedLayer === 'views' ? styles.filterBtnActive : ''}`}
+              onClick={() => handleToggleHighlight('views')}
+            >
+              🎬 Vues / Pages
+            </button>
+            <button 
+              className={`${styles.filterBtn} ${styles.dotComponents} ${highlightedLayer === 'components' ? styles.filterBtnActive : ''}`}
+              onClick={() => handleToggleHighlight('components')}
+            >
+              🎨 Composants Graphiques
+            </button>
+            <button 
+              className={`${styles.filterBtn} ${styles.dotStores} ${highlightedLayer === 'stores' ? styles.filterBtnActive : ''}`}
+              onClick={() => handleToggleHighlight('stores')}
+            >
+              🤖 Zustand Stores
+            </button>
+            <button 
+              className={`${styles.filterBtn} ${styles.dotData} ${highlightedLayer === 'data' ? styles.filterBtnActive : ''}`}
+              onClick={() => handleToggleHighlight('data')}
+            >
+              📂 Bases de Données
+            </button>
+            <button 
+              className={`${styles.filterBtn} ${styles.dotHooks} ${highlightedLayer === 'hooks' ? styles.filterBtnActive : ''}`}
+              onClick={() => handleToggleHighlight('hooks')}
+            >
+              ⚙️ Hooks & Feedback
+            </button>
           </div>
 
+          {/* Map Viewer Panel with Floating Controls */}
+          <div className={styles.diagramOuterWrapper}>
+            <div className={styles.zoomControls}>
+              <button className={styles.zoomBtn} onClick={handleZoomIn} title="Zoom +">+</button>
+              <span className={styles.zoomLevel}>{Math.round(zoomScale * 100)}%</span>
+              <button className={styles.zoomBtn} onClick={handleZoomOut} title="Zoom -">-</button>
+              <button className={styles.zoomBtn} onClick={handleZoomReset} title="Réinitialiser" style={{ fontSize: '0.8rem' }}>🔄</button>
+            </div>
+            
+            <div 
+              className={`${styles.diagramWrapper} mermaid-interactive-container`}
+              data-highlight={highlightedLayer}
+              style={{ transform: `scale(${zoomScale})` }}
+            >
+              <MermaidDiagram chart={PROJECT_FLOW_CHART} />
+            </div>
+          </div>
+
+          {/* Legend Grid */}
           <div className={styles.legendGrid}>
-            <div className={styles.legendItem}>
+            <div className={styles.legendItem} onClick={() => handleToggleHighlight('entry')}>
               <div className={`${styles.legendDot} ${styles.dotEntry}`} />
               <span>Point d'Entrée</span>
             </div>
-            <div className={styles.legendItem}>
+            <div className={styles.legendItem} onClick={() => handleToggleHighlight('views')}>
               <div className={`${styles.legendDot} ${styles.dotViews}`} />
               <span>Couche Views (Pages)</span>
             </div>
-            <div className={styles.legendItem}>
+            <div className={styles.legendItem} onClick={() => handleToggleHighlight('components')}>
               <div className={`${styles.legendDot} ${styles.dotComponents}`} />
               <span>Composants Graphiques</span>
             </div>
-            <div className={styles.legendItem}>
+            <div className={styles.legendItem} onClick={() => handleToggleHighlight('stores')}>
               <div className={`${styles.legendDot} ${styles.dotStores}`} />
               <span>Zustand Stores (État)</span>
             </div>
-            <div className={styles.legendItem}>
+            <div className={styles.legendItem} onClick={() => handleToggleHighlight('data')}>
               <div className={`${styles.legendDot} ${styles.dotData}`} />
               <span>Bases de Données Statiques</span>
             </div>
-            <div className={styles.legendItem}>
+            <div className={styles.legendItem} onClick={() => handleToggleHighlight('hooks')}>
               <div className={`${styles.legendDot} ${styles.dotHooks}`} />
               <span>Hooks & Helpers</span>
             </div>
