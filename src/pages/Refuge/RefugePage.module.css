@@ -594,3 +594,143 @@
     word-break: break-word;
   }
 }
+
+/* --- VIRTUAL PET BEHAVIORS --- */
+
+.nightMode {
+  background: linear-gradient(135deg, #090d16 0%, #05141c 100%) !important;
+  border-color: rgba(30, 58, 138, 0.4) !important;
+  box-shadow: inset 0 4px 30px rgba(0, 0, 0, 0.6) !important;
+}
+
+.nightMode::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 100, 0.15);
+  pointer-events: none;
+  border-radius: 2rem;
+}
+
+.isSleepingAnim {
+  animation: breathing 3s ease-in-out infinite;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 12px rgba(56, 189, 248, 0.3));
+}
+
+@keyframes breathing {
+  0%, 100% { transform: scale(1) rotate(0deg); }
+  50% { transform: scale(0.96) rotate(-2deg); }
+}
+
+.barFillEnergy {
+  height: 100%;
+  background: linear-gradient(90deg, #eab308, #fbbf24);
+  border-radius: 9999px;
+  transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 0 10px rgba(250, 204, 21, 0.4);
+}
+
+.poopElement {
+  position: absolute;
+  background: none;
+  border: none;
+  font-size: 2.2rem;
+  cursor: pointer;
+  z-index: 50;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.35));
+  animation: poopWobble 4s ease-in-out infinite alternate;
+}
+
+.poopElement:hover {
+  transform: scale(1.2) rotate(10deg);
+}
+
+.poopElement:active {
+  transform: scale(0.9) rotate(-10deg);
+}
+
+@keyframes poopWobble {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(5deg); }
+}
+
+.hideSeekBoard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  gap: 1.5rem;
+  z-index: 10;
+}
+
+.hideSeekTitle {
+  font-size: 1.4rem;
+  font-weight: 900;
+  text-align: center;
+  color: #fff;
+  margin: 0;
+}
+
+.bushesGrid {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  width: 100%;
+  max-width: 450px;
+  margin: 2rem 0;
+}
+
+.bushCard {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 110px;
+  height: 110px;
+}
+
+.bushEmoji {
+  font-size: 5rem;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3));
+  transition: transform 0.2s ease;
+}
+
+.bushCard:hover:not(:disabled) .bushEmoji {
+  transform: scale(1.1) translateY(-6px);
+}
+
+.bushCard:active:not(:disabled) .bushEmoji {
+  transform: scale(0.95);
+}
+
+.shakeBush {
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-8px); }
+  75% { transform: translateX(8px); }
+}
+
+.companionReveal {
+  animation: popUp 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes popUp {
+  0% { transform: scale(0.2) translateY(50px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+.exitHideSeekBtn {
+  padding: 0.8rem 2rem !important;
+  font-size: 1.1rem !important;
+  font-weight: 900 !important;
+  border-radius: 1rem !important;
+}

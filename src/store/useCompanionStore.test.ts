@@ -103,7 +103,7 @@ describe('useCompanionStore', () => {
     // Nourrir
     let success = false;
     act(() => {
-      success = result.current.feedCompanion('dog-companion', 'sugarBone');
+      success = result.current.feedCompanion('alice', 'dog-companion', 'sugarBone');
     });
 
     expect(success).toBe(true);
@@ -124,12 +124,73 @@ describe('useCompanionStore', () => {
 
     let success = true;
     act(() => {
-      success = result.current.feedCompanion('dog-companion', 'sugarBone');
+      success = result.current.feedCompanion('alice', 'dog-companion', 'sugarBone');
     });
 
     expect(success).toBe(false);
     const dogState = result.current.getCompanionState('dog-companion');
     expect(dogState.affection).toBe(0);
+  });
+
+  it('devrait mettre isFeeding à true puis à false après 2 secondes', () => {
+    vi.useFakeTimers();
+    act(() => {
+      useProgressionStore.getState().syncWithProfile('alice');
+      useProgressionStore.getState().addTickets(2);
+    });
+
+    const { result } = renderHook(() => useCompanionStore());
+
+    act(() => {
+      result.current.buyTreat('sugarBone', 1);
+    });
+
+    act(() => {
+      result.current.feedCompanion('alice', 'dog-companion', 'sugarBone');
+    });
+
+    expect(result.current.getCompanionState('dog-companion').isFeeding).toBe(true);
+
+    act(() => {
+      vi.advanceTimersByTime(2000);
+    });
+
+    expect(result.current.getCompanionState('dog-companion').isFeeding).toBe(false);
+    vi.useRealTimers();
+  });
+
+  it('devrait clamer l\'affection et le bonheur à 100 maximum', () => {
+    act(() => {
+      useProgressionStore.getState().syncWithProfile('alice');
+      useProgressionStore.getState().addTickets(10);
+    });
+
+    const { result } = renderHook(() => useCompanionStore());
+
+    act(() => {
+      result.current.buyTreat('sugarBone', 1);
+      result.current.buyTreat('sugarBone', 1);
+      result.current.buyTreat('sugarBone', 1);
+      result.current.buyTreat('sugarBone', 1);
+      result.current.buyTreat('sugarBone', 1);
+      result.current.buyTreat('sugarBone', 1);
+      result.current.buyTreat('sugarBone', 1);
+      result.current.buyTreat('sugarBone', 1);
+    });
+
+    act(() => {
+      result.current.feedCompanion('alice', 'dog-companion', 'sugarBone');
+      result.current.feedCompanion('alice', 'dog-companion', 'sugarBone');
+      result.current.feedCompanion('alice', 'dog-companion', 'sugarBone');
+      result.current.feedCompanion('alice', 'dog-companion', 'sugarBone');
+      result.current.feedCompanion('alice', 'dog-companion', 'sugarBone');
+      result.current.feedCompanion('alice', 'dog-companion', 'sugarBone');
+      result.current.feedCompanion('alice', 'dog-companion', 'sugarBone');
+    });
+
+    const dogState = result.current.getCompanionState('dog-companion');
+    expect(dogState.affection).toBe(100);
+    expect(dogState.happiness).toBe(100);
   });
 
   it('devrait isoler l\'état et l\'inventaire par profil', () => {
@@ -185,5 +246,101 @@ describe('useCompanionStore', () => {
 
     // Devrait être réinitialisé car les données d'Alice ont été effacées
     expect(result.current.getCompanionState('dog-companion').happiness).toBe(50);
+  });
+
+  describe('Virtual Pet Care Simulations', () => {
+    it('devrait gérer le sommeil et la régénération d\'énergie', () => {
+      act(() => {
+        useProgressionStore.getState().syncWithProfile('alice');
+      });
+      const { result } = renderHook(() => useCompanionStore());
+      
+      expect(result.current.getCompanionState('dog-companion').isSleeping).toBe(false);
+      expect(result.current.getCompanionState('dog-companion').energy).toBe(80);
+
+      act(() => {
+        result.current.setSleeping('dog-companion', true);
+      });
+
+      expect(result.current.getCompanionState('dog-companion').isSleeping).toBe(true);
+
+      act(() => {
+        result.current.incrementEnergy('dog-companion', 10);
+      });
+
+      expect(result.current.getCompanionState('dog-companion').energy).toBe(90);
+    });
+
+    it('devrait gérer la génération et le nettoyage des poops', () => {
+      act(() => {
+        useProgressionStore.getState().syncWithProfile('alice');
+      });
+      const { result } = renderHook(() => useCompanionStore());
+
+      expect(result.current.getCompanionState('dog-companion').poops).toEqual([]);
+
+      act(() => {
+        result.current.spawnPoop('dog-companion');
+      });
+
+      const companionState = result.current.getCompanionState('dog-companion');
+      expect(companionState.poops.length).toBe(1);
+      expect(companionState.poops[0].x).toBeGreaterThanOrEqual(20);
+      expect(companionState.poops[0].y).toBeGreaterThanOrEqual(60);
+      expect(companionState.happiness).toBe(40); // 50 - 10
+
+      const poopId = companionState.poops[0].id;
+
+      act(() => {
+        result.current.cleanPoop('dog-companion', poopId);
+      });
+
+      const cleanedState = result.current.getCompanionState('dog-companion');
+      expect(cleanedState.poops).toEqual([]);
+      expect(cleanedState.happiness).toBe(55); // 40 + 15
+    });
+
+    it('devrait gérer le mini-jeu de cache-cache', () => {
+      act(() => {
+        useProgressionStore.getState().syncWithProfile('alice');
+      });
+      const { result } = renderHook(() => useCompanionStore());
+
+      expect(result.current.getCompanionState('dog-companion').isHiding).toBe(false);
+
+      act(() => {
+        result.current.startHideSeek('dog-companion');
+      });
+
+      const hidingState = result.current.getCompanionState('dog-companion');
+      expect(hidingState.isHiding).toBe(true);
+      expect(hidingState.energy).toBe(65); // 80 - 15
+      expect(hidingState.hideSeekState).toBe('hiding');
+
+      const winSpot = hidingState.hidingSpot;
+      const loseSpot = (winSpot + 1) % 3;
+
+      // Guess wrong
+      let success = false;
+      act(() => {
+        success = result.current.guessHideSeek('alice', 'dog-companion', loseSpot);
+      });
+      expect(success).toBe(false);
+      expect(result.current.getCompanionState('dog-companion').hideSeekState).toBe('fail');
+
+      // Guess correct
+      act(() => {
+        success = result.current.guessHideSeek('alice', 'dog-companion', winSpot);
+      });
+      expect(success).toBe(true);
+      expect(result.current.getCompanionState('dog-companion').hideSeekState).toBe('success');
+      expect(result.current.getCompanionState('dog-companion').affection).toBe(15);
+
+      act(() => {
+        result.current.exitHideSeek('dog-companion');
+      });
+      expect(result.current.getCompanionState('dog-companion').isHiding).toBe(false);
+      expect(result.current.getCompanionState('dog-companion').hideSeekState).toBe('idle');
+    });
   });
 });

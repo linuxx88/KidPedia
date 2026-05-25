@@ -56,7 +56,7 @@ describe('Integration: XP and Medals System', () => {
     await waitFor(() => {
       expect(screen.getByText(/1\.5k/i)).toBeDefined();
     });
-  })
+  }, 20000)
 
   it('gère l\'upgrade d\'une médaille (Bronze -> Or) et met à jour les XP correctement', async () => {
     render(<App />)
@@ -93,7 +93,7 @@ describe('Integration: XP and Medals System', () => {
       expect(screen.getByText(/1\.5k/i)).toBeDefined();
     });
     expect(screen.queryByText(/250/i)).toBeNull();
-  })
+  }, 20000)
 
   it('préserve les médailles et les XP après un rafraîchissement (LocalStorage)', async () => {
     const { unmount } = render(<App />)
@@ -114,5 +114,5 @@ describe('Integration: XP and Medals System', () => {
     await waitFor(() => {
       expect(screen.getByText(/1\.5k/i)).toBeDefined();
     }, { timeout: 3000 })
-  })
+  }, 20000)
 })

@@ -134,6 +134,9 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Liaison et Quizz pour les sous-nœuds des Regroupements primitifs (Ticket #42)** (Traité en v3.22.6)
 ✅ **RÉSOLU : Liaison et Quizz pour les sous-nœuds des Grandes civilisations (Ticket #43)** (Traité en v3.22.7)
 ✅ **RÉSOLU : Liaison et Quizz pour les sous-nœuds du Moyen-Âge (Ticket #44)** (Traité en v3.22.8)
+✅ **RÉSOLU : Fonctionnalité "Manger" dans Le Refuge des Compagnons (Ticket #74)** (Traité en v3.23.1)
+✅ **RÉSOLU : La Carte interactive Sonorisée (Ticket #R6)** (Traité en v3.23.2)
+✅ **RÉSOLU : Cycle de vie et interactions (Sommeil, besoins, cache-cache) au Refuge (Ticket #Refuge-Sim)** (Traité en v3.23.3)
 
 
 ---
@@ -141,4 +144,6 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 25 mai 2026 (v3.22.8)*
+*Dernière mise à jour : 25 mai 2026 (v3.23.3)*
+
+

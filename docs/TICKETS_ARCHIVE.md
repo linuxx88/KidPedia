@@ -6,6 +6,36 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #R6 : Version 0.0.6 - La Carte interactive Sonorisée 🗺️
+**Statut** : 🟢 Résolu (v3.23.2)
+**Sévérité** : Faible (Immersion Sensorielle)
+**Localisation** : `src/components/Game/TreasureMap.tsx` & `src/hooks/useMapSounds.ts`
+**Description** :
+Sublimer la carte au trésor interactive en y intégrant un habillage sonore spatialisé de haute qualité. Le glissement (drag/pan) sur la carte doit diffuser un bruit continu et doux de vagues océaniques et de vent marin. Le survol ou le clic sur les îles thématiques déclenche des sonorités spatialisées (cris de mouettes, grondement lointain de volcan, musique mystique des étoiles pour l'île de l'Espace) renforçant le "Waouh effect".
+**Résolution** :
+- **useMapSounds.ts (Nouveau hook)** : Conception et implémentation d'un module d'habillage sonore spatialisé procédural utilisant exclusivement l'API native Web Audio (zéro dépendance externe).
+- **Vagues & Vent marin continus** : Synthèse d'un bruit rose/blanc modulé par LFO sinusoïdaux lents (12s et 20s) pour simuler la houle marine et la brise océanique, avec variations dynamiques lors du panning.
+- **Sonorités spatialisées interactives** : Synthèse de cris de mouettes (sweeps de fréquences en triangle), de grondements volcaniques (bruit filtré low-pass modulé à 10Hz) et d'arpèges stellaires mystiques (chimes pentatoniques) spatialisés en stéréo (StereoPannerNode) selon la position relative de l'île par rapport au centre de l'écran.
+- **Transitions douces & Sourdine** : Intégration de fondus linéaires (fade in/out) de 400ms lors du survol/focus d'une île pour éviter toute transition audio abrupte, et raccordement complet au store de préférences `useSettingsStore` (respect de la sourdine globale `isMuted` et `isSfxMuted`).
+- **TreasureMap.tsx** : Raccordement des événements de survol (`onMouseEnter`/`onMouseLeave`), de focus (`onFocus`/`onBlur`) et de clic pour piloter l'immersion sonore globale et réactive sans aucun re-rendering inutile de l'interface React.
+
+---
+
+## 🎫 Ticket #74 : Fonctionnalité "Manger" dans Le Refuge des Compagnons
+**Statut** : 🟢 Résolu (v3.23.1)
+**Sévérité** : Moyenne (Gamification / Engagement)
+**Localisation** : `src/pages/Refuge/` & `src/store/useCompanionStore.ts`
+**Description** :
+Permettre à l'enfant de nourrir activement ses compagnons virtuels débloqués depuis l'interface du Refuge en utilisant l'inventaire de friandises disponibles. Cette action doit augmenter les jauges d'affection et de bonheur du familier sélectionné, consommer l'item de l'inventaire et déclencher un feedback visuel et sonore immersif.
+**Résolution** :
+- Refactorisation de l'action `feedCompanion` en une action pure prenant explicitement en arguments `(profileId, companionId, treatId)` sans couplage impératif direct avec l'état global du profil actif.
+- Déduction stricte de 1 item de friandise par nourrissage, blocage de l'action en cas d'inventaire vide, incrémentation de l'affection (+15) et du bonheur (+10) bridée à la limite stricte de 100 via clamping dynamique `Math.min`.
+- Intégration d'une propriété éphémère réactive `isFeeding: boolean` dans l'état du compagnon, activée instantanément et nettoyée de façon autonome via `setTimeout` après 2 secondes pour orchestrer et piloter les micro-animations vectorielles de l'interface.
+- Connexion complète de l'action de nourrissage dans `RefugePage.tsx`, déclenchement de la classe d'animation via le store réactif, émission d'un signal sonore cartoon ascendant via l'API Web Audio native (C5-E5-G5) avec sourdine globale (`isMuted`).
+- Réécriture complète de la suite de tests dans `useCompanionStore.test.ts` avec l'utilisation de `vi.useFakeTimers()` pour vérifier le cycle de vie éphémère de l'état `isFeeding` et la protection contre le dépassement des limites d'affection et de bonheur.
+
+---
+
 ## 🎫 Ticket #R5 : Version 0.0.5 - Le Grand Quiz des Champions (Mode Défi) 🏆
 **Statut** : 🟢 Résolu (v3.23.0)
 **Sévérité** : Moyenne (Gamification / Rétention)

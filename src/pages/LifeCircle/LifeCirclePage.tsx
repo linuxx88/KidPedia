@@ -140,6 +140,15 @@ export const LifeCirclePage: React.FC = () => {
   const [selectedElement, setSelectedElement] = useState<NatureElementInfo | null>(null);
   const [clickedElements, setClickedElements] = useState<string[]>([]);
   const [floatingXp, setFloatingXp] = useState<{ x: number; y: number; amount: number } | null>(null);
+  const floatingXpTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  React.useEffect(() => {
+    return () => {
+      if (floatingXpTimeoutRef.current) {
+        clearTimeout(floatingXpTimeoutRef.current);
+      }
+    };
+  }, []);
 
   const handleElementClick = (elementId: string, event?: React.MouseEvent<SVGElement>) => {
     const info = NATURE_ELEMENTS[elementId as keyof typeof NATURE_ELEMENTS];
@@ -159,7 +168,10 @@ export const LifeCirclePage: React.FC = () => {
         const x = rect.left + rect.width / 2;
         const y = rect.top;
         setFloatingXp({ x, y, amount: reward });
-        setTimeout(() => setFloatingXp(null), 1000);
+        if (floatingXpTimeoutRef.current) {
+          clearTimeout(floatingXpTimeoutRef.current);
+        }
+        floatingXpTimeoutRef.current = setTimeout(() => setFloatingXp(null), 1000);
       }
     }
   };

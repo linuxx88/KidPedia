@@ -19,6 +19,10 @@ interface Particle {
   dx: number;
 }
 
+const getPoopChance = (): number => {
+  return Math.random();
+};
+
 export function RefugePage() {
   const navigate = useNavigate();
   const { labels, language, isMuted, isSfxMuted } = useSettingsStore();
@@ -82,7 +86,6 @@ export function RefugePage() {
   }, []);
 
   // Animation states
-  const [isFeedingActive, setIsFeedingActive] = useState(false);
   const [isPettingActive, setIsPettingActive] = useState(false);
   const [highlightBoutique, setHighlightBoutique] = useState(false);
 
@@ -91,7 +94,7 @@ export function RefugePage() {
   const nextParticleId = useRef(0);
 
   // Sound generator
-  const playSound = (type: 'pet' | 'feed' | 'buy' | 'error') => {
+  const playSound = (type: 'pet' | 'feed' | 'buy' | 'error' | 'pop' | 'success') => {
     if (isMuted || isSfxMuted) return;
     try {
       const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
@@ -114,6 +117,42 @@ export function RefugePage() {
         
         osc.start(now);
         osc.stop(now + 0.15);
+      } else if (type === 'pop') {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = 'sine';
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        
+        const now = ctx.currentTime;
+        osc.frequency.setValueAtTime(500, now);
+        osc.frequency.exponentialRampToValueAtTime(1000, now + 0.08);
+        
+        gain.gain.setValueAtTime(0.1, now);
+        gain.gain.exponentialRampToValueAtTime(0.001, now + 0.08);
+        
+        osc.start(now);
+        osc.stop(now + 0.08);
+      } else if (type === 'success') {
+        const now = ctx.currentTime;
+        const playNote = (freq: number, delay: number) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          
+          gain.gain.setValueAtTime(0.08, now + delay);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.2);
+          
+          osc.start(now + delay);
+          osc.stop(now + delay + 0.2);
+        };
+        playNote(523.25, 0); // C5
+        playNote(659.25, 0.06); // E5
+        playNote(783.99, 0.12); // G5
+        playNote(1046.50, 0.18); // C6
       } else if (type === 'feed') {
         const now = ctx.currentTime;
         const playNote = (freq: number, delay: number) => {
@@ -218,6 +257,18 @@ export function RefugePage() {
   const isCompanionUnlocked = unlockedAccessories.includes(selectedCompanionId);
   const compState = companionStore.getCompanionState(selectedCompanionId);
 
+  // Auto Sleeping Energy Regenerator Interval
+  React.useEffect(() => {
+    if (!isCompanionUnlocked) return;
+    if (compState.isSleeping && compState.energy < 100) {
+      const interval = setInterval(() => {
+        companionStore.incrementEnergy(selectedCompanionId, 10);
+        triggerParticles('💤');
+      }, 1000);
+      return () => clearInterval(interval);
+    }
+  }, [compState.isSleeping, compState.energy, selectedCompanionId, isCompanionUnlocked, companionStore]);
+
   // Helper for progress UI
   const getGoldMedalsCount = (categoryKey: string) => {
     if (!activeProfileId) return 0;
@@ -231,7 +282,7 @@ export function RefugePage() {
   };
 
   const handlePet = () => {
-    if (!isCompanionUnlocked) return;
+    if (!isCompanionUnlocked || compState.isSleeping || compState.isHiding) return;
     setIsPettingActive(true);
     playSound('pet');
     triggerParticles('❤️');
@@ -240,7 +291,7 @@ export function RefugePage() {
   };
 
   const handleFeed = () => {
-    if (!isCompanionUnlocked) return;
+    if (!isCompanionUnlocked || compState.isSleeping || compState.isHiding) return;
     const requiredTreat = activeComp.treatType;
     if ((inventory[requiredTreat] || 0) <= 0) {
       playSound('error');
@@ -249,11 +300,17 @@ export function RefugePage() {
       return;
     }
     
-    setIsFeedingActive(true);
+    if (!activeProfileId) return;
     playSound('feed');
     triggerParticles('✨');
-    companionStore.feedCompanion(selectedCompanionId, requiredTreat);
-    setTimeout(() => setIsFeedingActive(false), 800);
+    companionStore.feedCompanion(activeProfileId, selectedCompanionId, requiredTreat);
+
+    // 30% chance to poop!
+    if (getPoopChance() < 0.3) {
+      setTimeout(() => {
+        companionStore.spawnPoop(selectedCompanionId);
+      }, 2500);
+    }
   };
 
   const handleBuyTreat = (treatType: 'sugarBone' | 'goldenLeaf' | 'batteryCell') => {
@@ -265,8 +322,43 @@ export function RefugePage() {
     }
   };
 
+  const handleToggleSleep = () => {
+    if (!isCompanionUnlocked || compState.isHiding) return;
+    playSound('pop');
+    companionStore.setSleeping(selectedCompanionId, !compState.isSleeping);
+  };
+
+  const handleCleanPoop = (poopId: string) => {
+    playSound('pop');
+    triggerParticles('🧼');
+    companionStore.cleanPoop(selectedCompanionId, poopId);
+  };
+
+  const handlePlayHideSeek = () => {
+    if (!isCompanionUnlocked || compState.isSleeping || compState.energy < 15) {
+      playSound('error');
+      return;
+    }
+    playSound('pop');
+    companionStore.startHideSeek(selectedCompanionId);
+  };
+
+  const handleBushClick = (spotIndex: number) => {
+    if (!activeProfileId) return;
+    const win = companionStore.guessHideSeek(activeProfileId, selectedCompanionId, spotIndex);
+    if (win) {
+      playSound('success');
+      triggerParticles('✨');
+    } else {
+      playSound('error');
+      triggerParticles('❓');
+    }
+  };
+
   // Determine dynamic classes for animation
-  const animationClass = isFeedingActive
+  const animationClass = compState.isSleeping
+    ? styles.isSleepingAnim
+    : compState.isFeeding
     ? emojiStyles.isFeeding
     : isPettingActive
     ? emojiStyles.isPetting
@@ -335,8 +427,8 @@ export function RefugePage() {
                   >
                     <span className={styles.selectorIcon}>{info.emoji}</span>
                     <div className={styles.selectorMeta}>
-                      <span className={styles.selectorName}>{info.name}</span>
-                      <span className={styles.selectorStatus}>
+                       <span className={styles.selectorName}>{info.name}</span>
+                       <span className={styles.selectorStatus}>
                         {unlocked ? (
                           <span className={styles.affectionBadge}>
                             💖 {companionStore.getCompanionState(key).affection}%
@@ -356,7 +448,7 @@ export function RefugePage() {
           </div>
 
           {/* Core Interactive Sandbox */}
-          <div className={styles.sandbox}>
+          <div className={`${styles.sandbox} ${compState.isSleeping ? styles.nightMode : ''}`}>
             {!isCompanionUnlocked ? (
               /* Locked Screen Display */
               <div className={styles.lockedState}>
@@ -403,9 +495,71 @@ export function RefugePage() {
                   })}
                 </div>
               </div>
+            ) : compState.isHiding ? (
+              /* Hide and Seek Game Board */
+              <div className={styles.hideSeekBoard}>
+                <h3 className={styles.hideSeekTitle}>
+                  {compState.hideSeekState === 'hiding' && (language === 'fr' ? 'Où se cache le compagnon ? 🌳' : 'Where is the companion hiding? 🌳')}
+                  {compState.hideSeekState === 'success' && (language === 'fr' ? 'Gagné ! 🎉 +2 🎫' : 'You Won! 🎉 +2 🎫')}
+                  {compState.hideSeekState === 'fail' && (language === 'fr' ? 'Pas ici ! Essaye encore... 🧐' : 'Not here! Try again... 🧐')}
+                </h3>
+                <div className={styles.bushesGrid}>
+                  {[0, 1, 2].map((idx) => {
+                    const isWinningSpot = idx === compState.hidingSpot;
+                    const showCompanion = compState.hideSeekState === 'success' && isWinningSpot;
+                    
+                    return (
+                      <button
+                        key={idx}
+                        className={`${styles.bushCard} ${compState.hideSeekState === 'fail' ? styles.shakeBush : ''}`}
+                        onClick={() => handleBushClick(idx)}
+                        disabled={compState.hideSeekState === 'success'}
+                      >
+                        {showCompanion ? (
+                          <div className={styles.companionReveal}>
+                            <TransformedEmoji
+                              emoji={activeComp.emoji}
+                              size={100}
+                              className={emojiStyles.isFeeding}
+                            />
+                          </div>
+                        ) : (
+                          <span className={styles.bushEmoji}>🌳</span>
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+                {compState.hideSeekState === 'success' && (
+                  <AppButton
+                    onClick={() => companionStore.exitHideSeek(selectedCompanionId)}
+                    variant="primary"
+                    className={styles.exitHideSeekBtn}
+                  >
+                    {language === 'fr' ? 'Continuer' : 'Continue'}
+                  </AppButton>
+                )}
+              </div>
             ) : (
               /* Unlocked Play Environment */
               <div className={styles.playZone}>
+                {/* Poops interactive layer */}
+                {compState.poops && compState.poops.map((poop) => (
+                  <button
+                    key={poop.id}
+                    className={styles.poopElement}
+                    style={{ left: `${poop.x}%`, top: `${poop.y}%` }}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      handleCleanPoop(poop.id);
+                    }}
+                    aria-label={language === 'fr' ? 'Nettoyer le besoin' : 'Clean poop'}
+                    title={language === 'fr' ? 'Nettoyer' : 'Clean'}
+                  >
+                    💩
+                  </button>
+                ))}
+
                 <div className={styles.companionDisplay} onClick={handlePet}>
                   <TransformedEmoji
                     emoji={activeComp.emoji}
@@ -446,6 +600,21 @@ export function RefugePage() {
                       ></div>
                     </div>
                   </div>
+
+                  <div className={styles.statRow}>
+                    <div className={styles.statHeader}>
+                      <span className={styles.statLabel}>
+                        ⚡ {language === 'fr' ? 'Énergie' : 'Energy'}
+                      </span>
+                      <span className={styles.statValue}>{compState.energy}/100</span>
+                    </div>
+                    <div className={styles.barContainer}>
+                      <div
+                        className={styles.barFillEnergy}
+                        style={{ width: `${compState.energy}%` }}
+                      ></div>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Interaction Action Panel */}
@@ -454,6 +623,7 @@ export function RefugePage() {
                     onClick={handlePet}
                     variant="primary"
                     className={styles.actionBtn}
+                    disabled={compState.isSleeping}
                   >
                     🥰 {labels.refuge.petButton}
                   </AppButton>
@@ -462,11 +632,27 @@ export function RefugePage() {
                     onClick={handleFeed}
                     variant="primary"
                     className={styles.actionBtn}
-                    disabled={(inventory[activeComp.treatType] || 0) <= 0}
+                    disabled={compState.isSleeping || (inventory[activeComp.treatType] || 0) <= 0}
                   >
                     😋 {labels.refuge.feedButton} ({activeComp.treatEmoji})
                   </AppButton>
 
+                  <AppButton
+                    onClick={handlePlayHideSeek}
+                    variant="primary"
+                    className={styles.actionBtn}
+                    disabled={compState.isSleeping || compState.energy < 15}
+                  >
+                    🎮 {language === 'fr' ? 'Jouer' : 'Play'}
+                  </AppButton>
+
+                  <AppButton
+                    onClick={handleToggleSleep}
+                    variant="secondary"
+                    className={styles.actionBtn}
+                  >
+                    {compState.isSleeping ? '☀️ ' + (language === 'fr' ? 'Réveiller' : 'Wake up') : '💤 ' + (language === 'fr' ? 'Faire dodo' : 'Sleep')}
+                  </AppButton>
                 </div>
               </div>
             )}

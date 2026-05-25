@@ -6,6 +6,36 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## Espace Parents & Limites de Temps
 
+### VERSION 3.23.3 - Le Refuge des Compagnons : Cycle de sommeil, cache-cache et besoins 🐾💤💩 (25 Mai 2026)
+--------------------------------------------------
+- **[Gamification/Logic/UI/UX] Cycle de sommeil, cache-cache et besoins dans Le Refuge :**
+    - **useCompanionStore.ts (Logic & State)** : Extension complète du store persistant pour intégrer les états de simulation de vie (`energy`, `isSleeping`, `poops`, `isHiding`, `hidingSpot`, `hideSeekState`). Implémentation des routines d'endormissement, d'incrémentation d'énergie, de génération de poops (30% de chance lors de l'alimentation), d'actions tactiles de nettoyage (🧼) avec augmentation du bien-être et de mini-jeu de cache-cache (deviner le buisson parmi 3).
+    - **RefugePage.tsx & RefugePage.module.css (UI/UX)** : Intégration complète de la simulation :
+      - *Sommeil* : Bouton de dodo tamisant l'enclos dans un filtre nuit bleuté et générant des particules d'émojis `💤` éphémères montantes.
+      - *Besoins* : Rendu et positionnement dynamique des `💩` cliquables dans le sandbox, avec nettoyage tactile, bulles de savon `🧼` et restauration du bonheur.
+      - *Cache-cache* : Remplacement du compagnon par 3 buissons magiques animés et frémissants. En cas de succès, le compagnon jaillit et l'explorateur gagne 2 tickets.
+    - **Procedural Audio Synthesis** : Ajout d'ambiances et retours sonores procéduraux Web Audio API (notes chimes de carillon pour le cache-cache correct, défaite, soap bubble pop pour le nettoyage et ronflements légers de sommeil) respectant la sourdine parents (`isMuted`).
+    - **useCompanionStore.test.ts (Tests unitaires)** : Ajout de 3 nouvelles suites de tests d'intégration simulant tout le cycle de sommeil (régénération passive), de nettoyage de poop et le bon déroulement du cache-cache.
+
+### VERSION 3.23.2 - La Carte interactive Sonorisée et Spatialisée 🗺️🔊 (25 Mai 2026)
+--------------------------------------------------
+- **[Aesthetics/A11y/Logic/UI/UX] Carte interactive Sonorisée et Spatialisée (Ticket #R6) :**
+    - **useMapSounds.ts (Nouveau hook)** : Conception et implémentation d'un module d'habillage sonore spatialisé procédural utilisant exclusivement l'API native Web Audio (zéro dépendance externe).
+    - **Vagues & Vent marin continus** : Synthèse d'un bruit rose/blanc modulé par LFO sinusoïdaux lents (12s et 20s) pour simuler la houle marine et la brise océanique, avec variations dynamiques lors du panning.
+    - **Sonorités spatialisées interactives** : Synthèse de cris de mouettes (sweeps de fréquences en triangle), de grondements volcaniques (bruit filtré low-pass modulé à 10Hz) et d'arpèges stellaires mystiques (chimes pentatoniques) spatialisés en stéréo (StereoPannerNode) selon la position relative de l'île par rapport au centre de l'écran.
+    - **Transitions douces & Sourdine** : Intégration de fondus linéaires (fade in/out) de 400ms lors du survol/focus d'une île pour éviter toute transition audio abrupte, et raccordement complet au store de préférences `useSettingsStore` (respect de la sourdine globale `isMuted` et `isSfxMuted`).
+    - **TreasureMap.tsx (UI/UX & A11y)** : Raccordement des événements de survol (`onMouseEnter`/`onMouseLeave`), de focus (`onFocus`/`onBlur`) et de clic pour piloter l'immersion sonore globale et réactive sans aucun re-rendering inutile de l'interface React, et raccordement sonore de tous les contrôles (zoom in/out, bouton retour, popup d'exploration).
+    - **useMapSounds.test.ts (Tests unitaires)** : Suite complète de tests unitaires pour valider l'initialisation de l'AudioContext, le cycle de vie des sons procéduraux sur le survol/selection et le respect des préférences de sourdine parents.
+
+### VERSION 3.23.1 - La Cabane et le Refuge : Nourrissage et affection des compagnons 🦴🍎 (25 Mai 2026)
+--------------------------------------------------
+- **[Gamification/Logic/UI/UX] Fonctionnalité "Manger" dans Le Refuge des Compagnons (Ticket #74) :**
+    - **useCompanionStore.ts (Logic & State)** : Refactorisation de l'action `feedCompanion` en une action pure prenant explicitement en arguments `(profileId, companionId, treatId)` sans couplage impératif direct avec l'état global du profil actif.
+    - **Consommation d'inventaire & Clamping** : Déduction stricte de 1 item de friandise par nourrissage, blocage de l'action en cas d'inventaire vide, incrémentation de l'affection (+15) et du bonheur (+10) bridée à la limite stricte de 100 via clamping dynamique `Math.min`.
+    - **isFeeding (State éphémère)** : Intégration d'une propriété éphémère réactive `isFeeding: boolean` dans l'état du compagnon, activée instantanément et nettoyée de façon autonome via `setTimeout` après 2 secondes pour orchestrer et piloter les micro-animations vectorielles de l'interface.
+    - **RefugePage.tsx (UI & UX)** : Connexion complète de l'action de nourrissage, déclenchement de la classe d'animation via le store réactif, émission d'un signal sonore cartoon ascendant via l'API Web Audio native (C5-E5-G5) avec sourdine globale (`isMuted`).
+    - **useCompanionStore.test.ts (Tests unitaires)** : Réécriture complète de la suite de tests avec l'utilisation de `vi.useFakeTimers()` pour vérifier le cycle de vie éphémère de l'état `isFeeding` et la protection contre le dépassement des limites d'affection et de bonheur.
+
 ### VERSION 3.23.0 - Le Grand Quiz des Champions 🏆⚡ (25 Mai 2026)
 --------------------------------------------------
 - **[Gamification/Logic/UI/UX] Le Grand Quiz des Champions (Mode Défi) (Ticket #R5) :**

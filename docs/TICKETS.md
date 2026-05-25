@@ -11,19 +11,8 @@ Vous pouvez consulter l'historique de tous les tickets déjà résolus et clôtu
 Ce volet réunit les spécifications stratégiques conçues par le Product Manager pour les futures itérations du MVP (versions 0.0.3 à 0.0.9), visant à consolider l'immersion ludique, l'ergonomie physique et l'apprentissage inclusif des 4-8 ans.
 
 ---
-
-## 🎫 Ticket #R6 : Version 0.0.6 - La Carte interactive Sonorisée 🗺️
-**Statut** : 🔴 À faire (Planifié pour v0.0.6)
-**Sévérité** : Faible (Immersion Sensorielle)
-**Localisation** : `src/components/Game/TreasureMap.tsx` & `src/hooks/useMapSounds.ts`
-**Description** :
-Sublimer la carte au trésor interactive en y intégrant un habillage sonore spatialisé de haute qualité. Le glissement (drag/pan) sur la carte doit diffuser un bruit continu et doux de vagues océaniques et de vent marin. Le survol ou le clic sur les îles thématiques déclenche des sonorités spatialisées (cris de mouettes, grondement lointain de volcan, musique mystique des étoiles pour l'île de l'Espace) renforçant le "Waouh effect".
-**Critères d'Acceptation (DOD)** :
-- [ ] Configurer un gestionnaire de contexte audio Web Audio API pour spatialiser les sons selon la position de défilement (panning) de la carte.
-- [ ] Assurer un fondu enchaîné (fade in/out) de 400ms lors de la sélection des îles pour éviter toute transition audio abrupte.
-- [ ] Lier cette ambiance au bouton général de sourdine (`MuteToggle`) de l'en-tête pour respecter la tranquillité des parents.
-
 ---
+
 
 ## 🎫 Ticket #R7 : Version 0.0.7 - La Cabane Personnalisable d'Explorateur 🎁
 **Statut** : 🔴 À faire (Planifié pour v0.0.7)

@@ -8,6 +8,7 @@ import { AppOverlay } from '../UI/AppOverlay';
 import { MAP_SVG_CONFIG } from '../../constants/geometry';
 import { useMapZoom } from '../../hooks/useMapZoom';
 import { useVisualEffects } from '../../hooks/useVisualEffects';
+import { useMapSounds } from '../../hooks/useMapSounds';
 import { getMedalIcon, type MedalType } from '../../utils/quizMessages';
 import { type MapMarker } from '../../data/mapData';
 import { type Labels } from '../../locales/types';
@@ -22,6 +23,10 @@ interface MapPointProps {
   topicId: string;
   medal?: MedalType;
   onClick: () => void;
+  onMouseEnter: () => void;
+  onMouseLeave: () => void;
+  onFocus: () => void;
+  onBlur: () => void;
   labels: Labels;
   zoom: number;
 }
@@ -30,7 +35,21 @@ interface MapPointProps {
  * MapPoint - Marqueur individuel sur la carte.
  * Mémoïsé pour éviter les re-renders si les props ne changent pas.
  */
-const MapPoint = React.memo<MapPointProps>(({ x, y, icon, title, topicId, medal, onClick, labels, zoom }) => {
+const MapPoint = React.memo<MapPointProps>(({
+  x,
+  y,
+  icon,
+  title,
+  topicId,
+  medal,
+  onClick,
+  onMouseEnter,
+  onMouseLeave,
+  onFocus,
+  onBlur,
+  labels,
+  zoom
+}) => {
   const pointStyle: React.CSSProperties = { 
     left: `${x}%`, 
     top: `${y}%`,
@@ -53,6 +72,10 @@ const MapPoint = React.memo<MapPointProps>(({ x, y, icon, title, topicId, medal,
       onTouchStart={(e) => {
         e.stopPropagation(); // Éviter de déclencher le drag ou le double-tap du parent
       }}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      onFocus={onFocus}
+      onBlur={onBlur}
       title={title}
       aria-label={a11yLabel}
       data-testid={`map-point-${topicId}`}
@@ -93,6 +116,13 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
   const [isDragging, setIsDragging] = useState(false);
   const [dragStart, setDragStart] = useState({ x: 0, y: 0, scrollLeft: 0, scrollTop: 0 });
   const [hasMoved, setHasMoved] = useState(false);
+
+  // --- HABILLAGE SONORE DE LA CARTE ---
+  const {
+    playClickSound,
+    handleIslandHoverStart,
+    handleIslandHoverEnd
+  } = useMapSounds(containerRef);
 
   // --- COMPENSATION DU ZOOM ET DEFILEMENT ---
   const zoomTargetRef = useRef<{ rx: number; ry: number }>({ rx: 0.5, ry: 0.5 });
@@ -290,9 +320,10 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
   const handlePointClick = useCallback((point: MapMarker) => {
     // Si on a bougé pendant le clic, on ignore l'action (c'était un drag)
     if (!hasMoved) {
+      playClickSound();
       setSelectedPoint(point);
     }
-  }, [hasMoved]);
+  }, [hasMoved, playClickSound]);
 
   const handleDoubleClick = (e: React.MouseEvent) => {
     // Le double clic ne doit pas interférer avec le drag
@@ -333,12 +364,16 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
             title={point.title[language]}
             medal={badge?.medal}
             onClick={() => handlePointClick(point)}
+            onMouseEnter={() => handleIslandHoverStart(point)}
+            onMouseLeave={() => handleIslandHoverEnd(point)}
+            onFocus={() => handleIslandHoverStart(point)}
+            onBlur={() => handleIslandHoverEnd(point)}
             labels={labels}
             zoom={zoom}
           />
         );
       });
-  }, [markers, zoom, badges, language, handlePointClick, labels]);
+  }, [markers, zoom, badges, language, handlePointClick, handleIslandHoverStart, handleIslandHoverEnd, labels]);
 
   const canvasStyle: React.CSSProperties = { 
     transform: `scale(${zoom})`, 
@@ -351,12 +386,16 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
         <PageHeader 
           title={labels.discovery.mapTitle}
           icon="🗺️"
-          onBack={onBack}
+          onBack={() => {
+            playClickSound();
+            onBack();
+          }}
           rightElement={
             <div className={styles.zoomSidebar} role="group" aria-label="Contrôles du zoom">
               <button 
                 className={styles.zoomBtn} 
                 onClick={() => {
+                  playClickSound();
                   captureViewportCenterAsZoomTarget();
                   zoomOut();
                 }} 
@@ -368,6 +407,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
               <button 
                 className={styles.zoomBtn} 
                 onClick={() => {
+                  playClickSound();
                   captureViewportCenterAsZoomTarget();
                   zoomIn();
                 }} 
@@ -378,6 +418,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
               <button 
                 className={styles.zoomBtn} 
                 onClick={() => {
+                  playClickSound();
                   zoomTargetRef.current = { rx: 0.5, ry: 0.5 };
                   resetZoom();
                 }} 
@@ -435,7 +476,10 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
 
         <AppOverlay
           isOpen={!!selectedPoint}
-          onClose={() => setSelectedPoint(null)}
+          onClose={() => {
+            playClickSound();
+            setSelectedPoint(null);
+          }}
           closeLabel={labels.common.close}
           title={selectedPoint?.title[language]}
           data-testid="discovery-popup"
@@ -445,7 +489,10 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
               <span className={styles.popupIcon} aria-hidden="true">{selectedPoint.icon}</span>
               <p className={styles.popupText}>{labels.discovery.discoveryMessage}</p>
               <AppButton 
-                onClick={() => navigate(`/topic/${selectedPoint.topicId}`)}
+                onClick={() => {
+                  playClickSound();
+                  navigate(`/topic/${selectedPoint.topicId}`);
+                }}
                 className={styles.explorerBtnMap}
               >
                 {labels.discovery.explore(selectedPoint.title[language])}
