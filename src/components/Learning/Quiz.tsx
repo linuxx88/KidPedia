@@ -48,7 +48,8 @@ export const QuizComponent = ({
   // Synthesized ding sound using native Web Audio API
   const playSynthesizedDing = () => {
     const isMuted = useSettingsStore.getState().isMuted
-    if (isMuted) return
+    const isSfxMuted = useSettingsStore.getState().isSfxMuted
+    if (isMuted || isSfxMuted) return
 
     try {
       const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
@@ -80,7 +81,8 @@ export const QuizComponent = ({
   // Synthesized perfect fanfare sound using native Web Audio API
   const playSynthesizedPerfectFanfare = () => {
     const isMuted = useSettingsStore.getState().isMuted
-    if (isMuted) return
+    const isSfxMuted = useSettingsStore.getState().isSfxMuted
+    if (isMuted || isSfxMuted) return
 
     try {
       const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext

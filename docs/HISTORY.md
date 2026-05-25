@@ -8,6 +8,24 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 
 
+### VERSION 3.21.0 - Sprint d'Optimisation, Localisation & Accessibilité (24 Mai 2026)
+--------------------------------------------------
+- **[Logic/QA/TypeScript] Résolution des erreurs de compilation strictes TypeScript (Ticket #05, Ticket #22) :**
+    - **useAmbientAudio.ts** : Changement du type de `fadeIntervalRef` de `ReturnType<typeof setInterval> | null` à `ReturnType<typeof setInterval> | undefined` pour corriger les erreurs de compilation stricte TS2345 liées à `clearInterval` qui n'accepte pas `null`.
+    - **useAudioFeedback.ts** : Sécurisation du transtypage de l'objet `window` pour obtenir `webkitAudioContext` sans utiliser le type interdit `any`, évitant ainsi les violations de la règle `@typescript-eslint/no-explicit-any`.
+- **[i18n/PWA/Security] Traduction et protection du prompt d'installation PWA (Ticket #25, Ticket #26) :**
+    - **types.ts / fr.ts / en.ts** : Ajout du namespace structurel `pwa` pour traduire de manière complète et bilingue les messages du prompt de mise à jour et de l'installation hors-ligne.
+    - **PWAPrompt.tsx** : Raccordement du composant au store de préférences `useSettingsStore` pour dynamiser les messages. Ajout d'un garde-fou persisté dans le `localStorage` sous la clé `kp-pwa-dismissed` pendant 24 heures pour éviter les réaffichages récursifs intempestifs sur Safari iOS.
+- **[UX/UI/Responsive/A11y] Refonte adaptative et accessibilité du Refuge des Compagnons (Ticket #66, Ticket #67, Ticket #68, Ticket #71) :**
+    - **RefugePage.tsx** : Intégration du hook `useTextToSpeech` et du composant d'accessibilité `DiscreteSpeaker` pour vocaliser les descriptions d'adoption et les friandises de la boutique, offrant une autonomie à 100% pour les enfants de 4-6 ans.
+    - **RefugePage.module.css** :
+        - Optimisation du layout pour mobile via l'ajout de `@media` ciblés pour recalculer les paddings de `.refugeContainer`, `.sandbox`, et `.boutiqueCard`.
+        - Rétablissement de `display: grid` sur `.dashboardGrid` pour les écrans larges (> 992px) pour restaurer la mise en page double colonne sur desktop.
+        - Empilement vertical (`flex-direction: column`) des boutons d'actions sous les 640px de largeur d'écran et polices fluides (`clamp`) pour éliminer la troncature du bouton "Nourrir" et du titre "Magasin de Friandises".
+- **[UX/UI] Correction des icônes de compagnons et en-tête immersif (Ticket #64, Ticket #70) :**
+    - **MissionSafari.tsx** : Mise à jour du helper `getCompanionIcon()` pour supporter les identifiants réels enregistrés dans le store (`dog-companion`, `dino-companion`, `robot-companion`), rétablissant l'icône personnalisée active dans la boîte de dialogue en jeu.
+    - **MainLayout.tsx** : Ajout de la route `/refuge` aux routes immersives (`isImmersive`), masquant automatiquement le double header global et le footer global pour maximiser l'espace vertical disponible en mode portrait.
+
 ### VERSION 3.20.14 - Intégration de la sourdine globale au Refuge des Animaux 🤫🐾 (24 Mai 2026)
 --------------------------------------------------
 - **[Aesthetics/UX/A11y/QA] Conformité de la sourdine globale (isMuted) dans Le Refuge (Ticket #65) :**

@@ -99,6 +99,7 @@
 
 @media (min-width: 992px) {
   .dashboardGrid {
+    display: grid;
     grid-template-columns: 2.2fr 1fr;
   }
 }
@@ -111,11 +112,53 @@
 }
 
 /* Selector list */
+.selectorBarWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.scrollFadeLeft {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0.5rem; /* Matches padding-bottom of .selectorBar */
+  width: 45px;
+  background: linear-gradient(to right, #0f172a 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+:global(.dark) .scrollFadeLeft {
+  background: linear-gradient(to right, #020617 0%, transparent 100%);
+}
+
+.scrollFadeRight {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0.5rem; /* Matches padding-bottom of .selectorBar */
+  width: 45px;
+  background: linear-gradient(to left, #0f172a 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 10;
+  transition: opacity 0.3s ease;
+}
+
+:global(.dark) .scrollFadeRight {
+  background: linear-gradient(to left, #020617 0%, transparent 100%);
+}
+
 .selectorBar {
   display: flex;
   gap: 1rem;
   overflow-x: auto;
   padding-bottom: 0.5rem;
+  scrollbar-width: none; /* Hide default scrollbar on Firefox */
+}
+
+.selectorBar::-webkit-scrollbar {
+  display: none; /* Hide default scrollbar on Chrome/Safari */
 }
 
 .selectorCard {
@@ -390,6 +433,20 @@
   border-radius: 1.25rem !important;
 }
 
+@media (max-width: 640px) {
+  .actionPanel {
+    flex-direction: column;
+    width: 100%;
+    gap: 0.75rem;
+  }
+  
+  .actionBtn {
+    width: 100%;
+    font-size: clamp(0.9rem, 4vw, 1.05rem) !important;
+    padding: 0.75rem 1.25rem !important;
+  }
+}
+
 /* Boutique container details */
 .boutiqueCard {
   background: rgba(255, 255, 255, 0.04);
@@ -402,7 +459,7 @@
 }
 
 .boutiqueTitle {
-  font-size: 1.4rem;
+  font-size: clamp(1.1rem, 4.5vw, 1.4rem);
   font-weight: 950;
   margin-top: 0;
   margin-bottom: 1.5rem;
@@ -512,4 +569,28 @@
   box-shadow: none;
   cursor: not-allowed;
   opacity: 0.5;
+}
+
+@media (max-width: 768px) {
+  .refugeContainer {
+    padding: 1.25rem 0.75rem;
+    border-radius: 1.5rem;
+  }
+  
+  .sandbox {
+    padding: 1.5rem 1rem;
+    min-height: auto;
+  }
+  
+  .boutiqueCard {
+    padding: 1.25rem 1rem;
+  }
+  
+  .boutiqueTitle {
+    font-size: clamp(1rem, 5vw, 1.25rem) !important;
+    margin-bottom: 1.25rem;
+    padding-bottom: 0.5rem;
+    white-space: normal;
+    word-break: break-word;
+  }
 }

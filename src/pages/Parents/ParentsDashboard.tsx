@@ -19,6 +19,11 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
   const labels = useSettingsStore(state => state.labels);
   const t = labels.parents;
 
+  const isMusicMuted = useSettingsStore(state => state.isMusicMuted);
+  const isSfxMuted = useSettingsStore(state => state.isSfxMuted);
+  const toggleMusicMute = useSettingsStore(state => state.toggleMusicMute);
+  const toggleSfxMute = useSettingsStore(state => state.toggleSfxMute);
+
   const totalTopics = encyclopedia.length;
 
   return (
@@ -76,6 +81,45 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
                 </div>
               );
             })}
+          </div>
+        </section>
+
+        {/* 🎛️ Audio Settings Section */}
+        <section className={styles.section} style={{ marginTop: '2rem' }}>
+          <h3 className={styles.sectionTitle}>{t.audioSettingsTitle}</h3>
+          
+          <div className={styles.audioSettingsGrid}>
+            <div className={styles.audioRow}>
+              <div className={styles.audioLabel}>
+                <span className={styles.audioTitle}>🎵 {labels.refuge.title.includes('Refuge') ? 'Musique d\'ambiance' : 'Background Music'}</span>
+                <span className={styles.audioDesc}>{t.musicMute}</span>
+              </div>
+              <label className={styles.switch}>
+                <input 
+                  type="checkbox" 
+                  checked={isMusicMuted} 
+                  onChange={toggleMusicMute}
+                  aria-label={t.musicMute}
+                />
+                <span className={styles.slider}></span>
+              </label>
+            </div>
+
+            <div className={styles.audioRow}>
+              <div className={styles.audioLabel}>
+                <span className={styles.audioTitle}>🔊 {labels.refuge.title.includes('Refuge') ? 'Effets Sonores (SFX)' : 'Sound Effects (SFX)'}</span>
+                <span className={styles.audioDesc}>{t.sfxMute}</span>
+              </div>
+              <label className={styles.switch}>
+                <input 
+                  type="checkbox" 
+                  checked={isSfxMuted} 
+                  onChange={toggleSfxMute}
+                  aria-label={t.sfxMute}
+                />
+                <span className={styles.slider}></span>
+              </label>
+            </div>
           </div>
         </section>
 

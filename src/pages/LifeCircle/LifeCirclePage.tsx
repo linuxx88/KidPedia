@@ -262,8 +262,8 @@ export const LifeCirclePage: React.FC = () => {
           <div className={`${styles.layer} ${styles.layerMidground}`}>
             <svg viewBox="0 0 1000 1000" className={styles.svgTreeWrapper} style={{ width: '100%', height: '100%' }}>
               {/* Montagnes d'arrière-plan */}
-              <polygon points="-50,700 250,450 550,700" fill="#475569" opacity="0.4" />
-              <polygon points="400,700 700,400 1050,700" fill="#334155" opacity="0.5" />
+              <polygon points="-50,700 250,450 550,700" fill="#cbd5e1" opacity="0.8" />
+              <polygon points="400,700 700,400 1050,700" fill="#94a3b8" opacity="0.85" />
               
               {/* Silhouettes d'arbres distants */}
               <path d="M100,600 L120,530 L140,600 Z" fill="#1e293b" opacity="0.3" />
@@ -316,13 +316,25 @@ export const LifeCirclePage: React.FC = () => {
                 aria-label={ELEMENT_DETAILS.roots.name[language]} 
                 onClick={(e) => handleElementClick('roots', e)}
               >
-                <path 
-                  id="roots"
-                  d="M 440,750 Q 300,780 200,880 Q 250,920 380,840 Q 430,800 450,760 Z" 
-                  fill="#452a16"
-                  className={`${styles.roots} ${styles.interactiveElement}`}
-                  style={{ '--glow-color': 'rgba(239, 68, 68, 0.6)' } as React.CSSProperties}
-                />
+                <g className={styles.interactiveElement} style={{ '--glow-color': 'rgba(239, 68, 68, 0.6)' } as React.CSSProperties}>
+                  <path 
+                    id="roots"
+                    d="M 440,750 Q 300,780 200,880 Q 250,920 380,840 Q 430,800 450,760 Z" 
+                    fill="#452a16"
+                    className={styles.roots}
+                  />
+                  {/* Champignons mignons sur les racines */}
+                  <g id="mushrooms" transform="translate(250, 780)">
+                    {/* Invisible hit area for mushrooms (50px diameter) */}
+                    <circle cx="20" cy="40" r="25" fill="transparent" />
+
+                    <ellipse cx="20" cy="40" rx="12" ry="12" fill="#ef4444" />
+                    <rect x="16" y="40" width="8" height="15" fill="#f8fafc" rx="4" />
+                    <ellipse cx="20" cy="36" rx="12" ry="8" fill="#ef4444" />
+                    <circle cx="16" cy="33" r="2" fill="#ffffff" />
+                    <circle cx="24" cy="35" r="2" fill="#ffffff" />
+                  </g>
+                </g>
               </AccessibleSvgHotspot>
 
               {/* Racine Droite */}
@@ -338,15 +350,6 @@ export const LifeCirclePage: React.FC = () => {
                   style={{ '--glow-color': 'rgba(239, 68, 68, 0.6)' } as React.CSSProperties}
                 />
               </AccessibleSvgHotspot>
-
-              {/* Champignons mignons sur les racines (liés à root/roots) */}
-              <g id="mushrooms" transform="translate(250, 780)">
-                <ellipse cx="20" cy="40" rx="12" ry="12" fill="#ef4444" />
-                <rect x="16" y="40" width="8" height="15" fill="#f8fafc" rx="4" />
-                <ellipse cx="20" cy="36" rx="12" ry="8" fill="#ef4444" />
-                <circle cx="16" cy="33" r="2" fill="#ffffff" />
-                <circle cx="24" cy="35" r="2" fill="#ffffff" />
-              </g>
 
               {/* --- FEUILLE INTERACTIVE --- */}
               <AccessibleSvgHotspot 
@@ -402,6 +405,10 @@ export const LifeCirclePage: React.FC = () => {
                   className={`${styles.fruit} ${styles.interactiveElement}`}
                   style={{ '--glow-color': 'rgba(239, 68, 68, 0.9)' } as React.CSSProperties}
                 >
+                  {/* Invisible hit areas for apples (50px diameter to reach 44px minimum) */}
+                  <circle cx="450" cy="240" r="25" fill="transparent" />
+                  <circle cx="580" cy="200" r="25" fill="transparent" />
+
                   {/* Pomme 1 */}
                   <circle cx="450" cy="240" r="18" className={styles.fruits} />
                   <path d="M 450,222 Q 453,212 458,215" stroke="#78350f" strokeWidth="3" fill="none" className={styles.fruits} />
@@ -444,6 +451,9 @@ export const LifeCirclePage: React.FC = () => {
                   className={`${styles.insect} ${styles.interactiveElement}`}
                   style={{ '--glow-color': 'rgba(253, 224, 71, 0.9)' } as React.CSSProperties}
                 >
+                  {/* Invisible hit area for bee (50px diameter to reach 44px minimum) */}
+                  <circle cx="0" cy="-6" r="25" fill="transparent" />
+
                   {/* Ailes */}
                   <ellipse cx="-4" cy="-12" rx="6" ry="12" fill="#cbd5e1" opacity="0.7" transform="rotate(-30)" />
                   <ellipse cx="6" cy="-12" rx="6" ry="12" fill="#cbd5e1" opacity="0.7" transform="rotate(30)" />

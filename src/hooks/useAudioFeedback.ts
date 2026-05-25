@@ -36,18 +36,106 @@ if (typeof window !== 'undefined' && typeof useSettingsStore.subscribe === 'func
  */
 export const useAudioFeedback = () => {
   const isMuted = useSettingsStore(state => state.isMuted);
+  const isSfxMuted = useSettingsStore(state => state.isSfxMuted);
   
   const playSound = useCallback((type: SoundType) => {
     // 0. Check Mute
-    if (isMuted) {
+    if (isMuted || isSfxMuted) {
       console.log(`%c 🔇 [AUDIO_MUTED]: ${type} ignoré.`, 'color: #999;');
       return;
     }
 
-    // 1. Log de Debug (Essentiel pour ton X220)
+    // 1. Synthesized sounds logic using native Web Audio API
+    const synthesizedTypes = ['click', 'success', 'medal', 'pop', 'error'];
+    if (typeof type === 'string' && synthesizedTypes.includes(type)) {
+      console.log(`%c 🔊 [AUDIO_SYNTH]: ${type}`, 'background: #222; color: #38bdf8; padding: 2px 5px; border-radius: 4px;');
+      try {
+        const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
+        if (AudioContextClass) {
+          const ctx = new AudioContextClass();
+          
+          if (type === 'click') {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(600, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(300, ctx.currentTime + 0.08);
+            gain.gain.setValueAtTime(0.08, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.08);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.08);
+          } else if (type === 'pop') {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'sine';
+            osc.frequency.setValueAtTime(400, ctx.currentTime);
+            osc.frequency.exponentialRampToValueAtTime(1200, ctx.currentTime + 0.05);
+            gain.gain.setValueAtTime(0.1, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.05);
+          } else if (type === 'error') {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.type = 'triangle';
+            osc.frequency.setValueAtTime(150, ctx.currentTime);
+            osc.frequency.linearRampToValueAtTime(90, ctx.currentTime + 0.15);
+            gain.gain.setValueAtTime(0.12, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.15);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.15);
+          } else if (type === 'success') {
+            const now = ctx.currentTime;
+            const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
+            notes.forEach((freq, idx) => {
+              const delay = idx * 0.07;
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(freq, now + delay);
+              gain.gain.setValueAtTime(0, now + delay);
+              gain.gain.linearRampToValueAtTime(0.1, now + delay + 0.02);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.25);
+              osc.start(now + delay);
+              osc.stop(now + delay + 0.25);
+            });
+          } else if (type === 'medal') {
+            const now = ctx.currentTime;
+            const notes = [523.25, 783.99, 1046.50, 1318.51, 1567.98, 2093.00]; // C5, G5, C6, E6, G6, C7
+            notes.forEach((freq, idx) => {
+              const delay = idx * 0.06;
+              const osc = ctx.createOscillator();
+              const gain = ctx.createGain();
+              osc.connect(gain);
+              gain.connect(ctx.destination);
+              osc.type = 'sine';
+              osc.frequency.setValueAtTime(freq, now + delay);
+              gain.gain.setValueAtTime(0, now + delay);
+              gain.gain.linearRampToValueAtTime(0.08, now + delay + 0.02);
+              gain.gain.exponentialRampToValueAtTime(0.001, now + delay + 0.35);
+              osc.start(now + delay);
+              osc.stop(now + delay + 0.35);
+            });
+          }
+        }
+      } catch (e) {
+        console.warn('[AUDIO_SYNTH_FAILED]: Web Audio synthesis failed.', e);
+      }
+      return;
+    }
+
+    // 2. Log de Debug (Essentiel pour ton X220)
     console.log(`%c 🔊 [AUDIO_PLAY]: ${type}`, 'background: #222; color: #bada55; padding: 2px 5px; border-radius: 4px;');
 
-    // 2. Mapping des fichiers réels
+    // 3. Mapping des fichiers réels
     const soundFiles: Record<string, string> = {
       // Les fichiers génériques
       // click: '/src/assets/audio/click.m4a',
@@ -56,13 +144,13 @@ export const useAudioFeedback = () => {
     // Si le type est une URL/chemin (commence par / ou http), on l'utilise directement
     const soundPath = soundFiles[type] || (typeof type === 'string' && (type.startsWith('/') || type.startsWith('http') || type.includes('.m4a')) ? type : null);
 
-    // 3. Système de "Guard" (Garde-fou)
+    // 4. Système de "Guard" (Garde-fou)
     if (!soundPath) {
       console.log(`%c 🔇 [AUDIO_SKIP]: Pas d'asset pour "${type}". Feedback visuel uniquement.`, 'color: #999;');
       return;
     }
 
-    // 4. Logique de lecture sécurisée avec recyclage d'instance
+    // 5. Logique de lecture sécurisée avec recyclage d'instance
     try {
       const audio = getGlobalAudio();
       if (!audio) return;
@@ -88,7 +176,7 @@ export const useAudioFeedback = () => {
     } catch (e) {
       console.error(`[AUDIO_ERROR]: Impossible de lire le son ${type}`, e);
     }
-  }, [isMuted]);
+  }, [isMuted, isSfxMuted]);
 
   return { playSound };
 };

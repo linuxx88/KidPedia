@@ -238,6 +238,9 @@ export interface Labels {
     devSectionBtn: string;
     whyTitle: string;
     whyText: string;
+    audioSettingsTitle: string;
+    musicMute: string;
+    sfxMute: string;
   };
   refuge: {
     title: string;
@@ -264,5 +267,11 @@ export interface Labels {
     maxAffection: string;
     affectionIncrease: string;
     happinessIncrease: string;
+  };
+  pwa: {
+    ready: string;
+    update: string;
+    updateBtn: string;
+    closeBtn: string;
   };
 }

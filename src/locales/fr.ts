@@ -311,7 +311,10 @@ export const fr: Labels = {
     devSectionDesc: "Visualisez le flux d'architecture, la gestion d'état Zustand et le trajet des données au sein de KidPedia en temps réel.",
     devSectionBtn: " Ouvrir la Cartographie du Projet",
     whyTitle: " Pourquoi KidPedia ?",
-    whyText: "KidPedia est conçu pour éveiller la curiosité naturelle des enfants. Chaque médaille gagnée représente un concept compris et retenu grâce à nos quiz ludiques."
+    whyText: "KidPedia est conçu pour éveiller la curiosité naturelle des enfants. Chaque médaille gagnée représente un concept compris et retenu grâce à nos quiz ludiques.",
+    audioSettingsTitle: '🎛️ Réglages Audio',
+    musicMute: 'Couper la musique d\'ambiance',
+    sfxMute: 'Couper les effets sonores (SFX)',
   },
   refuge: {
     title: "Le Refuge des Compagnons 🦄",
@@ -338,5 +341,11 @@ export const fr: Labels = {
     maxAffection: "Affection au Maximum ! 💖🎉",
     affectionIncrease: "+15 Affection ! ✨",
     happinessIncrease: "+5 Bonheur ! ❤️",
+  },
+  pwa: {
+    ready: "L'application est prête à être utilisée hors-ligne ! 🚀",
+    update: "Une nouvelle version est disponible ! ✨",
+    updateBtn: "Mettre à jour",
+    closeBtn: "Fermer",
   },
 };

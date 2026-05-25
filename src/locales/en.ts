@@ -310,7 +310,10 @@ export const en: Labels = {
     devSectionDesc: "Visualize the architecture flow, Zustand state management and real-time data flow within KidPedia.",
     devSectionBtn: " Open Project Architecture Map",
     whyTitle: " Why KidPedia?",
-    whyText: "KidPedia is designed to spark children's natural curiosity. Every medal earned represents a concept understood and retained through our fun quizzes."
+    whyText: "KidPedia is designed to spark children's natural curiosity. Every medal earned represents a concept understood and retained through our fun quizzes.",
+    audioSettingsTitle: '🎛️ Audio Settings',
+    musicMute: 'Mute background music',
+    sfxMute: 'Mute sound effects (SFX)',
   },
   refuge: {
     title: "The Companions Refuge 🦄",
@@ -337,5 +340,11 @@ export const en: Labels = {
     maxAffection: "Affection at Maximum! 💖🎉",
     affectionIncrease: "+15 Affection! ✨",
     happinessIncrease: "+5 Happiness! ❤️",
+  },
+  pwa: {
+    ready: "The app is ready to work offline! 🚀",
+    update: "A new version is available! ✨",
+    updateBtn: "Update",
+    closeBtn: "Close",
   },
 };

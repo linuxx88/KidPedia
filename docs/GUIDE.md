@@ -72,7 +72,7 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 
 ---
 
-## 🚧 Dette Technique & À Faire (v3.15.2)
+## 🚧 Dette Technique & À Faire (v3.21.0)
 
 ✅ **RÉSOLU : Alerte "God Object"** (Traité en v2.3.1)
 ✅ **RÉSOLU : Alerte "Abonnement Furtif"** (Traité en v2.3.0)
@@ -117,10 +117,19 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Liaison et Quizz pour les sous-nœuds du Big Bang (Ticket #36)** (Traité en v3.20.12)
 ✅ **RÉSOLU : Nettoyage des compagnons lors de la suppression d'un profil (Ticket #63)** (Traité en v3.20.13)
 ✅ **RÉSOLU : Non-respect de la sourdine globale dans Le Refuge des Animaux (Ticket #65)** (Traité en v3.20.14)
+✅ **RÉSOLU : Absence d'effets sonores (Fichiers commentés) (Ticket #05)** (Traité en v3.21.0)
+✅ **RÉSOLU : Transition de volume abrupte (Coupure sèche) (Ticket #22)** (Traité en v3.21.0)
+✅ **RÉSOLU : Contrôles SFX & Musique indépendants (Ticket #23)** (Traité en v3.21.0)
+✅ **RÉSOLU : Traduction et protection contre les boucles du prompt PWA (Ticket #25, Ticket #26)** (Traité en v3.21.0)
+✅ **RÉSOLU : Icône de compagnon erronée sur Mission Safari (Ticket #64)** (Traité en v3.21.0)
+✅ **RÉSOLU : Synthèse vocale TTS et Baguette de lecture au Refuge (Ticket #66)** (Traité en v3.21.0)
+✅ **RÉSOLU : Troncatures visuelles sur mobile Galaxy S24 Ultra (Ticket #67, Ticket #68)** (Traité en v3.21.0)
+✅ **RÉSOLU : En-tête immersif et indicateur de défilement au Refuge (Ticket #70, Ticket #71)** (Traité en v3.21.0)
+
 
 ---
 
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 24 mai 2026 (v3.20.14)*
+*Dernière mise à jour : 24 mai 2026 (v3.21.0)*

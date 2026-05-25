@@ -6,6 +6,8 @@ import { useCompanionStore } from '../../store/useCompanionStore';
 import { TransformedEmoji } from '../../components/UI/TransformedEmoji/TransformedEmoji';
 import { AppButton } from '../../components/UI/AppButton';
 import { encyclopedia } from '../../data/topics';
+import { useTextToSpeech } from '../../hooks/useTextToSpeech';
+import { DiscreteSpeaker } from '../../components/Learning/TopicDetail';
 import styles from './RefugePage.module.css';
 import emojiStyles from '../../components/UI/TransformedEmoji/TransformedEmoji.module.css';
 
@@ -19,7 +21,15 @@ interface Particle {
 
 export function RefugePage() {
   const navigate = useNavigate();
-  const { labels, language, isMuted } = useSettingsStore();
+  const { labels, language, isMuted, isSfxMuted } = useSettingsStore();
+  const { activeSpeechId, speak, stop: stopTTS } = useTextToSpeech({ language });
+
+  // Stop speech synthesis on unmount
+  React.useEffect(() => {
+    return () => {
+      stopTTS();
+    };
+  }, [stopTTS]);
   
   // Stores
   const activeProfileId = useProgressionStore((state) => state.activeProfileId);
@@ -36,6 +46,41 @@ export function RefugePage() {
   // Default to Puppy
   const [selectedCompanionId, setSelectedCompanionId] = useState<'dog-companion' | 'dino-companion' | 'robot-companion'>('dog-companion');
   
+  // Scroll indicators state for mobile companion selector
+  const [showLeftScrollFade, setShowLeftScrollFade] = useState(false);
+  const [showRightScrollFade, setShowRightScrollFade] = useState(true);
+  const selectorBarRef = useRef<HTMLDivElement>(null);
+
+  const handleSelectorScroll = () => {
+    const el = selectorBarRef.current;
+    if (!el) return;
+    const isAtStart = el.scrollLeft <= 5;
+    const isAtEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 5;
+    setShowLeftScrollFade(!isAtStart);
+    setShowRightScrollFade(!isAtEnd);
+  };
+
+  React.useEffect(() => {
+    const el = selectorBarRef.current;
+    if (!el) return;
+
+    const checkScroll = () => {
+      const isAtStart = el.scrollLeft <= 5;
+      const isAtEnd = el.scrollLeft + el.clientWidth >= el.scrollWidth - 5;
+      setShowLeftScrollFade(!isAtStart);
+      setShowRightScrollFade(!isAtEnd);
+    };
+
+    // Delay a bit to let DOM mount and layout completely
+    const timeoutId = setTimeout(checkScroll, 100);
+
+    window.addEventListener('resize', checkScroll);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', checkScroll);
+    };
+  }, []);
+
   // Animation states
   const [isFeedingActive, setIsFeedingActive] = useState(false);
   const [isPettingActive, setIsPettingActive] = useState(false);
@@ -47,7 +92,7 @@ export function RefugePage() {
 
   // Sound generator
   const playSound = (type: 'pet' | 'feed' | 'buy' | 'error') => {
-    if (isMuted) return;
+    if (isMuted || isSfxMuted) return;
     try {
       const AudioContextClass = window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext;
       if (!AudioContextClass) return;
@@ -265,42 +310,50 @@ export function RefugePage() {
         <section className={styles.companionZone}>
           
           {/* Companions Horizontal Selector */}
-          <nav className={styles.selectorBar}>
-            {(Object.keys(companionInfo) as Array<keyof typeof companionInfo>).map((key) => {
-              const info = companionInfo[key];
-              const unlocked = unlockedAccessories.includes(key);
-              const isSelected = selectedCompanionId === key;
-              const goldMedals = getGoldMedalsCount(info.categoryKey);
-              
-              return (
-                <button
-                  key={key}
-                  onClick={() => setSelectedCompanionId(key)}
-                  className={[
-                    styles.selectorCard,
-                    isSelected ? styles.selectedCard : '',
-                    !unlocked ? styles.lockedCard : ''
-                  ].join(' ')}
-                >
-                  <span className={styles.selectorIcon}>{info.emoji}</span>
-                  <div className={styles.selectorMeta}>
-                    <span className={styles.selectorName}>{info.name}</span>
-                    <span className={styles.selectorStatus}>
-                      {unlocked ? (
-                        <span className={styles.affectionBadge}>
-                          💖 {companionStore.getCompanionState(key).affection}%
-                        </span>
-                      ) : (
-                        <span className={styles.lockBadge}>
-                          🔒 {goldMedals}/3 🎖️
-                        </span>
-                      )}
-                    </span>
-                  </div>
-                </button>
-              );
-            })}
-          </nav>
+          <div className={styles.selectorBarWrapper}>
+            {showLeftScrollFade && <div className={styles.scrollFadeLeft} />}
+            <nav
+              ref={selectorBarRef}
+              onScroll={handleSelectorScroll}
+              className={styles.selectorBar}
+            >
+              {(Object.keys(companionInfo) as Array<keyof typeof companionInfo>).map((key) => {
+                const info = companionInfo[key];
+                const unlocked = unlockedAccessories.includes(key);
+                const isSelected = selectedCompanionId === key;
+                const goldMedals = getGoldMedalsCount(info.categoryKey);
+                
+                return (
+                  <button
+                    key={key}
+                    onClick={() => setSelectedCompanionId(key)}
+                    className={[
+                      styles.selectorCard,
+                      isSelected ? styles.selectedCard : '',
+                      !unlocked ? styles.lockedCard : ''
+                    ].join(' ')}
+                  >
+                    <span className={styles.selectorIcon}>{info.emoji}</span>
+                    <div className={styles.selectorMeta}>
+                      <span className={styles.selectorName}>{info.name}</span>
+                      <span className={styles.selectorStatus}>
+                        {unlocked ? (
+                          <span className={styles.affectionBadge}>
+                            💖 {companionStore.getCompanionState(key).affection}%
+                          </span>
+                        ) : (
+                          <span className={styles.lockBadge}>
+                            🔒 {goldMedals}/3 🎖️
+                          </span>
+                        )}
+                      </span>
+                    </div>
+                  </button>
+                );
+              })}
+            </nav>
+            {showRightScrollFade && <div className={styles.scrollFadeRight} />}
+          </div>
 
           {/* Core Interactive Sandbox */}
           <div className={styles.sandbox}>
@@ -312,11 +365,24 @@ export function RefugePage() {
                   <span className={styles.giantEmoji}>{activeComp.emoji}</span>
                 </div>
                 <h2 className={styles.lockedTitle}>{labels.refuge.lockedTitle}</h2>
-                <p className={styles.lockedDesc}>
-                  {language === 'fr'
-                    ? `Continue à apprendre et obtiens 3 médailles d'or dans la catégorie ${activeComp.categoryKey.toUpperCase()} pour adopter le ${activeComp.name} ! 🐶`
-                    : `Keep learning and earn 3 gold medals in the ${activeComp.categoryKey.toUpperCase()} category to adopt the ${activeComp.name}! 🐶`}
-                </p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
+                  <p className={styles.lockedDesc}>
+                    {language === 'fr'
+                      ? `Continue à apprendre et obtiens 3 médailles d'or dans la catégorie ${activeComp.categoryKey.toUpperCase()} pour adopter le ${activeComp.name} ! 🐶`
+                      : `Keep learning and earn 3 gold medals in the ${activeComp.categoryKey.toUpperCase()} category to adopt the ${activeComp.name}! 🐶`}
+                  </p>
+                  <DiscreteSpeaker
+                    isSpeaking={activeSpeechId === 'locked-desc'}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      const descText = language === 'fr'
+                        ? `Continue à apprendre et obtiens 3 médailles d'or dans la catégorie ${activeComp.categoryKey.toUpperCase()} pour adopter le ${activeComp.name} !`
+                        : `Keep learning and earn 3 gold medals in the ${activeComp.categoryKey.toUpperCase()} category to adopt the ${activeComp.name}!`;
+                      speak(descText, 'locked-desc');
+                    }}
+                    label={language === 'fr' ? 'Écouter la description' : 'Listen to description'}
+                  />
+                </div>
                 
                 {/* Medals progress graphics */}
                 <div className={styles.medalsProgress}>
@@ -426,7 +492,17 @@ export function RefugePage() {
                 <div key={key} className={styles.treatItem}>
                   <div className={styles.treatIconBox}>{info.treatEmoji}</div>
                   <div className={styles.treatDetails}>
-                    <h3 className={styles.treatName}>{info.treatName}</h3>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
+                      <h3 className={styles.treatName}>{info.treatName}</h3>
+                      <DiscreteSpeaker
+                        isSpeaking={activeSpeechId === `treat-${key}`}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          speak(`${info.treatName}. ${info.desc}`, `treat-${key}`);
+                        }}
+                        label={language === 'fr' ? 'Écouter' : 'Listen'}
+                      />
+                    </div>
                     <p className={styles.treatDesc}>{info.desc}</p>
                     <span className={styles.treatCountLabel}>
                       {language === 'fr' ? 'Dans le sac' : 'In bag'} :{' '}

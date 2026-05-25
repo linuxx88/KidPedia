@@ -98,9 +98,9 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
   };
 
   const getCompanionIcon = () => {
-    if (equippedCompanionId === 'chien') return '🐶';
-    if (equippedCompanionId === 'dino') return '🦕';
-    if (equippedCompanionId === 'robot') return '🤖';
+    if (equippedCompanionId === 'chien' || equippedCompanionId === 'dog-companion') return '🐶';
+    if (equippedCompanionId === 'dino' || equippedCompanionId === 'dino-companion') return '🦕';
+    if (equippedCompanionId === 'robot' || equippedCompanionId === 'robot-companion') return '🤖';
     if (equippedCompanionId === 'chat') return '🐱';
     if (equippedCompanionId === 'perroquet') return '🦜';
     if (equippedCompanionId === 'licorne') return '🦄';

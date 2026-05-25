@@ -8,12 +8,16 @@ import type { Profile } from '../store/useProfileStore';
 interface SettingsState {
   isDarkMode: boolean;
   isMuted: boolean;
+  isMusicMuted: boolean;
+  isSfxMuted: boolean;
   gender: Gender;
   language: SupportedLanguage;
   labels: Labels;
   
   toggleTheme: (updateProfileCb?: (theme: 'dark' | 'light') => void) => void;
   toggleMute: () => void;
+  toggleMusicMute: () => void;
+  toggleSfxMute: () => void;
   toggleGender: (updateProfileCb?: (gender: Gender) => void) => void;
   setLanguage: (lang: SupportedLanguage, updateProfileCb?: (lang: SupportedLanguage) => void) => void;
   syncWithProfile: (profile: Profile | null) => void;
@@ -38,6 +42,8 @@ export const useSettingsStore = create<SettingsState>()(
       // --- Initial State ---
       isDarkMode: false,
       isMuted: false,
+      isMusicMuted: false,
+      isSfxMuted: false,
       gender: 'boy',
       language: 'fr',
       labels: locales['fr'],
@@ -49,7 +55,32 @@ export const useSettingsStore = create<SettingsState>()(
         if (updateProfileCb) updateProfileCb(nextDark ? 'dark' : 'light');
       },
 
-      toggleMute: () => set(state => ({ isMuted: !state.isMuted })),
+      toggleMute: () => {
+        const nextMuted = !get().isMuted;
+        set({
+          isMuted: nextMuted,
+          isMusicMuted: nextMuted,
+          isSfxMuted: nextMuted
+        });
+      },
+
+      toggleMusicMute: () => {
+        const nextMusicMuted = !get().isMusicMuted;
+        const sfxMuted = get().isSfxMuted;
+        set({
+          isMusicMuted: nextMusicMuted,
+          isMuted: nextMusicMuted && sfxMuted
+        });
+      },
+
+      toggleSfxMute: () => {
+        const nextSfxMuted = !get().isSfxMuted;
+        const musicMuted = get().isMusicMuted;
+        set({
+          isSfxMuted: nextSfxMuted,
+          isMuted: musicMuted && nextSfxMuted
+        });
+      },
 
       toggleGender: (updateProfileCb) => {
         const nextGender = get().gender === 'boy' ? 'girl' : 'boy';
@@ -91,6 +122,8 @@ export const useSettingsStore = create<SettingsState>()(
         set({
           isDarkMode: false,
           isMuted: false,
+          isMusicMuted: false,
+          isSfxMuted: false,
           gender: 'boy',
           language: 'fr',
           labels: locales['fr'],
@@ -106,6 +139,8 @@ export const useSettingsStore = create<SettingsState>()(
       partialize: (state) => ({
         isDarkMode: state.isDarkMode,
         isMuted: state.isMuted,
+        isMusicMuted: state.isMusicMuted,
+        isSfxMuted: state.isSfxMuted,
         gender: state.gender,
         language: state.language,
       }),

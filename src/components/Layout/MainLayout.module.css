@@ -148,6 +148,11 @@
   padding: 0 1.5rem 15vh;
 }
 
+.mainContent.immersiveContent {
+  max-width: 100%;
+  padding: 0;
+}
+
 .footer {
   padding: 3rem 0;
   text-align: center;

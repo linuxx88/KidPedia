@@ -59,7 +59,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   const [showProfileSelection, setShowProfileSelection] = useState(false)
 
   // Déterminer si on est dans une expérience immersive (pas de header global)
-  const isImmersive = ['/safari', '/nature', '/origins', '/map', '/topic'].some(path => 
+  const isImmersive = ['/safari', '/nature', '/origins', '/map', '/topic', '/refuge', '/lifecircle'].some(path => 
     location.pathname.startsWith(path)
   )
 
@@ -173,7 +173,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
         </header>
       )}
 
-      <main className={styles.mainContent}>
+      <main className={`${styles.mainContent} ${isImmersive ? styles.immersiveContent : ''}`}>
         {children}
         {!isImmersive && (
           <footer className={styles.footer}>

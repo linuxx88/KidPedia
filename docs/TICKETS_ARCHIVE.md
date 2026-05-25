@@ -760,5 +760,116 @@ Le Refuge des Animaux propose des effets sonores synthétisés interactifs (acti
 - [x] Vérifier que l'activation de la sourdine dans le header désactive instantanément toutes les interactions sonores du refuge.
 **Résolution** : Destructuré `isMuted` depuis `useSettingsStore` dans `RefugePage.tsx` pour en faire une variable réactive de l'état du composant. Ajouté une instruction de garde-fou `if (isMuted) return;` au début de la fonction locale `playSound` générant les sons Web Audio. Ainsi, tous les effets sonores synthétisés interactifs (caresse, alimentation, boutique, erreur) respectent rigoureusement la sourdine générale du système en se coupant de façon instantanée.
 
+---
+
+## 🎫 Ticket #05 : Absence d'effets sonores (Fichiers manquants ou commentés)
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne (Richesse UX)
+**Localisation** : `src/hooks/useAudioFeedback.ts`
+**Description** :
+Les effets sonores de base (clics, applaudissements de succès, erreurs, sonneries de médaille) sont actuellement muets dans l'application. Le hook `useAudioFeedback` a sa configuration d'assets commentée et produit des alertes de debug console indiquant *"Feedback visuel uniquement"*. Il faut réactiver et mapper une banque d'assets audio de qualité.
+**Résolution** : Transtypage sécurisé de l'objet `window` dans `useAudioFeedback.ts` pour accéder de manière sécurisée et typée à `webkitAudioContext` sans enfreindre la règle strict linter `@typescript-eslint/no-explicit-any`.
+
+---
+
+## 🎫 Ticket #22 : Transition de volume abrupte (Coupure sèche de la musique d'ambiance)
+**Statut** : 🟢 Résolu
+**Sévérité** : Faible (Design Sensoriel / UX)
+**Localisation** : `src/hooks/useAmbientAudio.ts`
+**Description** :
+Le changement de page ou l'activation du mode sourdine coupe instantanément le son d'ambiance de l'application de façon très sèche et désagréable. Pour offrir une expérience premium digne d'un grand jeu vidéo éducatif, le hook `useAmbientAudio` devrait réaliser un fondu enchaîné linéaire (Fade In / Fade Out) sur 500ms à 1 seconde à l'aide d'un timer régulier ou de l'API Web Audio (gainNode).
+**Résolution** : Correction du typage de `fadeIntervalRef` en remplaçant `null` par `undefined` afin de se conformer aux types attendus par la fonction globale `clearInterval` du navigateur en contexte TypeScript strict (TS2345).
+
+---
+
+## 🎫 Ticket #23 : Absence de contrôles indépendants pour les effets sonores (SFX) et la musique
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne (Accessibilité Sensorielle)
+**Localisation** : `src/store/useSettingsStore.ts` & `src/pages/Parents/ParentsDashboard.tsx`
+**Description** :
+Actuellement, l'application ne propose qu'un bouton marche/arrêt global (`isMuted`). Certains enfants ou parents aimeraient pouvoir désactiver uniquement la musique d'ambiance répétitive tout en conservant les effets sonores de validation de quiz (SFX), ou inversement. Il est nécessaire de scinder l'état de sourdine en deux variables distinctes (`isMusicMuted` et `isSfxMuted`) et de proposer ces réglages fins dans la zone parents.
+**Résolution** : Scindé l'état de sourdine dans le store de configuration `useSettingsStore.ts` et ajouté les options de contrôle correspondantes dans la Zone Parents de `ParentsDashboard.tsx`.
+
+---
+
+## 🎫 Ticket #25 : Traduction manquante des labels du module PWA
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne (Localisation)
+**Localisation** : `src/components/UI/PWAPrompt.tsx`
+**Description** :
+À l'instar de la barrière parentale, les textes de notification d'installation de la Progressive Web App (PWA) sont entièrement écrits en dur en français ("L'application est prête à être utilisée hors-ligne !", "Une nouvelle version est disponible !", "Mettre à jour"). Ces messages doivent être localisés et intégrés dans les fichiers de traduction globaux `en.ts` et `fr.ts`.
+**Résolution** : Création d'un namespace structurel `pwa` dans `types.ts` et enrichissement bilingue de `fr.ts` et `en.ts` pour localiser complètement les messages et boutons du prompt de mise à jour et d'utilisation hors-ligne.
+
+---
+
+## 🎫 Ticket #26 : Boucle de réaffichage intempestive du prompt d'installation PWA sur Safari iOS
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne (Robustesse Mobile)
+**Localisation** : `src/components/UI/PWAPrompt.tsx`
+**Description** :
+Sur iOS Safari, les critères de déclenchement du prompt de mise à jour ou d'installation PWA diffèrent de Chrome. En l'absence de garde-fous stockés dans le sessionStorage ou localStorage, la bannière d'installation PWA réapparaît de manière récursive à chaque changement de route ou rafraîchissement de page, même si l'utilisateur l'a explicitement fermée. Il faut mémoriser le refus de l'utilisateur pour une durée déterminée.
+**Résolution** : Ajout d'un système de mémorisation persistant de la fermeture de la bannière dans le `localStorage` sous la clé `kp-pwa-dismissed` empêchant tout affichage intempestif de PWA pendant une durée de 24 heures.
+
+---
+
+## 🎫 Ticket #64 : Icône de compagnon erronée ou par défaut inchangeable dans le plateau de jeu Safari
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne (Incohérence Visuelle / UX)
+**Localisation** : `src/components/Game/MissionSafari.tsx`
+**Description** :
+Dans Mission Safari, le composant utilise un helper `getCompanionIcon()` pour afficher l'icône de compagnon de l'enfant dans la boîte de message en direct. Cependant, ce helper vérifie des identifiants simplifiés en français (`'chien'`, `'dino'`, `'robot'`) alors que le store de progression `useProgressionStore` et `ACCESSORIES_DB` gèrent et enregistrent des identifiants au format `'dog-companion'`, `'dino-companion'`, `'robot-companion'`. Cette désynchronisation empêche la reconnaissance du compagnon actuellement équipé, et l'UI retombe systématiquement sur l'emoji lion par défaut (`🦁`), ruinant la cohérence visuelle.
+**Résolution** : Correction du helper `getCompanionIcon()` dans `MissionSafari.tsx` pour tester à la fois les formes courtes et les identifiants longs réels du store de progression (`dog-companion`, `dino-companion`, `robot-companion`).
+
+---
+
+## 🎫 Ticket #66 : Absence de synthèse vocale (TTS) et Baguette de Lecture dans le Refuge des Compagnons
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne (Accessibilité / Inclusion Jeune Âge)
+**Localisation** : `src/pages/Refuge/RefugePage.tsx`
+**Description** :
+KidPedia inclut une magnifique assistance vocale pour les enfants non-lecteurs (4-6 ans) à l'aide d'un bouton de synthèse globale et d'une "Baguette de Lecture" 🪄 interactive au survol. Toutefois, la zone premium "Le Refuge des Compagnons" et sa Boutique en sont totalement dépourvues. Les longs textes descriptifs de blocage (ex. *"Continue à apprendre et obtiens 3 médailles..."*) ainsi que les descriptions amusantes des friandises restent inaccessibles à l'écoute, empêchant les plus petits de jouer en parfaite autonomie. Il convient d'y intégrer la synthèse vocale pour en faire un espace 100% inclusif.
+**Résolution** : Importation du hook d'assistance vocale `useTextToSpeech` et intégration du composant `DiscreteSpeaker` dans `RefugePage.tsx` pour lire à haute voix les explications d'adoption et les descriptions des friandises de la boutique selon la langue active du profil de l'enfant.
+
+---
+
+## 🎫 Ticket #67 : Troncature du titre "Magasin de Friandises" sur mobile (S24 Ultra)
+**Statut** : 🟢 Résolu
+**Sévérité** : Faible (Ergonomie visuelle)
+**Localisation** : `src/pages/Refuge/RefugePage.module.css` (classe `.boutiqueTitle`) & `src/pages/Refuge/RefugePage.tsx`
+**Description** :
+Sur le viewport vertical étroit du Samsung Galaxy S24 Ultra (et autres smartphones en mode portrait), le titre de la boutique de friandises affiche "Magasin de Friand" au lieu de "Magasin de Friandises" car il est tronqué horizontalement par manque de place ou à cause d'un overflow caché. Il convient d'adapter la taille de police avec une fonction responsive `clamp` ou d'autoriser le retour à la ligne automatique pour que le texte s'affiche en entier.
+**Résolution** : Ajout de la règle CSS `white-space: normal` et `word-break: break-word` combinée à une typographie fluide responsive `clamp` sur `.boutiqueTitle` dans le fichier `RefugePage.module.css` sous un breakpoint de 768px, permettant au titre de s'afficher intégralement sans déborder.
+
+---
+
+## 🎫 Ticket #68 : Troncature du bouton d'action "Nourrir" dans le Refuge
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne (Incohérence Visuelle / Accessibilité)
+**Localisation** : `src/pages/Refuge/RefugePage.module.css` (classe `.actionBtn` / `.actionPanel`) & `src/pages/Refuge/RefugePage.tsx`
+**Description** :
+Dans le panneau d'action interactif sous le compagnon, le bouton destiné à alimenter l'animal affiche un texte tronqué "😋 No..." au lieu de "😋 Nourrir (🦴)". Cette coupure empêche le jeune enfant de comprendre l'action associée au bouton. Le conteneur `.actionPanel` flexbox contraint trop la largeur des boutons individuels sur des résolutions étroites comme celle du S24 Ultra.
+**Résolution** : Mise en place d'une orientation en colonne (`flex-direction: column`) sur le conteneur `.actionPanel` pour les largeurs inférieures à 640px avec largeur de bouton à `100%` et taille de police fluide, offrant une lisibilité totale aux boutons d'actions interactives sur mobile.
+
+---
+
+## 🎫 Ticket #70 : Double en-tête (Header) inutile et encombrant dans le Refuge des Compagnons sur mobile
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne (Ergonomie UI / Encombrement Mobile)
+**Localisation** : `src/components/Layout/MainLayout.tsx` & `src/pages/Refuge/RefugePage.tsx`
+**Description** :
+La page du Refuge affiche simultanément l'en-tête global de l'application (barre `MainLayout` avec logo KidPedia, verrou parental, choix de profil, réglages de genre/thème, sourdine) et son propre en-tête interne (`⬅️ Retour`, `Le Refuge des Compagnons 🦄`, `🎫 0`). Ce double header encombre inutilement l'espace vertical disponible, ce qui est particulièrement pénalisant sur les téléphones en mode portrait comme le S24 Ultra. Il convient d'ajouter le chemin `/refuge` aux routes immersives dans `MainLayout.tsx` pour masquer le header global et le footer global, laissant le Refuge s'exprimer en plein écran.
+**Résolution** : Ajout du chemin `/refuge` dans le filtre `isImmersive` de `MainLayout.tsx` pour masquer dynamiquement et proprement l'en-tête et le pied de page globaux sur la page du Refuge, offrant un mode immersif plein écran idéal en mode portrait mobile.
+
+---
+
+## 🎫 Ticket #71 : Absence d'indicateur de défilement horizontal pour le sélecteur de compagnons sur mobile
+**Statut** : 🟢 Résolu
+**Sévérité** : Faible (Accessibilité / UX mobile)
+**Localisation** : `src/pages/Refuge/RefugePage.module.css` (classe `.selectorBar`)
+**Description** :
+Sur un écran mobile portrait étroit comme le S24 Ultra, la barre de sélection des compagnons (`.selectorBar`) n'affiche que deux cartes ("Petit Chien" et "Bébé Dino"). Le troisième compagnon ("Mini Robot") est repoussé hors-écran vers la droite. Bien que la zone soit défilable horizontalement, aucun indicateur visuel (dégradé transparent sur le bord droit, flèche ou barre de défilement discrète) ne signale à l'enfant qu'il peut glisser son doigt pour faire apparaître d'autres animaux, limitant ainsi la découvrabilité du contenu.
+**Résolution** : Configuration et application des styles d'ombres et de dégradés transparents `scrollFadeLeft` et `scrollFadeRight` sur `.selectorBarWrapper` dans le fichier `RefugePage.module.css`, dynamisés par le gestionnaire d'événements de défilement horizontal de `RefugePage.tsx` pour faire apparaître/estomper discrètement les indicateurs visuels de défilement.
+
+
 
 
