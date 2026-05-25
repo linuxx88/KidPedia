@@ -7,7 +7,8 @@ export const middleAgesSubNodes: HistoryNode[] = [
     color: '#475569', 
     icon: '🏛️📉', 
     title: { fr: 'La Fin de Rome', en: 'The Fall of Rome' }, 
-    description: { fr: 'Les grandes cités s\'endorment et on commence à construire des châteaux.', en: 'Great cities fall asleep and castles begin to be built.' } 
+    description: { fr: 'Les grandes cités s\'endorment et on commence à construire des châteaux.', en: 'Great cities fall asleep and castles begin to be built.' },
+    topicId: 'romains'
   },
   { 
     id: 'ma2', 
@@ -15,7 +16,8 @@ export const middleAgesSubNodes: HistoryNode[] = [
     color: '#64748b', 
     icon: '🛡️', 
     title: { fr: 'Les Chevaliers', en: 'The Knights' }, 
-    description: { fr: 'L\'entraînement des guerriers en armure et le code de l\'honneur.', en: 'Training armored warriors and the code of honor.' } 
+    description: { fr: 'L\'entraînement des guerriers en armure et le code de l\'honneur.', en: 'Training armored warriors and the code of honor.' },
+    topicId: 'chevaliers'
   },
   { 
     id: 'ma3', 
@@ -23,7 +25,8 @@ export const middleAgesSubNodes: HistoryNode[] = [
     color: '#8b5cf6', 
     icon: '🏰', 
     title: { fr: 'La Vie au Château', en: 'Castle Life' }, 
-    description: { fr: 'Banquets, troubadours et vie quotidienne dans les forteresses.', en: 'Banquets, troubadours and daily life in the fortresses.' } 
+    description: { fr: 'Banquets, troubadours et vie quotidienne dans les forteresses.', en: 'Banquets, troubadours and daily life in the fortresses.' },
+    topicId: 'chateaux'
   },
   { 
     id: 'ma4', 
@@ -31,7 +34,8 @@ export const middleAgesSubNodes: HistoryNode[] = [
     color: '#3b82f6', 
     icon: '⛪', 
     title: { fr: 'Les Grandes Cathédrales', en: 'Great Cathedrals' }, 
-    description: { fr: 'L\'invention du vitrail et des églises qui touchent le ciel.', en: 'Invention of stained glass and churches that touch the sky.' } 
+    description: { fr: 'L\'invention du vitrail et des églises qui touchent le ciel.', en: 'Invention of stained glass and churches that touch the sky.' },
+    topicId: 'cathedrales'
   },
   { 
     id: 'ma5', 
@@ -39,7 +43,8 @@ export const middleAgesSubNodes: HistoryNode[] = [
     color: '#6366f1', 
     icon: '✒️', 
     title: { fr: 'Moines et Manuscrits', en: 'Monks and Manuscripts' }, 
-    description: { fr: 'On recopie les livres à la main pour garder tout le savoir.', en: 'Books are copied by hand to preserve all knowledge.' } 
+    description: { fr: 'On recopie les livres à la main pour garder tout le savoir.', en: 'Books are copied by hand to preserve all knowledge.' },
+    topicId: 'calligraphie'
   },
   { 
     id: 'ma6', 
@@ -47,7 +52,8 @@ export const middleAgesSubNodes: HistoryNode[] = [
     color: '#10b981', 
     icon: '🚜', 
     title: { fr: 'Moulins et Champs', en: 'Mills and Fields' }, 
-    description: { fr: 'On utilise le vent et l\'eau pour moudre le grain et nourrir le village.', en: 'Wind and water are used to grind grain and feed the village.' } 
+    description: { fr: 'On utilise le vent et l\'eau pour moudre le grain et nourrir le village.', en: 'Wind and water are used to grind grain and feed the village.' },
+    topicId: 'moulins-moyen-age'
   },
   { 
     id: 'ma7', 
@@ -55,7 +61,8 @@ export const middleAgesSubNodes: HistoryNode[] = [
     color: '#f59e0b', 
     icon: '💰', 
     title: { fr: 'Les Foires et Marchés', en: 'Fairs and Markets' }, 
-    description: { fr: 'Les marchands voyagent loin pour ramener des épices et de la soie.', en: 'Merchants travel far to bring back spices and silk.' } 
+    description: { fr: 'Les marchands voyagent loin pour ramener des épices et de la soie.', en: 'Merchants travel far to bring back spices and silk.' },
+    topicId: 'foires-marches'
   },
   { 
     id: 'ma8', 
@@ -63,7 +70,8 @@ export const middleAgesSubNodes: HistoryNode[] = [
     color: '#94a3b8', 
     icon: '📄', 
     title: { fr: 'L\'Invention du Papier', en: 'Invention of Paper' }, 
-    description: { fr: 'Le papier devient plus facile à fabriquer, tout le monde commence à apprendre.', en: 'Paper becomes easier to make, everyone begins to learn.' } 
+    description: { fr: 'Le papier devient plus facile à fabriquer, tout le monde commence à apprendre.', en: 'Paper becomes easier to make, everyone begins to learn.' },
+    topicId: 'invention-papier'
   },
   { 
     id: 'ma9', 

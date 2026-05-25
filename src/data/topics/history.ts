@@ -348,4 +348,244 @@ export const history = [
       en: "The invention of agriculture is called the Neolithic Revolution!"
     }
   },
+  {
+    id: 'sedentarisation',
+    title: { fr: "On s'installe !", en: "Settling Down!" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🛖',
+    shortDesc: { fr: "Arrêter de voyager pour construire un vrai chez-soi.", en: "Stopping travel to build a true home." },
+    fullContent: {
+      fr: "Au lieu de déménager sans cesse, les humains décident de rester au même endroit près d'une rivière. En construisant des maisons durables, ils créent un foyer chaleureux pour protéger leur famille et grandir ensemble au fil des saisons.",
+      en: "Instead of moving constantly, humans decided to stay in one place near a river. By building lasting houses, they created a warm home to protect their family and grow together through the seasons."
+    },
+    funFact: {
+      fr: "Les premières huttes étaient souvent rondes comme de petits nids douillets !",
+      en: "The first huts were often round like cozy little nests!"
+    }
+  },
+  {
+    id: 'murs-terre',
+    title: { fr: "Murs de Terre", en: "Earth Walls" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🧱',
+    shortDesc: { fr: "Mélanger la terre et la paille pour des maisons solides.", en: "Mixing earth and straw for solid houses." },
+    fullContent: {
+      fr: "Pour fabriquer des maisons solides, les humains mélangent de la terre mouillée avec de la paille et de l'eau. En séchant au soleil, ce mélange devient dur comme de la pierre, montrant que la nature nous donne tout pour nous abriter.",
+      en: "To make strong houses, humans mixed wet earth with straw and water. When dried in the sun, this mixture became hard as stone, showing that nature gives us everything we need for shelter."
+    },
+    funFact: {
+      fr: "Cette technique s'appelle le pisé et elle garde la maison fraîche en été et chaude en hiver !",
+      en: "This technique is called cob or pisé, and it keeps the house cool in summer and warm in winter!"
+    }
+  },
+  {
+    id: 'debuts-agriculture',
+    title: { fr: "Le Secret des Graines", en: "The Seed Secret" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🌾',
+    shortDesc: { fr: "Faire pousser sa propre nourriture dans la terre.", en: "Growing your own food in the earth." },
+    fullContent: {
+      fr: "Les humains remarquent que les graines tombées dans la terre font pousser de nouvelles plantes. En apprenant à semer et à s'occuper de la terre avec patience, ils découvrent comment coopérer avec la nature pour nourrir tout le village.",
+      en: "Humans noticed that seeds falling into the soil grew into new plants. By learning to sow and care for the land with patience, they discovered how to cooperate with nature to feed the whole village."
+    },
+    funFact: {
+      fr: "Le blé et l'orge ont été les toutes premières plantes cultivées par les humains !",
+      en: "Wheat and barley were the very first plants grown by humans!"
+    }
+  },
+  {
+    id: 'debuts-elevage',
+    title: { fr: "Nouveaux Amis", en: "New Friends" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🐐',
+    shortDesc: { fr: "Prendre soin des animaux qui vivent avec nous.", en: "Caring for animals that live with us." },
+    fullContent: {
+      fr: "Les humains commencent à vivre auprès de certains animaux calmes, comme les chèvres et les moutons. En apprenant à les protéger et à en prendre soin avec douceur, ils réalisent que le respect mutuel apporte de la chaleur et du lait pour tous.",
+      en: "Humans began to live alongside gentle animals, like goats and sheep. By learning to protect and care for them gently, they realized that mutual respect brings warmth and milk for everyone."
+    },
+    funFact: {
+      fr: "Les chèvres ont été parmi les premiers animaux à s'associer aux humains pour de bon !",
+      en: "Goats were among the first animals to associate with humans for good!"
+    }
+  },
+  {
+    id: 'invention-poterie',
+    title: { fr: "Les Pots Magiques", en: "Magic Pots" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🏺',
+    shortDesc: { fr: "Modeler l'argile pour garder les récoltes à l'abri.", en: "Shaping clay to keep harvests safe." },
+    fullContent: {
+      fr: "En façonnant de l'argile souple avec leurs mains puis en la cuisant dans le feu, les humains inventent la poterie. Ces récipients magnifiques et solides permettent de conserver l'eau et les grains précieux, évitant ainsi le gaspillage.",
+      en: "By shaping soft clay with their hands and baking it in fire, humans invented pottery. These beautiful, strong containers allowed them to store water and precious grains, preventing waste."
+    },
+    funFact: {
+      fr: "Les potiers dessinaient souvent de jolies lignes et des animaux sur leurs pots pour les décorer !",
+      en: "Potters often drew pretty lines and animals on their pots to decorate them!"
+    }
+  },
+  {
+    id: 'vie-communaute',
+    title: { fr: "Main dans la Main", en: "Hand in Hand" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🤝',
+    shortDesc: { fr: "S'entraider pour rendre le village plus fort.", en: "Helping each other to make the village stronger." },
+    fullContent: {
+      fr: "Vivre ensemble au même endroit demande de s'organiser et de partager les tâches quotidiennes. En unissant leurs forces pour bâtir et protéger leur village, les premiers hommes apprennent que l'amitié et la solidarité sont les plus beaux des trésors.",
+      en: "Living together in one place required organization and sharing daily tasks. By joining forces to build and protect their village, early humans learned that friendship and solidarity are the greatest treasures."
+    },
+    funFact: {
+      fr: "Les maisons d'un village étaient parfois collées sans rue, et on entrait par le toit avec des échelles !",
+      en: "Houses in a village were sometimes packed together without streets, and people entered through the roof using ladders!"
+    }
+  },
+  {
+    id: 'tissage-laine',
+    title: { fr: "Le Fil et l'Aiguille", en: "Thread and Needle" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🧶',
+    shortDesc: { fr: "Tisser la laine des moutons pour faire des habits.", en: "Weaving wool from sheep to make clothes." },
+    fullContent: {
+      fr: "Grâce aux moutons, les humains découvrent qu'ils peuvent filer et tisser la laine. En croisant les fils avec patience et créativité, ils fabriquent des vêtements doux et protecteurs qui les gardent bien au chaud face aux vents froids.",
+      en: "Thanks to sheep, humans discovered they could spin and weave wool. By crossing threads with patience and creativity, they made soft and protective clothes that kept them warm against cold winds."
+    },
+    funFact: {
+      fr: "Les premiers métiers à tisser étaient faits de simples branches de bois lestées par de grosses pierres !",
+      en: "The first weaving looms were made of simple wooden branches weighted down by heavy stones!"
+    }
+  },
+  {
+    id: 'megalithes',
+    title: { fr: "Les Pierres Géantes", en: "Giant Stones" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🗿',
+    shortDesc: { fr: "Déplacer d'énormes rochers ensemble pour laisser une trace.", en: "Moving huge rocks together to leave a mark." },
+    fullContent: {
+      fr: "Pour célébrer la nature ou se souvenir de leurs ancêtres, les villageois unissent leurs forces pour ériger de gigantesques blocs de pierre. Ce travail immense prouve qu'avec de l'organisation et du courage partagé, aucun obstacle n'est trop lourd à porter.",
+      en: "To celebrate nature or remember their ancestors, villagers joined forces to erect gigantic stone blocks. This immense work proves that with organization and shared courage, no obstacle is too heavy to carry."
+    },
+    funFact: {
+      fr: "Certaines de ces pierres pèsent autant que plusieurs éléphants réunis, et pourtant ils ont réussi à les lever !",
+      en: "Some of these stones weigh as much as several elephants combined, and yet they managed to lift them!"
+    }
+  },
+  {
+    id: 'ecriture-sacree',
+    title: { fr: "L'Écriture Sacrée", en: "Sacred Writing" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '📜',
+    shortDesc: { fr: "Dessiner des histoires avec des hiéroglyphes.", en: "Drawing stories with hieroglyphs." },
+    fullContent: {
+      fr: "Les Égyptiens dessinaient de jolis petits dessins appelés hiéroglyphes sur du papier de roseau (le papyrus). En gravant leurs pensées, ils ont appris à faire voyager leurs mots dans le temps, nous rappelant l'importance de partager nos histoires.",
+      en: "Egyptians drew beautiful little pictures called hieroglyphs on reed paper (papyrus). By carving their thoughts, they learned to make their words travel through time, reminding us of the importance of sharing our stories."
+    },
+    funFact: {
+      fr: "Il y avait plus de 700 dessins différents à retenir pour savoir écrire !",
+      en: "There were over 700 different drawings to remember to know how to write!"
+    }
+  },
+  {
+    id: 'empire-incas',
+    title: { fr: "L'Empire des Incas", en: "The Inca Empire" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '☀️',
+    shortDesc: { fr: "Les cités secrètes nichées dans les nuages.", en: "Secret cities nestled in the clouds." },
+    fullContent: {
+      fr: "Les Incas ont construit de magnifiques routes et de grandes cités de pierre tout en haut des montagnes escarpées. En vivant en harmonie avec le soleil et la terre, ils nous montrent qu'avec de la patience, on peut accomplir des merveilles.",
+      en: "The Incas built magnificent roads and grand stone cities high up in the steep mountains. By living in harmony with the sun and earth, they show us that with patience, we can achieve wonders."
+    },
+    funFact: {
+      fr: "Le Machu Picchu est une ville inca cachée si haut dans les nuages qu'elle est restée secrète pendant très longtemps !",
+      en: "Machu Picchu is an Inca city hidden so high in the clouds that it remained a secret for a very long time!"
+    }
+  },
+  {
+    id: 'cathedrales',
+    title: { fr: "Les Grandes Cathédrales", en: "Great Cathedrals" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '⛪',
+    shortDesc: { fr: "De gigantesques églises de pierre décorées de vitraux.", en: "Gigantic stone churches decorated with stained glass." },
+    fullContent: {
+      fr: "Au Moyen Âge, les bâtisseurs rivalisent d'adresse pour construire d'immenses églises dont les tours touchent presque le ciel. Leurs fenêtres magiques en morceaux de verre colorés, appelées vitraux, racontent de merveilleuses histoires illuminées par le soleil.",
+      en: "In the Middle Ages, builders competed to build huge churches whose towers almost touched the sky. Their magical windows made of colored glass, called stained glass, told wonderful stories illuminated by the sun."
+    },
+    funFact: {
+      fr: "Certaines cathédrales ont mis plus de 200 ans à être entièrement finies, soit le temps de plusieurs générations de bâtisseurs !",
+      en: "Some cathedrals took over 200 years to be fully completed, which is the lifespan of several generations of builders!"
+    }
+  },
+  {
+    id: 'calligraphie',
+    title: { fr: "Moines et Calligraphie", en: "Monks and Calligraphy" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '✒️',
+    shortDesc: { fr: "L'art de recopier patiemment les livres à la main.", en: "The art of patiently copying books by hand." },
+    fullContent: {
+      fr: "Bien avant l'invention des machines à imprimer, des moines écrivains appelaient copistes écrivaient de magnifiques lettres à la plume d'oie. Avec de la belle encre noire et des peintures dorées, ils passaient des années à recopier les livres pour préserver le savoir du monde.",
+      en: "Long before printing machines, writing monks called scribes wrote beautiful letters with goose feathers. Using fine black ink and gold paint, they spent years copying books to preserve the world's knowledge."
+    },
+    funFact: {
+      fr: "La première lettre d'une page était souvent géante et décorée de petits dragons ou de jolies fleurs en or !",
+      en: "The first letter of a page was often giant and decorated with small dragons or pretty gold flowers!"
+    }
+  },
+  {
+    id: 'moulins-moyen-age',
+    title: { fr: "Moulins et Champs", en: "Mills and Fields" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '🚜',
+    shortDesc: { fr: "Utiliser le vent et l'eau pour moudre le grain.", en: "Using wind and water to grind grain." },
+    fullContent: {
+      fr: "Pour aider le village à cultiver les grands champs, les ingénieurs du Moyen Âge inventent des moulins à vent et à eau. En faisant tourner leurs ailes géantes ou leurs grandes roues, ils écrasent les grains de blé pour faire de la farine et du bon pain.",
+      en: "To help the village cultivate large fields, Middle Ages engineers invented wind and water mills. By turning their giant sails or large wheels, they crushed wheat grains to make flour and delicious bread."
+    },
+    funFact: {
+      fr: "Le moulin tournait si fort qu'il pouvait écraser autant de blé en une heure qu'un humain en une journée entière !",
+      en: "The mill turned so fast that it could grind as much wheat in one hour as a human could in a whole day!"
+    }
+  },
+  {
+    id: 'foires-marches',
+    title: { fr: "Foires et Marchés", en: "Fairs and Markets" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '💰',
+    shortDesc: { fr: "Les grands rassemblements de marchands venus de loin.", en: "Great gatherings of merchants coming from far away." },
+    fullContent: {
+      fr: "Dans les villes médiévales, les marchands dressent des tentes colorées pour vendre des épices parfumées, des tissus en soie et de jolis jouets en bois. Ces foires festives animent le village de musiques joyeuses, montrant le plaisir d'échanger et de se rencontrer.",
+      en: "In medieval towns, merchants set up colorful tents to sell fragrant spices, silk fabrics, and pretty wooden toys. These festive fairs animated the village with joyful music, showing the pleasure of trading and meeting."
+    },
+    funFact: {
+      fr: "Certains marchands voyageaient pendant des mois à dos de chameau ou en bateau pour ramener du poivre blanc, précieux comme de l'or !",
+      en: "Some merchants traveled for months on camelback or boat to bring back white pepper, which was as precious as gold!"
+    }
+  },
+  {
+    id: 'invention-papier',
+    title: { fr: "L'Invention du Papier", en: "The Invention of Paper" },
+    category: { fr: 'Histoire 🏺', en: 'History 🏺' },
+    categoryKey: 'histoire',
+    icon: '📄',
+    shortDesc: { fr: "Une feuille légère et magique pour écrire.", en: "A light and magical sheet to write on." },
+    fullContent: {
+      fr: "Inventé à l'origine en Chine, le papier arrive enfin en Europe au Moyen Âge, remplaçant les lourdes peaux d'animaux. Fabriqué à partir de vieux tissus broyés, il offre un support léger et facile à fabriquer pour partager les contes et le savoir.",
+      en: "Originally invented in China, paper finally arrived in Europe during the Middle Ages, replacing heavy animal skins. Made from crushed old cloths, it provided a light and easy-to-make medium to share stories and knowledge."
+    },
+    funFact: {
+      fr: "Avant le papier, on écrivait sur du parchemin en peau de mouton, et il fallait tout un troupeau pour faire un seul grand livre !",
+      en: "Before paper, people wrote on sheepskin parchment, and it took a whole flock to make a single large book!"
+    }
+  }
 ] as const

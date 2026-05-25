@@ -7,7 +7,8 @@ export const civilizationsSubNodes: HistoryNode[] = [
     color: '#f59e0b', 
     icon: '🏺', 
     title: { fr: 'L\'Égypte des Pharaons', en: 'Egypt of the Pharaohs' }, 
-    description: { fr: 'La construction des grandes pyramides au bord du Nil.', en: 'Building the great pyramids by the Nile.' } 
+    description: { fr: 'La construction des grandes pyramides au bord du Nil.', en: 'Building the great pyramids by the Nile.' },
+    topicId: 'pyramides'
   },
   { 
     id: 'cv2', 
@@ -15,7 +16,8 @@ export const civilizationsSubNodes: HistoryNode[] = [
     color: '#d97706', 
     icon: '📜', 
     title: { fr: 'L\'Écriture Sacrée', en: 'Sacred Writing' }, 
-    description: { fr: 'La découverte des hiéroglyphes et du papyrus.', en: 'Discovering hieroglyphs and papyrus.' } 
+    description: { fr: 'La découverte des hiéroglyphes et du papyrus.', en: 'Discovering hieroglyphs and papyrus.' },
+    topicId: 'ecriture-sacree'
   },
   { 
     id: 'cv3', 
@@ -23,7 +25,8 @@ export const civilizationsSubNodes: HistoryNode[] = [
     color: '#3b82f6', 
     icon: '🏛️', 
     title: { fr: 'La Grèce Antique', en: 'Ancient Greece' }, 
-    description: { fr: 'La naissance des Jeux Olympiques et des philosophes.', en: 'Birth of the Olympic Games and philosophers.' } 
+    description: { fr: 'La naissance des Jeux Olympiques et des philosophes.', en: 'Birth of the Olympic Games and philosophers.' },
+    topicId: 'grece-antique'
   },
   { 
     id: 'cv4', 
@@ -31,7 +34,8 @@ export const civilizationsSubNodes: HistoryNode[] = [
     color: '#6366f1', 
     icon: '🏟️', 
     title: { fr: 'Rome la Puissante', en: 'Powerful Rome' }, 
-    description: { fr: 'L\'invention des routes, des aqueducs et le Colisée.', en: 'Invention of roads, aqueducts, and the Colosseum.' } 
+    description: { fr: 'L\'invention des routes, des aqueducs et le Colisée.', en: 'Invention of roads, aqueducts, and the Colosseum.' },
+    topicId: 'romains'
   },
   { 
     id: 'cv5', 
@@ -39,7 +43,8 @@ export const civilizationsSubNodes: HistoryNode[] = [
     color: '#10b981', 
     icon: '🔢', 
     title: { fr: 'Les Mayas Astronomes', en: 'Maya Astronomers' }, 
-    description: { fr: 'Les pyramides dans la jungle et l\'étude des étoiles.', en: 'Pyramids in the jungle and studying the stars.' } 
+    description: { fr: 'Les pyramides dans la jungle et l\'étude des étoiles.', en: 'Pyramids in the jungle and studying the stars.' },
+    topicId: 'mayas'
   },
   { 
     id: 'cv6', 
@@ -47,7 +52,8 @@ export const civilizationsSubNodes: HistoryNode[] = [
     color: '#ef4444', 
     icon: '🐉', 
     title: { fr: 'La Chine Impériale', en: 'Imperial China' }, 
-    description: { fr: 'L\'invention du papier, de la soie et la Grande Muraille.', en: 'Invention of paper, silk, and the Great Wall.' } 
+    description: { fr: 'L\'invention du papier, de la soie et la Grande Muraille.', en: 'Invention of paper, silk, and the Great Wall.' },
+    topicId: 'grande-muraille'
   },
   { 
     id: 'cv7', 
@@ -55,7 +61,8 @@ export const civilizationsSubNodes: HistoryNode[] = [
     color: '#fcd34d', 
     icon: '☀️', 
     title: { fr: 'L\'Empire des Incas', en: 'Inca Empire' }, 
-    description: { fr: 'Les cités perchées dans les montagnes (Machu Picchu).', en: 'Cities perched in the mountains (Machu Picchu).' } 
+    description: { fr: 'Les cités perchées dans les montagnes (Machu Picchu).', en: 'Cities perched in the mountains (Machu Picchu).' },
+    topicId: 'empire-incas'
   },
   { 
     id: 'cv8', 
@@ -63,7 +70,8 @@ export const civilizationsSubNodes: HistoryNode[] = [
     color: '#8b5cf6', 
     icon: '⛵', 
     title: { fr: 'Les Vikings Explorateurs', en: 'Viking Explorers' }, 
-    description: { fr: 'Les drakkars qui traversent les océans.', en: 'The longships that cross the oceans.' } 
+    description: { fr: 'Les drakkars qui traversent les océans.', en: 'The longships that cross the oceans.' },
+    topicId: 'vikings'
   },
   { 
     id: 'cv9', 

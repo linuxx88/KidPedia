@@ -6,49 +6,9 @@ Vous pouvez consulter l'historique de tous les tickets déjà résolus et clôtu
 
 ---
 
-## 🎫 Ticket #42 : Liaison et Quizz pour les sous-nœuds des Regroupements primitifs (Origines h7)
-**Statut** : 🔴 À faire
-**Sévérité** : Moyenne
-**Localisation** : `src/data/origins/groups.ts` / Navigation
-**Description** :
-Les étapes de transition vers la sédentarisation (premières huttes, débuts de l'agriculture, élevage) dans `groups.ts` doivent être interactives et associées à des fiches pédagogiques.
-
----
-
-## 🎫 Ticket #43 : Liaison et Quizz pour les sous-nœuds des Grandes civilisations (Origines h8)
-**Statut** : 🔴 À faire
-**Sévérité** : Moyenne
-**Localisation** : `src/data/origins/civilizations.ts` / Navigation
-**Description** :
-Les sous-nœuds de `civilizations.ts` (Égypte ancienne, Mésopotamie, Grèce antique, Empire romain) doivent être mappés vers des sujets existants ou nouveaux de la catégorie Histoire avec leurs quiz.
-
----
-
-## 🎫 Ticket #44 : Liaison et Quizz pour les sous-nœuds du Moyen-Âge (Origines h9)
-**Statut** : 🔴 À faire
-**Sévérité** : Moyenne
-**Localisation** : `src/data/origins/middleAges.ts` / Navigation
-**Description** :
-Les éléments emblématiques du Moyen-Âge (châteaux forts, chevaliers, cathédrales, calligraphie) de la frise `middleAges.ts` doivent être liés à des sujets d'apprentissage et des quiz réels de l'encyclopédie.
-
----
-
 # 🗺️ FEUILLE DE ROUTE (ROADMAP) : Versions v0.0.3 à v0.0.9 (Contenu Premium PM)
 
 Ce volet réunit les spécifications stratégiques conçues par le Product Manager pour les futures itérations du MVP (versions 0.0.3 à 0.0.9), visant à consolider l'immersion ludique, l'ergonomie physique et l'apprentissage inclusif des 4-8 ans.
-
----
-
-## 🎫 Ticket #R5 : Version 0.0.5 - Le Grand Quiz des Champions (Mode Défi) 🏆
-**Statut** : 🔴 À faire (Planifié pour v0.0.5)
-**Sévérité** : Moyenne (Gamification / Rétention)
-**Localisation** : `src/pages/Championship/` & `src/store/useQuizChampionshipStore.ts`
-**Description** :
-Introduire un mode de jeu compétitif et rejouable appelé "Le Grand Quiz". Contrairement aux quiz classiques de fiche, ce mode tire 10 questions aléatoires à travers toutes les catégories de l'encyclopédie. Un compte à rebours ludique de 15 secondes par question matérialisé par une mèche d'allumette qui brûle ajoute une tension excitante, récompensée par une avalanche de confettis dorés et un trophée physique à exposer.
-**Critères d'Acceptation (DOD)** :
-- [ ] Construire le composant `ChampionshipPage` avec un design premium (effet néon, dégradés d'or).
-- [ ] Implémenter le minuteur graphique interactif (SVG de mèche d'allumette qui brûle progressivement).
-- [ ] Sauvegarder les 5 meilleurs scores locaux dans le `LocalStorage` et afficher un tableau d'honneur personnalisé avec l'avatar de l'enfant.
 
 ---
 

@@ -221,5 +221,170 @@ export const QUIZZES: Partial<Record<TopicId, Quiz>> = {
       en: ["Fly planes", "Agriculture and farming", "Swim underwater"],
     },
     correctAnswer: 1,
+  },
+  sedentarisation: {
+    question: {
+      fr: "Que signifie le fait de devenir sédentaire ?",
+      en: "What does becoming sedentary mean?",
+    },
+    options: {
+      fr: ["Voyager tout le temps", "S'installer et vivre au même endroit", "Vivre uniquement dans des grottes"],
+      en: ["Traveling all the time", "Settling down and living in the same place", "Living only in caves"],
+    },
+    correctAnswer: 1,
+  },
+  'murs-terre': {
+    question: {
+      fr: "Quel mélange naturel utilisait-on pour fabriquer des murs solides ?",
+      en: "What natural mixture was used to make solid walls?",
+    },
+    options: {
+      fr: ["De la paille et de la terre mouillée", "Du plastique et du sable", "De la glace et des feuilles"],
+      en: ["Straw and wet earth", "Plastic and sand", "Ice and leaves"],
+    },
+    correctAnswer: 0,
+  },
+  'debuts-agriculture': {
+    question: {
+      fr: "Qu'est-ce que les humains ont appris à semer pour faire pousser de la nourriture ?",
+      en: "What did humans learn to sow to grow food?",
+    },
+    options: {
+      fr: ["Des cailloux", "Des graines", "Des jouets"],
+      en: ["Stones", "Seeds", "Toys"],
+    },
+    correctAnswer: 1,
+  },
+  'debuts-elevage': {
+    question: {
+      fr: "Quel est l'un des premiers animaux que les humains ont élevé près d'eux ?",
+      en: "What is one of the first animals that humans raised near them?",
+    },
+    options: {
+      fr: ["Le dinosaure", "La chèvre", "Le lion"],
+      en: ["The dinosaur", "The goat", "The lion"],
+    },
+    correctAnswer: 1,
+  },
+  'invention-poterie': {
+    question: {
+      fr: "Quelle matière souple de la terre façonnait-on pour faire des pots ?",
+      en: "What soft material from the earth was shaped to make pots?",
+    },
+    options: {
+      fr: ["Le bois", "L'argile", "Le fer"],
+      en: ["Wood", "Clay", "Iron"],
+    },
+    correctAnswer: 1,
+  },
+  'vie-communaute': {
+    question: {
+      fr: "Comment faisait-on parfois pour entrer dans les maisons serrées du village ?",
+      en: "How did people sometimes enter the tightly packed houses of the village?",
+    },
+    options: {
+      fr: ["Par le toit avec une échelle", "En creusant un tunnel", "Par une porte dorée"],
+      en: ["Through the roof with a ladder", "By digging a tunnel", "Through a golden door"],
+    },
+    correctAnswer: 0,
+  },
+  'tissage-laine': {
+    question: {
+      fr: "De quel animal récupérait-on la laine pour la tisser ?",
+      en: "From which animal did they get wool to weave?",
+    },
+    options: {
+      fr: ["Du poisson", "Du mouton", "De l'oiseau"],
+      en: ["Fish", "Sheep", "Bird"],
+    },
+    correctAnswer: 1,
+  },
+  megalithes: {
+    question: {
+      fr: "Qu'est-ce que les villageois déplaçaient ensemble pour fabriquer des monuments ?",
+      en: "What did the villagers move together to make monuments?",
+    },
+    options: {
+      fr: ["Des plumes légères", "D'énormes pierres géantes", "Des troncs de sapin"],
+      en: ["Light feathers", "Huge giant stones", "Fir tree trunks"],
+    },
+    correctAnswer: 1,
+  },
+  'ecriture-sacree': {
+    question: {
+      fr: "Comment s'appelaient les petits dessins que les Égyptiens utilisaient pour écrire ?",
+      en: "What were the small drawings the Egyptians used to write called?",
+    },
+    options: {
+      fr: ["Les hiéroglyphes", "Les chiffres", "Les étoiles"],
+      en: ["Hieroglyphs", "Numbers", "Stars"],
+    },
+    correctAnswer: 0,
+  },
+  'empire-incas': {
+    question: {
+      fr: "Dans quel endroit extraordinaire les Incas construisaient-ils leurs cités ?",
+      en: "In what extraordinary place did the Incas build their cities?",
+    },
+    options: {
+      fr: ["Tout en haut des montagnes", "Sous l'eau dans l'océan", "Dans le grand désert de sable"],
+      en: ["High up in the mountains", "Underwater in the ocean", "In the great sand desert"],
+    },
+    correctAnswer: 0,
+  },
+  cathedrales: {
+    question: {
+      fr: "Comment s'appellent les jolies fenêtres en verre coloré des cathédrales ?",
+      en: "What are the pretty colored glass windows of cathedrals called?",
+    },
+    options: {
+      fr: ["Des vitraux", "Des miroirs", "Des rideaux"],
+      en: ["Stained glass windows", "Mirrors", "Curtains"],
+    },
+    correctAnswer: 0,
+  },
+  calligraphie: {
+    question: {
+      fr: "Avec quel instrument de plume écrivait-on les manuscrits au Moyen Âge ?",
+      en: "With which feather instrument did they write manuscripts in the Middle Ages?",
+    },
+    options: {
+      fr: ["Une plume d'oie", "Un stylo à bille", "Un pinceau en plastique"],
+      en: ["A goose feather", "A ballpoint pen", "A plastic brush"],
+    },
+    correctAnswer: 0,
+  },
+  'moulins-moyen-age': {
+    question: {
+      fr: "Quelle force de la nature faisait tourner les moulins à vent ?",
+      en: "Which force of nature turned windmills?",
+    },
+    options: {
+      fr: ["Le vent", "La pluie", "Le soleil"],
+      en: ["The wind", "The rain", "The sun"],
+    },
+    correctAnswer: 0,
+  },
+  'foires-marches': {
+    question: {
+      fr: "Pourquoi les marchands venaient-ils s'installer dans les foires ?",
+      en: "Why did merchants set up in fairs?",
+    },
+    options: {
+      fr: ["Pour faire du toboggan", "Pour vendre des épices et de beaux tissus", "Pour dormir tranquillement"],
+      en: ["To go down slides", "To sell spices and beautiful fabrics", "To sleep quietly"],
+    },
+    correctAnswer: 1,
+  },
+  'invention-papier': {
+    question: {
+      fr: "Dans quel pays le papier a-t-il été inventé à l'origine ?",
+      en: "In which country was paper originally invented?",
+    },
+    options: {
+      fr: ["En Chine", "En France", "En Amérique"],
+      en: ["China", "France", "America"],
+    },
+    correctAnswer: 0,
   }
 };

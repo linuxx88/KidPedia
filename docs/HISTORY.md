@@ -6,6 +6,39 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## Espace Parents & Limites de Temps
 
+### VERSION 3.23.0 - Le Grand Quiz des Champions 🏆⚡ (25 Mai 2026)
+--------------------------------------------------
+- **[Gamification/Logic/UI/UX] Le Grand Quiz des Champions (Mode Défi) (Ticket #R5) :**
+    - **useQuizChampionshipStore.ts (Logic & State)** : Création d'un magasin Zustand persistant (LocalStorage) gérant le tirage de 10 questions aléatoires, le compte à rebours de 15 secondes par question, le calcul et le stockage sécurisé des 5 meilleurs scores locaux (Wall of Fame) avec l'avatar et le nom de l'explorateur actif.
+    - **ChampionshipPage.tsx & ChampionshipPage.module.css (UI/UX)** : Intégration d'un écran de jeu immersif haut de gamme (effets néons, dégradés d'or en glassmorphism et animations 3D) avec un minuteur graphique interactif SVG représentant une mèche d'allumette qui se consume avec une flamme animée vacillante.
+    - **Procedural Sound Synthesis (Web Audio API)** : Conception d'un moteur de sons procéduraux (chime de réussite, bourdonnement de mauvaise réponse, horloge de stress pour les 5 dernières secondes, signal de temps écoulé et fanfare finale harmonieuse) assurant une immersion sonore sans dépendance de fichiers externes lourds.
+    - **Visual Celebrations (Confetti)** : Déclenchement d'explosions de confettis en fin de jeu et double cascade dorée symétrique exclusive en cas de sans-faute parfait (10/10).
+    - **App.tsx & HomePage.tsx (Navigation)** : Enregistrement de la nouvelle route `/championship` et ajout d'une tuile d'accès thématique « Le Grand Quiz des Champions » dans la grille du Hub de Découverte (Icône Rocket dorée).
+
+### VERSION 3.22.8 - Liaison Encyclopédique & Quizz Interactifs du Moyen-Âge 🛡️🏰 (25 Mai 2026)
+--------------------------------------------------
+- **[Content/Logic/QA] Liaison interactive et fiches de quiz pour le Moyen-Âge (Ticket #44) :**
+    - **middleAges.ts (Navigation)** : Association de chacun des 8 sous-nœuds intermédiaires (`ma1` à `ma8`) à des identifiants de sujets uniques (`romains`, `chevaliers`, `chateaux`, `cathedrales`, `calligraphie`, `moulins-moyen-age`, `foires-marches`, `invention-papier`), ouvrant l'accès interactif complet à leurs fiches et quiz respectifs sur la frise chronologique d'Origins.
+    - **topics/history.ts (Encyclopédie)** : Conception et intégration de 5 nouvelles fiches éducatives bilingues adaptées pour le jeune public de 4-8 ans (`cathedrales`, `calligraphie`, `moulins-moyen-age`, `foires-marches`, `invention-papier`).
+    - **quizzes/history.ts (Quizz)** : Création de 5 nouveaux quiz interactifs et stimulants pour chaque nouveau sujet afin de valider et de consolider l'apprentissage du Moyen-Âge.
+    - **constants/ids.ts (Typage & Intégration)** : Déclaration de tous les nouveaux identifiants de sujet dans l'array global `TOPIC_IDS` pour assurer un typage strict automatique dans toute l'application.
+
+### VERSION 3.22.7 - Liaison Encyclopédique & Quizz Interactifs des Grandes civilisations 🏺🏛️ (25 Mai 2026)
+--------------------------------------------------
+- **[Content/Logic/QA] Liaison interactive et fiches de quiz pour les Grandes civilisations (Ticket #43) :**
+    - **civilizations.ts (Navigation)** : Association de chacun des 8 sous-nœuds intermédiaires (`cv1` à `cv8`) à des identifiants de sujets uniques (`pyramides`, `ecriture-sacree`, `grece-antique`, `romains`, `mayas`, `grande-muraille`, `empire-incas`, `vikings`), ouvrant l'accès interactif complet à leurs fiches et quiz respectifs sur la frise chronologique d'Origins.
+    - **topics/history.ts (Encyclopédie)** : Conception et intégration de 2 nouvelles fiches éducatives bilingues adaptées pour le jeune public de 4-8 ans (`ecriture-sacree`, `empire-incas`).
+    - **quizzes/history.ts (Quizz)** : Création de 2 nouveaux quiz interactifs et stimulants pour chaque nouveau sujet afin de valider et de consolider l'apprentissage des grandes civilisations.
+    - **constants/ids.ts (Typage & Intégration)** : Déclaration de tous les nouveaux identifiants de sujet dans l'array global `TOPIC_IDS` pour assurer un typage strict automatique dans toute l'application.
+
+### VERSION 3.22.6 - Liaison Encyclopédique & Quizz Interactifs des Regroupements primitifs 🛖🌾 (25 Mai 2026)
+--------------------------------------------------
+- **[Content/Logic/QA] Liaison interactive et fiches de quiz pour les Regroupements primitifs (Ticket #42) :**
+    - **groups.ts (Navigation)** : Association de chacun des 8 sous-nœuds intermédiaires (`gv1` à `gv8`) à des identifiants de sujets uniques (`sedentarisation`, `murs-terre`, `debuts-agriculture`, `debuts-elevage`, `invention-poterie`, `vie-communaute`, `tissage-laine`, `megalithes`), ouvrant l'accès interactif complet à leurs fiches et quiz respectifs sur la frise chronologique d'Origins.
+    - **topics/history.ts (Encyclopédie)** : Conception et intégration de 8 nouvelles fiches éducatives bilingues adaptées pour le jeune public de 4-8 ans.
+    - **quizzes/history.ts (Quizz)** : Création de 8 nouveaux quiz interactifs et stimulants pour chaque nouveau sujet afin de valider et de consolider l'apprentissage du mode de vie sédentaire.
+    - **constants/ids.ts (Typage & Intégration)** : Déclaration de tous les nouveaux identifiants de sujet dans l'array global `TOPIC_IDS` pour assurer un typage strict automatique dans toute l'application.
+
 ### VERSION 3.22.5 - Liaison Encyclopédique & Quizz Interactifs de l'Évolution de l'homme 🚶🔥 (25 Mai 2026)
 --------------------------------------------------
 - **[Content/Logic/QA] Liaison interactive et fiches de quiz pour l'Évolution de l'homme (Ticket #41) :**

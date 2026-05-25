@@ -6,6 +6,20 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #R5 : Version 0.0.5 - Le Grand Quiz des Champions (Mode Défi) 🏆
+**Statut** : 🟢 Résolu (v3.23.0)
+**Sévérité** : Moyenne (Gamification / Rétention)
+**Localisation** : `src/pages/Championship/` & `src/store/useQuizChampionshipStore.ts`
+**Description** :
+Introduire un mode de jeu compétitif et rejouable appelé "Le Grand Quiz". Contrairement aux quiz classiques de fiche, ce mode tire 10 questions aléatoires à travers toutes les catégories de l'encyclopédie. Un compte à rebours ludique de 15 secondes par question matérialisé par une mèche d'allumette qui brûle ajoute une tension excitante, récompensée par une avalanche de confettis dorés et un trophée physique à exposer.
+**Résolution** :
+- Création du store Zustand réactif et persistant `useQuizChampionshipStore` gérant le tirage de 10 questions aléatoires, le compte à rebours, le calcul et la persistance des 5 meilleurs scores (Wall of Fame) avec nom et avatar de l'enfant dans le `LocalStorage`.
+- Implémentation du composant visuel d'exception `ChampionshipPage` (effets néons, dégradés d'or en glassmorphism haut de gamme) et d'un minuteur graphique interactif SVG (mèche d'allumette qui se consume avec flamme animée oscillante).
+- Intégration d'un synthétiseur de retours sonores procéduraux Web Audio API (chime magique de réussite, buzz de défaite, horloge de fin de temps et fanfare de victoire) et double cascade de confettis.
+- Câblage complet des routes et d'une tuile d'accès thématique dans la grille d'accueil (Rocket Icon).
+
+---
+
 ## 🎫 Ticket #01 : Désynchronisation du Quiz (Logique de validation)
 **Statut** : 🟢 Résolu
 **Sévérité** : Élevée (Bug Fonctionnel)
@@ -984,3 +998,56 @@ Les différentes étapes de l'évolution des hominidés (Toumaï, Lucy, etc.) da
 Les grandes avancées humaines de la frise `evolution.ts` (maîtrise du feu, premiers outils, art pariétal) doivent être connectées à des sujets dans `history.ts` ou dans un nouveau fichier thématique avec des quiz correspondants.
 **Résolution** :
 - Liaison de chacun des 8 sous-nœuds intermédiaires (`ev1` à `ev8`) à des identifiants de sujets uniques existants (`dompteur-feu`, `prehistoire`, `artisan-pierres`, `artistes-cavernes`, `loup`), ouvrant l'accès interactif complet à leurs fiches et quiz respectifs sur la frise chronologique d'Origins.
+
+---
+
+## 🎫 Ticket #42 : Liaison et Quizz pour les sous-nœuds des Regroupements primitifs (Origines h7)
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/groups.ts` / Navigation
+**Description** :
+Les étapes de transition vers la sédentarisation (premières huttes, débuts de l'agriculture, élevage) dans `groups.ts` doivent être interactives et associées à des fiches pédagogiques.
+**Résolution** :
+- Liaison de chacun des 8 sous-nœuds intermédiaires (`gv1` à `gv8`) à des identifiants de sujets uniques (`sedentarisation`, `murs-terre`, `debuts-agriculture`, `debuts-elevage`, `invention-poterie`, `vie-communaute`, `tissage-laine`, `megalithes`), ouvrant l'accès interactif complet à leurs fiches et quiz respectifs sur la frise chronologique d'Origins.
+- Création de 8 nouveaux sujets historiques et de leurs quiz correspondants bilingues (français/anglais) de haute qualité et adaptés aux enfants de 4-8 ans.
+- Enregistrement des nouveaux identifiants de sujets dans l'array global de typage strict `TOPIC_IDS`.
+
+---
+
+## 🎫 Ticket #43 : Liaison et Quizz pour les sous-nœuds des Grandes civilisations (Origines h8)
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/civilizations.ts` / Navigation
+**Description** :
+Les sous-nœuds de `civilizations.ts` (Égypte ancienne, Mésopotamie, Grèce antique, Empire romain) doivent être mappés vers des sujets existants ou nouveaux de la catégorie Histoire avec leurs quiz.
+**Résolution** :
+- Liaison de tous les 8 sous-nœuds (`cv1` à `cv8`) à des fiches réelles de l'encyclopédie :
+  - `cv1` -> `pyramides` (existant)
+  - `cv2` -> `ecriture-sacree` (nouveau sujet créé dans `src/data/topics/history.ts` avec son quiz dans `src/data/quizzes/history.ts`)
+  - `cv3` -> `grece-antique` (existant)
+  - `cv4` -> `romains` (existant)
+  - `cv5` -> `mayas` (existant)
+  - `cv6` -> `grande-muraille` (existant sous `geography.ts`)
+  - `cv7` -> `empire-incas` (nouveau sujet créé dans `src/data/topics/history.ts` avec son quiz dans `src/data/quizzes/history.ts`)
+  - `cv8` -> `vikings` (existant)
+- Enregistrement des nouveaux identifiants de sujets (`ecriture-sacree` et `empire-incas`) dans l'array global de typage strict `TOPIC_IDS`.
+
+---
+
+## 🎫 Ticket #44 : Liaison et Quizz pour les sous-nœuds du Moyen-Âge (Origines h9)
+**Statut** : 🟢 Résolu
+**Sévérité** : Moyenne
+**Localisation** : `src/data/origins/middleAges.ts` / Navigation
+**Description** :
+Les éléments emblématiques du Moyen-Âge (châteaux forts, chevaliers, cathédrales, calligraphie) de la frise `middleAges.ts` doivent être liés à des sujets d'apprentissage et des quiz réels de l'encyclopédie.
+**Résolution** :
+- Liaison de tous les 8 sous-nœuds (`ma1` à `ma8`) à des fiches réelles de l'encyclopédie :
+  - `ma1` -> `romains` (existant)
+  - `ma2` -> `chevaliers` (existant)
+  - `ma3` -> `chateaux` (existant)
+  - `ma4` -> `cathedrales` (nouveau sujet créé dans `src/data/topics/history.ts` avec son quiz dans `src/data/quizzes/history.ts`)
+  - `ma5` -> `calligraphie` (nouveau sujet créé dans `src/data/topics/history.ts` avec son quiz dans `src/data/quizzes/history.ts`)
+  - `ma6` -> `moulins-moyen-age` (nouveau sujet créé dans `src/data/topics/history.ts` avec son quiz dans `src/data/quizzes/history.ts`)
+  - `ma7` -> `foires-marches` (nouveau sujet créé dans `src/data/topics/history.ts` avec son quiz dans `src/data/quizzes/history.ts`)
+  - `ma8` -> `invention-papier` (nouveau sujet créé dans `src/data/topics/history.ts` avec son quiz dans `src/data/quizzes/history.ts`)
+- Enregistrement des nouveaux identifiants de sujets (`cathedrales`, `calligraphie`, `moulins-moyen-age`, `foires-marches` et `invention-papier`) dans l'array global de typage strict `TOPIC_IDS`.

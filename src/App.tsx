@@ -57,6 +57,9 @@ const FlowDashboard = lazy(() =>
 const RefugePage = lazy(() =>
   import('./pages/Refuge/RefugePage').then((module) => ({ default: module.RefugePage })),
 );
+const ChampionshipPage = lazy(() =>
+  import('./pages/Championship/ChampionshipPage').then((module) => ({ default: module.ChampionshipPage })),
+);
 
 import { PWAPrompt } from './components/UI/PWAPrompt'
 import ScrollToTop from './components/UI/ScrollToTop'
@@ -288,6 +291,14 @@ export function App() {
             element={
               <div className={styles.routeWrapper}>
                 <RefugePage />
+              </div>
+            }
+          />
+          <Route
+            path="/championship"
+            element={
+              <div className={styles.routeWrapper}>
+                <ChampionshipPage />
               </div>
             }
           />

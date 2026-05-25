@@ -90,6 +90,8 @@ export interface Labels {
     originsDesc: string;
     refugeTitle: string;
     refugeDesc: string;
+    championshipTitle: string;
+    championshipDesc: string;
     step: (current: number, total: number) => string;
     knowMore: string;
     otherFact: string;
@@ -273,5 +275,30 @@ export interface Labels {
     update: string;
     updateBtn: string;
     closeBtn: string;
+  };
+  championship: {
+    title: string;
+    subtitle: string;
+    startBtn: string;
+    questionTitle: (current: number, total: number) => string;
+    timeRemaining: string;
+    timesUp: string;
+    nextBtn: string;
+    correctAlert: string;
+    incorrectAlert: string;
+    scoreLabel: string;
+    perfectScore: string;
+    goodScore: string;
+    lowScore: string;
+    xpEarned: (amount: number) => string;
+    ticketsEarned: (amount: number) => string;
+    replayBtn: string;
+    homeBtn: string;
+    leaderboardTitle: string;
+    noScores: string;
+    rankLabel: string;
+    nameLabel: string;
+    dateLabel: string;
+    newRecord: string;
   };
 }
