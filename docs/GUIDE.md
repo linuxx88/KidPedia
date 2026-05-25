@@ -137,6 +137,7 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Fonctionnalité "Manger" dans Le Refuge des Compagnons (Ticket #74)** (Traité en v3.23.1)
 ✅ **RÉSOLU : La Carte interactive Sonorisée (Ticket #R6)** (Traité en v3.23.2)
 ✅ **RÉSOLU : Cycle de vie et interactions (Sommeil, besoins, cache-cache) au Refuge (Ticket #Refuge-Sim)** (Traité en v3.23.3)
+✅ **RÉSOLU : Correctifs de Layout, de Validation et de Scrollbar (Ticket #67, #68, Refuge-Sim follow-up)** (Traité en v3.23.4)
 
 
 ---
@@ -144,6 +145,6 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 25 mai 2026 (v3.23.3)*
+*Dernière mise à jour : 25 mai 2026 (v3.23.4)*
 
 

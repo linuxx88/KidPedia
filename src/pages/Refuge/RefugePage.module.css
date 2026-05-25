@@ -420,6 +420,7 @@
 /* Playzone actions panel */
 .actionPanel {
   display: flex;
+  flex-wrap: wrap; 
   gap: 1.5rem;
   /*width: 100%; Laisser en commentaire */
   max-width: 450px;

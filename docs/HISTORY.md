@@ -6,6 +6,14 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ## Espace Parents & Limites de Temps
 
+### VERSION 3.23.4 - Correctifs de Layout, de Validation et de Scrollbar 🛠️📱 (25 Mai 2026)
+--------------------------------------------------
+- **[Architecture/QA] Correctif de type-check / compilation React :**
+    - **LifeCirclePage.tsx** : Import explicite de `useRef` depuis React pour corriger une erreur de variable indéfinie empêchant la validation complète.
+- **[Aesthetics/UX/UI] Polissage Responsif & Correctifs CSS :**
+    - **Home.module.css** : Ajustement de la hauteur maximale (`max-height: 70vh`) et activation du défilement vertical (`overflow-y: auto`) sur la grille d'accueil (`.hubGrid`). Résolution d'une syntaxe incorrecte de sélecteur pseudo-élément de barre de défilement webkit (`::-webkit-scrollbar`) et ajout de flex-direction column pour les cartes du hub.
+    - **RefugePage.module.css** : Activation du retour à la ligne (`flex-wrap: wrap`) pour le panneau d'actions (`.actionPanel`) au Refuge pour éviter tout débordement ou troncature visuelle sur mobile.
+
 ### VERSION 3.23.3 - Le Refuge des Compagnons : Cycle de sommeil, cache-cache et besoins 🐾💤💩 (25 Mai 2026)
 --------------------------------------------------
 - **[Gamification/Logic/UI/UX] Cycle de sommeil, cache-cache et besoins dans Le Refuge :**

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEnvironmentStore, type Season } from '../../store/useEnvironmentStore';
 import { useProgressionStore } from '../../store/useProgressionStore';
