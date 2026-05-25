@@ -81,17 +81,13 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
 
   // States
   const [activeTab, setActiveTab] = useState<'stats' | 'control' | 'tips' | 'tech'>('stats');
-  const [selectedProfileId, setSelectedProfileId] = useState<string | null>(null);
+  const [selectedProfileId, setSelectedProfileId] = useState<string | null>(() => {
+    const currentProfiles = useProfileStore.getState().profiles;
+    return currentProfiles.length > 0 ? currentProfiles[0].id : null;
+  });
   const [screentimeLimit, setScreentimeLimit] = useState<number>(0);
   const [isEditingName, setIsEditingName] = useState(false);
   const [editNameValue, setEditNameValue] = useState('');
-
-  // Default selection
-  useEffect(() => {
-    if (profiles.length > 0 && !selectedProfileId) {
-      setSelectedProfileId(profiles[0].id);
-    }
-  }, [profiles, selectedProfileId]);
 
   // Sync profile values
   const activeProfile = useMemo(() => {
@@ -103,7 +99,10 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
   useEffect(() => {
     if (currentProfileId) {
       const saved = localStorage.getItem(`kp-screentime-limit-${currentProfileId}`);
-      setScreentimeLimit(saved ? parseInt(saved, 10) : 0);
+      const limit = saved ? parseInt(saved, 10) : 0;
+      Promise.resolve().then(() => {
+        setScreentimeLimit(limit);
+      });
     }
   }, [currentProfileId]);
 
@@ -259,7 +258,7 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
             <button
               key={key}
               className={`${styles.tabLink} ${activeTab === key ? styles.tabLinkActive : ''}`}
-              onClick={() => setActiveTab(key as any)}
+              onClick={() => setActiveTab(key as 'stats' | 'control' | 'tips' | 'tech')}
             >
               {value[language]}
             </button>

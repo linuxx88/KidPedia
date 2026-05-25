@@ -896,6 +896,34 @@ Sur les terminaux mobiles et tablettes (et résolutions d'écran allongées), la
     - **OrientationGuard Mobile** : Intégration du composant réutilisable de garde-fou d'orientation (`OrientationGuard`), invitant chaleureusement l'enfant à basculer sa tablette ou son smartphone horizontalement pour profiter d'un champ visuel optimal sur la carte au trésor, aligné sur l'expérience premium de Mission Safari.
     - **Sécurisation de Tests** : Mock du composant `OrientationGuard` dans la suite de tests unitaires et d'intégration `TreasureMap.test.tsx` pour garantir 100% de robustesse et de passage au vert de la suite de tests de non-régression.
 
+---
+
+## 🎫 Ticket #73 : Refonte Complète et Premium du Tableau de Bord Parents (Produit Finalisé & Limites de Temps)
+**Statut** : 🟢 Résolu
+**Sévérité** : Élevée (Amélioration Produit / UX)
+**Localisation** : `src/pages/Parents/ParentsDashboard.tsx` & `ParentsDashboard.module.css`
+**Description** :
+Le tableau de bord parents initial était une simple ébauche avec des réglages audio et des informations textuelles. Pour en faire un produit finalisé d'une qualité d'exception (Premium product), il est requis d'apporter plusieurs améliorations significatives :
+1. **Interface Multi-onglets Glassmorphic** : Ajouter une structure à onglets fluides segmentant les fonctionnalités (Progression, Contrôle Parental, Guide Éducatif, Espace Technique).
+2. **Statistiques de progression détaillées** : Calculer et afficher en temps réel l'XP, le rang, les médailles Or/Argent/Bronze, et la complétion thématique exacte par catégorie de l'encyclopédie de manière visuelle avec des barres de progression colorées.
+3. **Limitation du temps d'écran quotidien** : Permettre aux parents de configurer une limite (15m, 30m, 45m, 60m ou illimité) par profil d'enfant, persistant de façon autonome dans le local storage.
+4. **Conseils Pédagogiques & Discussion** : Générer dynamiquement des questions de discussion ("Démarreurs de discussion") adaptées aux sujets que l'enfant a déjà explorés, afin de créer des liens réels hors-écran.
+5. **Gestion de Profil & Identité** : Offrir la possibilité d'éditer le nom de l'explorateur en direct, de purger sa progression ou de supprimer le profil de manière synchronisée avec le store de compagnons.
+6. **Linter et robustesse TS** : Éliminer les re-renders synchrones dans les effets via une microtâche asynchrone propre et supprimer les typecasts non sécurisés `as any`.
+**Résolution** :
+1. **ParentsDashboard.tsx** :
+   - Structure multi-onglets dynamique ajoutée avec sélecteur de profil en temps réel.
+   - Statistiques globales (XP, Rangs, médailles Or/Argent/Bronze, tickets de quiz) calculées dynamiquement.
+   - Grille de complétion par catégorie thématique (Espace, Dinosaures, Animaux, etc.) avec taux de réussite exacts et pourcentage.
+   - Implémentation du sélecteur de limite de temps quotidien persistant sous la clé `kp-screentime-limit-[id]`.
+   - Intégration du générateur de démarreurs de discussion bilingues se basant sur les badges réellement débloqués par l'explorateur actif.
+   - Intégration de l'édition du nom de profil et correction des avertissements ESLint en asynchronisant le `setState` par microtâche et en typant de manière stricte le sélecteur d'onglet.
+2. **ParentsDashboard.module.css** :
+   - Refonte totale du style avec un arrière-plan à gradient thématique doux (clair et sombre thémisés).
+   - Design en **glassmorphism** d'une grande pureté exploitant un `backdrop-filter: blur(12px)`, des bordures claires et de superbes ombres de profondeur.
+   - Micro-animations de rebonds physiques tridimensionnels sur l'état `:hover` et `:active` de l'ensemble des boutons et des cartes thématiques.
+   - Conception élastique responsif s'adaptant parfaitement aux smartphones d'écrans haute densité et aux tablettes/ordinateurs.
+
 
 
 

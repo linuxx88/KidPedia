@@ -4,9 +4,23 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
-## 🌟 Cycle Kidpedia v3.0 : L'Excellence Interactive
+## Espace Parents & Limites de Temps
 
-
+### VERSION 3.22.0 - Refonte Premium du Tableau de Bord Parents & Contrôle du Temps d'Écran 📊⏱️ (25 Mai 2026)
+--------------------------------------------------
+- **[UX/UI/Logic/ParentalControl] Refonte complète et premium de l'Espace Parents pour un produit haut de gamme fini (Ticket #73) :**
+    - **ParentsDashboard.tsx** :
+        - Implémentation d'une structure à 4 onglets dynamiques (`stats` | `control` | `tips` | `tech`) permettant de segmenter élégamment les données.
+        - Ajout d'un sélecteur d'explorateur en temps réel en haut de page pour adapter instantanément les données au profil sélectionné.
+        - **Calculateur de Progression Détaillé** : Intégration de calculs en direct d'XP, niveau, médailles Or/Argent/Bronze et de la complétion thématique exacte par catégorie de l'encyclopédie (Espace, Dinosaures, Animaux, Corps Humain, Arts, Géographie, Histoire, Inventions, Nature, Questions).
+        - **Limites de Temps d'Écran** : Nouvelle fonctionnalité de limitation quotidienne du temps de jeu (Illimité, 15 min, 30 min, 45 min, 60 min) persistant de manière autonome en LocalStorage par profil.
+        - **Guide Éducatif & Discussion** : Générateur de questions de discussion personnalisé parent-enfant ("Démarreurs de discussion") s'adaptant en direct aux médailles réellement décrochées par le profil, pour favoriser le prolongement hors-écran.
+        - **Gestion d'Identité & Sécurité** : Éditeur de nom d'explorateur en ligne, purge de progression et suppression sécurisée et synchronisée de profils.
+        - **Linter & TS Compliance** : Correction de l'effet synchrone de re-rendering via une microtâche asynchrone, typages TypeScript stricts éliminant les casts laxistes `as any`.
+    - **ParentsDashboard.module.css** :
+        - Rendu visuel d'exception : design moderne exploitant un radial-gradient doux thématique de fond, s'adaptant au thème sombre et au thème clair.
+        - Effets de cartes d'affichage en **glassmorphism** d'une grande finesse avec des bordures translucides (`backdrop-filter: blur()`), ombres douces et transitions animées 3D d'enfoncement physique au clic/survol.
+        - Layout élastique responsif complet (Flexbox et CSS Grid) avec polices fluides garantissant un affichage optimal et sans débordement sur mobiles, tablettes et ordinateurs.
 
 ### VERSION 3.21.1 - Correctifs d'Affichage Responsif & Parallaxe sur Mobile (24 Mai 2026)
 --------------------------------------------------
