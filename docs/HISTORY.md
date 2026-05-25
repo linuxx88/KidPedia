@@ -14,6 +14,11 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
     - **Procedural Sound Synthesis (Web Audio API)** : Conception d'un moteur de sons procéduraux (chime de réussite, bourdonnement de mauvaise réponse, horloge de stress pour les 5 dernières secondes, signal de temps écoulé et fanfare finale harmonieuse) assurant une immersion sonore sans dépendance de fichiers externes lourds.
     - **Visual Celebrations (Confetti)** : Déclenchement d'explosions de confettis en fin de jeu et double cascade dorée symétrique exclusive en cas de sans-faute parfait (10/10).
     - **App.tsx & HomePage.tsx (Navigation)** : Enregistrement de la nouvelle route `/championship` et ajout d'une tuile d'accès thématique « Le Grand Quiz des Champions » dans la grille du Hub de Découverte (Icône Rocket dorée).
+- **[Parents/Architecture] Refonte premium et interactive complète du Visualisateur de Flux (Flow Visualizer) :**
+    - **Interactive Layer Filtering** : Ajout de filtres interactifs par clic sur les catégories de la légende pour isoler visuellement n'importe quelle couche de l'application (Points d'Entrée, Vues, Composants Graphiques, Zustand Stores, Bases de Données, Hooks/Feedback) en atténuant dynamiquement le reste du diagramme via des transitions fluides CSS.
+    - **Floating Zoom & Reset Panel** : Implémentation d'un module de zoom dynamique (de 50% à 160%) avec centrage élastique et barres de défilement personnalisées pour parcourir facilement les diagrammes d'architecture complexes.
+    - **Updated Architecture Graph** : Mise à jour complète de la cartographie Mermaid pour y inclure les modules du Refuge des Compagnons, la boutique de friandises, le Grand Quiz des Champions et le magasin `useQuizChampionshipStore`.
+    - **Export Vectoriel PNG & SVG** : Optimisation des routines de sérialisation XML autonomes avec résolution automatique des variables CSS de thème pour des téléchargements instantanés de diagrammes haute définition.
 
 ### VERSION 3.22.8 - Liaison Encyclopédique & Quizz Interactifs du Moyen-Âge 🛡️🏰 (25 Mai 2026)
 --------------------------------------------------
