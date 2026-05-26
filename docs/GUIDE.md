@@ -143,6 +143,7 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Le Verrouillage Kid-Safe Intelligent (Ticket #R9)** (Traité en v3.23.6)
 ✅ **RÉSOLU : Bascule asynchrone du useProgressionStore (Ticket #76)** (Traité en v3.23.6)
 ✅ **RÉSOLU : Découplage de Fiche Encyclopédique & Interface TopicContent (Ticket #78)** (Traité en v3.24.0)
+✅ **RÉSOLU : Hook Réactif useTopicFetcher & Robustesse Réseau (Ticket #79)** (Traité en v3.24.0)
 
 
 ---

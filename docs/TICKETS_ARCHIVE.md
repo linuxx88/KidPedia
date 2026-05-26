@@ -6,6 +6,20 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #79 : Hooks - Hook Réactif useTopicFetcher & Robustesse Réseau 🎣⚡
+**Statut** : 🟢 Résolu (v3.24.0)
+**Sévérité** : Moyenne (Modularisation & Fiabilité Réseau)
+**Localisation** : `src/hooks/useTopicFetcher.ts`, `src/hooks/useTopicFetcher.test.ts`, `src/pages/Topic/index.tsx`
+**Description** :
+Créer un hook React personnalisé `useTopicFetcher` pour encapsuler la récupération asynchrone des fiches encyclopédiques découplées (data, isLoading, error), strictement typé sans `any` avec `TopicContent`. Écrire des tests unitaires complets en mockant fetch pour prouver la résilience réseau (succès et échecs). Intégrer ce hook dans `TopicPage` en supprimant le fetch inline.
+**Résolution** :
+- **useTopicFetcher.ts** : Écriture du hook réactif isolant la logique de fetch asynchrone avec gestion de l'état monté (`isMounted`) pour prévenir les fuites mémoires et crashs.
+- **useTopicFetcher.test.ts** : Rédaction d'une suite de 4 tests unitaires robustes couvrant l'initialisation, le succès de fetch, les échecs HTTP (ex: 404) et les rejets réseaux sans aucune variable `any`.
+- **TopicPage/index.tsx** : Remplacement du fetch inline et de ses states par le nouveau hook `useTopicFetcher` de manière propre et réactive.
+- **Validation** : Zéro avertissement ESLint et l'ensemble des 227 tests unitaires du projet validés avec succès au vert.
+
+---
+
 ## 🎫 Ticket #78 : Architecture - Découplage de Fiche Encyclopédique & Interface TopicContent 🌌⚡
 **Statut** : 🟢 Résolu (v3.24.0)
 **Sévérité** : Élevée (Refactoring d'Architecture & Découplage de Données)

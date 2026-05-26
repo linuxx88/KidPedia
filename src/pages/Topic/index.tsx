@@ -11,7 +11,8 @@ import { type TopicId } from '../../types/domain'
 import BackButton from '../../components/UI/BackButton'
 import styles from './TopicPage.module.css'
 
-import { type Topic, type Quiz, type TopicContent } from '../../data/topics/types'
+import { type Topic, type Quiz } from '../../data/topics/types'
+import { useTopicFetcher } from '../../hooks/useTopicFetcher'
 
 interface TopicPageProps {
   handleGoHome: (callback?: () => void) => void
@@ -167,8 +168,8 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   const addBadge = useProgressionStore(state => state.addBadge)
   const isUnlocked = useProgressionStore(state => state.isUnlocked)
 
-  const [dynamicTopic, setDynamicTopic] = useState<TopicContent | null>(null);
-  const [isLoadingDecoupled, setIsLoadingDecoupled] = useState(false);
+  const isStatic = useMemo(() => encyclopedia.some((t) => t.id === topicId), [topicId]);
+  const { data: dynamicTopic, isLoading: isLoadingDecoupled } = useTopicFetcher(isStatic ? undefined : topicId);
 
   const topic = useMemo(() => {
     const staticTopic = encyclopedia.find((t) => t.id === topicId) as Topic | undefined;
@@ -193,34 +194,6 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   const [funFactIndex, setFunFactIndex] = useState<number | null>(null);
   const [quizIndex, setQuizIndex] = useState<number | null>(null);
   const [descriptionIndex, setDescriptionIndex] = useState<number | null>(null);
-
-  /* eslint-disable react-hooks/set-state-in-effect */
-  // Charger le sujet découplé si absent de l'encyclopédie hardcodée
-  useEffect(() => {
-    if (!topicId) return;
-    const isStatic = encyclopedia.some((t) => t.id === topicId);
-    if (isStatic) {
-      setDynamicTopic(null);
-      return;
-    }
-
-    setIsLoadingDecoupled(true);
-    fetch(`/content/topics/${topicId}.json`)
-      .then((res) => {
-        if (!res.ok) throw new Error('Decoupled topic not found');
-        return res.json();
-      })
-      .then((data: TopicContent) => {
-        setDynamicTopic(data);
-      })
-      .catch((err) => {
-        console.error('Failed to load decoupled topic:', err);
-      })
-      .finally(() => {
-        setIsLoadingDecoupled(false);
-      });
-  }, [topicId]);
-  /* eslint-enable react-hooks/set-state-in-effect */
 
   // Rediriger vers l'accueil si le sujet est verrouillé
   useEffect(() => {
