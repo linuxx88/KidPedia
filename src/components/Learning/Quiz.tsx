@@ -7,6 +7,7 @@ import { useSettingsStore } from '../../store/useSettingsStore'
 import { DiscreteSpeaker } from './TopicView'
 import { useStoryteller } from '../../hooks/useStoryteller'
 import { StorytellerButton } from '../UI/StorytellerButton'
+import { QuizAnswerButton } from './QuizAnswerButton'
 import styles from './Quiz.module.css'
 
 interface QuizProps {
@@ -203,36 +204,14 @@ export const QuizComponent = ({
 
           <div className={styles.optionsGrid}>
             {options.map((opt, i) => (
-              <div
+              <QuizAnswerButton
                 key={i}
-                role="button"
-                tabIndex={0}
-                className={`${styles.quizOption} ${optionClasses[i]}`}
+                text={opt}
+                index={i}
+                className={optionClasses[i]}
+                letter={['A', 'B', 'C'][i]}
                 onClick={() => handleAnswerClick(i)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault()
-                    handleAnswerClick(i)
-                  }
-                }}
-                aria-label={`Réponse ${['A', 'B', 'C'][i]} : ${opt}`}
-                data-testid={`quiz-option-${i}`}
-              >
-                <div className={styles.quizOptionLetter}>{['A', 'B', 'C'][i]}</div>
-                <div className={styles.optionContentWrapper}>
-                  <span className={styles.optionText}>{opt}</span>
-                  {onSpeakText && (
-                    <DiscreteSpeaker
-                      isSpeaking={activeSpeechId === `quiz-option-${i}`}
-                      onClick={(e) => {
-                        e.stopPropagation()
-                        onSpeakText(opt, `quiz-option-${i}`)
-                      }}
-                      label={language === 'fr' ? `Écouter l'option ${['A', 'B', 'C'][i]}` : `Listen to option ${['A', 'B', 'C'][i]}`}
-                    />
-                  )}
-                </div>
-              </div>
+              />
             ))}
           </div>
 

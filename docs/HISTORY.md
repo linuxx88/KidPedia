@@ -4,6 +4,16 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
+### VERSION 3.30.0 - Composant QuizAnswerButton & Sourdine d'Option 🧩🎙️ (26 Mai 2026)
+--------------------------------------------------
+- **[Logic/UI/UX/A11y/Tests] Création et intégration du composant QuizAnswerButton avec lecture vocale indépendante :**
+    - **QuizAnswerButton.tsx (Nouveau Composant)** : Extraction sémantique et logique des boutons d'options de quiz sous forme d'un composant autonome et réutilisable, préservant le typage TypeScript strict et sans aucun type `any`.
+    - **Lecture Vocale avec propagation bloquée** : Intégration d'un haut-parleur interactif (`.cornerSpeaker`) dans le coin supérieur droit du bouton de réponse. Le clic sur cette icône déclenche la lecture du texte de l'option de réponse via le hook offline `useStoryteller` sans activer/sélectionner la réponse globale, en utilisant rigoureusement `e.stopPropagation()`.
+    - **Styling Responsive et Sûr Mobile** : Positionnement absolu optimal et dimensionnement du haut-parleur dans le coin supérieur droit du bouton, en veillant à ce qu'il ne chevauche ou ne gêne jamais la lecture textuelle centrale de la réponse (préservant une expérience visuelle fluide sur les écrans mobiles).
+    - **Accessibilité & ARIA** : Assure des attributs d'accessibilité exemplaires avec des étiquettes ARIA bilingues et explicites (`aria-label="Écouter la réponse"`, `aria-label="Réponse X : ..."`).
+    - **QuizAnswerButton.test.tsx & Quiz.test.tsx (Nouveaux Tests)** : Réécriture et création de tests de validation robustes prouvant le bon rendu des lettres, des textes d'options, la bascule de lecture vocale hors-ligne au clic du haut-parleur, le blocage de la propagation du clic parent (`stopPropagation`), et l'arrêt correct de la lecture.
+    - **Validation** : 100% au vert sur type-check TS, ESLint et la suite unitaire.
+
 ### VERSION 3.29.0 - Intégration Storyteller au Quiz & Typage Strict 🧩🦉 (26 Mai 2026)
 --------------------------------------------------
 - **[Logic/UI/UX/A11y/Tests] Intégration de useStoryteller et StorytellerButton dans le composant Quiz :**

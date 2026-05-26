@@ -6,6 +6,22 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #QuizAnswerButton : UI/UX/A11y/Tests - Composant QuizAnswerButton & Lecture Vocale Indépendante 🧩🎙️
+**Statut** : 🟢 Résolu (v3.30.0)
+**Sévérité** : Moyenne (UI/UX, Accessibilité, Typage)
+**Localisation** : `src/components/Learning/QuizAnswerButton.tsx`, `src/components/Learning/QuizAnswerButton.test.tsx`, `src/components/Learning/Quiz.tsx` & `src/components/Learning/Quiz.module.css`
+**Description** :
+Créer et intégrer un composant autonome `QuizAnswerButton.tsx` pour isoler la logique et le rendu des boutons d'options de réponses. Intégrer une icône de haut-parleur (`speaker-icon`) cliquable située dans le coin du bouton. Le clic sur cette icône doit déclencher la lecture vocale du texte de la réponse via le hook `useStoryteller` sans déclencher l'action de sélection du bouton, en utilisant `e.stopPropagation()` pour éviter la propagation. Assurer l'accessibilité avec des labels ARIA bilingues et explicites (`aria-label="Écouter la réponse"`), respecter la règle du zéro `any` en TypeScript, et garantir visuellement sur mobile que l'icône ne gêne pas la lecture du texte de la réponse.
+**Résolution** :
+- **QuizAnswerButton.tsx & QuizAnswerButton.test.tsx (Nouveaux Fichiers)** : Création du composant autonome QuizAnswerButton cliquable avec typage strict et couverture de tests unitaires complète à 100%.
+- **Speaker Icon & stopPropagation** : Intégration du haut-parleur interactif `.cornerSpeaker` avec un appel direct à `useStoryteller`'s `speak` encapsulé dans `e.stopPropagation()` pour empêcher la sélection accidentelle de l'option parente lors de l'écoute.
+- **Styling Responsive & Mobile-friendly** : Positionnement absolu propre au coin supérieur droit avec transitions fluides, et espacement adapté pour que le texte central ne soit jamais entravé par le bouton d'écoute vocale sur mobile.
+- **Accessibilité & ARIA** : Attribution dynamique de labels bilingues (`Écouter la réponse` / `Listen to answer` et `Réponse X : ...` / `Answer X: ...`).
+- **Tests robustes** : Tests unitaires de rendu, de clic, d'isolation fonctionnelle (`stopPropagation`), et d'arrêt de lecture.
+- **Validation** : Type-check TypeScript, linter ESLint, et suite de tests validés à 100% au vert.
+
+---
+
 ## 🎫 Ticket #91 : UI/UX/A11y/Tests - Intégration Storyteller au Quiz & Typage Strict 🧩🦉
 **Statut** : 🟢 Résolu (v3.29.0)
 **Sévérité** : Moyenne (UI/UX, Accessibilité & Typage)

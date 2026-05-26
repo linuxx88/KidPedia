@@ -141,18 +141,16 @@ describe('QuizComponent', () => {
     expect(mockOnSpeakText).toHaveBeenCalledWith(defaultProps.question, 'quiz-question')
   })
 
-  it('appelle onSpeakText quand on clique sur le haut-parleur d\'une option', () => {
-    const mockOnSpeakText = vi.fn()
-    render(
-      <QuizComponent
-        {...defaultProps}
-        onSpeakText={mockOnSpeakText}
-      />,
-    )
+  it('déclenche la lecture de la réponse avec useStoryteller quand on clique sur le haut-parleur d\'une option', () => {
+    render(<QuizComponent {...defaultProps} />)
 
-    const speakBtn = screen.getByLabelText("Écouter l'option A")
-    fireEvent.click(speakBtn)
-    expect(mockOnSpeakText).toHaveBeenCalledWith(defaultProps.options[0], 'quiz-option-0')
+    // The option has a corner speaker button with aria-label="Écouter la réponse"
+    const speakBtns = screen.getAllByLabelText('Écouter la réponse')
+    expect(speakBtns).toHaveLength(defaultProps.options.length)
+
+    // Click on the first option's speaker
+    fireEvent.click(speakBtns[0])
+    expect(mockSpeak).toHaveBeenCalledWith(defaultProps.options[0])
   })
 
   it("appelle onAnswer avec l'index correct quand on appuie sur Enter sur une option ayant le focus", () => {
