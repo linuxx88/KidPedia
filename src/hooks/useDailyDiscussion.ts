@@ -11,6 +11,17 @@ const formatDate = (date: Date): string => {
   return `${year}-${month}-${day}`;
 };
 
+// Fonction de hachage pure pour générer des tris déterministes et stables (sans Math.random)
+const hashString = (str: string): number => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash |= 0;
+  }
+  return Math.abs(hash);
+};
+
 export interface DiscussionItem {
   topicId: TopicId;
   question: {
@@ -53,9 +64,13 @@ export const useDailyDiscussion = (): DailyDiscussionResult => {
       };
     }
 
-    // 3. Sélection aléatoire de 3 sujets uniques au maximum
-    // Mélange déterministe/aléatoire simple sans any
-    const shuffled = [...validTopics].sort(() => 0.5 - Math.random());
+    // 3. Sélection aléatoire (mélange stable et pur basé sur un hash) de 3 sujets uniques au maximum
+    const todayStr = formatDate(new Date());
+    const shuffled = [...validTopics].sort((a, b) => {
+      const hashA = hashString(`${a}-${todayStr}`);
+      const hashB = hashString(`${b}-${todayStr}`);
+      return hashA - hashB;
+    });
     const selected = shuffled.slice(0, 3);
 
     const discussions = selected.map((topicId): DiscussionItem => {

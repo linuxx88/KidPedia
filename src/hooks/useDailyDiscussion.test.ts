@@ -3,6 +3,7 @@ import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
 import { useDailyDiscussion } from './useDailyDiscussion';
 import { useProgressionStore } from '../store/useProgressionStore';
 import { FALLBACK_DISCUSSIONS } from '../data/discussionStarters';
+import { type TopicId } from '../types/domain';
 
 describe('useDailyDiscussion', () => {
   beforeEach(() => {
@@ -42,7 +43,7 @@ describe('useDailyDiscussion', () => {
 
     // Ajouter un badge pour un sujet inexistant dans DISCUSSION_STARTERS
     act(() => {
-      useProgressionStore.getState().addBadge('inconnu' as any, 'gold');
+      useProgressionStore.getState().addBadge('inconnu' as unknown as TopicId, 'gold');
     });
 
     const { result } = renderHook(() => useDailyDiscussion());

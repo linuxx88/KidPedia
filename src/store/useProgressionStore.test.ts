@@ -411,7 +411,7 @@ describe('useProgressionStore', () => {
       });
 
       const profile = result.current.progressions['charlie'];
-      expect(profile.dailyDiscoveries['2026-05-25']).toContain('lion');
+      expect(profile.dailyDiscoveries!['2026-05-25']).toContain('lion');
     });
 
     it('devrait enregistrer le topicId sans doublon sous la même date locale', () => {
@@ -434,7 +434,7 @@ describe('useProgressionStore', () => {
       });
 
       const profile = result.current.progressions['charlie'];
-      expect(profile.dailyDiscoveries['2026-05-25']).toEqual(['lion', 'soleil']);
+      expect(profile.dailyDiscoveries!['2026-05-25']).toEqual(['lion', 'soleil']);
     });
 
     it('devrait purger silencieusement les clés vieilles de plus de 7 jours', () => {
@@ -469,9 +469,9 @@ describe('useProgressionStore', () => {
       // '2026-05-15' est vieille de 10 jours (> 7 jours), elle doit être purgée.
       // '2026-05-20' est vieille de 5 jours (<= 7 jours), elle doit être conservée.
       // '2026-05-25' est aujourd'hui, elle doit être conservée.
-      expect(profile.dailyDiscoveries['2026-05-15']).toBeUndefined();
-      expect(profile.dailyDiscoveries['2026-05-20']).toEqual(['soleil']);
-      expect(profile.dailyDiscoveries['2026-05-25']).toEqual(['terre']);
+      expect(profile.dailyDiscoveries?.['2026-05-15']).toBeUndefined();
+      expect(profile.dailyDiscoveries!['2026-05-20']).toEqual(['soleil']);
+      expect(profile.dailyDiscoveries!['2026-05-25']).toEqual(['terre']);
     });
   });
 });

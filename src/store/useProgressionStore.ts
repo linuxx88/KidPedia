@@ -18,7 +18,7 @@ interface ProfileProgression {
   equippedAccessoryId: string | null; // ID de l'accessoire porté
   equippedCompanionId: string | null; // ID du compagnon actif
   tickets: number; // solde de tickets possédés
-  dailyDiscoveries: Record<string, TopicId[]>;
+  dailyDiscoveries?: Record<string, TopicId[]>;
 }
 
 export interface ProgressionState {
