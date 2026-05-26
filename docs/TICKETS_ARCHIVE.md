@@ -6,6 +6,22 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #91 : UI/UX/A11y/Tests - Intégration Storyteller au Quiz & Typage Strict 🧩🦉
+**Statut** : 🟢 Résolu (v3.29.0)
+**Sévérité** : Moyenne (UI/UX, Accessibilité & Typage)
+**Localisation** : `src/components/Learning/Quiz.tsx` & `src/components/Learning/Quiz.test.tsx`
+**Description** :
+Modifier le composant `Quiz.tsx` pour y importer et utiliser le hook `useStoryteller`. Intégrer le composant `StorytellerButton` directement à côté du texte de la question active (`currentQuestion.text`), en lui passant la fonction de lecture de conteur appropriée. Assurer que l'accessibilité est préservée avec des labels ARIA clairs, et garantir le typage strict zéro any lors de la manipulation du texte de la question.
+**Résolution** :
+- **Quiz.tsx** : Importation et utilisation réactive du hook de synthèse vocale hors-ligne `useStoryteller` et du bouton `StorytellerButton`.
+- **Intégration Visuelle & Fonctionnelle** : Intégration du bouton directement à côté du texte de la question active. Le clic sur le bouton déclenche ou arrête la lecture vocale enfantine de la question.
+- **Typage Strict (Zéro Any)** : Création d'une constante `currentQuestion` avec un typage strict sans `any` (`{ readonly text: string }`) pour encapsuler et manipuler le texte de la question de manière sécurisée.
+- **Accessibilité & ARIA** : Conservation parfaite des attributs d'accessibilité ARIA bilingues existants dans le composant `StorytellerButton`.
+- **Tests unitaires (Quiz.test.tsx)** : Ajout de tests unitaires pour valider le rendu du `StorytellerButton`, le déclenchement de `speak` avec le texte exact de la question lors du clic, et l'arrêt de la lecture.
+- **Validation** : Type-check TypeScript validé, ESLint validé à 100%, et tous les 14 tests unitaires de QuizComponent validés au vert.
+
+---
+
 ## 🎫 Ticket #StorytellerButton : UI/UX/A11y - Composant Enfantin StorytellerButton 🦉🎨
 **Statut** : 🟢 Résolu (v3.27.0)
 **Sévérité** : Moyenne (UI/UX, Accessibilité & Tests)

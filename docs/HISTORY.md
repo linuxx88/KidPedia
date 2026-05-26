@@ -4,6 +4,15 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
+### VERSION 3.29.0 - Intégration Storyteller au Quiz & Typage Strict 🧩🦉 (26 Mai 2026)
+--------------------------------------------------
+- **[Logic/UI/UX/A11y/Tests] Intégration de useStoryteller et StorytellerButton dans le composant Quiz :**
+    - **Quiz.tsx** : Importation et consommation du hook de lecture vocale hors-ligne `useStoryteller`. Intégration du composant interactif `StorytellerButton` directement à côté du texte de la question active (`currentQuestion.text`).
+    - **Typage Strict & Zéro Any** : Encapsulation sémantique du texte de la question dans un objet typé en lecture seule `currentQuestion` (`{ readonly text: string }`) garantissant l'absence totale de typage `any` lors de sa manipulation.
+    - **Accessibilité & ARIA** : Préservation totale de l'accessibilité avec des étiquettes ARIA dynamiques et bilingues (FR/EN) intégrées au bouton de lecture du conteur d'histoire.
+    - **Quiz.test.tsx** : Ajout de tests unitaires complets mockant `useStoryteller` et validant l'affichage du `StorytellerButton` avec ses labels aria correspondants, ainsi que le déclenchement de la lecture vocale et de l'action d'arrêt.
+    - **Validation** : Type-check, lint et suite complète de 247 tests validés à 100% au vert.
+
 ### VERSION 3.28.0 - Fiche de Contenu TopicView & Intégration Storyteller 📚🎙️ (26 Mai 2026)
 --------------------------------------------------
 - **[Architecture/Logic/Refactoring/Tests] Intégration du Conteur d'Histoires useStoryteller & Renommage en TopicView :**

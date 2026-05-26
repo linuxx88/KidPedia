@@ -5,6 +5,8 @@ import { type Labels } from '../../locales/types'
 import { useAudioFeedback } from '../../hooks/useAudioFeedback'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { DiscreteSpeaker } from './TopicView'
+import { useStoryteller } from '../../hooks/useStoryteller'
+import { StorytellerButton } from '../UI/StorytellerButton'
 import styles from './Quiz.module.css'
 
 interface QuizProps {
@@ -44,6 +46,25 @@ export const QuizComponent = ({
   const { language } = useSettingsStore()
   const [showWizardHelp, setShowWizardHelp] = useState(false)
   const optionClasses = [styles.optionA, styles.optionB, styles.optionC]
+
+  // Hook Storyteller for reading question text
+  const {
+    speak: speakStory,
+    stop: stopStory,
+    isSpeaking: isStorySpeaking,
+  } = useStoryteller()
+
+  const isStorySupported = typeof window !== 'undefined' && 'speechSynthesis' in window
+
+  const currentQuestion: { readonly text: string } = { text: question }
+
+  const handleStoryToggle = (): void => {
+    if (isStorySpeaking) {
+      stopStory()
+    } else {
+      speakStory(currentQuestion.text)
+    }
+  }
 
   // Synthesized ding sound using native Web Audio API
   const playSynthesizedDing = () => {
@@ -160,13 +181,20 @@ export const QuizComponent = ({
       {!result ? (
         <div className={styles.quizBody}>
           <div className={styles.questionContainer}>
-            <p className={styles.quizQuestion} data-testid="quiz-question">{question}</p>
+            <p className={styles.quizQuestion} data-testid="quiz-question">
+              {currentQuestion.text}
+            </p>
+            <StorytellerButton
+              isSpeaking={isStorySpeaking}
+              isSupported={isStorySupported}
+              onToggle={handleStoryToggle}
+            />
             {onSpeakText && (
               <DiscreteSpeaker
                 isSpeaking={activeSpeechId === 'quiz-question'}
                 onClick={(e) => {
                   e.stopPropagation()
-                  onSpeakText(question, 'quiz-question')
+                  onSpeakText(currentQuestion.text, 'quiz-question')
                 }}
                 label={language === 'fr' ? 'Écouter la question' : 'Listen to question'}
               />

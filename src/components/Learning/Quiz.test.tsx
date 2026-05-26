@@ -1,10 +1,29 @@
 import { screen, fireEvent } from '@testing-library/react'
 import { render } from '../../test/test-utils'
-import { describe, it, expect, vi } from 'vitest'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { QuizComponent } from './Quiz'
 import { fr } from '../../locales/fr'
+import { useStoryteller } from '../../hooks/useStoryteller'
+import { setupSpeechMock } from '../../test/mockUtils'
+
+vi.mock('../../hooks/useStoryteller', () => ({
+  useStoryteller: vi.fn(),
+}))
 
 describe('QuizComponent', () => {
+  const mockSpeak = vi.fn()
+  const mockStop = vi.fn()
+
+  beforeEach(() => {
+    vi.clearAllMocks()
+    setupSpeechMock()
+    vi.mocked(useStoryteller).mockReturnValue({
+      speak: mockSpeak,
+      stop: mockStop,
+      pause: vi.fn(),
+      isSpeaking: false,
+    })
+  })
   const mockOnAnswer = vi.fn()
   const defaultProps = {
     question: 'Quelle est la couleur du cheval blanc ?',
@@ -158,6 +177,35 @@ describe('QuizComponent', () => {
 
     fireEvent.keyDown(option, { key: ' ', code: 'Space' })
     expect(mockOnAnswer).toHaveBeenCalledWith(2)
+  })
+
+  it('affiche le StorytellerButton et déclenche speak avec la question', () => {
+    render(<QuizComponent {...defaultProps} />)
+
+    // Check that Storyteller owl mascot icon or button is present
+    const storytellerBtn = screen.getByRole('button', { name: /Lancer la lecture vocale/i })
+    expect(storytellerBtn).toBeInTheDocument()
+
+    // Clicking should invoke speak
+    fireEvent.click(storytellerBtn)
+    expect(mockSpeak).toHaveBeenCalledWith(defaultProps.question)
+  })
+
+  it('appelle stop si la lecture est déjà active', () => {
+    vi.mocked(useStoryteller).mockReturnValue({
+      speak: mockSpeak,
+      stop: mockStop,
+      pause: vi.fn(),
+      isSpeaking: true,
+    })
+
+    render(<QuizComponent {...defaultProps} />)
+
+    const storytellerBtn = screen.getByRole('button', { name: /Arrêter la lecture vocale/i })
+    expect(storytellerBtn).toBeInTheDocument()
+
+    fireEvent.click(storytellerBtn)
+    expect(mockStop).toHaveBeenCalled()
   })
 })
 
