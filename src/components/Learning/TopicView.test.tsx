@@ -162,8 +162,9 @@ describe('TopicView', () => {
 
     const { unmount } = render(<TopicView {...defaultProps} />)
 
-    // Trouver le bouton StorytellerButton
-    const button = screen.getByRole('button', { name: /lecture vocale/i })
+    // Trouver le bouton StorytellerButton principal de la fiche
+    const buttons = screen.getAllByRole('button', { name: /lecture vocale/i })
+    const button = buttons[0]
     expect(button).toBeInTheDocument()
 
     // Déclencher le clic
