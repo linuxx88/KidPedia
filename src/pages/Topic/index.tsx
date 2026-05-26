@@ -1,5 +1,5 @@
 import { lazy, Suspense, useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { encyclopedia } from '../../data/topics'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { useQuizStore } from '../../store/useQuizStore'
@@ -149,6 +149,9 @@ export function isSpoiler(
 
 export function TopicPage({ handleGoHome }: TopicPageProps) {
   const { topicId } = useParams()
+  const location = useLocation()
+  const navigate = useNavigate()
+  const fromOrigins = !!location.state?.fromOrigins
   const { gender, labels, language } = useSettingsStore()
   
   const { badges } = usePlayerStore()
@@ -294,6 +297,15 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
 
   const resolvedAnchorIcon = topic ? (topic.anchorIcon || CATEGORY_ANCHOR_ICONS[topic.categoryKey.toLowerCase()] || '📍') : undefined;
 
+  const handleBack = () => {
+    resetQuiz()
+    if (fromOrigins) {
+      navigate(-1)
+    } else {
+      handleGoHome()
+    }
+  }
+
   return (
     <Suspense fallback={<LoadingFallback />}>
       <TopicDetail
@@ -304,7 +316,7 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
         audioFile={topic.audioFile}
         quiz={currentQuiz}
         badgeIcon={earnedBadge ? getMedalIcon(earnedBadge.medal) : undefined}
-        onBack={() => handleGoHome(resetQuiz)}
+        onBack={handleBack}
         onAnswer={handleAnswer}
         quizResult={quizResult}
         gender={gender}
@@ -314,6 +326,7 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
         labels={labels}
         attempts={attempts}
         anchorIcon={resolvedAnchorIcon}
+        hideQuiz={fromOrigins}
       />
     </Suspense>
   )

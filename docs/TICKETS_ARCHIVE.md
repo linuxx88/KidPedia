@@ -6,6 +6,75 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #77 : UX/UI - Peaufinage Visuel et Retrait des Quiz (Le Grand Voyage du Temps)
+**Statut** : 🟢 Résolu (v3.23.6)
+**Sévérité** : Moyenne (Esthétique / Ergonomie)
+**Localisation** : `src/components/Learning/TopicDetail.tsx`, `src/pages/Origins/Components/OriginsGrid.tsx`, `src/pages/Origins/Origins.module.css`, `src/pages/Topic/index.tsx`
+**Description** :
+Peaufiner le design de la page "Le Grand Voyage du Temps" pour le rendre immersif et esthétiquement haut de gamme (effet glassmorphism, dégradés cosmiques animés, halos lumineux, drop-shadows), remplacer l'appel au quiz par "Découvrir 📖" / "Discover 📖", et masquer les quiz lorsque les sujets sont consultés depuis la ligne du temps pour privilégier l'exploration narrative libre.
+**Résolution** :
+- **Origins.module.css** : Intégration d'un arrière-plan cosmique animé, halos de lumière flottants interactifs, effet glassmorphism (backdrop-filter) et bordure translucide.
+- **OriginsGrid.tsx** : Remplacement du bouton quiz par "Découvrir 📖" / "Discover 📖".
+- **TopicDetail.tsx & TopicPage** : Ajout de la propriété conditionnelle `hideQuiz` pour masquer le bloc de quiz et adapter la navigation de retour (`navigate(-1)`) depuis Origins.
+- **Validation** : Rendu visuel et intégration validés avec succès.
+
+---
+
+## 🎫 Ticket #76 : Store - Bascule du useProgressionStore (Validation PoC)
+**Statut** : 🟢 Résolu (v3.23.5)
+**Sévérité** : Élevée (Optimisation & Purification Logique)
+**Localisation** : `src/store/useProgressionStore.ts` & `src/utils/indexedDBStorage.ts`
+**Description** :
+Brancher le nouveau moteur asynchrone sur le store de progression et supprimer la logique de compression devenue obsolète.
+**Résolution** :
+- **indexedDBStorage** : Remplacement direct de `customStateStorage` par `indexedDBStorage` dans la configuration de persistance de `useProgressionStore`.
+- **Purge de la compression** : Retrait définitif des fonctions `compressState` et `decompressState` du store de progression.
+- **Migration préservée** : Migration de la logique de décompression héritée dans `indexedDBStorage.ts` pour maintenir une compatibilité parfaite avec les données de profil compressées existantes.
+- **Validation** : 100% des tests unitaires et d'intégration unitaires validés avec succès.
+
+---
+
+## 🎫 Ticket #75 : Logique - Stratégie de Migration Transparente (LocalStorage ➔ IndexedDB)
+**Statut** : 🟢 Résolu (v3.23.5)
+**Sévérité** : Élevée (Protection des Données Utilisateur)
+**Localisation** : `src/store/useProgressionStore.ts` (customStateStorage)
+**Description** :
+Ne jamais perdre la sauvegarde d'un enfant. L'application doit détecter les anciennes sauvegardes compressées dans le localStorage, les transférer dans IndexedDB, puis nettoyer l'ancien stockage.
+**Résolution** :
+- **indexedDBStorage.ts** : Implémentation du moteur asynchrone IndexedDB.
+- **Migration & Rétrocompatibilité Flawless** : Intégration transparente d'un mécanisme de migration automatique au chargement. Si une clé est absente d'IndexedDB mais réside dans le `localStorage` legacy, le moteur la lit, la migre asynchronement vers IndexedDB et nettoie proprement le `localStorage` obsolète.
+- **Validation & Tests** : Validation complète via des tests d'intégration simulant le passage d'une version à l'autre dans `useProgressionStore.test.ts`.
+
+---
+
+## 🎫 Ticket #R9 : Version 0.0.9 - Le Verrouillage Kid-Safe Intelligent 🔒
+**Statut** : 🟢 Résolu (v3.23.6)
+**Sévérité** : Moyenne (Ergonomie / Sécurité)
+**Localisation** : `src/components/UI/ParentalGate.tsx` & `src/components/UI/ParentalGate.module.css`
+**Description** :
+Le système actuel pour entrer dans la Zone Parents repose sur des multiplications simples (ex: `8 x 7`). Cependant, certains enfants précoces de 8 ans contournent ce verrou facilement. Il faut remplacer cette formule austère par des puzzles ludo-éducatifs plus élaborés mais non mathématiques (ex: "Associe le bébé animal à son parent", ou des suites logiques de constellations) insolubles pour les plus petits, tout en étant distrayants.
+**Résolution** :
+- **Banque de 5 mini-jeux de logique/association** : Écriture d'un ensemble de 22 questions réparties sur 5 catégories de puzzles de logique visuels rapides (bébés animaux 👶🦁, intrus 🥦🔥, suites logiques de motifs 🌙🍎, opposés ☀️❄️, et habitats 🐟🌊).
+- **Sécurité et anti-spam** : En cas de mauvaise réponse, le puzzle est instantanément brouillé/mélangé et un NOUVEAU défi aléatoire de la banque est sélectionné afin de bloquer les clics spammés de l'enfant.
+- **Accessibilité & WCAG AA** : Intégration de descriptions sémantiques `aria-label` localisées sur chaque carte de puzzle, boutons tactiles de grande taille (adaptés aux tablettes et mobiles), contraste extrêmement élevé et navigation clavier naturelle (`focus-visible`).
+
+---
+
+## 🎫 Ticket : Infrastructure - Moteur de Stockage Asynchrone IndexedDB
+**Statut** : 🟢 Résolu (v3.23.5)
+**Sévérité** : Moyenne (Optimisation / Infrastructure)
+**Localisation** : `src/utils/indexedDBStorage.ts` & `src/store/useProgressionStore.ts`
+**Description** :
+Remplacer l'adaptateur de compression synchrone par un adaptateur asynchrone branché sur IndexedDB (via une micro-librairie comme idb-keyval pour éviter de coder les transactions à la main).
+**Résolution** :
+- **indexedDBStorage.ts (Nouvel utilitaire)** : Implémentation complète et sur mesure de l'interface `StateStorage` de Zustand utilisant l'API IndexedDB native (sans aucune dépendance externe) garantissant un typage strict sans `any` et le respect absolu de la charte de qualité.
+- **Support des Promesses** : Toutes les opérations de stockage (`getItem`, `setItem`, `removeItem`) s'exécutent de façon purement asynchrone et retournent des Promesses robustes.
+- **Migration & Rétrocompatibilité Flawless** : Intégration transparente d'un mécanisme de migration automatique au chargement. Si une clé est absente d'IndexedDB mais réside dans le `localStorage` legacy, le moteur la lit, la migre asynchronement vers IndexedDB et nettoie proprement le `localStorage` obsolète.
+- **useProgressionStore.ts** : Intégration du moteur asynchrone IndexedDB à la place de l'ancien moteur synchrone.
+- **indexedDBStorage.test.ts (Tests unitaires & Mocks)** : Écriture d'une couverture de tests unitaires complète en simulant les microtâches (via `Promise.resolve`) pour éliminer tout effet de bord ou race-condition asynchrone, validant 100% des scénarios de lecture, d'écriture, de suppression et de rétrocompatibilité.
+
+---
+
 ## 🎫 Ticket #R6 : Version 0.0.6 - La Carte interactive Sonorisée 🗺️
 **Statut** : 🟢 Résolu (v3.23.2)
 **Sévérité** : Faible (Immersion Sensorielle)

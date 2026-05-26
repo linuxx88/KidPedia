@@ -94,10 +94,10 @@ Ce document liste les améliorations visuelles et sonores pour augmenter l'engag
 - [ ] **Variabilité Dynamique des Effets Sonores (Banque de Sons)** :
   - *Où :* Hook `useAudioFeedback.ts` / `assets/audio/`
   - *Quoi :* Éviter la monotonie auditive en introduisant une banque d'effets sonores multiples pour chaque action clé de l'interface (ex. : 3 à 4 variations de "Bloop" légers pour les clics ordinaires, 3 variations de fanfare ou d'applaudissements pour les victoires de quiz). Le hook audio sélectionnera aléatoirement un fichier au sein du groupe correspondant à l'évènement pour offrir un paysage sonore vivant et moins récurrent.
-- [ ] **Peaufiner le look de la page 'Le Grand Voyage du Temps'** :
+- [x] **Peaufiner le look de la page 'Le Grand Voyage du Temps'** :
   - *Où :* Composants de la page "Le Grand Voyage du Temps"
   - *Quoi :* Améliorer le design visuel pour le rendre plus immersif et esthétiquement attrayant.
-- [ ] **Enlever les quizz dans 'Le Grand Voyage du Temps'** :
+- [x] **Enlever les quizz dans 'Le Grand Voyage du Temps'** :
   - *Où :* Composants de la page "Le Grand Voyage du Temps"
   - *Quoi :* Retirer la mécanique de quiz sur cette page pour privilégier l'exploration libre.
 - [x] **Pages de Leçons Interactives Unifiées (Micro-learning & Quiz)** :

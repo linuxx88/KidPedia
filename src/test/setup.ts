@@ -50,3 +50,75 @@ vi.mock('virtual:pwa-register/react', () => ({
   })),
 }))
 
+interface MockRequest {
+  result?: unknown;
+  onsuccess?: () => void;
+  onerror?: () => void;
+  onupgradeneeded?: () => void;
+}
+
+// Mock global de IndexedDB pour les tests unitaires et d'intégration
+let mockDbStore: Record<string, string> = {};
+
+const mockObjectStore = {
+  get: (key: string) => {
+    const request: MockRequest = {};
+    Promise.resolve().then(() => {
+      request.result = mockDbStore[key] || null;
+      if (request.onsuccess) request.onsuccess();
+    });
+    return request as unknown as IDBRequest;
+  },
+  put: (value: string, key: string) => {
+    const request: MockRequest = {};
+    Promise.resolve().then(() => {
+      mockDbStore[key] = value;
+      if (request.onsuccess) request.onsuccess();
+    });
+    return request as unknown as IDBRequest;
+  },
+  delete: (key: string) => {
+    const request: MockRequest = {};
+    Promise.resolve().then(() => {
+      delete mockDbStore[key];
+      if (request.onsuccess) request.onsuccess();
+    });
+    return request as unknown as IDBRequest;
+  }
+};
+
+const mockTransaction = {
+  objectStore: () => mockObjectStore
+};
+
+const mockDatabase = {
+  objectStoreNames: {
+    contains: () => true
+  },
+  transaction: () => mockTransaction
+};
+
+const mockIndexedDB = {
+  open: () => {
+    const request: MockRequest = {};
+    Promise.resolve().then(() => {
+      request.result = mockDatabase;
+      if (request.onupgradeneeded) request.onupgradeneeded();
+      if (request.onsuccess) request.onsuccess();
+    });
+    return request as unknown as IDBOpenDBRequest;
+  }
+};
+
+vi.stubGlobal('indexedDB', mockIndexedDB);
+
+// Synchroniser localStorage.clear() avec le vidage du store IndexedDB simulé
+const originalClear = localStorage.clear;
+localStorage.clear = function() {
+  mockDbStore = {};
+  if (originalClear) {
+    originalClear.call(localStorage);
+  }
+};
+
+

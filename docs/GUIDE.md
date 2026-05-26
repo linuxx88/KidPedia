@@ -138,6 +138,10 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : La Carte interactive Sonorisée (Ticket #R6)** (Traité en v3.23.2)
 ✅ **RÉSOLU : Cycle de vie et interactions (Sommeil, besoins, cache-cache) au Refuge (Ticket #Refuge-Sim)** (Traité en v3.23.3)
 ✅ **RÉSOLU : Correctifs de Layout, de Validation et de Scrollbar (Ticket #67, #68, Refuge-Sim follow-up)** (Traité en v3.23.4)
+✅ **RÉSOLU : Moteur de Stockage Asynchrone IndexedDB (Ticket Infrastructure)** (Traité en v3.23.5)
+✅ **RÉSOLU : Polissage Immersif & Exploration Libre sur Le Grand Voyage du Temps (Ticket UX/UI)** (Traité en v3.23.6)
+✅ **RÉSOLU : Le Verrouillage Kid-Safe Intelligent (Ticket #R9)** (Traité en v3.23.6)
+✅ **RÉSOLU : Bascule asynchrone du useProgressionStore (Ticket #76)** (Traité en v3.23.6)
 
 
 ---
@@ -145,6 +149,6 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 25 mai 2026 (v3.23.4)*
+*Dernière mise à jour : 25 mai 2026 (v3.23.6)*
 
 

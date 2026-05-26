@@ -23,7 +23,7 @@ export const OriginsGrid: React.FC<OriginsGridProps> = ({ nodes, getStroke }) =>
         navigate(`/origins/${node.id}`)
         setActiveId(null)
       } else if (node.topicId) {
-        navigate(`/topic/${node.topicId}`)
+        navigate(`/topic/${node.topicId}`, { state: { fromOrigins: true } })
       } else {
         setActiveId(null)
       }
@@ -78,11 +78,13 @@ export const OriginsGrid: React.FC<OriginsGridProps> = ({ nodes, getStroke }) =>
                  {isActive && (
                    <div className={styles.description}>
                      <p>{node.description[language]}</p>
-                     {(node.subNodes || node.topicId) && (
-                       <button className={styles.exploreBtn}>
-                         {node.subNodes ? "Explorer →" : "Faire le quiz ! 🧩"}
-                       </button>
-                     )}
+                      {(node.subNodes || node.topicId) && (
+                        <button className={styles.exploreBtn}>
+                          {node.subNodes 
+                            ? (language === 'fr' ? "Explorer →" : "Explore →") 
+                            : (language === 'fr' ? "Découvrir 📖" : "Discover 📖")}
+                        </button>
+                      )}
                    </div>
                  )}
               </div>

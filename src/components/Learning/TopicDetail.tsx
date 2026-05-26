@@ -27,6 +27,7 @@ interface TopicDetailProps {
   labels: Labels
   attempts: number
   anchorIcon?: string
+  hideQuiz?: boolean
 }
 
 interface HighlightedTextProps {
@@ -142,6 +143,7 @@ export const TopicDetail = ({
   labels,
   attempts,
   anchorIcon,
+  hideQuiz,
 }: TopicDetailProps) => {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false)
   const [speechError, setSpeechError] = useState<string | null>(null)
@@ -405,31 +407,33 @@ export const TopicDetail = ({
           </div>
         </section>
 
-        <div className={styles.topicSeparator} />
+        {!hideQuiz && <div className={styles.topicSeparator} />}
 
-        <section className={styles.topicSectionQuiz}>
-          <div className={styles.quizWrapper}>
-            <QuizComponent
-              question={quiz.question[language]}
-              options={quiz.options[language]}
-              onAnswer={onAnswer}
-              result={quizResult}
-              gender={gender}
-              retryMsg={retryMsg}
-              activeHint={activeHint}
-              onReview={handleReview}
-              labels={labels}
-              attempts={attempts}
-              funFact={funFact}
-              anchorIcon={anchorIcon}
-              onSpeakText={(text, id) => {
-                stopReader()
-                speak(text, id)
-              }}
-              activeSpeechId={activeSpeechId}
-            />
-          </div>
-        </section>
+        {!hideQuiz && (
+          <section className={styles.topicSectionQuiz}>
+            <div className={styles.quizWrapper}>
+              <QuizComponent
+                question={quiz.question[language]}
+                options={quiz.options[language]}
+                onAnswer={onAnswer}
+                result={quizResult}
+                gender={gender}
+                retryMsg={retryMsg}
+                activeHint={activeHint}
+                onReview={handleReview}
+                labels={labels}
+                attempts={attempts}
+                funFact={funFact}
+                anchorIcon={anchorIcon}
+                onSpeakText={(text, id) => {
+                  stopReader()
+                  speak(text, id)
+                }}
+                activeSpeechId={activeSpeechId}
+              />
+            </div>
+          </section>
+        )}
       </div>
 
       <button className={styles.topicFinishButton} onClick={handleBack}>

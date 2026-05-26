@@ -1,6 +1,7 @@
 import { renderHook, act } from '@testing-library/react'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { useProgressionStore } from './useProgressionStore'
+import { indexedDBStorage } from '../utils/indexedDBStorage'
 
 describe('useProgressionStore', () => {
   beforeEach(() => {
@@ -267,35 +268,39 @@ describe('useProgressionStore', () => {
   })
 
   describe('Compression & Rétrocompatibilité du Stockage', () => {
-    it('devrait correctement compresser l\'état et l\'enregistrer avec des clés raccourcies', () => {
-      act(() => {
-        useProgressionStore.persist.clearStorage();
+    it('devrait correctement enregistrer l\'état non-compressé directement dans IndexedDB', async () => {
+      await act(async () => {
+        await useProgressionStore.persist.clearStorage();
       });
 
       // Mettre à jour l'état du store
-      act(() => {
+      await act(async () => {
         useProgressionStore.getState().syncWithProfile('alice');
         useProgressionStore.getState().addBadge('lion', 'gold');
         useProgressionStore.getState().addTickets(3);
         useProgressionStore.getState().equipAccessory('crown');
       });
 
-      // Lire la valeur brute dans le localStorage
-      const rawStored = localStorage.getItem('kp-progression-storage');
+      // Attendre la fin de l'écriture IndexedDB asynchrone
+      await new Promise((resolve) => setTimeout(resolve, 20));
+
+      // Lire la valeur brute dans IndexedDB
+      const rawStored = await indexedDBStorage.getItem('kp-progression-storage');
       expect(rawStored).toBeDefined();
+      expect(rawStored).not.toBeNull();
       
       const parsed = JSON.parse(rawStored!);
-      // Vérifier le format compressé (clés raccourcies : p, b, x, etc.)
-      expect(parsed.state.p).toBeDefined();
-      expect(parsed.state.p.alice).toBeDefined();
-      expect(parsed.state.p.alice.b).toContainEqual({ i: 'lion', m: 'gold' });
-      expect(parsed.state.p.alice.x).toBe(1500);
-      expect(parsed.state.p.alice.t).toBe(6);
-      expect(parsed.state.p.alice.ea).toBe('crown');
-      expect(parsed.state.progressions).toBeUndefined(); // Pas de clés longues
+      // Vérifier le format non-compressé (clés longues normales: progressions, activeProfileId)
+      expect(parsed.state.progressions).toBeDefined();
+      expect(parsed.state.progressions.alice).toBeDefined();
+      expect(parsed.state.progressions.alice.badges).toContainEqual({ id: 'lion', medal: 'gold' });
+      expect(parsed.state.progressions.alice.totalXP).toBe(1500);
+      expect(parsed.state.progressions.alice.tickets).toBe(6);
+      expect(parsed.state.progressions.alice.equippedAccessoryId).toBe('crown');
+      expect(parsed.state.activeProfileId).toBe('alice');
     });
 
-    it('devrait décompresser de manière transparente les données legacy (non-compressées)', () => {
+    it('devrait décompresser de manière transparente les données legacy (non-compressées) depuis localStorage', async () => {
       const legacyState = {
         state: {
           progressions: {
@@ -314,12 +319,15 @@ describe('useProgressionStore', () => {
         version: 0
       };
 
+      // Nettoyer IndexedDB des résidus asynchrones de reset() du beforeEach pour éviter toute collision
+      await indexedDBStorage.removeItem('kp-progression-storage');
+
       // Écrire directement du JSON non-compressé dans le localStorage
       localStorage.setItem('kp-progression-storage', JSON.stringify(legacyState));
 
       // Forcer la réhydratation du store
-      act(() => {
-        useProgressionStore.persist.rehydrate();
+      await act(async () => {
+        await useProgressionStore.persist.rehydrate();
       });
 
       // Vérifier que le store a correctement chargé les données de Bob
@@ -327,6 +335,46 @@ describe('useProgressionStore', () => {
       expect(useProgressionStore.getState().getTotalXP()).toBe(500);
       expect(useProgressionStore.getState().getBadges()).toContainEqual({ id: 'soleil', medal: 'silver' });
       expect(useProgressionStore.getState().getTickets()).toBe(2);
+    });
+
+    it('devrait migrer et décompresser de manière transparente les données legacy compressées depuis localStorage', async () => {
+      const compressedLegacyState = {
+        state: {
+          p: {
+            bob: {
+              b: [{ i: 'soleil', m: 'silver' }],
+              x: 500,
+              r: 'apprentice',
+              u: [],
+              ea: null,
+              ec: null,
+              t: 2
+            }
+          },
+          a: 'bob'
+        },
+        version: 0
+      };
+
+      // Nettoyer IndexedDB
+      await indexedDBStorage.removeItem('kp-progression-storage');
+
+      // Écrire directement du JSON compressé dans le localStorage
+      localStorage.setItem('kp-progression-storage', JSON.stringify(compressedLegacyState));
+
+      // Forcer la réhydratation du store
+      await act(async () => {
+        await useProgressionStore.persist.rehydrate();
+      });
+
+      // Vérifier que le store a décompressé et chargé les données de Bob
+      expect(useProgressionStore.getState().activeProfileId).toBe('bob');
+      expect(useProgressionStore.getState().getTotalXP()).toBe(500);
+      expect(useProgressionStore.getState().getBadges()).toContainEqual({ id: 'soleil', medal: 'silver' });
+      expect(useProgressionStore.getState().getTickets()).toBe(2);
+
+      // Vérifier que localStorage a été nettoyé
+      expect(localStorage.getItem('kp-progression-storage')).toBeNull();
     });
   })
 })
