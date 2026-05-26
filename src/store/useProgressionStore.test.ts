@@ -1,5 +1,5 @@
 import { renderHook, act } from '@testing-library/react'
-import { describe, it, expect, beforeEach, vi } from 'vitest'
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest'
 import { useProgressionStore } from './useProgressionStore'
 import { indexedDBStorage } from '../utils/indexedDBStorage'
 
@@ -376,6 +376,103 @@ describe('useProgressionStore', () => {
       // Vérifier que localStorage a été nettoyé
       expect(localStorage.getItem('kp-progression-storage')).toBeNull();
     });
-  })
-})
+  });
+
+  describe('découvertes quotidiennes (dailyDiscoveries)', () => {
+    beforeEach(() => {
+      vi.useFakeTimers();
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it('devrait initialiser dailyDiscoveries à un objet vide', () => {
+      const { result } = renderHook(() => useProgressionStore());
+      act(() => {
+        result.current.syncWithProfile('charlie');
+      });
+      const profile = result.current.progressions['charlie'];
+      expect(profile.dailyDiscoveries).toEqual({});
+    });
+
+    it('devrait enregistrer le topicId sous la date locale du jour lors de la réussite d\'un quiz', () => {
+      // Mock de la date locale à '2026-05-25'
+      const date = new Date(2026, 4, 25); // 25 mai 2026
+      vi.setSystemTime(date);
+
+      const { result } = renderHook(() => useProgressionStore());
+      act(() => {
+        result.current.syncWithProfile('charlie');
+      });
+
+      act(() => {
+        result.current.addBadge('lion', 'gold');
+      });
+
+      const profile = result.current.progressions['charlie'];
+      expect(profile.dailyDiscoveries['2026-05-25']).toContain('lion');
+    });
+
+    it('devrait enregistrer le topicId sans doublon sous la même date locale', () => {
+      const date = new Date(2026, 4, 25);
+      vi.setSystemTime(date);
+
+      const { result } = renderHook(() => useProgressionStore());
+      act(() => {
+        result.current.syncWithProfile('charlie');
+      });
+
+      act(() => {
+        result.current.addBadge('lion', 'gold');
+      });
+      act(() => {
+        result.current.addBadge('lion', 'gold');
+      });
+      act(() => {
+        result.current.addBadge('soleil', 'bronze');
+      });
+
+      const profile = result.current.progressions['charlie'];
+      expect(profile.dailyDiscoveries['2026-05-25']).toEqual(['lion', 'soleil']);
+    });
+
+    it('devrait purger silencieusement les clés vieilles de plus de 7 jours', () => {
+      const { result } = renderHook(() => useProgressionStore());
+      
+      act(() => {
+        result.current.syncWithProfile('charlie');
+      });
+
+      // 1. Définir une date ancienne de 10 jours
+      const oldDate = new Date(2026, 4, 15);
+      vi.setSystemTime(oldDate);
+      act(() => {
+        result.current.addBadge('lion', 'bronze');
+      });
+
+      // 2. Définir une date récente de 5 jours
+      const recentDate = new Date(2026, 4, 20);
+      vi.setSystemTime(recentDate);
+      act(() => {
+        result.current.addBadge('soleil', 'bronze');
+      });
+
+      // 3. Définir aujourd'hui (25 mai 2026)
+      const today = new Date(2026, 4, 25);
+      vi.setSystemTime(today);
+      act(() => {
+        result.current.addBadge('terre', 'bronze');
+      });
+
+      const profile = result.current.progressions['charlie'];
+      // '2026-05-15' est vieille de 10 jours (> 7 jours), elle doit être purgée.
+      // '2026-05-20' est vieille de 5 jours (<= 7 jours), elle doit être conservée.
+      // '2026-05-25' est aujourd'hui, elle doit être conservée.
+      expect(profile.dailyDiscoveries['2026-05-15']).toBeUndefined();
+      expect(profile.dailyDiscoveries['2026-05-20']).toEqual(['soleil']);
+      expect(profile.dailyDiscoveries['2026-05-25']).toEqual(['terre']);
+    });
+  });
+});
 

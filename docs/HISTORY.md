@@ -4,6 +4,14 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
+### VERSION 3.23.7 - Suivi des Découvertes Quotidiennes & Purge Temporelle 📅🧹 (25 Mai 2026)
+--------------------------------------------------
+- **[Logic/Storage/Tests] Suivi et Persistance des Découvertes Quotidiennes (`dailyDiscoveries`) :**
+    - **useProgressionStore.ts (Type & State)** : Ajout du champ `dailyDiscoveries` de type `Record<string, TopicId[]>` à la structure `ProfileProgression` et initialisation à `{}` dans les profils par défaut et migrés.
+    - **addBadge (Enregistrement & Purge)** : Mise à jour de l'action de réussite de quiz pour enregistrer silencieusement le `topicId` sans doublon sous la date locale du jour (`YYYY-MM-DD`). Intégration d'une purge automatique des clés de découvertes de plus de 7 jours (lexicographiquement antérieures à la date limite).
+    - **indexedDBStorage.ts** : Ajout de la rétrocompatibilité lors de la décompression d'anciens profils en initialisant `dailyDiscoveries` s'il est absent.
+    - **useProgressionStore.test.ts (Tests Unitaires)** : Couverture totale de la fonctionnalité avec des tests validant l'initialisation, l'enregistrement sans doublon par date, et la purge de l'historique après 7 jours à l'aide de faux timers.
+
 ### VERSION 3.23.6 - Polissage Immersif & Exploration Libre sur Le Grand Voyage du Temps 🕰️✨ (25 Mai 2026)
 --------------------------------------------------
 - **[Aesthetics/UX/UI/Logic] Peaufinage Visuel et Retrait des Quiz (Ticket #77) :**

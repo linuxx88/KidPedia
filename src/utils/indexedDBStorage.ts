@@ -63,7 +63,8 @@ function decompressLegacyState(raw: string): string {
             unlockedAccessories: cp.u || [],
             equippedAccessoryId: cp.ea || null,
             equippedCompanionId: cp.ec || null,
-            tickets: cp.t || 0
+            tickets: cp.t || 0,
+            dailyDiscoveries: cp.d || {}
           };
         }
       });

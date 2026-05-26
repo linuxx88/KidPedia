@@ -18,6 +18,7 @@ interface ProfileProgression {
   equippedAccessoryId: string | null; // ID de l'accessoire porté
   equippedCompanionId: string | null; // ID du compagnon actif
   tickets: number; // solde de tickets possédés
+  dailyDiscoveries: Record<string, TopicId[]>;
 }
 
 export interface ProgressionState {
@@ -55,6 +56,24 @@ const ticketValues: Record<MedalType, number> = { gold: 3, silver: 2, bronze: 1 
 const PERFECT_BONUS_XP = 500;
 
 /**
+ * Formate une date en YYYY-MM-DD local
+ */
+const formatDate = (date: Date): string => {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, '0');
+  const day = String(date.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};
+
+const getLocalDateString = (): string => formatDate(new Date());
+
+const getCutoffDateString = (): string => {
+  const cutoff = new Date();
+  cutoff.setDate(cutoff.getDate() - 7);
+  return formatDate(cutoff);
+};
+
+/**
  * Calcule le rang correspondant au total d'XP actuel.
  */
 const calculateRankId = (xp: number): string => {
@@ -69,7 +88,8 @@ const DEFAULT_PROGRESSION: ProfileProgression = {
   unlockedAccessories: [],
   equippedAccessoryId: null,
   equippedCompanionId: null,
-  tickets: 0
+  tickets: 0,
+  dailyDiscoveries: {}
 };
 
 /**
@@ -137,7 +157,8 @@ const migrateLegacyProfile = (profileId: string): ProfileProgression => {
       unlockedAccessories: [],
       equippedAccessoryId: null,
       equippedCompanionId: null,
-      tickets: 0
+      tickets: 0,
+      dailyDiscoveries: {}
     };
   } catch (e) {
     console.error("Migration error", e);
@@ -270,13 +291,48 @@ export const useProgressionStore = create<ProgressionState>()(
         let newBadges = [...current.badges];
         const isFirstTime = !existing;
         const isUpgrade = existing && medalTier[medal] > medalTier[existing.medal];
-        
+
+        // 1. Calcul des découvertes quotidiennes et de la purge
+        const today = getLocalDateString();
+        const cutoff = getCutoffDateString();
+
+        const currentDiscoveries = current.dailyDiscoveries || {};
+        const nextDiscoveries: Record<string, TopicId[]> = {};
+
+        // Purge silencieuse des clés vieilles de plus de 7 jours
+        Object.keys(currentDiscoveries).forEach((dateKey) => {
+          if (dateKey >= cutoff) {
+            nextDiscoveries[dateKey] = [...currentDiscoveries[dateKey]];
+          }
+        });
+
+        // Ajout du topicId sous la date du jour sans doublon
+        const todaysTopics = nextDiscoveries[today] || [];
+        if (!todaysTopics.includes(topicId)) {
+          nextDiscoveries[today] = [...todaysTopics, topicId];
+        }
+
+        // Si ce n'est ni une première fois ni une amélioration, on met seulement à jour dailyDiscoveries
+        if (!isFirstTime && !isUpgrade) {
+          set((state) => {
+            const currentProg = state.progressions[activeProfileId] || { ...DEFAULT_PROGRESSION };
+            return {
+              progressions: {
+                ...state.progressions,
+                [activeProfileId]: {
+                  ...currentProg,
+                  dailyDiscoveries: nextDiscoveries
+                }
+              }
+            };
+          });
+          return;
+        }
+
         if (isFirstTime) {
           newBadges.push({ id: topicId, medal });
         } else if (isUpgrade) {
           newBadges = current.badges.map((b) => (b.id === topicId ? { id: b.id, medal } : b));
-        } else {
-          return; 
         }
 
         let ticketsToAdd = 0;
@@ -302,7 +358,8 @@ export const useProgressionStore = create<ProgressionState>()(
             badges: newBadges,
             totalXP: nextXP,
             currentRankId: nextRankId,
-            tickets: (currentProg.tickets || 0) + ticketsToAdd
+            tickets: (currentProg.tickets || 0) + ticketsToAdd,
+            dailyDiscoveries: nextDiscoveries
           };
 
           const oldUnlocked = currentProg.unlockedAccessories || [];
