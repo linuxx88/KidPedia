@@ -26,3 +26,21 @@ export interface Topic {
   audioFile?: string
   anchorIcon?: string
 }
+
+export interface TopicContent {
+  id: string
+  title: LocalizedString
+  category: LocalizedString
+  categoryKey: string
+  icon: string
+  shortDesc: LocalizedString
+  fullContent: LocalizedString
+  fullContents?: LocalizedString[]
+  funFact: LocalizedString
+  funFacts?: LocalizedString[]
+  quiz?: Quiz
+  quizzes?: Quiz[]
+  audioFile?: string
+  anchorIcon?: string
+}
+

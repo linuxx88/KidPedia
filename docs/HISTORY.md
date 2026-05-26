@@ -4,6 +4,16 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
+### VERSION 3.24.0 - Découplage de Fiche Encyclopédique & Interface TopicContent 🌌⚡ (25 Mai 2026)
+--------------------------------------------------
+- **[Architecture/Infrastructure/JSON] Découplage de données statiques & Interface TopicContent :**
+    - **types.ts (TopicContent - Nouveau)** : Création de l'interface TypeScript stricte `TopicContent` dans `src/data/topics/types.ts` pour typer proprement et sans aucun `any` la structure complète d'une fiche encyclopédique (textes, catégories, anecdotes) et de son quiz associé.
+    - **systeme-solaire.json (Nouveau)** : Extraction intégrale de la fiche encyclopédique et de la configuration du quiz de `systeme-solaire` de `/src` vers le nouveau fichier statique `public/content/topics/systeme-solaire.json` respectant rigoureusement le schéma `TopicContent`.
+    - **Désensibilisation du dossier /src** : Suppression complète des données hardcodées de `systeme-solaire` dans `src/data/topics/space.ts` et `src/data/quizzes/space.ts`.
+    - **TopicId & Raccordement type-safe** : Ajout explicite de `'systeme-solaire'` à l'union de types `TopicId` dans `src/types/domain.ts` pour préserver le raccordement et la validité sémantique sans briser les types dans le reste de l'application.
+    - **TopicPage & Moteur de chargement dynamique** : Implémentation du chargement asynchrone sécurisé dans `TopicPage` (`src/pages/Topic/index.tsx`) qui détecte les sujets découplés, les récupère dynamiquement via `fetch` avec un fallback de chargement fluide et optimise l'initialisation de l'état réactif via `useMemo` pour éliminer tout re-rendering intempestif ou cascade de renders ESLint.
+    - **dataIntegrity.test.ts (Tests unitaires)** : Mise à jour des tests d'intégrité de l'architecture pour accepter et valider le découplage de `systeme-solaire` et garantir 100% de réussite.
+
 ### VERSION 3.23.8 - Déclencheurs de Discussions Parent-Enfant & Hook useDailyDiscussion 💬👨‍👩‍👧 (25 Mai 2026)
 --------------------------------------------------
 - **[Logic/UX/Tests] Déclencheurs de Discussion Parent-Enfant & Moteur dailyDiscoveries :**

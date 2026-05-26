@@ -324,20 +324,5 @@ export const QUIZZES: Partial<Record<TopicId, Quiz>> = {
       fr: "Elle porte le nom d'une boisson blanche délicieuse !",
       en: "It is named after a delicious white drink!"
     }
-  },
-  'systeme-solaire': {
-    question: {
-      fr: "Combien de planètes tournent autour de notre Soleil ?",
-      en: "How many planets orbit our Sun?",
-    },
-    options: {
-      fr: ["3 planètes", "8 planètes", "100 planètes"],
-      en: ["3 planets", "8 planets", "100 planets"],
-    },
-    correctAnswer: 1,
-    hint: {
-      fr: "C'est un chiffre entre 5 et 10. Compte bien : Mercure, Vénus, la Terre, Mars...",
-      en: "It is a number between 5 and 10. Count them: Mercury, Venus, Earth, Mars..."
-    }
   }
 };

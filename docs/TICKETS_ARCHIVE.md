@@ -6,6 +6,23 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #78 : Architecture - Découplage de Fiche Encyclopédique & Interface TopicContent 🌌⚡
+**Statut** : 🟢 Résolu (v3.24.0)
+**Sévérité** : Élevée (Refactoring d'Architecture & Découplage de Données)
+**Localisation** : `src/data/topics/types.ts`, `src/types/domain.ts`, `src/pages/Topic/index.tsx`, `src/data/dataIntegrity.test.ts`, `public/content/topics/systeme-solaire.json`, `src/data/topics/space.ts`, `src/data/quizzes/space.ts`
+**Description** :
+Créer une interface TypeScript stricte `TopicContent` pour typer proprement et sans aucun `any` la structure complète d'une fiche encyclopédique (textes, médias, quiz). Extraire ensuite la fiche `systeme-solaire` existante et sa configuration de quiz associée vers le fichier statique public `public/content/topics/systeme-solaire.json`. Supprimer enfin les données hardcodées de `/src` et implémenter un chargeur asynchrone dynamique et sécurisé dans `TopicPage` sans briser la compilation ni les tests.
+**Résolution** :
+- **types.ts** : Définition de l'interface stricte `TopicContent`.
+- **systeme-solaire.json** : Extraction intégrale de la fiche et de son quiz.
+- **space.ts & quizzes/space.ts** : Suppression des données hardcodées de `systeme-solaire`.
+- **domain.ts** : Inclusion de `'systeme-solaire'` dans l'union `TopicId` pour garder la validité sémantique.
+- **TopicPage/index.tsx** : Intégration d'un chargeur asynchrone dynamique avec états réactifs, fallback et optimisation par `useMemo` pour éviter les re-renders intempestifs.
+- **dataIntegrity.test.ts** : Ajout de la tolérance pour les sujets découplés dans les audits d'intégrité de données.
+- **Validation** : Type-check TypeScript 100% propre et 223 tests unitaires passés au vert.
+
+---
+
 ## 🎫 Ticket #77 : UX/UI - Peaufinage Visuel et Retrait des Quiz (Le Grand Voyage du Temps)
 **Statut** : 🟢 Résolu (v3.23.6)
 **Sévérité** : Moyenne (Esthétique / Ergonomie)

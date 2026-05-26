@@ -142,6 +142,7 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Polissage Immersif & Exploration Libre sur Le Grand Voyage du Temps (Ticket UX/UI)** (Traité en v3.23.6)
 ✅ **RÉSOLU : Le Verrouillage Kid-Safe Intelligent (Ticket #R9)** (Traité en v3.23.6)
 ✅ **RÉSOLU : Bascule asynchrone du useProgressionStore (Ticket #76)** (Traité en v3.23.6)
+✅ **RÉSOLU : Découplage de Fiche Encyclopédique & Interface TopicContent (Ticket #78)** (Traité en v3.24.0)
 
 
 ---
@@ -149,6 +150,6 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 25 mai 2026 (v3.23.6)*
+*Dernière mise à jour : 25 mai 2026 (v3.24.0)*
 
 

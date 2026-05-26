@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState } from 'react'
+import { lazy, Suspense, useEffect, useState, useMemo } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { encyclopedia } from '../../data/topics'
 import { useSettingsStore } from '../../store/useSettingsStore'
@@ -11,7 +11,7 @@ import { type TopicId } from '../../types/domain'
 import BackButton from '../../components/UI/BackButton'
 import styles from './TopicPage.module.css'
 
-import { type Topic, type Quiz } from '../../data/topics/types'
+import { type Topic, type Quiz, type TopicContent } from '../../data/topics/types'
 
 interface TopicPageProps {
   handleGoHome: (callback?: () => void) => void
@@ -167,11 +167,60 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   const addBadge = useProgressionStore(state => state.addBadge)
   const isUnlocked = useProgressionStore(state => state.isUnlocked)
 
-  const topic = encyclopedia.find((t) => t.id === topicId) as Topic | undefined
+  const [dynamicTopic, setDynamicTopic] = useState<TopicContent | null>(null);
+  const [isLoadingDecoupled, setIsLoadingDecoupled] = useState(false);
+
+  const topic = useMemo(() => {
+    const staticTopic = encyclopedia.find((t) => t.id === topicId) as Topic | undefined;
+    if (staticTopic) return staticTopic;
+    if (!dynamicTopic) return undefined;
+    return {
+      id: dynamicTopic.id as TopicId,
+      title: dynamicTopic.title,
+      category: dynamicTopic.category,
+      categoryKey: dynamicTopic.categoryKey,
+      icon: dynamicTopic.icon,
+      shortDesc: dynamicTopic.shortDesc,
+      fullContent: dynamicTopic.fullContent,
+      fullContents: dynamicTopic.fullContents,
+      funFact: dynamicTopic.funFact,
+      funFacts: dynamicTopic.funFacts,
+      audioFile: dynamicTopic.audioFile,
+      anchorIcon: dynamicTopic.anchorIcon,
+    } as Topic;
+  }, [topicId, dynamicTopic]);
 
   const [funFactIndex, setFunFactIndex] = useState<number | null>(null);
   const [quizIndex, setQuizIndex] = useState<number | null>(null);
   const [descriptionIndex, setDescriptionIndex] = useState<number | null>(null);
+
+  /* eslint-disable react-hooks/set-state-in-effect */
+  // Charger le sujet découplé si absent de l'encyclopédie hardcodée
+  useEffect(() => {
+    if (!topicId) return;
+    const isStatic = encyclopedia.some((t) => t.id === topicId);
+    if (isStatic) {
+      setDynamicTopic(null);
+      return;
+    }
+
+    setIsLoadingDecoupled(true);
+    fetch(`/content/topics/${topicId}.json`)
+      .then((res) => {
+        if (!res.ok) throw new Error('Decoupled topic not found');
+        return res.json();
+      })
+      .then((data: TopicContent) => {
+        setDynamicTopic(data);
+      })
+      .catch((err) => {
+        console.error('Failed to load decoupled topic:', err);
+      })
+      .finally(() => {
+        setIsLoadingDecoupled(false);
+      });
+  }, [topicId]);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   // Rediriger vers l'accueil si le sujet est verrouillé
   useEffect(() => {
@@ -193,7 +242,7 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
     if (!topic) return;
 
     // 1. Sélectionner d'abord le quiz de manière stable
-    const bank = QUIZ_BANKS[topic.id];
+    const bank = QUIZ_BANKS[topic.id] || dynamicTopic?.quizzes;
     let selectedQuizIndex: number | null = null;
     if (bank && bank.length > 0) {
       selectedQuizIndex = Math.floor(Math.random() * bank.length);
@@ -234,21 +283,25 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
     } else {
       setDescriptionIndex(null);
     }
-  }, [topicId, topic]);
+  }, [topicId, topic, dynamicTopic]);
   /* eslint-enable react-hooks/set-state-in-effect */
 
   const currentFunFact = (topic && funFactIndex !== null && topic.funFacts && topic.funFacts[funFactIndex])
     ? topic.funFacts[funFactIndex][language]
     : (topic ? topic.funFact[language] : '');
 
-  const bank = topic ? QUIZ_BANKS[topic.id] : undefined;
+  const bank = topic ? (QUIZ_BANKS[topic.id] || dynamicTopic?.quizzes) : undefined;
   const currentQuiz = (bank && quizIndex !== null && bank[quizIndex])
     ? bank[quizIndex]
-    : (topic ? QUIZZES[topic.id] : undefined);
+    : (topic ? (QUIZZES[topic.id] || dynamicTopic?.quiz) : undefined);
 
   const currentDescription = (topic && descriptionIndex !== null && topic.fullContents && topic.fullContents[descriptionIndex])
     ? topic.fullContents[descriptionIndex][language]
     : (topic ? topic.fullContent[language] : '');
+
+  if (isLoadingDecoupled) {
+    return <LoadingFallback />;
+  }
 
   if (!topic) {
     return (

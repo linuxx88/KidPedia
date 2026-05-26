@@ -27,7 +27,8 @@ export type TopicId =
   | (typeof geography)[number]['id']
   | (typeof inventions)[number]['id']
   | (typeof arts)[number]['id']
-  | 'histoire' | 'dinosaurs' | 'animaux'; // Hubs de catégories
+  | 'histoire' | 'dinosaurs' | 'animaux'
+  | 'systeme-solaire'; // Hubs de catégories et sujets découplés
 
 /**
  * Médaille gagnée par un joueur.

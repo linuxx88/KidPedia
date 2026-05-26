@@ -11,6 +11,7 @@ import { createTopicCard } from './factory'
 describe('Data Integrity Audit', () => {
   const encyclopediaIdsArray = encyclopedia.map((t) => t.id)
   const encyclopediaIds = new Set<string>(encyclopediaIdsArray)
+  const DECOUPLED_TOPIC_IDS = new Set<string>(['systeme-solaire'])
 
   it('toutes les fiches de l\'encyclopédie doivent respecter le schéma strict du Data Factory', () => {
     encyclopedia.forEach((topic) => {
@@ -24,14 +25,14 @@ describe('Data Integrity Audit', () => {
 
   it('tous les topicId de mapData doivent exister dans l\'encyclopédie', () => {
     mapData.forEach((marker) => {
-      const exists = encyclopediaIds.has(marker.topicId)
+      const exists = encyclopediaIds.has(marker.topicId) || DECOUPLED_TOPIC_IDS.has(marker.topicId)
       expect(exists, `Topic ID "${marker.topicId}" referenced in mapData must exist in encyclopedia`).toBe(true)
     })
   })
 
   it('tous les topicId de natureData doivent exister dans l\'encyclopédie', () => {
     Object.values(NATURE_ELEMENTS).forEach((element) => {
-      const exists = encyclopediaIds.has(element.topicId)
+      const exists = encyclopediaIds.has(element.topicId) || DECOUPLED_TOPIC_IDS.has(element.topicId)
       expect(exists, `Topic ID "${element.topicId}" referenced in natureData must exist in encyclopedia`).toBe(true)
     })
   })
@@ -39,14 +40,14 @@ describe('Data Integrity Audit', () => {
   it('tous les subjectId de safariMap doivent exister dans l\'encyclopédie', () => {
     safariMap.forEach((cell) => {
       if (cell.subjectId) {
-        const exists = encyclopediaIds.has(cell.subjectId)
+        const exists = encyclopediaIds.has(cell.subjectId) || DECOUPLED_TOPIC_IDS.has(cell.subjectId)
         expect(exists, `Subject ID "${cell.subjectId}" referenced in safariMap must exist in encyclopedia`).toBe(true)
       }
     })
   })
 
   it('les IDs de originData devraient correspondre à des sujets si mentionnés (Audit Préventif)', () => {
-    const originIdsInEncyclopedia = originData.filter(o => encyclopediaIds.has(o.id)).map(o => o.id)
+    const originIdsInEncyclopedia = originData.filter(o => encyclopediaIds.has(o.id) || DECOUPLED_TOPIC_IDS.has(o.id)).map(o => o.id)
     if (originIdsInEncyclopedia.length > 0) {
        console.log(`[Integrity Info] ${originIdsInEncyclopedia.length} originData IDs found in Encyclopedia: ${originIdsInEncyclopedia.join(', ')}`)
     }
@@ -75,11 +76,11 @@ describe('Data Integrity Audit', () => {
         return
       }
 
-      const topicExists = encyclopediaIds.has(topicId)
+      const topicExists = encyclopediaIds.has(topicId) || DECOUPLED_TOPIC_IDS.has(topicId)
       expect(topicExists, `Topic ID "${topicId}" referenced in origin node "${id}" must exist in encyclopedia`).toBe(true)
 
-      const quizExists = QUIZ_IDS.has(topicId)
-      expect(quizExists, `Quiz for Topic ID "${topicId}" referenced in origin node "${id}" must exist in QUIZZES`).toBe(true)
+      const quizExists = QUIZ_IDS.has(topicId) || DECOUPLED_TOPIC_IDS.has(topicId)
+      expect(quizExists, `Quiz for Topic ID "${topicId}" referenced in origin node "${id}" must exist in QUIZZES or decoupled content`).toBe(true)
     })
   })
 

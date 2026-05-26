@@ -696,39 +696,4 @@ export const space = [
       }
     ]
   },
-  {
-    id: 'systeme-solaire',
-    title: { fr: 'Système Solaire', en: 'Solar System' },
-    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
-    categoryKey: 'espace',
-    icon: '☀️',
-    shortDesc: {
-      fr: "Notre Soleil et sa famille de planètes.",
-      en: "Our Sun and its family of planets."
-    },
-    fullContent: {
-      fr: "Il y a 4,6 milliards d'années, un grand nuage de poussière s'est effondré pour former notre Soleil au centre, et huit magnifiques planètes tout autour, dont notre Terre !",
-      en: "4.6 billion years ago, a large cloud of dust collapsed to form our Sun at the center, and eight beautiful planets all around, including our Earth!"
-    },
-    fullContents: [
-      {
-        fr: "Il y a 4,6 milliards d'années, un grand nuage de poussière s'est effondré pour former notre Soleil au centre, et huit magnifiques planètes tout autour, dont notre Terre !",
-        en: "4.6 billion years ago, a large cloud of dust collapsed to form our Sun at the center, and eight beautiful planets all around, including our Earth!"
-      },
-      {
-        fr: "Les huit planètes se partagent en quatre planètes rocheuses près du Soleil, et quatre planètes géantes de gaz et de glace plus éloignées !",
-        en: "The eight planets are divided into four rocky planets near the Sun, and four giant gas and ice planets further away!"
-      }
-    ],
-    funFact: {
-      fr: "Toutes les planètes du système solaire tournent dans le même sens autour du Soleil !",
-      en: "All planets in the solar system orbit in the same direction around the Sun!"
-    },
-    funFacts: [
-      {
-        fr: "Toutes les planètes du système solaire tournent dans le même sens autour du Soleil !",
-        en: "All planets in the solar system orbit in the same direction around the Sun!"
-      }
-    ]
-  },
 ] as const
