@@ -293,9 +293,10 @@ Ouvre une [nouvelle issue](https://github.com/linuxx88/KidPedia/issues/new) avec
 - [x] Boutique d'Accessoires d'Avatar & Compagnons Animaux (Ticket #55)
 - [x] Mission Safari (Jeu de plateau ludique et interactif)
 - [x] Multi-profiles & Contrôle Parental bilingue (Multiplication de sécurité)
-- [x] Progressive Web App (PWA) & Mode Hors-ligne résilient (Ticket #29)
+- [x] Progressive Web App (PWA), Cache Stale-While-Revalidate & Mode Hors-ligne résilient pour les fiches JSON (Ticket #SW-Cache)
+- [x] Hook de disponibilité offline `useOfflineAvailability` & désactivation visuelle/logique des TopicCard (Ticket #SW-Availability)
 - [x] GitHub Actions (CI/CD)
-- [x] Tests de couverture (100% de réussite avec 147 tests unitaires et d'intégration)
+- [x] Tests de couverture (100% de réussite avec 222 tests unitaires et d'intégration)
 
 ### 🚧 En cours
 - [ ] Intégration Backend API
@@ -363,4 +364,4 @@ Merci à:
 
 ---
 
-*Dernière mise à jour: 22 mai 2026*
+*Dernière mise à jour: 26 mai 2026*
