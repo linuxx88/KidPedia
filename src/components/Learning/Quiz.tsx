@@ -57,15 +57,38 @@ export const QuizComponent = ({
 
   const isStorySupported = typeof window !== 'undefined' && 'speechSynthesis' in window
 
+  const [activeStorytellerId, setActiveStorytellerId] = useState<string | null>(null)
+
   const currentQuestion: { readonly text: string } = { text: question }
 
   const handleStoryToggle = (): void => {
-    if (isStorySpeaking) {
+    if (isStorySpeaking && activeStorytellerId === 'question') {
       stopStory()
+      setActiveStorytellerId(null)
     } else {
+      stopStory() // Cut off any current speech first!
       speakStory(currentQuestion.text)
+      setActiveStorytellerId('question')
     }
   }
+
+  const handleOptionStoryToggle = (optionText: string, index: number): void => {
+    const id = `option-${index}`
+    if (isStorySpeaking && activeStorytellerId === id) {
+      stopStory()
+      setActiveStorytellerId(null)
+    } else {
+      stopStory() // Cut off any current speech first!
+      speakStory(optionText)
+      setActiveStorytellerId(id)
+    }
+  }
+
+  // Stop storyteller speech when the question changes
+  useEffect(() => {
+    stopStory()
+    setActiveStorytellerId(null)
+  }, [question, stopStory])
 
   // Synthesized ding sound using native Web Audio API
   const playSynthesizedDing = () => {
@@ -211,6 +234,8 @@ export const QuizComponent = ({
                 className={optionClasses[i]}
                 letter={['A', 'B', 'C'][i]}
                 onClick={() => handleAnswerClick(i)}
+                isSpeaking={isStorySpeaking && activeStorytellerId === `option-${i}`}
+                onToggleSpeak={() => handleOptionStoryToggle(opt, i)}
               />
             ))}
           </div>

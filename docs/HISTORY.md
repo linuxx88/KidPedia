@@ -4,6 +4,16 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
+### VERSION 3.31.0 - Orchestration Audio Exclusive & Sourdine Intelligente 🧩🎙️ (26 Mai 2026)
+--------------------------------------------------
+- **[Logic/UI/UX/A11y/Tests] Implémentation d'une orchestration audio exclusive et résilience sonore dans le Quiz :**
+    - **Orchestration Audio Unique** : Migration vers une instance centralisée et partagée du hook `useStoryteller` dans le composant parent `Quiz.tsx` pour coordonner la question et toutes ses options de réponses. L'icône de haut-parleur des réponses se branche sur cette instance partagée en recevant les props `isSpeaking` et `onToggleSpeak`.
+    - **Lecture Exclusive Garantie** : Avant chaque nouvelle lecture vocale (question ou option), le système invoque systématiquement `stopStory()` de manière impérative, garantissant une coupure instantanée de tout flux audio en cours avant d'entamer le nouveau.
+    - **Purge Sonore et Nettoyage temporel** : Écoute du cycle de vie via `useEffect` pour couper instantanément toute voix active (`stopStory()`) lors du changement de la question active ou du démontage global du Quiz, éliminant définitivement les voix orphelines.
+    - **Zéro interférence SFX** : Maintien et étanchéité parfaite vis-à-vis des effets sonores synthétisés de succès/échec (Perfect Fanfare et Dings).
+    - **Tests de validation (Quiz.test.tsx & QuizAnswerButton.test.tsx)** : Intégration de tests unitaires supplémentaires prouvant le déclenchement immédiat de `stop()` avant d'entamer une nouvelle lecture de question/réponse, et confirmant l'arrêt correct et la réinitialisation de l'état lors de la transition vers une autre question.
+    - **Validation** : 100% de succès sur la compilation, le linter et les 243 tests de la suite.
+
 ### VERSION 3.30.0 - Composant QuizAnswerButton & Sourdine d'Option 🧩🎙️ (26 Mai 2026)
 --------------------------------------------------
 - **[Logic/UI/UX/A11y/Tests] Création et intégration du composant QuizAnswerButton avec lecture vocale indépendante :**

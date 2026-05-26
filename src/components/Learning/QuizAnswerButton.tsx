@@ -1,5 +1,4 @@
 import React from 'react'
-import { useStoryteller } from '../../hooks/useStoryteller'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import styles from './Quiz.module.css'
 
@@ -9,6 +8,8 @@ interface QuizAnswerButtonProps {
   readonly className: string
   readonly letter: string
   readonly onClick: () => void
+  readonly isSpeaking: boolean
+  readonly onToggleSpeak: () => void
 }
 
 export const QuizAnswerButton: React.FC<QuizAnswerButtonProps> = ({
@@ -17,17 +18,14 @@ export const QuizAnswerButton: React.FC<QuizAnswerButtonProps> = ({
   className,
   letter,
   onClick,
+  isSpeaking,
+  onToggleSpeak,
 }) => {
-  const { speak, stop, isSpeaking } = useStoryteller()
   const { language } = useSettingsStore()
 
   const handleSpeak = (e: React.MouseEvent<HTMLButtonElement>): void => {
     e.stopPropagation()
-    if (isSpeaking) {
-      stop()
-    } else {
-      speak(text)
-    }
+    onToggleSpeak()
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>): void => {

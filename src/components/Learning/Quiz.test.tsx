@@ -205,6 +205,30 @@ describe('QuizComponent', () => {
     fireEvent.click(storytellerBtn)
     expect(mockStop).toHaveBeenCalled()
   })
+
+  it('coupe toute lecture vocale active lors du changement de question', () => {
+    const { rerender } = render(<QuizComponent {...defaultProps} />)
+    expect(mockStop).toHaveBeenCalled() // called once inside useEffect on initial mount
+
+    // Change the question text prop
+    rerender(<QuizComponent {...defaultProps} question="Nouvelle question de test ?" />)
+    expect(mockStop).toHaveBeenCalledTimes(2) // called again inside useEffect on question change
+  })
+
+  it("invoque stop pour couper toute lecture en cours avant d'en lancer une nouvelle", () => {
+    render(<QuizComponent {...defaultProps} />)
+    mockStop.mockClear()
+
+    // 1. Click on the question storyteller button to trigger reading
+    const questionStoryBtn = screen.getByRole('button', { name: /Lancer la lecture vocale de l'histoire/i })
+    fireEvent.click(questionStoryBtn)
+    expect(mockStop).toHaveBeenCalled() // stop called before starting speak
+
+    // 2. Click on the option speaker button
+    const optionStoryBtns = screen.getAllByRole('button', { name: 'Écouter la réponse' })
+    fireEvent.click(optionStoryBtns[0])
+    expect(mockStop).toHaveBeenCalled()
+  })
 })
 
 

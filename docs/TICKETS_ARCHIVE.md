@@ -6,6 +6,22 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #QuizAudioOrchestration : Logic/A11y/Tests - Orchestration Audio Exclusive & Sourdine Intelligente 🧩🎙️
+**Statut** : 🟢 Résolu (v3.31.0)
+**Sévérité** : Moyenne (Logique audio, Cycle de vie & Tests)
+**Localisation** : `src/components/Learning/Quiz.tsx`, `src/components/Learning/Quiz.test.tsx`, `src/components/Learning/QuizAnswerButton.tsx` & `src/components/Learning/QuizAnswerButton.test.tsx`
+**Description** :
+Implémenter dans le composant `Quiz.tsx` une logique d'orchestration audio garantissant une lecture exclusive. À chaque fois qu'une nouvelle action de lecture est déclenchée (via un clic sur une question ou sur un bouton de réponse), le hook `useStoryteller` doit impérativement invoquer `stop()` pour couper toute lecture en cours avant de démarrer la nouvelle. De plus, lors du changement de question ou à la fermeture du composant `Quiz`, s'assurer que toute voix active est coupée pour éviter les sons orphelins, tout en veillant à ne pas interférer avec les effets sonores de succès/échec déjà existants (`launchCelebration` / Synthesized Ding & Perfect Fanfare).
+**Résolution** :
+- **Quiz.tsx (Instance Centralisée)** : Migration vers une unique instance partagée du hook `useStoryteller` au niveau de `QuizComponent`. Les boutons d'options `QuizAnswerButton` reçoivent réactivement l'état parlant (`isSpeaking`) et déclenchent la lecture via le callback partagé `onToggleSpeak`.
+- **Lecture Exclusive Garantie** : Les fonctions de bascule de la question (`handleStoryToggle`) et des options (`handleOptionStoryToggle`) invoquent de manière robuste `stopStory()` de l'instance centralisée avant de déclencher toute nouvelle lecture, éliminant les voix superposées ou cacophonies.
+- **Purge Sonore sur question active & unmount** : Intégration d'un `useEffect` écoutant l'état du prop `question` qui déclenche instantanément la coupure de la parole active via `stopStory()` lors de la transition vers une autre question, tandis que le nettoyage sur unmount coupe la voix lors de la fermeture du composant.
+- **Isolation des Effets Sonores SFX** : Le moteur sonore Web Audio API (`playSound`, `playSynthesizedDing`, `playSynthesizedPerfectPerfectFanfare`) reste totalement étanche et hermétique, fonctionnant de manière autonome sans aucune interférence.
+- **Tests Unitaires Riches (Quiz.test.tsx & QuizAnswerButton.test.tsx)** : Rédaction de tests rigoureux validant l'invocation de `stop()` avant d'entamer une nouvelle lecture question/réponse, et confirmant l'arrêt immédiat et la mise à jour des états parlants lors du changement de question dans le cycle de vie React.
+- **Validation** : Compilations strictes validées à 100%, linter ESLint parfait, et 243 tests passés avec succès à 100% au vert.
+
+---
+
 ## 🎫 Ticket #QuizAnswerButton : UI/UX/A11y/Tests - Composant QuizAnswerButton & Lecture Vocale Indépendante 🧩🎙️
 **Statut** : 🟢 Résolu (v3.30.0)
 **Sévérité** : Moyenne (UI/UX, Accessibilité, Typage)
