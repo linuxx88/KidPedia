@@ -4,6 +4,23 @@ Ce document regroupe les tickets résolus et clôturés lors des audits et sprin
 
 Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md).
 
+## 🎫 Ticket #QuizA11yGridTactile : UI/UX/A11y/Grid/Tests - Accessibilité, Grille Réactive & Confort Tactile du Quiz 🧩🎨
+**Statut** : 🟢 Résolu (v3.32.0)
+**Sévérité** : Moyenne (A11y, UI/UX, Grille & Tactile)
+**Localisation** : `src/components/Learning/Quiz.module.css` & `src/components/Learning/Quiz.tsx`
+**Description** :
+Améliorer l'accessibilité contrastive (WCAG AA), l'adaptation de la grille de réponses pour le mobile et l'ordinateur, ainsi que le confort d'usage tactile pour les enfants :
+1. Remplacer la couleur jaune à la fin du texte de la question active par la variable solide de couleur `--color-primary` pour un contraste idéal de ratio >= 4.5:1 sur fond clair.
+2. Garantir la présence d'un espacement (`gap`) entre le texte de la question et l'icône de haut-parleur/mascotte Hibou du bouton Storyteller.
+3. Configurer le conteneur des réponses (`.optionsGrid`) en `display: grid` avec `1fr` de colonne sur mobile (<768px) et `repeat(auto-fit, minmax(150px, 1fr))` pour le bureau (desktop).
+4. Rehausser l'espacement entre les boutons d'options à un minimum de `1rem` sur tous les appareils pour un meilleur confort d'usage tactile.
+**Résolution** :
+- **A11y Contrastive** : Remplacement du dégradé de jaune délavé du texte de la question par la couleur hautement contrastée `--color-primary` (bleu explorer) garantissant une conformité parfaite WCAG 2.1 AA.
+- **Storyteller Gap** : Garantie d'une marge de séparation fluide (`gap: 2rem` sur desktop et `gap: 1rem` sur mobile) dans le conteneur `.questionContainer` entre la question et l'icône interactive du Hibou conteur.
+- **Grille Réactive Adaptative** : Mise à jour de la classe `.optionsGrid` pour configurer un rendu de grille robuste. Passage en colonnes fluides `repeat(auto-fit, minmax(150px, 1fr))` sur écran large, et colonne unique `1fr` via un sélecteur média ciblant les tablettes/mobiles (<768px).
+- **Confort Tactile Ergonomique** : Réglage d'un `gap` minimum strict de `1rem` entre toutes les options de réponse (notamment sur mobile à <480px, rehaussé de `0.85rem` à `1rem`) pour assurer une ergonomie parfaite sur tablettes et smartphones pour les enfants.
+- **Tests unitaires** : Validation complète à 100% de la suite de tests unitaires et de non-régression de QuizComponent (Quiz.test.tsx).
+
 ---
 
 ## 🎫 Ticket #QuizAudioOrchestration : Logic/A11y/Tests - Orchestration Audio Exclusive & Sourdine Intelligente 🧩🎙️
