@@ -6,6 +6,23 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #Refuge-Delete : Gamification - Suppression de la Page du Refuge des Compagnons 🦄🧹
+**Statut** : 🟢 Résolu (v3.25.0)
+**Sévérité** : Moyenne (Nettoyage de code & Simplification de l'Architecture)
+**Localisation** : `src/pages/Refuge/` (supprimé), `src/store/useCompanionStore.ts` (supprimé), `src/App.tsx`, `src/components/Layout/MainLayout.tsx`, `src/pages/Home/index.tsx`, `src/pages/Parents/FlowDashboard.tsx`, `src/pages/Parents/ParentsDashboard.tsx`, `src/locales/` (fr.ts, en.ts, types.ts)
+**Description** :
+Démanteler et supprimer entièrement la page premium interactive "Le Refuge" et toutes les fonctionnalités associées devenues obsolètes (simulation de virtual pet, alimentation, besoins, sommeil, cache-cache) afin d'alléger l'application, d'optimiser l'architecture et d'améliorer les performances.
+**Résolution** :
+- **Suppression des fichiers du Refuge** : Retrait définitif du dossier `/src/pages/Refuge/` (RefugePage et RefugePage.module.css).
+- **Suppression du store et des tests** : Retrait de `src/store/useCompanionStore.ts` et de sa suite de tests `useCompanionStore.test.ts`.
+- **Nettoyage du Router et du Layout** : Suppression de l'import dynamique de `RefugePage`, de la route `/refuge` dans `src/App.tsx`, et retrait des chemins associés dans `MainLayout.tsx`.
+- **Mise à jour de l'accueil** : Retrait du bouton d'accès au Refuge de la grille d'accueil dans `src/pages/Home/index.tsx`.
+- **Nettoyage de la Zone Parents** : Simplification de `ParentsDashboard.tsx` et retrait de `refuge_view` et `store_companion` dans le diagramme de flux Mermaid (`FlowDashboard.tsx`).
+- **Purge des traductions** : Purge complète de l'objet `refuge` et des clés associées dans `fr.ts`, `en.ts` et `types.ts`.
+- **Validation** : Type-check TypeScript validé et suite de tests unitaires/d'intégration de 170+ tests à 100% au vert.
+
+---
+
 ## 🎫 Ticket #80 : Refactoring - Composant AppLoader & Interface d'Erreur Enfantine Cohesive 🚀🧸
 **Statut** : 🟢 Résolu (v3.24.0)
 **Sévérité** : Moyenne (Aesthetics & UX/UI Enfantine)
