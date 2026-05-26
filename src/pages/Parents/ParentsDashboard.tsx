@@ -320,8 +320,8 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
                 </div>
                 <p className={styles.statsCardDesc}>
                   {language === 'fr' 
-                    ? 'Gagnés en répondant aux quiz. Permettent d\'acheter des friandises et accessoires dans le Refuge des Compagnons !' 
-                    : 'Earned by answering quizzes. Used to buy treats and accessories in the Companions Sanctuary!'}
+                    ? 'Gagnés en répondant aux quiz. Permettent d\'acheter des accessoires et compagnons !' 
+                    : 'Earned by answering quizzes. Used to buy accessories and companions!'}
                 </p>
               </div>
             </div>

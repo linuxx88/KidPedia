@@ -3,7 +3,6 @@ import { describe, it, expect, beforeEach, vi } from 'vitest'
 import { useProfileStore, type Profile } from './useProfileStore'
 import { useSettingsStore } from './useSettingsStore'
 import { useProgressionStore } from './useProgressionStore'
-import { useCompanionStore } from './useCompanionStore'
 import { createMockProfile } from '../test/factories'
 
 describe('useProfileStore (Declarative Orchestration)', () => {
@@ -12,7 +11,6 @@ describe('useProfileStore (Declarative Orchestration)', () => {
     useProfileStore.getState().reset()
     useSettingsStore.getState().reset()
     useProgressionStore.getState().reset()
-    useCompanionStore.getState().reset()
     vi.clearAllMocks()
   })
 
@@ -82,19 +80,5 @@ describe('useProfileStore (Declarative Orchestration)', () => {
     expect(deleteProgressionSpy).toHaveBeenCalledWith(profileId)
   })
 
-  it('devrait appeler deleteProfileCompanionData lors de la suppression d\'un profil', () => {
-    const deleteCompanionSpy = vi.spyOn(useCompanionStore.getState(), 'deleteProfileCompanionData')
 
-    let profileId = ''
-    act(() => {
-      const p = useProfileStore.getState().addProfile('Alice', '👧', 'girl')
-      profileId = p.id
-    })
-
-    act(() => {
-      useProfileStore.getState().deleteProfile(profileId)
-    })
-
-    expect(deleteCompanionSpy).toHaveBeenCalledWith(profileId)
-  })
 })

@@ -24,7 +24,6 @@ flowchart TB
         gifts_view["GiftsPage\\n(Boutique des cadeaux & Garde-robe)"]:::views
         topic_view["TopicDetailPage\\n(Lecture & Fiche audio)"]:::views
         quiz_view["QuizPage\\n(Défis de connaissances)"]:::views
-        refuge_view["RefugePage\\n(Adoption de compagnons)"]:::views
         championship_view["ChampionshipPage\\n(Le Grand Quiz 15s)"]:::views
     end
 
@@ -36,7 +35,6 @@ flowchart TB
         store_safari["useSafariStore\\n(Stickers collectés dans la nature)"]:::stores
         store_gift["useGiftStore\\n(Achat d'accessoires & familiers)"]:::stores
         store_settings["useSettingsStore\\n(Volume global, Langue fr/en, Audio)"]:::stores
-        store_companion["useCompanionStore\\n(Friandises & compagnons)"]:::stores
         store_championship["useQuizChampionshipStore\\n(Scores locaux & minuterie)"]:::stores
     end
 
@@ -67,7 +65,6 @@ flowchart TB
     map_view --> topic_view
     map_view --> gifts_view
     map_view --> safari_view
-    map_view --> refuge_view
 
     %% Flux d'Apprentissage & Quiz
     topic_view --> db_topics
@@ -86,9 +83,6 @@ flowchart TB
     championship_view --> confetti_fx
     championship_view --> audio_feedback
 
-    %% Le Refuge des Compagnons
-    refuge_view --> store_companion
-    refuge_view --> store_progression
 
     %% Flux de l'Inventaire (Gifts) & Personnalisation
     gifts_view --> db_accessories

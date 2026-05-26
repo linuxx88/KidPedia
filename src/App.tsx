@@ -54,9 +54,7 @@ const GiftsPage = lazy(() =>
 const FlowDashboard = lazy(() =>
   import('./pages/Parents/FlowDashboard').then((module) => ({ default: module.FlowDashboard })),
 );
-const RefugePage = lazy(() =>
-  import('./pages/Refuge/RefugePage').then((module) => ({ default: module.RefugePage })),
-);
+
 const ChampionshipPage = lazy(() =>
   import('./pages/Championship/ChampionshipPage').then((module) => ({ default: module.ChampionshipPage })),
 );
@@ -286,14 +284,7 @@ export function App() {
               </div>
             }
           />
-          <Route
-            path="/refuge"
-            element={
-              <div className={styles.routeWrapper}>
-                <RefugePage />
-              </div>
-            }
-          />
+
           <Route
             path="/championship"
             element={

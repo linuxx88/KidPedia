@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { type SupportedLanguage } from '../locales';
 import { useSettingsStore } from './useSettingsStore';
 import { useProgressionStore } from './useProgressionStore';
-import { useCompanionStore } from './useCompanionStore';
+
 
 export interface Profile {
   id: string;
@@ -145,7 +145,6 @@ export const useProfileStore = create<ProfileState>((set) => ({
       
       // --- SYNCHRONISATION DÉCLARATIVE ---
       useProgressionStore.getState().deleteProfileProgression(id);
-      useCompanionStore.getState().deleteProfileCompanionData(id);
 
       let newActiveId = state.activeProfileId;
       if (state.activeProfileId === id) {

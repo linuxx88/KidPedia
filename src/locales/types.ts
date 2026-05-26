@@ -88,8 +88,7 @@ export interface Labels {
     civilizationOdyssey: string;
     middleAgesOdyssey: string;
     originsDesc: string;
-    refugeTitle: string;
-    refugeDesc: string;
+
     championshipTitle: string;
     championshipDesc: string;
     step: (current: number, total: number) => string;
@@ -244,32 +243,7 @@ export interface Labels {
     musicMute: string;
     sfxMute: string;
   };
-  refuge: {
-    title: string;
-    subtitle: string;
-    empty: string;
-    lockedTitle: string;
-    lockedDesc: string;
-    affectionLabel: string;
-    happinessLabel: string;
-    treatsTitle: string;
-    buyButton: (price: number) => string;
-    feedButton: string;
-    petButton: string;
-    activeCompanion: string;
-    adoptPrompt: (name: string) => string;
-    sugarBoneName: string;
-    goldenLeafName: string;
-    batteryCellName: string;
-    boneDesc: string;
-    leafDesc: string;
-    batteryDesc: string;
-    noTickets: string;
-    backBtn: string;
-    maxAffection: string;
-    affectionIncrease: string;
-    happinessIncrease: string;
-  };
+
   pwa: {
     ready: string;
     update: string;

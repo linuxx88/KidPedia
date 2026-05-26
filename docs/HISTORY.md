@@ -4,6 +4,17 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
+### VERSION 3.25.0 - Suppression de la Page du Refuge des Compagnons 🦄🧹 (26 Mai 2026)
+--------------------------------------------------
+- **[Gamification/Architecture/Clean-up] Démantèlement et suppression de la page premium interactive Le Refuge :**
+    - **RefugePage / RefugePage.module.css (Suppression)** : Retrait définitif des fichiers visuels et styles du Refuge des Compagnons dans `/src/pages/Refuge/`.
+    - **useCompanionStore / Tests (Suppression)** : Retrait de `src/store/useCompanionStore.ts` et `src/store/useCompanionStore.test.ts` qui gérait la simulation de virtual pet (alimentation, besoins, sommeil, cache-cache) devenue obsolète.
+    - **Router & Layout** : Suppression de la lazy loading import de `RefugePage` et de la route `/refuge` dans `src/App.tsx`, et nettoyage des routes immersives dans `src/components/Layout/MainLayout.tsx`.
+    - **Discovery Grid** : Retrait du bouton premium "Le Refuge" de la grille d'accueil dans `src/pages/Home/index.tsx`.
+    - **Parent Dashboard & Flow** : Nettoyage sémantique du visualisateur de flux Mermaid (`FlowDashboard.tsx`) pour retirer `refuge_view` et `store_companion`, et simplification de la description des tickets dans `ParentsDashboard.tsx`.
+    - **Animations & Translations** : Suppression des styles d'animations premium interactives dans `TransformedEmoji.module.css` et purge complète de l'objet de traduction `refuge` et des clés `refugeTitle`/`refugeDesc` dans `fr.ts`, `en.ts` et `types.ts`.
+    - **Vérification** : Validation totale à 100% de la suite de tests unitaires et d'intégration et vérification de la compilation TypeScript.
+
 ### VERSION 3.24.0 - Découplage de Fiche Encyclopédique & Interface TopicContent 🌌⚡ (25 Mai 2026)
 --------------------------------------------------
 - **[Architecture/Infrastructure/JSON] Découplage de données statiques & Interface TopicContent :**

@@ -28,7 +28,7 @@ L'intelligence est répartie dans des magasins spécialisés et autonomes, synch
 4.  **`useSettingsStore`** : Gère les préférences (Thème, Langue) et les effets de bord DOM (Focus, Thème).
 5.  **`useSafariStore`** : Gère le plateau du Safari.
 6.  **`usePlayerStore` (Sélecteur UI)** : Hook réactif agrégeant les données pour la vue (Lecture seule).
-7.  **`useCompanionStore` (Gamification / Refuge)** : Gère le refuge des compagnons, l'inventaire de friandises et le niveau d'affection/bonheur de chaque familier par profil.
+
 
 ### 🕹️ Logique Métier Isolée (Hooks)
 Chaque expérience interactive possède son propre "moteur" logique, isolé de la vue et du stockage :
@@ -145,6 +145,7 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Découplage de Fiche Encyclopédique & Interface TopicContent (Ticket #78)** (Traité en v3.24.0)
 ✅ **RÉSOLU : Hook Réactif useTopicFetcher & Robustesse Réseau (Ticket #79)** (Traité en v3.24.0)
 ✅ **RÉSOLU : Refactoring - Composant AppLoader & Interface d'Erreur Enfantine Cohesive (Ticket #80)** (Traité en v3.24.0)
+✅ **RÉSOLU : Suppression Intégrale de la page du Refuge des Compagnons (Ticket #Refuge-Delete)** (Traité en v3.25.0)
 
 
 ---
@@ -152,6 +153,6 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 25 mai 2026 (v3.24.0)*
+*Dernière mise à jour : 26 mai 2026 (v3.25.0)*
 
 
