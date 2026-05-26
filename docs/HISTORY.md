@@ -4,6 +4,14 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
+### VERSION 3.32.0 - Accessibilité du Quiz, Grille Réactive & Confort Tactile 🧩🎨 (26 Mai 2026)
+--------------------------------------------------
+- **[UI/UX/A11y/Grid/Tests] Amélioration de l'accessibilité contrastive, de la grille adaptative et de l'expérience tactile du Quiz :**
+    - **Accessibilité Contrastive (WCAG AA)** : Remplacement de la couleur de texte de la question du quiz (qui finissait par un dégradé de jaune `#ffff00` peu lisible) par la couleur solide accessible `--color-primary` (bleu explorer) pour garantir un ratio de contraste supérieur ou égal à 4.5:1 sur fond clair.
+    - **Grille de Réponses Adaptative** : Passage du conteneur des options en `display: grid` avec une structure de colonnes fluide : `1fr` sur mobile (<768px) et `repeat(auto-fit, minmax(150px, 1fr))` sur desktop.
+    - **Confort Tactile et Espacement** : Réglage d'un `gap` minimum strict de `1rem` entre toutes les options de réponse (notamment sur mobile à <480px, rehaussé de `0.85rem` à `1rem`) pour assurer une ergonomie parfaite sur tablettes et smartphones pour les enfants.
+    - **Validation des Tests** : Préservation totale des typages stricts, des classes d'animations et passage de 100% de la suite de tests unitaires et d'intégration au vert.
+
 ### VERSION 3.31.0 - Orchestration Audio Exclusive & Sourdine Intelligente 🧩🎙️ (26 Mai 2026)
 --------------------------------------------------
 - **[Logic/UI/UX/A11y/Tests] Implémentation d'une orchestration audio exclusive et résilience sonore dans le Quiz :**
