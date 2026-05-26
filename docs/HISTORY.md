@@ -4,6 +4,13 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
+### VERSION 3.23.8 - Déclencheurs de Discussions Parent-Enfant & Hook useDailyDiscussion 💬👨‍👩‍👧 (25 Mai 2026)
+--------------------------------------------------
+- **[Logic/UX/Tests] Déclencheurs de Discussion Parent-Enfant & Moteur dailyDiscoveries :**
+    - **discussionStarters.ts (Nouveau)** : Création d'un dictionnaire typé bilingue (FR/EN) associant des sujets de l'encyclopédie (ex: `lion`, `soleil`, `t-rex`) à des questions profondes pour stimuler les conversations parent-enfant. Intégration d'un ensemble de discussions de secours (`FALLBACK_DISCUSSIONS`) en l'absence de découvertes.
+    - **useDailyDiscussion.ts (Nouveau Hook)** : Écriture d'un hook métier qui sélectionne aléatoirement jusqu'à 3 sujets uniques parmi les découvertes de la journée à partir du `useProgressionStore` et retourne les questions associées. Gestion intégrée de l'état de repli (fallback) si aucune découverte n'a été faite.
+    - **useDailyDiscussion.test.ts (Tests Unitaires)** : Couverture unitaire totale garantissant le bon fonctionnement du fallback, de la sélection aléatoire sans doublon, et de la limitation à 3 sujets. Respect absolu du zéro any et du typage strict TypeScript.
+
 ### VERSION 3.23.7 - Suivi des Découvertes Quotidiennes & Purge Temporelle 📅🧹 (25 Mai 2026)
 --------------------------------------------------
 - **[Logic/Storage/Tests] Suivi et Persistance des Découvertes Quotidiennes (`dailyDiscoveries`) :**
