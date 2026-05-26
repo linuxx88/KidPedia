@@ -149,6 +149,9 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Stratégie de Cache PWA Stale-While-Revalidate pour Fiches JSON (Ticket #SW-Cache)** (Traité en v3.25.1)
 ✅ **RÉSOLU : Hook de Disponibilité Hors-ligne useOfflineAvailability (Ticket #SW-Availability)** (Traité en v3.25.2)
 ✅ **RÉSOLU : Désactivation Visuelle et Logique Hors-ligne des TopicCard (Ticket #SW-UI-Availability)** (Traité en v3.25.3)
+✅ **RÉSOLU : Hook useStoryteller & Synthèse Vocale Hors-ligne (Ticket #Storyteller)** (Traité en v3.26.0)
+✅ **RÉSOLU : Composant Enfantin StorytellerButton & Intégration Visuelle (Ticket #StorytellerButton)** (Traité en v3.27.0)
+✅ **RÉSOLU : Fiche de Contenu TopicView & Intégration Storyteller (Ticket #TopicView)** (Traité en v3.28.0)
 
 
 ---
@@ -156,6 +159,6 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 26 mai 2026 (v3.25.3)*
+*Dernière mise à jour : 26 mai 2026 (v3.28.0)*
 
 

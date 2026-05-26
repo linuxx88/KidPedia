@@ -1,0 +1,120 @@
+.container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.storytellerBtn {
+  position: relative;
+  background: linear-gradient(135deg, #a78bfa, #f472b6); /* Bubblegum kid-friendly gradient */
+  border: 4px solid #ffffff;
+  border-radius: 50%;
+  width: 4rem;
+  height: 4rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 0 #8b5cf6, 0 8px 16px rgba(139, 92, 246, 0.3);
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  outline: none;
+  z-index: 2;
+  overflow: visible;
+}
+
+.storytellerBtn:hover:not(:disabled) {
+  transform: translateY(-4px) scale(1.05);
+  box-shadow: 0 10px 0 #8b5cf6, 0 12px 20px rgba(139, 92, 246, 0.4);
+}
+
+.storytellerBtn:active:not(:disabled) {
+  transform: translateY(2px) scale(0.95);
+  box-shadow: 0 2px 0 #8b5cf6, 0 4px 8px rgba(139, 92, 246, 0.2);
+}
+
+.storytellerBtn:disabled {
+  background: #cbd5e1;
+  border-color: #94a3b8;
+  box-shadow: 0 4px 0 #64748b;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* Pulse waves for speech */
+.pulseWave {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(244, 114, 182, 0.4);
+  z-index: 1;
+  pointer-events: none;
+  animation: expandWave 1.8s infinite ease-out;
+}
+
+.pulseWaveSecond {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: rgba(167, 139, 250, 0.3);
+  z-index: 1;
+  pointer-events: none;
+  animation: expandWave 1.8s infinite ease-out;
+  animation-delay: 0.6s;
+}
+
+/* Animations */
+@keyframes expandWave {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.mascot {
+  font-size: 2.2rem;
+  user-select: none;
+  transition: transform 0.2s ease;
+}
+
+/* Bouncing mascot when speaking */
+.speaking .mascot {
+  animation: bounceMascot 0.8s infinite alternate ease-in-out;
+}
+
+@keyframes bounceMascot {
+  0% {
+    transform: translateY(0) scale(1);
+  }
+  100% {
+    transform: translateY(-6px) scale(1.1);
+  }
+}
+
+.sparkles {
+  position: absolute;
+  font-size: 1.2rem;
+  top: -10px;
+  right: -10px;
+  animation: rotateSparkles 4s infinite linear;
+  pointer-events: none;
+  z-index: 3;
+}
+
+@keyframes rotateSparkles {
+  0% {
+    transform: rotate(0deg) scale(0.9);
+  }
+  50% {
+    transform: rotate(180deg) scale(1.1);
+  }
+  100% {
+    transform: rotate(360deg) scale(0.9);
+  }
+}

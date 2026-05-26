@@ -19,9 +19,9 @@ interface TopicPageProps {
   handleGoHome: (callback?: () => void) => void
 }
 
-// Lazy load TopicDetail inside the page
-const TopicDetail = lazy(() =>
-  import('../../components/Learning/TopicDetail').then((module) => ({ default: module.TopicDetail })),
+// Lazy load TopicView inside the page
+const TopicView = lazy(() =>
+  import('../../components/Learning/TopicView').then((module) => ({ default: module.TopicView })),
 )
 
 
@@ -327,7 +327,7 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
 
   return (
     <Suspense fallback={<AppLoader message={labels.common.loading} />}>
-      <TopicDetail
+      <TopicView
         title={topic.title[language]}
         description={currentDescription}
         funFact={currentFunFact}

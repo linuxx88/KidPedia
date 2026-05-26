@@ -6,6 +6,37 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #StorytellerButton : UI/UX/A11y - Composant Enfantin StorytellerButton 🦉🎨
+**Statut** : 🟢 Résolu (v3.27.0)
+**Sévérité** : Moyenne (UI/UX, Accessibilité & Tests)
+**Localisation** : `src/components/UI/StorytellerButton.tsx`, `src/components/UI/StorytellerButton.module.css` & `src/components/UI/StorytellerButton.test.tsx`
+**Description** :
+Créer un composant fonctionnel React `StorytellerButton.tsx` ludique et engageant conçu spécifiquement pour captiver les enfants de 4 à 8 ans. Ce bouton doit accepter en props l'état de lecture (`isSpeaking`, `isSupported`) et une action de bascule (`onToggle`), en affichant une animation CSS de pulsation pendant la parole et un état visuel grisé/désactivé si le navigateur ne supporte pas le TTS. Garantir la conformité avec la règle du zéro `any` en TypeScript, ajouter des attributs d'accessibilité ARIA dynamiques et bilingues (FR/EN via `useSettingsStore`), et couvrir les trois états visuels avec des tests de rendu unitaires robustes.
+**Résolution** :
+- **StorytellerButton.tsx** : Implémentation du composant interactif enfantin affichant un hibou mascotte `🦉` au repos, se changeant en magicien féerique `🧙‍♂️✨` pendant la lecture vocale, et affichant un hibou barré `🦉🚫` en mode non supporté.
+- **Aesthetics & Animations** : Création d'un ensemble d'animations CSS pur modulaire (`StorytellerButton.module.css`) : double effet d'ondes circulaires expansives pulsées (`pulseWave`), rebond de la mascotte (`mascot`), et rotation asymétrique d'étincelles magiques (`sparkles`). Le bouton intègre également un effet de profondeur 3D avec des transitions au survol et à l'appui.
+- **Attributs ARIA & Accessibilité** : Intégration d'un bilinguisme dynamique complet basé sur le store `useSettingsStore`. Les balises `aria-label` s'adaptent de manière réactive à l'état de la lecture vocale et à la langue de l'utilisateur (FR ou EN), et l'attribut `aria-pressed` reflète fidèlement l'état réactif `isSpeaking`.
+- **Tests unitaires (StorytellerButton.test.tsx)** : Suite de tests couvrant le rendu au repos (icône standard, aria-label adéquat), le rendu pendant l'expression (magicien, vagues et étoiles, aria-label de stop), le rendu désactivé (disabled, icône non compatible), l'appel effectif de `onToggle` et la bascule linguistique dynamique FR/EN.
+- **Validation** : 235 tests unitaires passés avec succès à 100% au vert.
+
+---
+
+## 🎫 Ticket #Storyteller : Hooks - Hook useStoryteller.ts de Synthèse Vocale Hors-ligne 🎙️🔌
+**Statut** : 🟢 Résolu (v3.26.0)
+**Sévérité** : Moyenne (A11y, Robustesse & Performance)
+**Localisation** : `src/hooks/useStoryteller.ts` & `src/hooks/useStoryteller.test.ts`
+**Description** :
+Créer un hook personnalisé `useStoryteller.ts` qui encapsule l'API native `window.speechSynthesis` pour offrir une lecture vocale 100% hors-ligne, en n'autorisant que les voix locales (`localService === true`). Exposer les méthodes `speak(text)`, `pause()`, `stop()` et un état réactif `isSpeaking` tout en respectant scrupuleusement le typage strict TypeScript sans aucun type `any`. Forcer dynamiquement la langue de lecture (`fr-FR` ou `en-US`) en se basant sur les paramètres linguistiques i18n du store de profil utilisateur (`useSettingsStore`), et gérer silencieusement les cas d'incompatibilité de navigateur ou d'absence de voix locales. Fournir une suite de tests unitaires complète validant tous ces aspects en mockant l'API SpeechSynthesis.
+**Résolution** :
+- **useStoryteller.ts** : Implémentation du hook personnalisé encapsulant `window.speechSynthesis` avec filtrage strict pour conserver uniquement les voix locales (`localService === true`).
+- **Gestion i18n Dynamique** : Synchronisation avec le store de préférences utilisateur `useSettingsStore` pour déterminer la langue et forcer dynamiquement `'fr-FR'` ou `'en-US'`.
+- **Zéro Any & Robustesse** : Typage TypeScript strict et sans aucun `any` de l'objet `SpeechSynthesisUtterance` et de ses callbacks d'événements. Liaison temporaire sur l'objet global `window` pour empêcher les fuites de Garbage Collection sur Chrome, avec suppression propre lors du nettoyage.
+- **Sécurité et Fallbacks** : Gestion robuste et silencieuse des navigateurs incompatibles ou dépourvus de voix locales en effectuant des retours anticipés sans crash ni levée d'erreur.
+- **Tests unitaires (useStoryteller.test.ts)** : Écriture de 8 tests unitaires couvrant l'initialisation, le choix automatique et le forçage de la voix et de la langue, le cycle de vie réactif de `isSpeaking` (start, pause, resume, end), le nettoyage lors des appels à stop et pause, ainsi que les cas de repli silencieux.
+- **Validation** : Type-check TypeScript validé et tests validés avec succès à 100% au vert.
+
+---
+
 ## 🎫 Ticket #SW-UI-Availability : UI/UX - Désactivation Visuelle et Logique Hors-ligne des TopicCard 🚀☁️
 **Statut** : 🟢 Résolu (v3.25.3)
 **Sévérité** : Moyenne (UI/UX, Accessibilité & Robustesse)

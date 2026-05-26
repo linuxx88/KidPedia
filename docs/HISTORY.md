@@ -4,6 +4,35 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
+### VERSION 3.28.0 - Fiche de Contenu TopicView & Intégration Storyteller 📚🎙️ (26 Mai 2026)
+--------------------------------------------------
+- **[Architecture/Logic/Refactoring/Tests] Intégration du Conteur d'Histoires useStoryteller & Renommage en TopicView :**
+    - **TopicView.tsx (Nouveau / Modification)** : Renommage propre et alignement sémantique du composant `TopicDetail.tsx` en `TopicView.tsx` pour clarifier son rôle de fiche de contenu visuelle encyclopédique. Importation et consommation du nouveau hook 100% hors-ligne `useStoryteller`.
+    - **StorytellerButton.tsx** : Intégration visuelle et fonctionnelle du bouton de conteur d'histoire enfantin à l'en-tête de la fiche de contenu (`.navActions`).
+    - **Déclenchement & Liaison de Lecture** : Connexion directe de l'action de bascule du bouton au texte principal du sujet (`title`, `description`, `funFact`) extrait selon l'interface de fiche statique ou dynamique `TopicContent`.
+    - **Cycle de vie et Cleanup** : Ajout d'une écoute de cycle de vie React (`useEffect`) qui déclenche instantanément la coupure et l'arrêt de la lecture vocale via `stopStory()` si l'enfant quitte ou navigue en dehors de la page, empêchant toute lecture orpheline en arrière-plan.
+    - **Raccordement & Parité** : Raccordement impeccable dans `src/pages/Topic/index.tsx` (import et lazy-load mis à jour) et modification de `Quiz.tsx` pour importer `DiscreteSpeaker` depuis `./TopicView`.
+    - **TopicView.test.tsx (Nouveaux Tests)** : Suite de 10 tests d'intégration (re-couvrant la parité des fonctionnalités historiques de `TopicDetail.test.tsx` et ajoutant un scénario d'intégration prouvant le déclenchement de la lecture vocale offline au clic et l'arrêt/cleanup immédiat lors du démontage du composant).
+    - **Validation** : 245 tests unitaires validés à 100% au vert.
+
+### VERSION 3.27.0 - Composant Enfantin StorytellerButton & Intégration Visuelle 🦉🎨 (26 Mai 2026)
+--------------------------------------------------
+- **[Logic/UI/UX/A11y/Tests] Création du composant interactif StorytellerButton et de sa suite de tests unitaires :**
+    - **StorytellerButton.tsx (Nouveau Composant)** : Développement d'un composant de bouton interactif enfantin, mettant en vedette un hibou conteur d'histoire `🦉` (mode repos), une animation de magicien `🧙‍♂️✨` (mode parole), et un hibou barré `🦉🚫` (mode non supporté).
+    - **Aesthetics & Animations** : Intégration d'animations CSS pur modulaire (`StorytellerButton.module.css`) comprenant un effet de pulsation d'ondes circulaires translucides (`expandWave`), un rebond de la mascotte (`bounceMascot`) et la rotation féerique de petites étoiles/étincelles (`rotateSparkles`). Transitions de survol/clic ergonomiques avec effet tactile et ombres 3D adaptées aux 4-8 ans.
+    - **Bilinguisme & Accessibilité (ARIA)** : Attributs ARIA entièrement dynamiques et bilingues (FR/EN) à l'aide du store `useSettingsStore` (`aria-pressed`, `aria-label` descriptif et réactif selon l'état et la compatibilité du navigateur).
+    - **StorytellerButton.test.tsx (Nouveaux Tests)** : Suite complète de tests unitaires couvrant les 3 états visuels (repos/actif, parole/pulsation, non compatible/désactivé), la bascule d'état tactile via déclenchement d'événements, et l'adaptation ARIA multilingue.
+    - **Validation** : 235 tests unitaires passés avec succès à 100% au vert.
+
+### VERSION 3.26.0 - Hook useStoryteller & Synthèse Vocale Hors-ligne 🎙️🔌 (26 Mai 2026)
+--------------------------------------------------
+- **[Logic/A11y/Offline/Tests] Création du hook réactif useStoryteller et de sa suite de tests unitaires :**
+    - **useStoryteller.ts (Nouveau Hook)** : Conception d'un hook personnalisé encapsulant `window.speechSynthesis` pour offrir une lecture vocale 100% hors-ligne, en n'autorisant que les voix locales (`localService === true`). Expose les méthodes `speak(text)`, `pause()` et `stop()`, ainsi qu'un état réactif `isSpeaking`.
+    - **Adaptabilité Linguistique Dynamique** : Force dynamiquement la langue de lecture (`fr-FR` ou `en-US`) en se synchronisant avec les paramètres linguistiques i18n du store de profil utilisateur (`useSettingsStore`).
+    - **Robustesse & Typage Strict** : Respect scrupuleux de la règle du zéro `any` en utilisant les types natifs et interfaces étendues pour se prémunir du garbage collection sans aucun typage laxiste. Gestion silencieuse des navigateurs incompatibles ou dépourvus de voix locales.
+    - **useStoryteller.test.ts (Nouveaux Tests)** : Suite unitaire complète validant les cycles de vie, la détection linguistique, la pause et l'arrêt, et les comportements de secours silencieux avec mock complet de l'API vocale.
+    - **Validation** : 230 tests unitaires passés avec succès à 100% au vert.
+
 ### VERSION 3.25.3 - Support Hors-ligne et Désactivation Visuelle des TopicCard 🚀☁️ (26 Mai 2026)
 --------------------------------------------------
 - **[Logic/UI/UX/A11y/Tests] Intégration du mode hors-ligne dans TopicCard :**

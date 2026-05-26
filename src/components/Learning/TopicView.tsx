@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react'
-import type { Quiz } from '../../data/topics/types'
+import type { Quiz, TopicContent } from '../../data/topics/types'
 import { QuizComponent } from './Quiz'
 import { type Gender } from '../../utils/helpers'
 import { type MedalType } from '../../utils/quizMessages'
@@ -7,9 +7,11 @@ import { type Labels } from '../../locales/types'
 import BackButton from '../UI/BackButton'
 import { useTextToSpeech } from '../../hooks/useTextToSpeech'
 import { useReaderVoice } from '../../hooks/useReaderVoice'
-import styles from './TopicDetail.module.css'
+import { useStoryteller } from '../../hooks/useStoryteller'
+import { StorytellerButton } from '../UI/StorytellerButton'
+import styles from './TopicView.module.css'
 
-interface TopicDetailProps {
+export interface TopicViewProps {
   title: string
   description: string
   funFact: string
@@ -125,7 +127,7 @@ export const DiscreteSpeaker = ({ isSpeaking, onClick, label }: DiscreteSpeakerP
   )
 }
 
-export const TopicDetail = ({
+export const TopicView = ({
   title,
   description,
   funFact,
@@ -144,7 +146,7 @@ export const TopicDetail = ({
   attempts,
   anchorIcon,
   hideQuiz,
-}: TopicDetailProps) => {
+}: TopicViewProps) => {
   const [isPlayingAudio, setIsPlayingAudio] = useState(false)
   const [speechError, setSpeechError] = useState<string | null>(null)
   const audioRef = useRef<HTMLAudioElement | null>(null)
@@ -154,6 +156,7 @@ export const TopicDetail = ({
     setSpeechError(labels.errors[errorKey])
   }
 
+  // 1. Text-To-Speech standard
   const {
     activeSpeechId,
     isVoicesReady,
@@ -161,6 +164,7 @@ export const TopicDetail = ({
     stop: stopTTS,
   } = useTextToSpeech({ language, onError: handleError })
 
+  // 2. Baguette de lecture interactive
   const {
     isBaguetteMode,
     activeTextId: activeReaderTextId,
@@ -174,7 +178,16 @@ export const TopicDetail = ({
     onError: (err) => setSpeechError(err),
   })
 
-  const isSpeaking = activeSpeechId !== null || isPlayingAudio || activeReaderTextId !== null
+  // 3. Nouveau hook Storyteller 100% offline
+  const {
+    speak: speakStory,
+    stop: stopStory,
+    isSpeaking: isStorySpeaking
+  } = useStoryteller()
+
+  const isStorySupported = typeof window !== 'undefined' && 'speechSynthesis' in window
+
+  const isSpeaking = activeSpeechId !== null || isPlayingAudio || activeReaderTextId !== null || isStorySpeaking
 
   useEffect(() => {
     return () => {
@@ -187,6 +200,13 @@ export const TopicDetail = ({
       }
     }
   }, [])
+
+  // Nettoyage au démontage pour couper le son instantanément
+  useEffect(() => {
+    return () => {
+      stopStory()
+    }
+  }, [stopStory])
 
   const playAudioFile = (url: string) => {
     if (!audioRef.current) {
@@ -209,6 +229,7 @@ export const TopicDetail = ({
   const stopAllSpeech = () => {
     stopTTS()
     stopReader()
+    stopStory()
     if (audioRef.current) {
       audioRef.current.pause()
       audioRef.current.currentTime = 0
@@ -219,6 +240,7 @@ export const TopicDetail = ({
   const handleSpeakGlobal = () => {
     setSpeechError(null)
     stopReader()
+    stopStory()
 
     if (isSpeaking) {
       stopAllSpeech()
@@ -233,8 +255,38 @@ export const TopicDetail = ({
     }
   }
 
+  const handleStoryToggle = () => {
+    setSpeechError(null)
+    stopTTS()
+    stopReader()
+    if (audioRef.current) {
+      audioRef.current.pause()
+      setIsPlayingAudio(false)
+    }
+
+    if (isStorySpeaking) {
+      stopStory()
+    } else {
+      // Construction de la structure de fiche TopicContent pour extraire les textes
+      const contentExtract: TopicContent = {
+        id: 'story-temp',
+        title: { fr: title, en: title } as Record<'fr' | 'en', string>,
+        category: { fr: '', en: '' } as Record<'fr' | 'en', string>,
+        categoryKey: '',
+        icon: icon,
+        shortDesc: { fr: '', en: '' } as Record<'fr' | 'en', string>,
+        fullContent: { fr: description, en: description } as Record<'fr' | 'en', string>,
+        funFact: { fr: funFact, en: funFact } as Record<'fr' | 'en', string>
+      }
+      
+      const textToRead = `${contentExtract.title[language]}. ${contentExtract.fullContent[language]}. ${labels.quiz.didYouKnow} ${contentExtract.funFact[language]}`
+      speakStory(textToRead)
+    }
+  }
+
   const handleSpeakReader = (text: string, id: string) => {
     stopTTS()
+    stopStory()
     if (audioRef.current) {
       audioRef.current.pause()
       setIsPlayingAudio(false)
@@ -249,6 +301,7 @@ export const TopicDetail = ({
     }
     hoverTimeoutRef.current = setTimeout(() => {
       stopTTS()
+      stopStory()
       if (audioRef.current) {
         audioRef.current.pause()
         setIsPlayingAudio(false)
@@ -274,7 +327,7 @@ export const TopicDetail = ({
   }
 
   const getButtonText = () => {
-    if (isSpeaking) {
+    if (isPlayingAudio || activeSpeechId !== null) {
       return (
         <span style={{ display: 'flex', alignItems: 'center' }}>
           <div className={styles.speakingIndicator}>
@@ -292,7 +345,7 @@ export const TopicDetail = ({
   }
 
   const isAudioDisabled = !audioFile && !isVoicesReady
-  const audioBtnClass = isSpeaking ? styles.btnStop : styles.btnAudio
+  const audioBtnClass = (isPlayingAudio || activeSpeechId !== null) ? styles.btnStop : styles.btnAudio
 
   return (
     <div className={styles.topicDetailCard}>
@@ -305,6 +358,14 @@ export const TopicDetail = ({
               {speechError}
             </span>
           )}
+
+          {/* Bouton de conteur d'histoire ludique pour les enfants */}
+          <StorytellerButton
+            isSpeaking={isStorySpeaking}
+            isSupported={isStorySupported}
+            onToggle={handleStoryToggle}
+          />
+
           <button
             className={`${styles.navBtn} ${audioBtnClass}`}
             onClick={handleSpeakGlobal}
@@ -364,6 +425,7 @@ export const TopicDetail = ({
                 isSpeaking={activeSpeechId === 'description'}
                 onClick={() => {
                   stopReader()
+                  stopStory()
                   speak(description, 'description')
                 }}
                 label={language === 'fr' ? 'Écouter la description' : 'Listen to description'}
@@ -398,6 +460,7 @@ export const TopicDetail = ({
                   isSpeaking={activeSpeechId === 'funFact'}
                   onClick={() => {
                     stopReader()
+                    stopStory()
                     speak(`${labels.quiz.didYouKnow}. ${funFact}`, 'funFact')
                   }}
                   label={language === 'fr' ? "Écouter l'anecdote" : 'Listen to fun fact'}
@@ -427,6 +490,7 @@ export const TopicDetail = ({
                 anchorIcon={anchorIcon}
                 onSpeakText={(text, id) => {
                   stopReader()
+                  stopStory()
                   speak(text, id)
                 }}
                 activeSpeechId={activeSpeechId}

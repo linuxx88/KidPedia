@@ -4,7 +4,7 @@ import { type Gender } from '../../utils/helpers'
 import { type Labels } from '../../locales/types'
 import { useAudioFeedback } from '../../hooks/useAudioFeedback'
 import { useSettingsStore } from '../../store/useSettingsStore'
-import { DiscreteSpeaker } from './TopicDetail'
+import { DiscreteSpeaker } from './TopicView'
 import styles from './Quiz.module.css'
 
 interface QuizProps {
