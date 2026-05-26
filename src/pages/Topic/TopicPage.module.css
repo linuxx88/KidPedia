@@ -31,3 +31,15 @@
   color: var(--color-app-text-muted);
   margin-bottom: 2rem;
 }
+
+.errorIllustration {
+  font-size: 5rem;
+  margin-bottom: 1.5rem;
+  animation: bounce 2s infinite ease-in-out;
+  display: inline-block;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+}

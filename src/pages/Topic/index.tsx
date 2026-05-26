@@ -13,6 +13,7 @@ import styles from './TopicPage.module.css'
 
 import { type Topic, type Quiz } from '../../data/topics/types'
 import { useTopicFetcher } from '../../hooks/useTopicFetcher'
+import { AppLoader } from '../../components/UI/AppLoader'
 
 interface TopicPageProps {
   handleGoHome: (callback?: () => void) => void
@@ -23,10 +24,6 @@ const TopicDetail = lazy(() =>
   import('../../components/Learning/TopicDetail').then((module) => ({ default: module.TopicDetail })),
 )
 
-const LoadingFallback = () => {
-  const labels = useSettingsStore(state => state.labels)
-  return <div className={styles.loadingFallback}>{labels.common.loading}</div>
-}
 
 const STOP_WORDS = new Set([
   // French
@@ -169,7 +166,7 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   const isUnlocked = useProgressionStore(state => state.isUnlocked)
 
   const isStatic = useMemo(() => encyclopedia.some((t) => t.id === topicId), [topicId]);
-  const { data: dynamicTopic, isLoading: isLoadingDecoupled } = useTopicFetcher(isStatic ? undefined : topicId);
+  const { data: dynamicTopic, isLoading: isLoadingDecoupled, error: fetchError } = useTopicFetcher(isStatic ? undefined : topicId);
 
   const topic = useMemo(() => {
     const staticTopic = encyclopedia.find((t) => t.id === topicId) as Topic | undefined;
@@ -273,33 +270,29 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
     : (topic ? topic.fullContent[language] : '');
 
   if (isLoadingDecoupled) {
-    return <LoadingFallback />;
+    return <AppLoader message={labels.common.loading} />;
   }
 
-  if (!topic) {
+  if (fetchError || !topic || !currentQuiz) {
     return (
-      <div className={styles.errorContainer}>
-        <h2 className={styles.errorTitle}>{labels.errors.pageNotFound}</h2>
-        <p className={styles.errorText}>ID : {topicId}</p>
+      <div className={styles.errorContainer} role="alert">
+        <div className={styles.errorIllustration}>🦖💤</div>
+        <h2 className={styles.errorTitle}>
+          {fetchError ? "Oh oh ! Problème de connexion !" : (topic ? "Quiz non trouvé" : labels.errors.pageNotFound)}
+        </h2>
+        <p className={styles.errorText}>
+          {fetchError 
+            ? "Le petit dinosaure n'a pas pu récupérer l'histoire. Vérifie ta connexion Internet !"
+            : "Oups ! Cette fiche d'aventure s'est envolée dans les étoiles !"}
+        </p>
         <BackButton onClick={() => handleGoHome()}>
           {labels.common.goHome}
         </BackButton>
       </div>
-    )
+    );
   }
 
   const earnedBadge = badges.find((b) => b.id === topic.id)
-
-  if (!currentQuiz) {
-    return (
-      <div className={styles.errorContainer}>
-        <h2 className={styles.errorTitle}>Quiz non trouvé</h2>
-        <BackButton onClick={() => handleGoHome()}>
-          {labels.common.goHome}
-        </BackButton>
-      </div>
-    )
-  }
 
   const handleAnswer = (idx: number) => {
     const result = submitAnswer(idx, currentQuiz);
@@ -333,7 +326,7 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   }
 
   return (
-    <Suspense fallback={<LoadingFallback />}>
+    <Suspense fallback={<AppLoader message={labels.common.loading} />}>
       <TopicDetail
         title={topic.title[language]}
         description={currentDescription}

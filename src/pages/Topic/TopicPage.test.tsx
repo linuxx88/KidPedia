@@ -189,4 +189,41 @@ describe('TopicPage - Anti-spoiler Security', () => {
       mockParams.topicId = 'soleil' // Restore default
     })
   })
+
+  describe('TopicPage - Decoupled Loading & Errors', () => {
+    it('affiche le composant AppLoader pendant le chargement d\'un sujet découplé', async () => {
+      mockParams.topicId = 'systeme-solaire'
+
+      // Mock fetch pour simuler un chargement lent (promesse en suspens)
+      vi.stubGlobal('fetch', vi.fn().mockReturnValue(new Promise(() => {})))
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      // AppLoader a aria-busy="true" et le rôle alert
+      expect(screen.getByRole('alert')).toBeInTheDocument()
+      expect(screen.getByText(/🚀\.\.\./)).toBeInTheDocument()
+
+      mockParams.topicId = 'soleil' // Restauration du défaut
+      vi.unstubAllGlobals()
+    })
+
+    it('affiche un écran d\'erreur adapté aux enfants en cas d\'erreur réseau', async () => {
+      mockParams.topicId = 'systeme-solaire'
+
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+      }))
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      // L'illustration ou le message d'erreur enfantin devrait être affiché
+      expect(await screen.findByText(/Oh oh ! Problème de connexion !/i)).toBeInTheDocument()
+      expect(screen.getByText(/Le petit dinosaure n'a pas pu récupérer l'histoire/i)).toBeInTheDocument()
+
+      mockParams.topicId = 'soleil'
+      vi.unstubAllGlobals()
+    })
+  })
 })

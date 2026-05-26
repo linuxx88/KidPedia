@@ -144,6 +144,7 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Bascule asynchrone du useProgressionStore (Ticket #76)** (Traité en v3.23.6)
 ✅ **RÉSOLU : Découplage de Fiche Encyclopédique & Interface TopicContent (Ticket #78)** (Traité en v3.24.0)
 ✅ **RÉSOLU : Hook Réactif useTopicFetcher & Robustesse Réseau (Ticket #79)** (Traité en v3.24.0)
+✅ **RÉSOLU : Refactoring - Composant AppLoader & Interface d'Erreur Enfantine Cohesive (Ticket #80)** (Traité en v3.24.0)
 
 
 ---

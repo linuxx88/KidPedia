@@ -6,6 +6,21 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #80 : Refactoring - Composant AppLoader & Interface d'Erreur Enfantine Cohesive 🚀🧸
+**Statut** : 🟢 Résolu (v3.24.0)
+**Sévérité** : Moyenne (Aesthetics & UX/UI Enfantine)
+**Localisation** : `src/components/UI/AppLoader.tsx`, `src/components/UI/AppLoader.module.css`, `src/pages/Topic/index.tsx`, `src/pages/Topic/TopicPage.module.css`, `src/pages/Topic/TopicPage.test.tsx`
+**Description** :
+Créer un composant premium `AppLoader` avec des animations orbitales kid-friendly (planète tournante et fusée spatiale). Remplacer l'ancienne fallback de chargement de `TopicPage` par ce composant. De plus, concevoir un affichage d'erreur hautement visuel et adapté aux enfants, mettant en scène un dinosaure endormi (`🦖💤`), des messages bienveillants et colorés expliquant clairement soit la panne réseau, soit la perte d'une fiche thématique, et un bouton d'action intuitif pour retourner à l'accueil de manière sécurisée. Mettre à jour les tests unitaires pour assurer le bon rendu des états.
+**Résolution** :
+- **AppLoader.tsx & AppLoader.module.css** : Création d'un loader haut de gamme animé en Pure CSS (orbite tridimensionnelle d'une fusée 🚀 autour d'une planète radial-gradient violette 🪐).
+- **TopicPage/index.tsx** : Remplacement complet de `LoadingFallback` par le nouveau `<AppLoader message={labels.common.loading} />` tant pour les chargements de fiches dynamiques que pour le fallback `Suspense`.
+- **Kid-friendly Error Screen** : Conception d'une interface d'erreur unifiée avec des emojis animés par un rebond dynamique doux, un message bilingue très bienveillant expliquant le problème réseau ("Le petit dinosaure n'a pas pu récupérer l'histoire. Vérifie ta connexion Internet !") ou la perte de la fiche ("Oups ! Cette fiche d'aventure s'est envolée dans les étoiles !").
+- **TopicPage.test.tsx** : Ajout de 2 nouveaux scénarios de tests unitaires validant l'affichage fluide du `AppLoader` et l'affichage de l'écran d'erreur enfantin.
+- **Validation** : Type-check strict (zéro any) conservé à 100% et tests unitaires "All-Green" validés avec succès.
+
+---
+
 ## 🎫 Ticket #79 : Hooks - Hook Réactif useTopicFetcher & Robustesse Réseau 🎣⚡
 **Statut** : 🟢 Résolu (v3.24.0)
 **Sévérité** : Moyenne (Modularisation & Fiabilité Réseau)
