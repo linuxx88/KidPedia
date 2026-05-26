@@ -55,7 +55,13 @@ export const QuizComponent = ({
 
   const isStorySupported = typeof window !== 'undefined' && 'speechSynthesis' in window
 
+  const [prevQuestion, setPrevQuestion] = useState(question)
   const [activeStorytellerId, setActiveStorytellerId] = useState<string | null>(null)
+
+  if (question !== prevQuestion) {
+    setPrevQuestion(question)
+    setActiveStorytellerId(null)
+  }
 
   const currentQuestion: { readonly text: string } = { text: question }
 
@@ -85,7 +91,6 @@ export const QuizComponent = ({
   // Stop storyteller speech when the question changes
   useEffect(() => {
     stopStory()
-    setActiveStorytellerId(null)
   }, [question, stopStory])
 
   // Synthesized ding sound using native Web Audio API
