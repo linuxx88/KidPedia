@@ -127,19 +127,6 @@ describe('QuizComponent', () => {
     expect(screen.getByText('🥉')).toBeInTheDocument()
   })
 
-  it('appelle onSpeakText quand on clique sur le haut-parleur de la question', () => {
-    const mockOnSpeakText = vi.fn()
-    render(
-      <QuizComponent
-        {...defaultProps}
-        onSpeakText={mockOnSpeakText}
-      />,
-    )
-
-    const speakBtn = screen.getByLabelText('Écouter la question')
-    fireEvent.click(speakBtn)
-    expect(mockOnSpeakText).toHaveBeenCalledWith(defaultProps.question, 'quiz-question')
-  })
 
   it('déclenche la lecture de la réponse avec useStoryteller quand on clique sur le haut-parleur d\'une option', () => {
     render(<QuizComponent {...defaultProps} />)

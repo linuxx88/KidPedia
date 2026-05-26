@@ -4,7 +4,6 @@ import { type Gender } from '../../utils/helpers'
 import { type Labels } from '../../locales/types'
 import { useAudioFeedback } from '../../hooks/useAudioFeedback'
 import { useSettingsStore } from '../../store/useSettingsStore'
-import { DiscreteSpeaker } from './TopicView'
 import { useStoryteller } from '../../hooks/useStoryteller'
 import { StorytellerButton } from '../UI/StorytellerButton'
 import { QuizAnswerButton } from './QuizAnswerButton'
@@ -41,7 +40,6 @@ export const QuizComponent = ({
   funFact,
   anchorIcon,
   onSpeakText,
-  activeSpeechId,
 }: QuizProps) => {
   const { playSound } = useAudioFeedback()
   const { language } = useSettingsStore()
@@ -213,16 +211,6 @@ export const QuizComponent = ({
               isSupported={isStorySupported}
               onToggle={handleStoryToggle}
             />
-            {onSpeakText && (
-              <DiscreteSpeaker
-                isSpeaking={activeSpeechId === 'quiz-question'}
-                onClick={(e) => {
-                  e.stopPropagation()
-                  onSpeakText(currentQuestion.text, 'quiz-question')
-                }}
-                label={language === 'fr' ? 'Écouter la question' : 'Listen to question'}
-              />
-            )}
           </div>
 
           <div className={styles.optionsGrid}>

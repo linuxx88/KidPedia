@@ -12,7 +12,8 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
     - **Purge Sonore et Nettoyage temporel** : Écoute du cycle de vie via `useEffect` pour couper instantanément toute voix active (`stopStory()`) lors du changement de la question active ou du démontage global du Quiz, éliminant définitivement les voix orphelines.
     - **Zéro interférence SFX** : Maintien et étanchéité parfaite vis-à-vis des effets sonores synthétisés de succès/échec (Perfect Fanfare et Dings).
     - **Tests de validation (Quiz.test.tsx & QuizAnswerButton.test.tsx)** : Intégration de tests unitaires supplémentaires prouvant le déclenchement immédiat de `stop()` avant d'entamer une nouvelle lecture de question/réponse, et confirmant l'arrêt correct et la réinitialisation de l'état lors de la transition vers une autre question.
-    - **Validation** : 100% de succès sur la compilation, le linter et les 243 tests de la suite.
+    - **Nettoyage du Code Obsolète** : Retrait complet de l'import et de l'instance obsolète de `DiscreteSpeaker` pour le texte de la question active dans `Quiz.tsx`, car il est maintenant intégralement remplacé par le bouton de conteur `StorytellerButton`. Suppression également du prop unused `activeSpeechId` et nettoyage associé des tests unitaires obsolètes dans `Quiz.test.tsx`.
+    - **Validation** : 100% de succès sur la compilation, le linter et les 242 tests de la suite.
 
 ### VERSION 3.30.0 - Composant QuizAnswerButton & Sourdine d'Option 🧩🎙️ (26 Mai 2026)
 --------------------------------------------------
