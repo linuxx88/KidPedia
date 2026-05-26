@@ -31,6 +31,20 @@ export default defineConfig({
         globPatterns: ['**/*.{js,css,html,svg,png,webp,m4a,jpg,jpeg,gif,json,ico,woff,woff2}'],
         runtimeCaching: [
           {
+            urlPattern: /\/content\/topics\/.*\.json$/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'kidpedia-topics-cache',
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 30 * 24 * 60 * 60, // 30 Days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          {
             urlPattern: /^https:\/\/fonts\.googleapis\.com/,
             handler: 'StaleWhileRevalidate',
             options: {

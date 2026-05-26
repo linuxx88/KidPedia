@@ -6,6 +6,51 @@ Vous pouvez consulter les tickets actifs restants dans [TICKETS.md](./TICKETS.md
 
 ---
 
+## 🎫 Ticket #SW-UI-Availability : UI/UX - Désactivation Visuelle et Logique Hors-ligne des TopicCard 🚀☁️
+**Statut** : 🟢 Résolu (v3.25.3)
+**Sévérité** : Moyenne (UI/UX, Accessibilité & Robustesse)
+**Localisation** : `src/components/Discovery/TopicCard.tsx`, `src/components/Discovery/TopicCard.module.css` & `src/components/Discovery/TopicCard.test.tsx`
+**Description** :
+Modifier le composant `TopicCard.tsx` pour qu'il consomme le hook `useOfflineAvailability` et réagisse dynamiquement à l'état du réseau via `navigator.onLine`. Si l'application est hors-ligne et que le sujet n'est pas disponible dans le cache PWA, appliquer un style visuel désactivé (carte légèrement grisée et overlay d'icône de nuage barré `☁️🚫`) et bloquer le clic pour empêcher la navigation vers une page d'erreur thématique. Veiller au respect de la règle du zéro any, garantir que l'attribut ARIA `aria-label` décrive l'indisponibilité pour les lecteurs d'écran, et mettre à jour les tests unitaires du composant.
+**Résolution** :
+- **TopicCard.tsx** : Consommation de `useOfflineAvailability` et implémentation d'une détection réactive à l'état de connexion (`online`/`offline`).
+- **Désactivation logique & visuelle** : Application d'un style de grisé (.offline) et d'un overlay rond avec l'emoji nuage barré `☁️🚫` en cas de non-disponibilité hors-ligne. Les clics de souris/tactiles sont bloqués et le bouton est physiquement désactivé (`disabled={isDisabled}`).
+- **Attributs ARIA & Accessibilité** : Ajout dynamique de la mention d'inaccessibilité traductible ("Non disponible hors-ligne" / "Not available offline") à l'attribut `aria-label` en fonction de la langue globale du store.
+- **TopicCard.module.css** : Création des classes CSS `.offline` et `.offlineOverlay` supportant les modes sombre et clair.
+- **Tests unitaires (TopicCard.test.tsx)** : Ajout de scénarios simulant les contextes en ligne/hors-ligne et avec/sans cache, vérifiant les balises ARIA et le blocage de navigation.
+- **Validation** : 222 tests unitaires passés avec succès à 100% au vert.
+
+---
+
+## 🎫 Ticket #SW-Availability : Hooks - Hook de Disponibilité Hors-ligne useOfflineAvailability 🚀📡
+**Statut** : 🟢 Résolu (v3.25.2)
+**Sévérité** : Moyenne (Robustesse & Expérience Hors-ligne)
+**Localisation** : `src/hooks/useOfflineAvailability.ts` & `src/hooks/useOfflineAvailability.test.ts`
+**Description** :
+Créer un hook React personnalisé `useOfflineAvailability` prenant un `topicId` en paramètre pour interroger dynamiquement l'API native `window.caches` et vérifier si le fichier JSON de la fiche thématique associée est déjà disponible localement dans le cache de la PWA. Ce hook doit retourner un état booléen réactif, se mettre à jour intelligemment au montage ou lors d'un changement d'état du réseau (événements `online`/`offline`), et gérer silencieusement l'absence de l'API `caches` sur les navigateurs non compatibles. Veiller au respect absolu de la règle du zéro any et inclure des tests unitaires robustes.
+**Résolution** :
+- **useOfflineAvailability.ts** : Développement du hook de disponibilité avec vérification sécurisée de l'existence de `window.caches` pour éviter les crashs sur navigateurs legacy.
+- **Réactivité Événementielle** : Abonnement aux événements globaux `online` et `offline` de `window` pour forcer la mise à jour réactive de la disponibilité.
+- **zéro any & Typage Strict** : Typage TypeScript irréprochable sans aucun casting ni `any`.
+- **useOfflineAvailability.test.ts** : Conception d'une suite de 5 tests unitaires ultra-robustes mockant `window.caches` et les événements de réseau globaux sans aucun avertissement linter ou warning React `act`.
+- **Validation** : Type-check TypeScript validé et 220 tests unitaires passés avec succès.
+
+---
+
+## 🎫 Ticket #SW-Cache : Infrastructure - Configuration du Cache Hors-ligne PWA pour les Fiches JSON 🚀📡
+**Statut** : 🟢 Résolu (v3.25.1)
+**Sévérité** : Élevée (Robustesse, Performance & Mode Hors-ligne)
+**Localisation** : `vite.config.ts` (section Workbox runtimeCaching)
+**Description** :
+Configurer le Service Worker de la PWA (via Workbox) pour intercepter toutes les requêtes asynchrones pointant vers `/content/topics/*.json` en appliquant une stratégie de cache `Stale-While-Revalidate`. Le Service Worker doit retourner instantanément la ressource mise en cache si elle existe tout en la mettant à jour silencieusement en arrière-plan avec le réseau, et basculer sur le réseau si le cache est vide. En cas de perte absolue de connexion (mode hors-ligne total), garantir que le système serve la ressource du cache avec succès sans remonter d'erreur réseau au hook `useTopicFetcher`, sauf si la fiche thématique n'a jamais été téléchargée.
+**Résolution** :
+- **Configuration Workbox** : Ajout d'une règle de routage de cache à la volée (`runtimeCaching`) ciblant l'URL pattern RegExp `/\/content\/topics\/.*\.json$/`.
+- **Stratégie Stale-While-Revalidate** : Branchement de la stratégie `StaleWhileRevalidate` de Workbox pour les fiches thématiques avec une limite de 30 entrées (`maxEntries`) et une durée d'expiration de 30 jours.
+- **Résilience Réseau & Hors-ligne** : Le cache répond instantanément aux demandes de fiches encyclopédiques hors-ligne. Les requêtes n'échouent qu'en cas d'absence totale du fichier dans le cache et d'indisponibilité du réseau, satisfaisant pleinement les critères de robustesse.
+- **Validation** : Type-check TypeScript validé et 215 tests unitaires passés avec succès.
+
+---
+
 ## 🎫 Ticket #Refuge-Delete : Gamification - Suppression de la Page du Refuge des Compagnons 🦄🧹
 **Statut** : 🟢 Résolu (v3.25.0)
 **Sévérité** : Moyenne (Nettoyage de code & Simplification de l'Architecture)

@@ -197,3 +197,46 @@
   color: white;
 }
 
+.offline {
+  opacity: 0.75;
+  cursor: not-allowed !important;
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+  box-shadow: none !important;
+  pointer-events: none;
+}
+
+:global(.dark) .offline {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+.offline .iconWrapper {
+  opacity: 0.5;
+  filter: grayscale(1);
+}
+
+.offline:hover {
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.offlineOverlay {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 10;
+  border: 3px solid white;
+  background: linear-gradient(135deg, #94a3b8, #475569);
+  color: white;
+}
+
+

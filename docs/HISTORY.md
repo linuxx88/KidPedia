@@ -4,6 +4,33 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
+### VERSION 3.25.3 - Support Hors-ligne et Désactivation Visuelle des TopicCard 🚀☁️ (26 Mai 2026)
+--------------------------------------------------
+- **[Logic/UI/UX/A11y/Tests] Intégration du mode hors-ligne dans TopicCard :**
+    - **TopicCard.tsx** : Consommation du hook `useOfflineAvailability` et écoute de l'état du réseau en temps réel via `navigator.onLine`.
+    - **Désactivation Visuelle & Logique** : Si l'utilisateur est hors-ligne et que le sujet n'est pas disponible dans le cache PWA, la carte applique un style désactivé (grisé via opacité, avec un overlay d'icône de nuage barré `☁️🚫` pour un rendu kid-friendly) et bloque les événements de clic.
+    - **Accessibilité (ARIA)** : Adaptation des attributs d'accessibilité en rajoutant dynamiquement la description de l'indisponibilité hors-ligne bilingue ("Non disponible hors-ligne" / "Not available offline") pour les lecteurs d'écran.
+    - **TopicCard.module.css** : Ajout des classes de styles `.offline` et `.offlineOverlay` avec prise en charge du dark mode.
+    - **TopicCard.test.tsx** : Mise à jour de la suite de tests pour couvrir la simulation hors-ligne (en mockant le hook et `navigator.onLine`), validant la non-cliquabilité et la mise à jour des balises ARIA.
+    - **Validation** : 222 tests au vert à 100% et aucun avertissement lint/compilation.
+
+### VERSION 3.25.2 - Hook useOfflineAvailability pour Disponibilité Hors-ligne 🚀📡 (26 Mai 2026)
+--------------------------------------------------
+- **[Logic/PWA/Cache] Création du hook réactif useOfflineAvailability et de sa suite de tests unitaires :**
+    - **useOfflineAvailability.ts (Nouveau Hook)** : Conception d'un hook réactif pour interroger silencieusement l'API native `window.caches` du navigateur et vérifier si le fichier `/content/topics/${topicId}.json` est déjà présent dans le cache de la PWA.
+    - **Réactivité Réseau** : Intégration d'écoutes sur les changements d'état de connexion (`online`/`offline`) sur l'objet global `window` afin de ré-évaluer instantanément la disponibilité.
+    - **Robustesse & Typage Strict** : Zéro casting ou type `any`, gestion gracieuse de l'absence de l'API `caches` sur les navigateurs incompatibles, et respect parfait de la posture de développement de niveau senior.
+    - **useOfflineAvailability.test.ts (Nouveaux Tests)** : Suite unitaire complète validant les états initiaux, le fonctionnement offline, le fallback silencieux et la réactivité événementielle réseau, sans aucune console d'alerte ou avertissement "act".
+    - **Validation** : 220 tests au vert et lint propre.
+
+### VERSION 3.25.1 - Stratégie de Cache PWA Hors-ligne pour les Fiches JSON 🚀📡 (26 Mai 2026)
+--------------------------------------------------
+- **[Infrastructure/PWA/Cache] Configuration de la stratégie Stale-While-Revalidate pour les fiches encyclopédiques :**
+    - **vite.config.ts** : Ajout d'une règle de mise en cache à la volée (`runtimeCaching`) via Workbox ciblant toutes les requêtes vers `/content/topics/*.json`.
+    - **Stale-While-Revalidate** : Implémentation de la stratégie servant instantanément la fiche depuis le cache si elle existe tout en rafraîchissant silencieusement la donnée en arrière-plan via le réseau, et basculant sur le réseau si le cache est vide.
+    - **Résilience Hors-ligne** : Garantie d'une tolérance absolue en cas de hors-ligne total en servant le cache avec succès, et en ne laissant remonter l'erreur réseau au hook `useTopicFetcher` que si la fiche n'a jamais été téléchargée.
+    - **Validation** : Type-check TypeScript validé et suite de tests unitaires/d'intégration de 215 tests à 100% au vert.
+
 ### VERSION 3.25.0 - Suppression de la Page du Refuge des Compagnons 🦄🧹 (26 Mai 2026)
 --------------------------------------------------
 - **[Gamification/Architecture/Clean-up] Démantèlement et suppression de la page premium interactive Le Refuge :**

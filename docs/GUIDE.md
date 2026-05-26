@@ -146,6 +146,9 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Hook Réactif useTopicFetcher & Robustesse Réseau (Ticket #79)** (Traité en v3.24.0)
 ✅ **RÉSOLU : Refactoring - Composant AppLoader & Interface d'Erreur Enfantine Cohesive (Ticket #80)** (Traité en v3.24.0)
 ✅ **RÉSOLU : Suppression Intégrale de la page du Refuge des Compagnons (Ticket #Refuge-Delete)** (Traité en v3.25.0)
+✅ **RÉSOLU : Stratégie de Cache PWA Stale-While-Revalidate pour Fiches JSON (Ticket #SW-Cache)** (Traité en v3.25.1)
+✅ **RÉSOLU : Hook de Disponibilité Hors-ligne useOfflineAvailability (Ticket #SW-Availability)** (Traité en v3.25.2)
+✅ **RÉSOLU : Désactivation Visuelle et Logique Hors-ligne des TopicCard (Ticket #SW-UI-Availability)** (Traité en v3.25.3)
 
 
 ---
@@ -153,6 +156,6 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 26 mai 2026 (v3.25.0)*
+*Dernière mise à jour : 26 mai 2026 (v3.25.3)*
 
 
