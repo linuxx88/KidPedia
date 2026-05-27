@@ -152,6 +152,13 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Hook useStoryteller & Synthèse Vocale Hors-ligne (Ticket #Storyteller)** (Traité en v3.26.0)
 ✅ **RÉSOLU : Composant Enfantin StorytellerButton & Intégration Visuelle (Ticket #StorytellerButton)** (Traité en v3.27.0)
 ✅ **RÉSOLU : Fiche de Contenu TopicView & Intégration Storyteller (Ticket #TopicView)** (Traité en v3.28.0)
+✅ **RÉSOLU : Intégration Storyteller au Quiz & Typage Strict (Ticket #StorytellerQuiz)** (Traité en v3.29.0)
+✅ **RÉSOLU : Composant QuizAnswerButton & Sourdine d'Option (Ticket #QuizAnswerButton)** (Traité en v3.30.0)
+✅ **RÉSOLU : Orchestration Audio Exclusive & Sourdine Intelligente (Ticket #AudioOrchestrator)** (Traité en v3.31.0)
+✅ **RÉSOLU : Accessibilité du Quiz, Grille Réactive & Confort Tactile (Ticket #QuizA11y)** (Traité en v3.32.0)
+✅ **RÉSOLU : Phase 1 migration localStorage vers IndexedDB (Dexie.js) & StorageProvider Abstraction (Ticket Infrastructure)** (Traité en v3.33.0)
+✅ **RÉSOLU : Phase 2 migration localStorage vers IndexedDB (Dexie.js) & Storage CRUD Utilities (Ticket Infrastructure)** (Traité en v3.34.0)
+✅ **RÉSOLU : Phase 3 migration localStorage vers IndexedDB (Dexie.js) & Zustand custom indexedDBMiddleware (Ticket Infrastructure)** (Traité en v3.35.0)
 
 
 ---
@@ -159,6 +166,9 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 26 mai 2026 (v3.28.0)*
+*Dernière mise à jour : 26 mai 2026 (v3.35.0)*
+
+
+
 
 

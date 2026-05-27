@@ -1,5 +1,5 @@
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { create, type UseBoundStore, type StoreApi } from 'zustand';
+import { indexedDBMiddleware } from './indexedDBMiddleware';
 import { type MedalType } from '../utils/quizMessages';
 import { type TopicId, type EarnedBadge } from '../types/domain';
 import { ACCESSORIES_DB } from '../data/accessories';
@@ -8,7 +8,6 @@ import { useNotificationStore } from './useNotificationStore';
 import { useSettingsStore } from './useSettingsStore';
 import { launchCelebration } from '../utils/celebrations';
 import { RANKS } from '../data/rewards';
-import { indexedDBStorage } from '../utils/indexedDBStorage';
 
 interface ProfileProgression {
   badges: EarnedBadge[];
@@ -166,7 +165,7 @@ const migrateLegacyProfile = (profileId: string): ProfileProgression => {
   }
 };
 export const useProgressionStore = create<ProgressionState>()(
-  persist(
+  indexedDBMiddleware(
     (set, get) => ({
       // --- Initial State ---
       progressions: {},
@@ -561,10 +560,11 @@ export const useProgressionStore = create<ProgressionState>()(
           activeProfileId: null,
         });
       }
-    }),
-    {
-      name: 'kp-progression-storage',
-      storage: createJSONStorage(() => indexedDBStorage)
-    }
+    })
   )
-);
+) as UseBoundStore<StoreApi<ProgressionState>> & {
+  persist: {
+    rehydrate: () => Promise<void>;
+    clearStorage: () => Promise<void>;
+  };
+};
