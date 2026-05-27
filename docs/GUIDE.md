@@ -159,6 +159,7 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 ✅ **RÉSOLU : Phase 1 migration localStorage vers IndexedDB (Dexie.js) & StorageProvider Abstraction (Ticket Infrastructure)** (Traité en v3.33.0)
 ✅ **RÉSOLU : Phase 2 migration localStorage vers IndexedDB (Dexie.js) & Storage CRUD Utilities (Ticket Infrastructure)** (Traité en v3.34.0)
 ✅ **RÉSOLU : Phase 3 migration localStorage vers IndexedDB (Dexie.js) & Zustand custom indexedDBMiddleware (Ticket Infrastructure)** (Traité en v3.35.0)
+✅ **RÉSOLU : Validation de la Suite de Tests End-to-End (E2E) Playwright (Ticket QA/CI)** (Traité en v3.36.0)
 
 
 ---
@@ -166,7 +167,7 @@ Chaque expérience interactive possède son propre "moteur" logique, isolé de l
 **📝 Note :** Prochaine étape : Poursuite de la mise en conformité et amélioration de l'expérience éducative globale sur les autres tickets d'apprentissage de KidPedia.
 
 ---
-*Dernière mise à jour : 26 mai 2026 (v3.35.0)*
+*Dernière mise à jour : 26 mai 2026 (v3.36.0)*
 
 
 
