@@ -4,6 +4,15 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
 
 ---
 
+### VERSION 3.37.0 - Phase 4 Migration Active des Données (localStorage vers IndexedDB) (26 Mai 2026)
+--------------------------------------------------
+- **[Logic/Data/Migration] Script d'initialisation de migration asynchrone transparente (Ticket Infrastructure) :**
+    - **migration.ts** : Création d'un script de migration robuste `migrateLocalStorageToDB` qui s'exécute une seule fois au chargement de l'application (contrôlé par la clé `'kp-dexie-migrated'`).
+    - **Normalisation Rétrocompatible :** Intégration de la fonction `normalizeLegacyState` capable de décompresser les anciens formats de progression compressés (v1.x) pour les convertir de manière résiliente vers le format standard v3.x.
+    - **Migration Active Non Destructive :** Importation et appel de `saveProgress()` de `./storage` pour écrire chaque profil trouvé dans la table de progression Dexie, et migration des magasins transverses Zustand (`kp-settings-storage`, `kp-profiles-index`, `kp-active-profile-id`) dans `db.keyval` (Dexie). Les clés de `localStorage` sont conservées temporairement pendant au moins deux versions mineures pour la sécurité des utilisateurs inactifs.
+    - **main.tsx** : Intégration asynchrone du script de migration avant le rendu React final (`createRoot().render`), garantissant l'intégrité de la réhydratation de la base de données.
+    - **Tests & Validation :** 100% de passage au vert sur les tests unitaires de migration de données et sur les tests E2E sous Chromium, Firefox et Webkit.
+
 ### VERSION 3.36.0 - Validation de la Suite de Tests End-to-End (E2E) Playwright (26 Mai 2026)
 --------------------------------------------------
 - **[QA/CI/E2E] Validation de la stabilité de la suite de tests E2E avec Playwright (Ticket E2E) :**
