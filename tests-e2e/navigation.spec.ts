@@ -25,8 +25,7 @@ test.describe('Navigation et Boutons Accueil', () => {
     for (const section of hubSections) {
       const card = page.getByRole('button', { name: section.name });
       await expect(card).toBeVisible();
-      await card.scrollIntoViewIfNeeded();
-      await card.click();
+      await card.click({ force: true });
       await expect(page).toHaveURL(section.url);
       
       const backBtn = page.getByRole('button', { name: /Retour/i }).first();

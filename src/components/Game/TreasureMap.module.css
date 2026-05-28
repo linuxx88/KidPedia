@@ -12,7 +12,7 @@
 }
 
 .mapWrapperScroll {
-  flex: 1;
+  /*flex: 1;*/
   overflow: auto;
   border-radius: 2rem;
   background: #acc6f8;

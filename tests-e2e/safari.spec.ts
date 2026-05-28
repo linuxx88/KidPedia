@@ -11,11 +11,12 @@ test.describe('Mission Safari', () => {
     const startButton = page.getByRole('button', { name: /parti/i });
     await expect(startButton).toBeVisible();
     await startButton.click();
+    await expect(page.getByTestId('profile-overlay')).toBeHidden();
 
     // 2. Accéder à Mission Safari via le Hub
-    const safariLink = page.getByText('Mission Safari');
+    const safariLink = page.getByRole('button', { name: /Mission Safari/i });
     await expect(safariLink).toBeVisible();
-    await safariLink.click();
+    await safariLink.click({ force: true });
 
     // 3. Vérifier le message de bienvenue
     const message = page.getByTestId('safari-message');

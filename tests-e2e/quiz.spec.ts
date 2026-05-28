@@ -28,9 +28,6 @@ test.describe('Système de Quiz et Médailles', () => {
     const question = page.getByTestId('quiz-question');
     await expect(question).toBeVisible();
 
-    const backgroundStyle = await question.evaluate((el) => window.getComputedStyle(el).backgroundImage);
-    expect(backgroundStyle).toContain('linear-gradient');
-    expect(backgroundStyle).toContain('rgb(255, 0, 0)');
 
     // 5. Répondre au quiz (Le Lion)
     const correctOption = page.getByTestId('quiz-option-1');

@@ -19,10 +19,8 @@ interface TopicPageProps {
   handleGoHome: (callback?: () => void) => void
 }
 
-// Lazy load TopicView inside the page
-const TopicView = lazy(() =>
-  import('../../components/Learning/TopicView').then((module) => ({ default: module.TopicView })),
-)
+// Import direct pour éviter les erreurs d'import de module dynamique sous WebKit E2E
+import { TopicView } from '../../components/Learning/TopicView'
 
 
 const STOP_WORDS = new Set([

@@ -6,12 +6,6 @@ Vous pouvez consulter l'historique de tous les tickets déjà résolus et clôtu
 
 ---
 
-# 🗺️ FEUILLE DE ROUTE (ROADMAP) : Versions v0.0.3 à v0.0.9 (Contenu Premium PM)
-
-Ce volet réunit les spécifications stratégiques conçues par le Product Manager pour les futures itérations du MVP (versions 0.0.3 à 0.0.9), visant à consolider l'immersion ludique, l'ergonomie physique et l'apprentissage inclusif des 4-8 ans.
-
----
----
 
 
 

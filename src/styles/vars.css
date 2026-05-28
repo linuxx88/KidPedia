@@ -208,7 +208,7 @@ html[data-gender='girl']:not([data-theme='dark']) {
 }
 
 html[data-gender='boy']:not([data-theme='dark']) {
-  --color-app-bg: #f0f9ff; /* Ciel doux */
+  --color-app-bg: #bbefff8c; /* Ciel doux */
   --color-primary: var(--color-explorer-blue);
   --color-primary-dark: #2563eb;
   --color-accent: var(--color-explorer-emerald);

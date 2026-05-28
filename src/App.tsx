@@ -14,50 +14,25 @@ import { ToastContainer } from './components/UI/Toast/ToastContainer'
 import { ProgressionListener } from './components/Layout/ProgressionListener'
 import { ParentalGate } from './components/UI/ParentalGate'
 
+// Import direct des pages majeures pour éviter les erreurs d'import de module dynamique sous WebKit E2E
+import { TopicPage } from './pages/Topic'
+import { TreasureMap } from './components/Game/TreasureMap'
+import { MissionSafari } from './components/Game/MissionSafari'
+import { ExplorerGallery } from './components/Profile/ExplorerGallery'
+
+// Import direct de toutes les pages pour garantir une stabilité totale des tests E2E sous WebKit (pas de code-splitting instable en dev)
+import { LifeCirclePage } from './pages/LifeCircle/LifeCirclePage'
+import { BadgesPage } from './components/Profile/BadgesPage'
+import { ParentsDashboard } from './pages/Parents/ParentsDashboard'
+import { OriginsLayout } from './pages/Origins/OriginsLayout'
+import { OriginsList } from './pages/Origins/OriginsList'
+import { OriginsDetail } from './pages/Origins/OriginsDetail'
+import { GiftsPage } from './components/Learning/ExplorerGallery/GiftsPage'
+import { FlowDashboard } from './pages/Parents/FlowDashboard'
+import { ChampionshipPage } from './pages/Championship/ChampionshipPage'
+
 // Import direct de la page d'accueil (pas de lazy load car route par défaut)
 import { HomePage } from './pages/Home'
-
-// Lazy Loading des pages et composants lourds
-const TopicPage = lazy(() =>
-  import('./pages/Topic').then((module) => ({ default: module.TopicPage })),
-)
-const LifeCirclePage = lazy(() =>
-  import('./pages/LifeCircle/LifeCirclePage').then((module) => ({ default: module.LifeCirclePage })),
-)
-const BadgesPage = lazy(() =>
-  import('./components/Profile/BadgesPage').then((module) => ({ default: module.BadgesPage })),
-)
-const ParentsDashboard = lazy(() =>
-  import('./pages/Parents/ParentsDashboard').then((module) => ({ default: module.ParentsDashboard })),
-)
-const TreasureMap = lazy(() =>
-  import('./components/Game/TreasureMap').then((module) => ({ default: module.TreasureMap })),
-)
-const OriginsLayout = lazy(() =>
-  import('./pages/Origins/OriginsLayout').then((module) => ({ default: module.OriginsLayout })),
-)
-const OriginsList = lazy(() =>
-  import('./pages/Origins/OriginsList').then((module) => ({ default: module.OriginsList })),
-)
-const OriginsDetail = lazy(() =>
-  import('./pages/Origins/OriginsDetail').then((module) => ({ default: module.OriginsDetail })),
-)
-const MissionSafari = lazy(() =>
-  import('./components/Game/MissionSafari').then((module) => ({ default: module.MissionSafari })),
-);
-const ExplorerGallery = lazy(() =>
-  import('./components/Profile/ExplorerGallery').then((module) => ({ default: module.ExplorerGallery })),
-);
-const GiftsPage = lazy(() =>
-  import('./components/Learning/ExplorerGallery/GiftsPage').then((module) => ({ default: module.GiftsPage })),
-);
-const FlowDashboard = lazy(() =>
-  import('./pages/Parents/FlowDashboard').then((module) => ({ default: module.FlowDashboard })),
-);
-
-const ChampionshipPage = lazy(() =>
-  import('./pages/Championship/ChampionshipPage').then((module) => ({ default: module.ChampionshipPage })),
-);
 
 import { PWAPrompt } from './components/UI/PWAPrompt'
 import ScrollToTop from './components/UI/ScrollToTop'
