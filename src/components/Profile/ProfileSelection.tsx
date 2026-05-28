@@ -186,6 +186,15 @@ export const ProfileSelection: React.FC<ProfileSelectionProps> = ({
               className={`${styles.addBtn} ${styles.staggerItem}`}
               style={{ '--index': profiles.length } as React.CSSProperties}
               onClick={() => setIsCreating(true)}
+              data-testid="add-profile-btn"
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                  e.preventDefault();
+                  setIsCreating(true);
+                }
+              }}
             >
               <div className={styles.addIconWrapper}>
                 <span className={styles.addIcon}>➕</span>

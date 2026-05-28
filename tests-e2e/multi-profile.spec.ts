@@ -29,9 +29,8 @@ test.describe('Gestion Multi-Profils', () => {
     await page.waitForTimeout(500); // Laisser React attacher les écouteurs
     await page.getByTestId('header-profile-btn').click({ force: true });
     
-    await expect(page.getByText(/Ajouter un explorateur/i)).toBeVisible();
-    await page.waitForTimeout(500); // Attendre la transition de la modale
-    await page.getByText(/Ajouter un explorateur/i).click({ force: true });
+    await expect(page.getByTestId('add-profile-btn')).toBeVisible();
+    await page.getByTestId('add-profile-btn').click();
     
     await page.getByTestId('profile-name-input').fill('Bob');
     await page.getByText('👦 Garçon').click({ force: true });
@@ -49,8 +48,7 @@ test.describe('Gestion Multi-Profils', () => {
     await page.getByTestId('header-profile-btn').click({ force: true });
     await expect(page.getByTestId('main-title')).toBeVisible();
     
-    await page.waitForTimeout(500); // Attendre la transition de la modale de profil
-    await page.getByTestId('profile-card-Alice').click({ force: true });
+    await page.getByTestId('profile-card-Alice').click();
     await expect(page.getByTestId('profile-overlay')).toBeHidden();
 
     // 6. Vérifier qu'Alice a retrouvé sa médaille

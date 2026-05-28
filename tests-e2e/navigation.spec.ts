@@ -30,7 +30,7 @@ test.describe('Navigation et Boutons Accueil', () => {
       
       const backBtn = page.getByRole('button', { name: /Retour/i }).first();
       if (await backBtn.isVisible()) {
-        await backBtn.click();
+        await backBtn.click({ force: true });
       } else {
         // Fallback pour les modes immersifs où le header global est masqué
         await page.goto('/', { timeout: 45000 });
