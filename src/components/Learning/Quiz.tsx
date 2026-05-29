@@ -1,32 +1,29 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { type MedalType, getRandomMessage, getMedalIcon } from '../../utils/quizMessages'
 import { type Gender } from '../../utils/helpers'
 import { type Labels } from '../../locales/types'
 import { useAudioFeedback } from '../../hooks/useAudioFeedback'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { useStoryteller } from '../../hooks/useStoryteller'
-import { StorytellerButton } from '../UI/StorytellerButton'
 import { QuizAnswerButton } from './QuizAnswerButton'
 import styles from './Quiz.module.css'
 
 interface QuizProps {
-  question: string
-  options: string[]
-  onAnswer: (index: number) => void
-  result: { medal: MedalType } | null
-  gender: Gender
-  retryMsg: string | null
-  activeHint: string | null
-  onReview: () => void
-  labels: Labels
-  attempts: number
-  funFact: string
-  anchorIcon?: string
-  onSpeakText?: (text: string, id: string) => void
-  activeSpeechId?: string | null
+  readonly question: string
+  readonly options: string[]
+  readonly onAnswer: (index: number) => void
+  readonly result: { medal: MedalType } | null
+  readonly gender: Gender
+  readonly retryMsg: string | null
+  readonly activeHint: string | null
+  readonly onReview: () => void
+  readonly labels: Labels
+  readonly attempts: number
+  readonly funFact: string
+  readonly anchorIcon?: string
 }
 
-export const QuizComponent = ({ 
+export const QuizComponent: React.FC<QuizProps> = ({ 
   question, 
   options, 
   onAnswer, 
@@ -39,53 +36,22 @@ export const QuizComponent = ({
   attempts,
   funFact,
   anchorIcon,
-  onSpeakText,
-}: QuizProps) => {
+}) => {
   const { playSound } = useAudioFeedback()
   const { language } = useSettingsStore()
   const [showWizardHelp, setShowWizardHelp] = useState(false)
   const optionClasses = [styles.optionA, styles.optionB, styles.optionC]
 
-  // Hook Storyteller for reading question text
   const {
-    speak: speakStory,
-    stop: stopStory,
-    isSpeaking: isStorySpeaking,
+    speak,
+    stopStory,
+    isMagicWandActive,
   } = useStoryteller()
 
-  const isStorySupported = typeof window !== 'undefined' && 'speechSynthesis' in window
-
   const [prevQuestion, setPrevQuestion] = useState(question)
-  const [activeStorytellerId, setActiveStorytellerId] = useState<string | null>(null)
 
   if (question !== prevQuestion) {
     setPrevQuestion(question)
-    setActiveStorytellerId(null)
-  }
-
-  const currentQuestion: { readonly text: string } = { text: question }
-
-  const handleStoryToggle = (): void => {
-    if (isStorySpeaking && activeStorytellerId === 'question') {
-      stopStory()
-      setActiveStorytellerId(null)
-    } else {
-      stopStory() // Cut off any current speech first!
-      speakStory(currentQuestion.text)
-      setActiveStorytellerId('question')
-    }
-  }
-
-  const handleOptionStoryToggle = (optionText: string, index: number): void => {
-    const id = `option-${index}`
-    if (isStorySpeaking && activeStorytellerId === id) {
-      stopStory()
-      setActiveStorytellerId(null)
-    } else {
-      stopStory() // Cut off any current speech first!
-      speakStory(optionText)
-      setActiveStorytellerId(id)
-    }
   }
 
   // Stop storyteller speech when the question changes
@@ -98,6 +64,8 @@ export const QuizComponent = ({
     const isMuted = useSettingsStore.getState().isMuted
     const isSfxMuted = useSettingsStore.getState().isSfxMuted
     if (isMuted || isSfxMuted) return
+
+    stopStory()
 
     try {
       const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
@@ -121,7 +89,7 @@ export const QuizComponent = ({
 
       osc.start(ctx.currentTime)
       osc.stop(ctx.currentTime + 0.8)
-    } catch (e) {
+    } catch (e: unknown) {
       console.warn('Web Audio API synthesizer failed to play ding sound', e)
     }
   }
@@ -131,6 +99,8 @@ export const QuizComponent = ({
     const isMuted = useSettingsStore.getState().isMuted
     const isSfxMuted = useSettingsStore.getState().isSfxMuted
     if (isMuted || isSfxMuted) return
+
+    stopStory()
 
     try {
       const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
@@ -158,7 +128,7 @@ export const QuizComponent = ({
         osc.start(ctx.currentTime + timeOffset)
         osc.stop(ctx.currentTime + timeOffset + 0.4)
       })
-    } catch (e) {
+    } catch (e: unknown) {
       console.warn('Web Audio API perfect arpeggio failed to play', e)
     }
   }
@@ -166,6 +136,7 @@ export const QuizComponent = ({
   // Trigger sounds when a result appears
   useEffect(() => {
     if (result) {
+      stopStory()
       playSound('success')
       if (result.medal === 'gold') {
         playSynthesizedPerfectFanfare()
@@ -176,8 +147,30 @@ export const QuizComponent = ({
   }, [result, playSound])
 
   const handleAnswerClick = (index: number) => {
+    stopStory()
     playSound('click')
     onAnswer(index)
+  }
+
+  const handleQuestionClick = (e: React.MouseEvent) => {
+    if (isMagicWandActive) {
+      e.stopPropagation()
+      speak(question)
+    }
+  }
+
+  const handleHintClick = (e: React.MouseEvent) => {
+    if (isMagicWandActive && activeHint) {
+      e.stopPropagation()
+      speak(activeHint)
+    }
+  }
+
+  const handleWizardClick = (e: React.MouseEvent) => {
+    if (isMagicWandActive) {
+      e.stopPropagation()
+      speak(funFact)
+    }
   }
 
   const medalStyles = {
@@ -208,14 +201,17 @@ export const QuizComponent = ({
       {!result ? (
         <div className={styles.quizBody}>
           <div className={styles.questionContainer}>
-            <p className={styles.quizQuestion} data-testid="quiz-question">
-              {currentQuestion.text}
+            <p 
+              className={styles.quizQuestion} 
+              data-testid="quiz-question"
+              onClick={handleQuestionClick}
+              style={{ 
+                cursor: isMagicWandActive ? 'help' : 'default',
+                textDecoration: isMagicWandActive ? 'underline dotted' : 'none'
+              }}
+            >
+              {question}
             </p>
-            <StorytellerButton
-              isSpeaking={isStorySpeaking}
-              isSupported={isStorySupported}
-              onToggle={handleStoryToggle}
-            />
           </div>
 
           <div className={styles.optionsGrid}>
@@ -227,8 +223,6 @@ export const QuizComponent = ({
                 className={optionClasses[i]}
                 letter={['A', 'B', 'C'][i]}
                 onClick={() => handleAnswerClick(i)}
-                isSpeaking={isStorySpeaking && activeStorytellerId === `option-${i}`}
-                onToggleSpeak={() => handleOptionStoryToggle(opt, i)}
               />
             ))}
           </div>
@@ -236,23 +230,16 @@ export const QuizComponent = ({
           {activeHint && (
             <div className={styles.hintBox}>
               <h4 className={styles.hintTitle}>{labels.quiz.hintTitle}</h4>
-              <p className={styles.hintText}>{activeHint}</p>
-              <button 
-                type="button"
-                className={styles.hintAudioBtn}
-                onClick={() => {
-                  playSound('click')
-                  if (onSpeakText) {
-                    onSpeakText(activeHint, 'hint')
-                  } else {
-                    const utterance = new SpeechSynthesisUtterance(activeHint)
-                    utterance.lang = language === 'fr' ? 'fr-FR' : 'en-US'
-                    window.speechSynthesis.speak(utterance)
-                  }
+              <p 
+                className={styles.hintText}
+                onClick={handleHintClick}
+                style={{ 
+                  cursor: isMagicWandActive ? 'help' : 'default',
+                  textDecoration: isMagicWandActive ? 'underline dotted' : 'none'
                 }}
               >
-                🔊 {labels.common.listen}
-              </button>
+                {activeHint}
+              </p>
             </div>
           )}
 
@@ -262,6 +249,7 @@ export const QuizComponent = ({
                 type="button"
                 className={styles.wizardHelpBtn}
                 onClick={() => {
+                  stopStory()
                   playSound('click')
                   setShowWizardHelp(prev => !prev)
                 }}
@@ -278,26 +266,16 @@ export const QuizComponent = ({
                       {language === 'fr' ? "L'astuce magique du Magicien" : "The Wizard's Magic Hint"}
                     </h4>
                   </div>
-                  <p className={styles.wizardText}>"{funFact}"</p>
-                  
-                  <button 
-                    type="button"
-                    className={styles.wizardAudioBtn}
-                    onClick={() => {
-                      playSound('click')
-                      if (onSpeakText) {
-                        onSpeakText(funFact, 'wizard-help')
-                      } else if ('speechSynthesis' in window) {
-                        window.speechSynthesis.cancel()
-                        const utterance = new SpeechSynthesisUtterance(funFact)
-                        utterance.lang = language === 'fr' ? 'fr-FR' : 'en-US'
-                        utterance.rate = 0.95
-                        window.speechSynthesis.speak(utterance)
-                      }
+                  <p 
+                    className={styles.wizardText}
+                    onClick={handleWizardClick}
+                    style={{ 
+                      cursor: isMagicWandActive ? 'help' : 'default',
+                      textDecoration: isMagicWandActive ? 'underline dotted' : 'none'
                     }}
                   >
-                    🔊 {labels.common.listen}
-                  </button>
+                    "{funFact}"
+                  </p>
                 </div>
               )}
             </div>
@@ -351,4 +329,3 @@ export const QuizComponent = ({
     </div>
   )
 }
-

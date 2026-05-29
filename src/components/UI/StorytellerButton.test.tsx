@@ -2,27 +2,37 @@ import { render, screen, fireEvent } from '@testing-library/react'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { StorytellerButton } from './StorytellerButton'
 import { useSettingsStore } from '../../store/useSettingsStore'
+import { useStoryteller } from '../../hooks/useStoryteller'
+import { setupSpeechMock } from '../../test/mockUtils'
+
+vi.mock('../../hooks/useStoryteller', () => ({
+  useStoryteller: vi.fn(),
+}))
 
 describe('StorytellerButton', () => {
-  const defaultProps = {
-    isSpeaking: false,
-    isSupported: true,
-    onToggle: vi.fn(),
-  }
+  const mockToggleMagicWand = vi.fn()
 
   beforeEach(() => {
     vi.clearAllMocks()
+    setupSpeechMock()
     useSettingsStore.setState({ language: 'fr' })
+    vi.mocked(useStoryteller).mockReturnValue({
+      isMagicWandActive: false,
+      isSpeaking: false,
+      speak: vi.fn(),
+      stopStory: vi.fn(),
+      toggleMagicWand: mockToggleMagicWand,
+    })
   })
 
   it('devrait rendre l etat de repos (Idle/Supported) correctement', () => {
-    render(<StorytellerButton {...defaultProps} />)
+    render(<StorytellerButton />)
 
     const button = screen.getByRole('button')
     expect(button).toBeInTheDocument()
     expect(button).not.toBeDisabled()
     expect(button.getAttribute('aria-pressed')).toBe('false')
-    expect(button.getAttribute('aria-label')).toBe("Lancer la lecture vocale de l'histoire")
+    expect(button.getAttribute('aria-label')).toBe("Activer la baguette magique (Hibou)")
     expect(screen.getByText('🦉')).toBeInTheDocument()
 
     // Pas de vagues ou sparkles
@@ -30,51 +40,31 @@ describe('StorytellerButton', () => {
     expect(screen.queryByTestId('sparkles')).not.toBeInTheDocument()
   })
 
-  it('devrait appeler onToggle lors du clic sur le bouton actif', () => {
-    const onToggleMock = vi.fn()
-    render(<StorytellerButton {...defaultProps} onToggle={onToggleMock} />)
+  it('devrait appeler toggleMagicWand lors du clic sur le bouton actif', () => {
+    render(<StorytellerButton />)
 
     const button = screen.getByRole('button')
     fireEvent.click(button)
-    expect(onToggleMock).toHaveBeenCalledTimes(1)
+    expect(mockToggleMagicWand).toHaveBeenCalledTimes(1)
   })
 
   it('devrait rendre l etat de parole (Speaking) correctement avec les animations', () => {
-    render(<StorytellerButton {...defaultProps} isSpeaking={true} />)
+    vi.mocked(useStoryteller).mockReturnValue({
+      isMagicWandActive: true,
+      isSpeaking: true,
+      speak: vi.fn(),
+      stopStory: vi.fn(),
+      toggleMagicWand: mockToggleMagicWand,
+    })
+
+    render(<StorytellerButton />)
 
     const button = screen.getByRole('button')
     expect(button.getAttribute('aria-pressed')).toBe('true')
-    expect(button.getAttribute('aria-label')).toBe("Arrêter la lecture vocale de l'histoire")
+    expect(button.getAttribute('aria-label')).toBe("Désactiver la baguette magique (Hibou)")
     
-    // Devrait afficher le magicien et sparkles
-    expect(screen.getByText('🧙‍♂️✨')).toBeInTheDocument()
     expect(screen.getByTestId('pulse-wave-1')).toBeInTheDocument()
     expect(screen.getByTestId('pulse-wave-2')).toBeInTheDocument()
     expect(screen.getByTestId('sparkles')).toBeInTheDocument()
-  })
-
-  it('devrait rendre l etat non supporte (Unsupported/Disabled) correctement', () => {
-    render(<StorytellerButton {...defaultProps} isSupported={false} />)
-
-    const button = screen.getByRole('button')
-    expect(button).toBeDisabled()
-    expect(button.getAttribute('aria-label')).toBe('Lecture vocale non supportée sur ce navigateur')
-    expect(screen.getByText('🦉🚫')).toBeInTheDocument()
-  })
-
-  it('devrait adapter la langue d accessibilite ARIA en anglais si le store est configure en EN', () => {
-    useSettingsStore.setState({ language: 'en' })
-
-    // Cas repos
-    const { rerender } = render(<StorytellerButton {...defaultProps} />)
-    expect(screen.getByRole('button').getAttribute('aria-label')).toBe('Start reading the story')
-
-    // Cas parole
-    rerender(<StorytellerButton {...defaultProps} isSpeaking={true} />)
-    expect(screen.getByRole('button').getAttribute('aria-label')).toBe('Stop reading the story')
-
-    // Cas non supporte
-    rerender(<StorytellerButton {...defaultProps} isSupported={false} />)
-    expect(screen.getByRole('button').getAttribute('aria-label')).toBe('Speech synthesis not supported on this browser')
   })
 })

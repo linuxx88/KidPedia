@@ -12,7 +12,7 @@ export interface DiscussionStarter {
 /**
  * Dictionnaire de questions bilingues parent-enfant associées à des sujets précis.
  */
-export const DISCUSSION_STARTERS: Partial<Record<TopicId, DiscussionStarter>> = {
+export const DISCUSSION_STARTERS: Record<string, DiscussionStarter> = {
   lion: {
     question: {
       fr: "Si tu devais rugir comme un lion pour montrer ta force ou ta joie, quand le ferais-tu ?",

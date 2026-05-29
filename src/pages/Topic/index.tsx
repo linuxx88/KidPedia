@@ -1,4 +1,4 @@
-import { lazy, Suspense, useEffect, useState, useMemo } from 'react'
+import { Suspense, useEffect, useState, useMemo } from 'react'
 import { useParams, useLocation, useNavigate } from 'react-router-dom'
 import { encyclopedia } from '../../data/topics'
 import { useSettingsStore } from '../../store/useSettingsStore'
@@ -14,10 +14,7 @@ import styles from './TopicPage.module.css'
 import { type Topic, type Quiz } from '../../data/topics/types'
 import { useTopicFetcher } from '../../hooks/useTopicFetcher'
 import { AppLoader } from '../../components/UI/AppLoader'
-
-interface TopicPageProps {
-  handleGoHome: (callback?: () => void) => void
-}
+import { StorytellerProvider } from '../../hooks/useStoryteller'
 
 // Import direct pour éviter les erreurs d'import de module dynamique sous WebKit E2E
 import { TopicView } from '../../components/Learning/TopicView'
@@ -325,26 +322,28 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
 
   return (
     <Suspense fallback={<AppLoader message={labels.common.loading} />}>
-      <TopicView
-        title={topic.title[language]}
-        description={currentDescription}
-        funFact={currentFunFact}
-        icon={topic.icon}
-        audioFile={topic.audioFile}
-        quiz={currentQuiz}
-        badgeIcon={earnedBadge ? getMedalIcon(earnedBadge.medal) : undefined}
-        onBack={handleBack}
-        onAnswer={handleAnswer}
-        quizResult={quizResult}
-        gender={gender}
-        retryMsg={retryMsg}
-        activeHint={activeHint}
-        language={language}
-        labels={labels}
-        attempts={attempts}
-        anchorIcon={resolvedAnchorIcon}
-        hideQuiz={fromOrigins}
-      />
+      <StorytellerProvider>
+        <TopicView
+          title={topic.title[language]}
+          description={currentDescription}
+          funFact={currentFunFact}
+          icon={topic.icon}
+          audioFile={topic.audioFile}
+          quiz={currentQuiz}
+          badgeIcon={earnedBadge ? getMedalIcon(earnedBadge.medal) : undefined}
+          onBack={handleBack}
+          onAnswer={handleAnswer}
+          quizResult={quizResult}
+          gender={gender}
+          retryMsg={retryMsg}
+          activeHint={activeHint}
+          language={language}
+          labels={labels}
+          attempts={attempts}
+          anchorIcon={resolvedAnchorIcon}
+          hideQuiz={fromOrigins}
+        />
+      </StorytellerProvider>
     </Suspense>
   )
 }

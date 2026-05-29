@@ -1,21 +1,19 @@
 import React from 'react'
 import { useSettingsStore } from '../../store/useSettingsStore'
+import { useStoryteller } from '../../hooks/useStoryteller'
 import styles from './StorytellerButton.module.css'
 
 export interface StorytellerButtonProps {
-  isSpeaking: boolean
-  isSupported: boolean
-  onToggle: () => void
-  className?: string
+  readonly className?: string
 }
 
 export const StorytellerButton: React.FC<StorytellerButtonProps> = ({
-  isSpeaking,
-  isSupported,
-  onToggle,
   className = '',
 }) => {
   const language = useSettingsStore((state) => state.language)
+  const { isMagicWandActive, isSpeaking, toggleMagicWand } = useStoryteller()
+
+  const isSupported = typeof window !== 'undefined' && typeof speechSynthesis !== 'undefined'
 
   const getAriaLabel = (): string => {
     if (!isSupported) {
@@ -23,24 +21,24 @@ export const StorytellerButton: React.FC<StorytellerButtonProps> = ({
         ? 'Lecture vocale non supportée sur ce navigateur'
         : 'Speech synthesis not supported on this browser'
     }
-    if (isSpeaking) {
+    if (isMagicWandActive) {
       return language === 'fr'
-        ? "Arrêter la lecture vocale de l'histoire"
-        : 'Stop reading the story'
+        ? "Désactiver la baguette magique (Hibou)"
+        : 'Deactivate magic wand'
     }
     return language === 'fr'
-      ? "Lancer la lecture vocale de l'histoire"
-      : 'Start reading the story'
+      ? "Activer la baguette magique (Hibou)"
+      : 'Activate magic wand'
   }
 
   const getTitle = (): string => {
     if (!isSupported) {
       return language === 'fr' ? 'Non compatible' : 'Not supported'
     }
-    if (isSpeaking) {
-      return language === 'fr' ? 'Arrêter' : 'Stop'
+    if (isMagicWandActive) {
+      return language === 'fr' ? 'Baguette Magique Active' : 'Magic Wand Active'
     }
-    return language === 'fr' ? 'Écouter' : 'Listen'
+    return language === 'fr' ? 'Activer la Baguette Magique' : 'Activate Magic Wand'
   }
 
   return (
@@ -56,15 +54,15 @@ export const StorytellerButton: React.FC<StorytellerButtonProps> = ({
       <button
         type="button"
         disabled={!isSupported}
-        onClick={onToggle}
-        className={`${styles.storytellerBtn} ${isSpeaking ? styles.speaking : ''}`}
+        onClick={toggleMagicWand}
+        className={`${styles.storytellerBtn} ${isMagicWandActive ? styles.speaking : ''}`}
         title={getTitle()}
         aria-label={getAriaLabel()}
-        aria-pressed={isSpeaking}
+        aria-pressed={isMagicWandActive}
       >
         {/* Playful wizard/storyteller owl mascot */}
         <span className={styles.mascot} role="img" aria-hidden="true">
-          {!isSupported ? '🦉🚫' : isSpeaking ? '🧙‍♂️✨' : '🦉'}
+          {!isSupported ? '🦉🚫' : isMagicWandActive ? '🧙‍♂️✨' : '🦉'}
         </span>
       </button>
 
