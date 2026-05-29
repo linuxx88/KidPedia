@@ -19,11 +19,12 @@ export const QuizAnswerButton: React.FC<QuizAnswerButtonProps> = ({
   onClick,
 }) => {
   const { language } = useSettingsStore()
-  const { isMagicWandActive, speak } = useStoryteller()
+  const { isMagicWandActive, speak, stopStory } = useStoryteller()
 
   const handleContainerClick = (e: React.MouseEvent<HTMLDivElement>): void => {
     if (isMagicWandActive) {
       e.stopPropagation()
+      stopStory()
       speak(text)
     } else {
       onClick()
@@ -34,6 +35,7 @@ export const QuizAnswerButton: React.FC<QuizAnswerButtonProps> = ({
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault()
       if (isMagicWandActive) {
+        stopStory()
         speak(text)
       } else {
         onClick()

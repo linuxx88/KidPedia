@@ -155,6 +155,7 @@ export const QuizComponent: React.FC<QuizProps> = ({
   const handleQuestionClick = (e: React.MouseEvent) => {
     if (isMagicWandActive) {
       e.stopPropagation()
+      stopStory()
       speak(question)
     }
   }
@@ -162,6 +163,7 @@ export const QuizComponent: React.FC<QuizProps> = ({
   const handleHintClick = (e: React.MouseEvent) => {
     if (isMagicWandActive && activeHint) {
       e.stopPropagation()
+      stopStory()
       speak(activeHint)
     }
   }
@@ -169,6 +171,7 @@ export const QuizComponent: React.FC<QuizProps> = ({
   const handleWizardClick = (e: React.MouseEvent) => {
     if (isMagicWandActive) {
       e.stopPropagation()
+      stopStory()
       speak(funFact)
     }
   }

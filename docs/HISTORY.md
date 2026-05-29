@@ -26,14 +26,4 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
     - **indexedDBMiddleware.ts** : Développement d'un middleware Zustand sur mesure interceptant les mutations du store de progression (`useProgressionStore`) et les persistant automatiquement en tâche de fond dans Dexie.js (`saveProgress`).
     - **Harnais de test unitaire Vitest :** Intégration d'un mock/adaptateur de l'interface de réhydratation de persistance de Zustand (`store.persist`) pour conserver une compatibilité absolue à 100% avec les 240+ tests unitaires existants sans introduire de régression de build.
 
-### VERSION 3.34.0 - Phase 2 Migration IndexedDB & Utilitaires CRUD (26 Mai 2026)
---------------------------------------------------
-- **[Logic/Data] Utilitaires d'accès aux données de progression via Dexie (Ticket Infrastructure) :**
-    - **storage.ts** : Création des fonctions utilitaires asynchrones CRUD (`saveProgress`, `getProgress`, `getAllProgress`, `deleteProgress`) basées sur Dexie avec une gestion d'erreurs robuste, garantissant un typage strict et rejetant les données non conformes.
-    - **storage.test.ts** : Couverture complète en tests unitaires validant tous les cas nominaux et d'erreurs avec des mocks de la table Dexie sous Vitest.
 
-### VERSION 3.33.0 - Phase 1 Migration IndexedDB (Dexie.js) & StorageProvider (26 Mai 2026)
---------------------------------------------------
-- **[Infrastructure/Dexie/IndexedDB] Initialisation de Dexie et Abstraction CRUD (Ticket Infrastructure) :**
-    - **db.ts** : Initialisation de la base de données Dexie `'KidPediaDexieDB'` avec les schémas des tables `progression` (profil, badges, XP, rang) et `keyval` (clé-valeur générique pour la compatibilité).
-    - **storageProvider.ts** : Modélisation et implémentation de la couche d'abstraction abstraite `StorageProvider` et concrète `DexieStorageProvider` pour simplifier les opérations de lecture/écriture avec IndexedDB.

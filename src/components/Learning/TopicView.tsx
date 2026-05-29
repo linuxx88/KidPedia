@@ -118,7 +118,7 @@ export const TopicView: React.FC<TopicViewProps> = ({
             <div className={styles.topicTitleWrapper}>
               <h2 className={styles.topicMainTitle}>
                 {anchorIcon && <span style={{ marginRight: '0.5rem' }}>{anchorIcon}</span>}
-                <InteractiveText text={title} onSpeak={() => speak(title)} />
+                <InteractiveText text={title} onSpeak={() => { stopStory(); speak(title); }} />
               </h2>
               {badgeIcon && <span className={styles.topicTitleBadge}>{badgeIcon}</span>}
             </div>
@@ -130,7 +130,7 @@ export const TopicView: React.FC<TopicViewProps> = ({
         <section className={styles.topicSectionContent}>
           <div className={styles.descriptionContainer}>
             <div className={styles.topicDescriptionText}>
-              <InteractiveText text={description} onSpeak={() => speak(description)} />
+              <InteractiveText text={description} onSpeak={() => { stopStory(); speak(description); }} />
             </div>
           </div>
 
@@ -145,7 +145,7 @@ export const TopicView: React.FC<TopicViewProps> = ({
                 "
                 <InteractiveText 
                   text={funFact} 
-                  onSpeak={() => speak(`${labels.quiz.didYouKnow}. ${funFact}`)} 
+                  onSpeak={() => { stopStory(); speak(`${labels.quiz.didYouKnow}. ${funFact}`); }} 
                 />
                 "
               </p>
