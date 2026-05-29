@@ -12,6 +12,8 @@
   border-radius: 50%;
   width: 4rem;
   height: 4rem;
+  min-width: 44px;
+  min-height: 44px;
   cursor: pointer;
   display: flex;
   align-items: center;
