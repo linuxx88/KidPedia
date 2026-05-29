@@ -1,8 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Outlet, useNavigate, useLocation, useParams } from 'react-router-dom'
 import { PageHeader } from '../../components/Layout/PageHeader'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { originData, type HistoryNode } from '../../data/originData'
+import fabianThumb from '../../assets/images/fabian-schneider-thumb.webp'
+import fabianWebp from '../../assets/images/fabian-schneider.webp'
 import styles from './Origins.module.css'
 
 export const OriginsLayout: React.FC = () => {
@@ -10,6 +12,7 @@ export const OriginsLayout: React.FC = () => {
   const { pathname } = useLocation()
   const { id } = useParams<{ id: string }>()
   const { labels } = useSettingsStore()
+  const [highResLoaded, setHighResLoaded] = useState(false)
 
   // Helper recursive function to find a node by ID
   const findNode = (nodes: HistoryNode[], targetId: string): HistoryNode | null => {
@@ -54,6 +57,22 @@ export const OriginsLayout: React.FC = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.bgWrapper} aria-hidden="true">
+        <img
+          src={fabianThumb}
+          alt=""
+          className={styles.bgImageThumb}
+        />
+        <img
+          src={fabianWebp}
+          alt=""
+          loading="lazy"
+          fetchPriority="low"
+          onLoad={() => setHighResLoaded(true)}
+          className={`${styles.bgImageHigh} ${highResLoaded ? styles.loaded : ''}`}
+        />
+      </div>
+
       <PageHeader 
         title={getTitle()} 
         icon="🕰️" 
