@@ -128,7 +128,7 @@ describe('useStoryteller', () => {
     })
 
     act(() => {
-      result.current.stop()
+      result.current.stop?.()
     })
 
     expect(window.speechSynthesis.cancel).toHaveBeenCalled()
@@ -144,7 +144,7 @@ describe('useStoryteller', () => {
     })
 
     act(() => {
-      result.current.pause()
+      result.current.pause?.()
     })
 
     expect(window.speechSynthesis.pause).toHaveBeenCalled()

@@ -11,18 +11,18 @@ export interface StorytellerContextType {
   speak: (text: string) => void
   stopStory: () => void
   toggleMagicWand: () => void
+  pause?: () => void
+  stop?: () => void
 }
 
 const StorytellerContext = createContext<StorytellerContextType | null>(null)
 
 export const useStoryteller = (): StorytellerContextType => {
   const context = useContext(StorytellerContext)
-  if (context) {
-    return context
-  }
 
   // Fallback local implementation if not rendered under a StorytellerProvider.
   // This ensures 100% backward compatibility and test stability.
+  // All hooks are executed unconditionally to comply with React's Rules of Hooks.
   const [isSpeaking, setIsSpeaking] = useState<boolean>(false)
   const language = useSettingsStore((state) => state.language)
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
@@ -138,6 +138,10 @@ export const useStoryteller = (): StorytellerContextType => {
       window.speechSynthesis.pause()
     }
   }, [])
+
+  if (context) {
+    return context
+  }
 
   return {
     isMagicWandActive: false,
@@ -288,6 +292,7 @@ export const StorytellerProvider: React.FC<StorytellerProviderProps> = ({ childr
     }
   }, [stopStory])
 
+  /* eslint-disable react-hooks/refs */
   return React.createElement(
     StorytellerContext.Provider,
     {
@@ -301,4 +306,5 @@ export const StorytellerProvider: React.FC<StorytellerProviderProps> = ({ childr
     },
     children
   )
+  /* eslint-enable react-hooks/refs */
 }

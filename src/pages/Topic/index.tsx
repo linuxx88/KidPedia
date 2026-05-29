@@ -140,6 +140,10 @@ export function isSpoiler(
   return false;
 }
 
+interface TopicPageProps {
+  readonly handleGoHome: () => void
+}
+
 export function TopicPage({ handleGoHome }: TopicPageProps) {
   const { topicId } = useParams()
   const location = useLocation()

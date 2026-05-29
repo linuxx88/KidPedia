@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { type MedalType, getRandomMessage, getMedalIcon } from '../../utils/quizMessages'
 import { type Gender } from '../../utils/helpers'
 import { type Labels } from '../../locales/types'
@@ -60,7 +60,7 @@ export const QuizComponent: React.FC<QuizProps> = ({
   }, [question, stopStory])
 
   // Synthesized ding sound using native Web Audio API
-  const playSynthesizedDing = () => {
+  const playSynthesizedDing = useCallback(() => {
     const isMuted = useSettingsStore.getState().isMuted
     const isSfxMuted = useSettingsStore.getState().isSfxMuted
     if (isMuted || isSfxMuted) return
@@ -92,10 +92,10 @@ export const QuizComponent: React.FC<QuizProps> = ({
     } catch (e: unknown) {
       console.warn('Web Audio API synthesizer failed to play ding sound', e)
     }
-  }
+  }, [stopStory])
 
   // Synthesized perfect fanfare sound using native Web Audio API
-  const playSynthesizedPerfectFanfare = () => {
+  const playSynthesizedPerfectFanfare = useCallback(() => {
     const isMuted = useSettingsStore.getState().isMuted
     const isSfxMuted = useSettingsStore.getState().isSfxMuted
     if (isMuted || isSfxMuted) return
@@ -131,7 +131,7 @@ export const QuizComponent: React.FC<QuizProps> = ({
     } catch (e: unknown) {
       console.warn('Web Audio API perfect arpeggio failed to play', e)
     }
-  }
+  }, [stopStory])
 
   // Trigger sounds when a result appears
   useEffect(() => {
@@ -144,7 +144,7 @@ export const QuizComponent: React.FC<QuizProps> = ({
         playSynthesizedDing()
       }
     }
-  }, [result, playSound])
+  }, [result, playSound, stopStory, playSynthesizedPerfectFanfare, playSynthesizedDing])
 
   const handleAnswerClick = (index: number) => {
     stopStory()
