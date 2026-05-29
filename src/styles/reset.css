@@ -25,6 +25,10 @@ body {
 }
 
 /* On n'active les transitions que lorsque le thème initial est prêt */
+html.theme-ready {
+  transition: background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 html.theme-ready body {
   transition:
     background-color 0.6s cubic-bezier(0.4, 0, 0.2, 1),
@@ -48,16 +52,13 @@ button {
   letter-spacing: var(--ls-wide);
 }
 
-body {
-  /* Le fond clair est géré par la variable --color-app-bg */
+html {
   background-color: var(--color-app-bg);
-  background-attachment: fixed;
 }
 
-/* En mode sombre, le body devient transparent pour laisser voir le StarBackground derrière */
-html.dark body {
-  background-color: transparent !important;
-  background-image: none !important;
+body {
+  background-color: transparent;
+  background-attachment: fixed;
 }
 
 #root {

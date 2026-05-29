@@ -1,12 +1,15 @@
 @import './styles/vars.css';
 @import './styles/reset.css';
 
-/* KIDPEDIA - MAIN ENTRY POINT */
+/* FORCE GLOBAL BACKGROUND VARIABLES FOR STRUCTURAL ELEMENTS */
+html {
+  background-color: var(--color-app-bg) !important;
+}
 
 body {
   margin: 0;
   font-family: var(--font-main);
-  background-color: var(--color-app-bg);
+  background-color: transparent !important;
   color: var(--color-app-text);
   overflow-x: hidden;
   

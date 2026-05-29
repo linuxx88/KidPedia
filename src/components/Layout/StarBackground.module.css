@@ -6,14 +6,13 @@
   z-index: -1;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 1s ease, background-color 1s ease;
+  transition: opacity 1s ease;
 }
 
 .starField {
   background-color: transparent;
 }
 :global(.dark) .starField {
-  background-color: #0f172a;
   opacity: 1;
 }
 
