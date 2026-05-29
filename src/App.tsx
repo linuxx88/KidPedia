@@ -114,6 +114,14 @@ export function App() {
     document.documentElement.setAttribute('data-gender', gender)
   }, [gender])
 
+  // Activer les transitions de thème après le chargement initial pour éviter un flash
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      document.documentElement.classList.add('theme-ready')
+    }, 150)
+    return () => clearTimeout(timer)
+  }, [])
+
   const handleToggleTheme = () => {
     toggleTheme((newTheme) => {
       if (activeProfileId) updateProfile(activeProfileId, { theme: newTheme })
