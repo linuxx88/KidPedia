@@ -12,6 +12,7 @@ import heinoEisnerWebp from '../../assets/images/image_background_origin_of_time
 import tijsVanLeurWebp from '../../assets/images/image_background_origin_of_time/tijs-van-leur-9bd6LStI8ug-unsplash.webp'
 import spencerDavisWebp from '../../assets/images/image_background_origin_of_time/spencer-davis-ilQmlVIMN4c-unsplash.webp'
 import gonzDdlWebp from '../../assets/images/image_background_origin_of_time/gonz-ddl-6ypHZs8WK0k-unsplash.webp'
+import guillermoFerlaWebp from '../../assets/images/image_background_origin_of_time/guillermo-ferla-Oze6U2m1oYU-unsplash.webp'
 import styles from './Origins.module.css'
 
 export const OriginsLayout: React.FC = () => {
@@ -53,6 +54,7 @@ export const OriginsLayout: React.FC = () => {
   const isVillageOdyssey = firstId.startsWith('gv')
   const isCivilizationOdyssey = firstId.startsWith('cv')
   const isMiddleAgesOdyssey = firstId.startsWith('ma')
+  const isUniverseOdyssey = firstId.startsWith('bb')
   
   let bgImage = fabianWebp
   if (isOceanOdyssey) {
@@ -71,6 +73,8 @@ export const OriginsLayout: React.FC = () => {
     bgImage = spencerDavisWebp
   } else if (isMiddleAgesOdyssey) {
     bgImage = gonzDdlWebp
+  } else if (isUniverseOdyssey) {
+    bgImage = guillermoFerlaWebp
   }
 
   const getTitle = () => {
