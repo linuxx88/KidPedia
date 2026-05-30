@@ -7,6 +7,7 @@ import fabianWebp from '../../assets/images/image_background_origin_of_time/fabi
 import joelVodellWebp from '../../assets/images/image_background_origin_of_time/joel-vodell-8Ogfqvw15Rg.webp'
 import ryoYoshitakeWebp from '../../assets/images/image_background_origin_of_time/ryo-yoshitake-Fim4XEASDZc-unsplash.webp'
 import marcosPhotographerJungleWebp from '../../assets/images/image_background_origin_of_time/marcos-photographer-jungle-4426749.webp'
+import vitorPaladiniWebp from '../../assets/images/image_background_origin_of_time/vitor-paladini-9sDE3ENSu48-unsplash.webp'
 import styles from './Origins.module.css'
 
 export const OriginsLayout: React.FC = () => {
@@ -43,6 +44,7 @@ export const OriginsLayout: React.FC = () => {
   const isOceanOdyssey = firstId.startsWith('ms')
   const isLandOdyssey = firstId.startsWith('ls')
   const isDinoOdyssey = firstId.startsWith('dn')
+  const isHumanOdyssey = firstId.startsWith('hf')
   
   let bgImage = fabianWebp
   if (isOceanOdyssey) {
@@ -51,6 +53,8 @@ export const OriginsLayout: React.FC = () => {
     bgImage = ryoYoshitakeWebp
   } else if (isDinoOdyssey) {
     bgImage = marcosPhotographerJungleWebp
+  } else if (isHumanOdyssey) {
+    bgImage = vitorPaladiniWebp
   }
 
   const getTitle = () => {
