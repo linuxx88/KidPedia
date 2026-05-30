@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Outlet, useNavigate, useLocation, useParams } from 'react-router-dom'
 import { PageHeader } from '../../components/Layout/PageHeader'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { originData, type HistoryNode } from '../../data/originData'
-import fabianThumb from '../../assets/images/fabian-schneider-thumb.webp'
-import fabianWebp from '../../assets/images/fabian-schneider.webp'
+import fabianWebp from '../../assets/images/image_background_origin_of_time/fabian-schneider.webp'
+import joelVodellWebp from '../../assets/images/image_background_origin_of_time/joel-vodell-8Ogfqvw15Rg.webp'
 import styles from './Origins.module.css'
 
 export const OriginsLayout: React.FC = () => {
@@ -12,7 +12,6 @@ export const OriginsLayout: React.FC = () => {
   const { pathname } = useLocation()
   const { id } = useParams<{ id: string }>()
   const { labels } = useSettingsStore()
-  const [highResLoaded, setHighResLoaded] = useState(false)
 
   // Helper recursive function to find a node by ID
   const findNode = (nodes: HistoryNode[], targetId: string): HistoryNode | null => {
@@ -37,13 +36,14 @@ export const OriginsLayout: React.FC = () => {
     }
   }
 
-  const getTitle = () => {
-    if (!id) return labels.discovery.originsTitle
-    
-    const node = findNode(originData, id)
-    if (!node || !node.subNodes) return labels.discovery.originsTitle
+  const node = id ? findNode(originData, id) : null
+  const firstId = node?.subNodes?.[0]?.id || ''
+  const isOceanOdyssey = firstId.startsWith('ms')
+  const bgImage = isOceanOdyssey ? joelVodellWebp : fabianWebp
 
-    const firstId = node.subNodes[0]?.id || ''
+  const getTitle = () => {
+    if (!id || !node || !node.subNodes) return labels.discovery.originsTitle
+
     if (firstId.startsWith('ms')) return labels.discovery.oceanOdyssey
     if (firstId.startsWith('ls')) return labels.discovery.landOdyssey
     if (firstId.startsWith('dn')) return labels.discovery.dinoOdyssey
@@ -57,21 +57,13 @@ export const OriginsLayout: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <div className={styles.bgWrapper} aria-hidden="true">
-        <img
-          src={fabianThumb}
-          alt=""
-          className={styles.bgImageThumb}
-        />
-        <img
-          src={fabianWebp}
-          alt=""
-          loading="lazy"
-          fetchPriority="low"
-          onLoad={() => setHighResLoaded(true)}
-          className={`${styles.bgImageHigh} ${highResLoaded ? styles.loaded : ''}`}
-        />
-      </div>
+      <img
+        src={bgImage}
+        alt=""
+        loading="lazy"
+        fetchPriority="low"
+        className={styles.backgroundImage}
+      />
 
       <PageHeader 
         title={getTitle()} 

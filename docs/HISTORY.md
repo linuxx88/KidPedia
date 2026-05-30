@@ -27,17 +27,6 @@ Ce document retrace l'évolution technique et pédagogique du projet, de son lan
     - **main.tsx** : Intégration asynchrone du script de migration avant le rendu React final (`createRoot().render`), garantissant l'intégrité de la réhydratation de la base de données.
     - **Tests & Validation :** 100% de passage au vert sur les tests unitaires de migration de données et sur les tests E2E sous Chromium, Firefox et Webkit.
 
-### VERSION 3.36.0 - Validation de la Suite de Tests End-to-End (E2E) Playwright (26 Mai 2026)
---------------------------------------------------
-- **[QA/CI/E2E] Validation de la stabilité de la suite de tests E2E avec Playwright (Ticket E2E) :**
-    - **Exécution réussie de la suite complète :** Passage au vert des 60 tests E2E sur l'ensemble de la matrice de navigateurs majeurs (Chromium, Firefox et Webkit/Safari) avec un taux de réussite de 100% (60/60).
-    - **Optimisation de la stabilité E2E :** Limitation du nombre de workers (`--workers=2`) et extension intelligente des timeouts (`--timeout=60000`) sur l'environnement de test pour prévenir la famine de ressources CPU/IO sur les conteneurs virtuels et éradiquer les faux positifs ou échecs de timeout sous Webkit et Firefox.
-    - **Validation de la compatibilité IndexedDB/Dexie :** Confirmation du bon fonctionnement du nouveau middleware de persistance `indexedDBMiddleware` sous un cycle de vie réel d'un navigateur : création de profils, enregistrement asynchrone des scores XP/médailles, transitions et isolations strictes des données multi-explorateurs.
 
-### VERSION 3.35.0 - Phase 3 Migration IndexedDB & Middleware Zustand (26 Mai 2026)
---------------------------------------------------
-- **[Logic/Zustand/IndexedDB] Middleware de synchronisation automatique asynchrone (Ticket Infrastructure) :**
-    - **indexedDBMiddleware.ts** : Développement d'un middleware Zustand sur mesure interceptant les mutations du store de progression (`useProgressionStore`) et les persistant automatiquement en tâche de fond dans Dexie.js (`saveProgress`).
-    - **Harnais de test unitaire Vitest :** Intégration d'un mock/adaptateur de l'interface de réhydratation de persistance de Zustand (`store.persist`) pour conserver une compatibilité absolue à 100% avec les 240+ tests unitaires existants sans introduire de régression de build.
 
 

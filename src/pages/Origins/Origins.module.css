@@ -332,59 +332,21 @@
   }
 }
 
-/* --- FIXED IMMERSIVE BACKGROUND WITH BLUR-UP & GRADIENT MASKS --- */
-.bgWrapper {
+/* --- FIXED WEB_WEBP IMMERSIVE BACKGROUND --- */
+.backgroundImage {
   position: fixed;
   inset: 0;
   width: 100vw;
   height: 100vh;
   z-index: 0;
   pointer-events: none;
-  overflow: hidden;
-}
-
-/* Linear gradient overlay for perfect readability (top & bottom masks) */
-.bgWrapper::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(
-    to bottom,
-    rgba(10, 10, 22, 0.9) 0%,
-    rgba(10, 10, 22, 0.6) 15%,
-    rgba(10, 10, 22, 0.3) 30%,
-    rgba(10, 10, 22, 0.3) 70%,
-    rgba(10, 10, 22, 0.85) 90%,
-    rgba(10, 10, 22, 0.95) 100%
-  );
-  z-index: 2;
-  pointer-events: none;
-}
-
-.bgImageThumb,
-.bgImageHigh {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
   object-fit: cover;
-  background-attachment: fixed; /* Fixed viewport rendering */
-  pointer-events: none;
-}
+  object-position: center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-position: center;
 
-.bgImageThumb {
-  filter: blur(25px);
-  transform: scale(1.15); /* Eliminate blurry edges */
-  z-index: 0;
-}
-
-.bgImageHigh {
-  opacity: 0;
-  z-index: 1;
-  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.bgImageHigh.loaded {
-  opacity: 0.55; /* Soft background blend for contrast and immersion */
+  /* Mask-image de dégradé linéaire pour la lisibilité et contraste */
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
+  -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
 }
