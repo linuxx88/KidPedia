@@ -5,6 +5,7 @@ import { useSettingsStore } from '../../store/useSettingsStore'
 import { originData, type HistoryNode } from '../../data/originData'
 import fabianWebp from '../../assets/images/image_background_origin_of_time/fabian-schneider.webp'
 import joelVodellWebp from '../../assets/images/image_background_origin_of_time/joel-vodell-8Ogfqvw15Rg.webp'
+import ryoYoshitakeWebp from '../../assets/images/image_background_origin_of_time/ryo-yoshitake-Fim4XEASDZc-unsplash.webp'
 import styles from './Origins.module.css'
 
 export const OriginsLayout: React.FC = () => {
@@ -39,7 +40,14 @@ export const OriginsLayout: React.FC = () => {
   const node = id ? findNode(originData, id) : null
   const firstId = node?.subNodes?.[0]?.id || ''
   const isOceanOdyssey = firstId.startsWith('ms')
-  const bgImage = isOceanOdyssey ? joelVodellWebp : fabianWebp
+  const isLandOdyssey = firstId.startsWith('ls')
+  
+  let bgImage = fabianWebp
+  if (isOceanOdyssey) {
+    bgImage = joelVodellWebp
+  } else if (isLandOdyssey) {
+    bgImage = ryoYoshitakeWebp
+  }
 
   const getTitle = () => {
     if (!id || !node || !node.subNodes) return labels.discovery.originsTitle
