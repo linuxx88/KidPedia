@@ -10,6 +10,7 @@ import marcosPhotographerJungleWebp from '../../assets/images/image_background_o
 import vitorPaladiniWebp from '../../assets/images/image_background_origin_of_time/vitor-paladini-9sDE3ENSu48-unsplash.webp'
 import heinoEisnerWebp from '../../assets/images/image_background_origin_of_time/heino-eisner-QEMy1ljAzGE-unsplash.webp'
 import tijsVanLeurWebp from '../../assets/images/image_background_origin_of_time/tijs-van-leur-9bd6LStI8ug-unsplash.webp'
+import spencerDavisWebp from '../../assets/images/image_background_origin_of_time/spencer-davis-ilQmlVIMN4c-unsplash.webp'
 import styles from './Origins.module.css'
 
 export const OriginsLayout: React.FC = () => {
@@ -49,6 +50,7 @@ export const OriginsLayout: React.FC = () => {
   const isHumanOdyssey = firstId.startsWith('hf')
   const isEvolutionOdyssey = firstId.startsWith('ev')
   const isVillageOdyssey = firstId.startsWith('gv')
+  const isCivilizationOdyssey = firstId.startsWith('cv')
   
   let bgImage = fabianWebp
   if (isOceanOdyssey) {
@@ -63,6 +65,8 @@ export const OriginsLayout: React.FC = () => {
     bgImage = heinoEisnerWebp
   } else if (isVillageOdyssey) {
     bgImage = tijsVanLeurWebp
+  } else if (isCivilizationOdyssey) {
+    bgImage = spencerDavisWebp
   }
 
   const getTitle = () => {
