@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { useNavigate, useLocation } from 'react-router-dom'
 import { StarBackground } from './StarBackground'
+import { AnimatedBackground } from './AnimatedBackground'
 import { SearchBar } from '../Discovery/SearchBar'
 import { ProfileSelection } from '../Profile/ProfileSelection'
 import { usePlayerStore } from '../../store/usePlayerStore'
@@ -66,6 +67,7 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
   return (
     <div className={`${styles.appContainer} season-${currentSeason}`}>
       <AppGradients />
+      <AnimatedBackground />
       <StarBackground />
 
       {showProfileSelection && (
