@@ -1,15 +1,13 @@
 import React, { useState, useMemo } from 'react';
-import { useNavigate } from 'react-router-dom';
 import { useProgressionStore } from '../../store/useProgressionStore';
 import { useProfileStore } from '../../store/useProfileStore';
 import { useSettingsStore } from '../../store/useSettingsStore';
-import { encyclopedia } from '../../data/topics';
 import { PageHeader } from '../../components/Layout/PageHeader';
-import { AppButton } from '../../components/UI/AppButton';
 import { AvatarDisplay } from '../../components/UI/AvatarDisplay';
 import { StatsTab } from './StatsTab';
 import { ControlTab } from './ControlTab';
 import { TipsTab } from './TipsTab';
+import { TechTab } from './TechTab';
 import { type ProfileProgression } from '../../store/progression/types';
 import styles from './ParentsDashboard.module.css';
 
@@ -22,7 +20,6 @@ const TAB_LABELS = {
 };
 
 export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) => {
-  const navigate = useNavigate();
   const profiles = useProfileStore(state => state.profiles);
   const progressions = useProgressionStore(state => state.progressions);
   const labels = useSettingsStore(state => state.labels);
@@ -120,41 +117,7 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
 
         {/* Tab 4: Technical & Developer Space */}
         {activeTab === 'tech' && (
-          <div className={styles.tabContent}>
-            {/* Database Metrics Card */}
-            <div className={styles.techMetricsCard}>
-              <h3 className={styles.sectionTitle}>⚙️ {language === 'fr' ? 'Statistiques Générales du Projet' : 'General Project Statistics'}</h3>
-              <div className={styles.techGrid}>
-                <div className={styles.techItem}>
-                  <span className={styles.techLabel}>{language === 'fr' ? 'Sujets Encyclopédiques' : 'Encyclopedia Topics'}</span>
-                  <span className={styles.techVal}>{encyclopedia.length}</span>
-                </div>
-                <div className={styles.techItem}>
-                  <span className={styles.techLabel}>{language === 'fr' ? 'Quiz Total' : 'Total Quizzes'}</span>
-                  <span className={styles.techVal}>{encyclopedia.filter(t => 'quiz' in t && t.quiz).length}</span>
-                </div>
-                <div className={styles.techItem}>
-                  <span className={styles.techLabel}>{language === 'fr' ? 'Profils Actifs' : 'Active Profiles'}</span>
-                  <span className={styles.techVal}>{profiles.length}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Developer Zone Map Card */}
-            <div className={styles.developerCard}>
-              <h3 className={styles.sectionTitle}>🛠️ {t.devSectionTitle}</h3>
-              <p className={styles.devDesc}>{t.devSectionDesc}</p>
-              <AppButton onClick={() => navigate('/parents/flow')}>
-                🗺️ {t.devSectionBtn}
-              </AppButton>
-            </div>
-
-            {/* Why KidPedia Info Box */}
-            <div className={styles.infoBox} style={{ marginTop: '2rem' }}>
-              <h4>💡 {t.whyTitle}</h4>
-              <p>{t.whyText}</p>
-            </div>
-          </div>
+          <TechTab language={language} />
         )}
       </div>
     </div>
