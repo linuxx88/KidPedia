@@ -61,23 +61,32 @@ export function HomePage({ topicsData }: HomePageProps) {
         setHighlightedCat(categoryId)
       })
       
-      // 2. Scroller vers la section
-      const scrollTimer = setTimeout(() => {
-        const element = document.getElementById(`category-${categoryId.toLowerCase()}`)
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth', block: 'start' })
-        }
-      }, 300)
+      let scrollTimer: ReturnType<typeof setTimeout> | undefined;
+      
+      // 2. Scroller vers la section une fois le layout stabilisé (double frame + timeout de sécurité)
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          scrollTimer = setTimeout(() => {
+            const element = document.getElementById(`category-${categoryId.toLowerCase()}`)
+            if (element && typeof element.scrollIntoView === 'function') {
+              element.scrollIntoView({ behavior: 'smooth', block: 'start' })
+            }
+          }, 150)
+        })
+      })
 
       // 3. Nettoyer le highlight après 3 secondes
       const highlightTimer = setTimeout(() => setHighlightedCat(null), 3000)
       
-      // 4. Nettoyer l'URL
-      setSearchParams({}, { replace: true })
+      // 4. Nettoyer l'URL après 1 seconde pour éviter d'interrompre le défilement fluide
+      const urlTimer = setTimeout(() => {
+        setSearchParams({}, { replace: true })
+      }, 1000)
       
       return () => {
-        clearTimeout(scrollTimer)
+        if (scrollTimer) clearTimeout(scrollTimer)
         clearTimeout(highlightTimer)
+        clearTimeout(urlTimer)
       }
     }
   }, [searchParams, groupedTopics, setSearchParams, setCategoryExpanded])
