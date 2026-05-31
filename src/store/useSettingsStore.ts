@@ -1,11 +1,12 @@
-import { create } from 'zustand';
-import { persist, createJSONStorage } from 'zustand/middleware';
+import { create, type UseBoundStore, type StoreApi } from 'zustand';
+import { indexedDBMiddleware } from './indexedDBMiddleware';
 import { locales } from '../locales';
 import type { Labels, SupportedLanguage } from '../locales';
 import { type Gender } from '../utils/helpers';
 import type { Profile } from '../store/useProfileStore';
 
 interface SettingsState {
+  theme: 'light' | 'dark';
   isDarkMode: boolean;
   isMuted: boolean;
   isMusicMuted: boolean;
@@ -37,121 +38,127 @@ const updateDOMTheme = (isDark: boolean) => {
 };
 
 export const useSettingsStore = create<SettingsState>()(
-  persist(
-    (set, get) => ({
-      // --- Initial State ---
-      isDarkMode: false,
-      isMuted: false,
-      isMusicMuted: false,
-      isSfxMuted: false,
-      gender: 'boy',
-      language: 'fr',
-      labels: locales['fr'],
-
-      toggleTheme: (updateProfileCb) => {
-        const nextDark = !get().isDarkMode;
-        set({ isDarkMode: nextDark });
-        updateDOMTheme(nextDark); // On le garde ici car toggleTheme est une action UI directe
-        if (updateProfileCb) updateProfileCb(nextDark ? 'dark' : 'light');
-      },
-
-      toggleMute: () => {
-        const nextMuted = !get().isMuted;
-        set({
-          isMuted: nextMuted,
-          isMusicMuted: nextMuted,
-          isSfxMuted: nextMuted
-        });
-      },
-
-      toggleMusicMute: () => {
-        const nextMusicMuted = !get().isMusicMuted;
-        const sfxMuted = get().isSfxMuted;
-        set({
-          isMusicMuted: nextMusicMuted,
-          isMuted: nextMusicMuted && sfxMuted
-        });
-      },
-
-      toggleSfxMute: () => {
-        const nextSfxMuted = !get().isSfxMuted;
-        const musicMuted = get().isMusicMuted;
-        set({
-          isSfxMuted: nextSfxMuted,
-          isMuted: musicMuted && nextSfxMuted
-        });
-      },
-
-      toggleGender: (updateProfileCb) => {
-        const nextGender = get().gender === 'boy' ? 'girl' : 'boy';
-        set({ gender: nextGender });
-        if (updateProfileCb) updateProfileCb(nextGender);
-      },
-
-      setLanguage: (lang, updateProfileCb) => {
-        set({ language: lang, labels: locales[lang] });
-        if (updateProfileCb) updateProfileCb(lang);
-      },
-
-      syncWithProfile: (profile) => {
-        if (!profile) return;
-
-        const isDark = profile.theme === 'dark';
-        const lang = profile.language || 'fr';
-        const current = get();
-
-        if (
-          current.isDarkMode === isDark &&
-          current.gender === profile.gender &&
-          current.language === lang
-        ) {
-          return;
-        }
-
-        set({
-          isDarkMode: isDark,
-          gender: profile.gender,
-          language: lang,
-          labels: locales[lang]
-        });
-
-        updateDOMTheme(isDark);
-      },
-
-      reset: () => {
-        set({
-          isDarkMode: false,
-          isMuted: false,
-          isMusicMuted: false,
-          isSfxMuted: false,
-          gender: 'boy',
-          language: 'fr',
-          labels: locales['fr'],
-        });
-        updateDOMTheme(false);
-      }
-
+  indexedDBMiddleware<SettingsState>({
+    name: 'kp-settings-storage',
+    partialize: (state) => ({
+      isMuted: state.isMuted,
+      theme: state.theme,
+      language: state.language,
     }),
-    {
-      name: 'kp-settings-storage',
-      storage: createJSONStorage(() => localStorage),
-      // ON NE PERSISTE PAS LES LABELS car ils contiennent des fonctions (incompatibles JSON)
-      partialize: (state) => ({
-        isDarkMode: state.isDarkMode,
-        isMuted: state.isMuted,
-        isMusicMuted: state.isMusicMuted,
-        isSfxMuted: state.isSfxMuted,
-        gender: state.gender,
-        language: state.language,
-      }),
-      // On restaure les labels manuellement après la rehydration
-      onRehydrateStorage: () => (state) => {
-        if (state) {
-          updateDOMTheme(state.isDarkMode);
-          // Restaurer les labels basés sur la langue rehydratée
-          state.labels = locales[state.language || 'fr'];
+    onRehydrate: (state) => {
+      if (state) {
+        if (state.theme) {
+          state.isDarkMode = state.theme === 'dark';
+        } else if (state.isDarkMode !== undefined) {
+          state.theme = state.isDarkMode ? 'dark' : 'light';
+        } else {
+          state.theme = 'light';
+          state.isDarkMode = false;
         }
+        updateDOMTheme(state.isDarkMode);
+        state.labels = locales[state.language || 'fr'];
       }
     }
-  )
-);
+  })((set, get) => ({
+    // --- Initial State ---
+    theme: 'light',
+    isDarkMode: false,
+    isMuted: false,
+    isMusicMuted: false,
+    isSfxMuted: false,
+    gender: 'boy',
+    language: 'fr',
+    labels: locales['fr'],
+
+    toggleTheme: (updateProfileCb) => {
+      const nextTheme = get().theme === 'dark' ? 'light' : 'dark';
+      const nextDark = nextTheme === 'dark';
+      set({ theme: nextTheme, isDarkMode: nextDark });
+      updateDOMTheme(nextDark);
+      if (updateProfileCb) updateProfileCb(nextTheme);
+    },
+
+    toggleMute: () => {
+      const nextMuted = !get().isMuted;
+      set({
+        isMuted: nextMuted,
+        isMusicMuted: nextMuted,
+        isSfxMuted: nextMuted
+      });
+    },
+
+    toggleMusicMute: () => {
+      const nextMusicMuted = !get().isMusicMuted;
+      const sfxMuted = get().isSfxMuted;
+      set({
+        isMusicMuted: nextMusicMuted,
+        isMuted: nextMusicMuted && sfxMuted
+      });
+    },
+
+    toggleSfxMute: () => {
+      const nextSfxMuted = !get().isSfxMuted;
+      const musicMuted = get().isMusicMuted;
+      set({
+        isSfxMuted: nextSfxMuted,
+        isMuted: musicMuted && nextSfxMuted
+      });
+    },
+
+    toggleGender: (updateProfileCb) => {
+      const nextGender = get().gender === 'boy' ? 'girl' : 'boy';
+      set({ gender: nextGender });
+      if (updateProfileCb) updateProfileCb(nextGender);
+    },
+
+    setLanguage: (lang, updateProfileCb) => {
+      set({ language: lang, labels: locales[lang] });
+      if (updateProfileCb) updateProfileCb(lang);
+    },
+
+    syncWithProfile: (profile) => {
+      if (!profile) return;
+
+      const isDark = profile.theme === 'dark';
+      const lang = profile.language || 'fr';
+      const current = get();
+
+      if (
+        current.theme === profile.theme &&
+        current.gender === profile.gender &&
+        current.language === lang
+      ) {
+        return;
+      }
+
+      set({
+        theme: profile.theme,
+        isDarkMode: isDark,
+        gender: profile.gender,
+        language: lang,
+        labels: locales[lang]
+      });
+
+      updateDOMTheme(isDark);
+    },
+
+    reset: () => {
+      set({
+        theme: 'light',
+        isDarkMode: false,
+        isMuted: false,
+        isMusicMuted: false,
+        isSfxMuted: false,
+        gender: 'boy',
+        language: 'fr',
+        labels: locales['fr'],
+      });
+      updateDOMTheme(false);
+    }
+  }))
+) as UseBoundStore<StoreApi<SettingsState>> & {
+  persist: {
+    rehydrate: () => Promise<void>;
+    clearStorage: () => Promise<void>;
+  };
+};
