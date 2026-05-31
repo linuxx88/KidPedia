@@ -81,6 +81,9 @@ export function indexedDBMiddleware<T extends object>(
               equippedCompanionId: prog.equippedCompanionId,
               tickets: prog.tickets,
               dailyDiscoveries: prog.dailyDiscoveries || {},
+              stickers: prog.stickers || [],
+              unlockedPuzzlePieces: prog.unlockedPuzzlePieces || {},
+              unlockedWallpapers: prog.unlockedWallpapers || [],
               updatedAt: Date.now()
             }).catch((err: unknown) => {
               if (!isTestEnv()) {

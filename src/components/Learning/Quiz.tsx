@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useState, useEffect, useCallback, useRef } from 'react'
 import { type MedalType, getRandomMessage, getMedalIcon } from '../../utils/quizMessages'
 import { type Gender } from '../../utils/helpers'
 import { type Labels } from '../../locales/types'
@@ -6,6 +6,7 @@ import { useAudioFeedback } from '../../hooks/useAudioFeedback'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { useStoryteller } from '../../hooks/useStoryteller'
 import { QuizAnswerButton } from './QuizAnswerButton'
+import { useProgressionStore } from '../../store/useProgressionStore'
 import styles from './Quiz.module.css'
 
 interface QuizProps {
@@ -21,6 +22,7 @@ interface QuizProps {
   readonly attempts: number
   readonly funFact: string
   readonly anchorIcon?: string
+  readonly categoryKey?: string
 }
 
 export const QuizComponent: React.FC<QuizProps> = ({ 
@@ -36,6 +38,7 @@ export const QuizComponent: React.FC<QuizProps> = ({
   attempts,
   funFact,
   anchorIcon,
+  categoryKey,
 }) => {
   const { playSound } = useAudioFeedback()
   const { language } = useSettingsStore()
@@ -132,6 +135,67 @@ export const QuizComponent: React.FC<QuizProps> = ({
       console.warn('Web Audio API perfect arpeggio failed to play', e)
     }
   }, [stopStory])
+
+  // Synthesized puzzle piece discovery chime using native Web Audio API
+  const playSynthesizedPuzzleChime = useCallback(() => {
+    const isMuted = useSettingsStore.getState().isMuted
+    const isSfxMuted = useSettingsStore.getState().isSfxMuted
+    if (isMuted || isSfxMuted) return
+
+    try {
+      const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
+      if (!AudioContextClass) return
+
+      const ctx = new AudioContextClass()
+      
+      // A magical rising sparkling sound: E5 -> G5 -> C6 -> E6
+      const freqs = [329.63, 392.00, 523.25, 659.25]
+      freqs.forEach((freq, idx) => {
+        const timeOffset = idx * 0.12 // fast arpeggio
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+
+        osc.type = 'triangle' // warmer, puzzle-like sound
+        osc.frequency.setValueAtTime(freq, ctx.currentTime + timeOffset)
+
+        gain.gain.setValueAtTime(0, ctx.currentTime + timeOffset)
+        gain.gain.linearRampToValueAtTime(0.25, ctx.currentTime + timeOffset + 0.03)
+        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + timeOffset + 0.5)
+
+        osc.start(ctx.currentTime + timeOffset)
+        osc.stop(ctx.currentTime + timeOffset + 0.5)
+      })
+
+      // Zero sound leaks: close context when arpeggio ends
+      setTimeout(() => {
+        ctx.close().catch(() => {});
+      }, 1000);
+    } catch (e: unknown) {
+      console.warn('Web Audio API puzzle chime failed to play', e)
+    }
+  }, [])
+
+  const hasAwardedPiece = useRef(false)
+
+  // Award puzzle piece on quiz success (result set)
+  useEffect(() => {
+    if (!result) {
+      hasAwardedPiece.current = false
+      return
+    }
+
+    if (result && categoryKey && !hasAwardedPiece.current) {
+      hasAwardedPiece.current = true
+      const awardResult = useProgressionStore.getState().awardPuzzlePiece(categoryKey)
+      if (awardResult.success && awardResult.isNew) {
+        // Trigger the native Web Audio API success chime upon piece discovery without creating rogue sound leaks
+        playSynthesizedPuzzleChime()
+      }
+    }
+  }, [result, categoryKey, playSynthesizedPuzzleChime])
 
   // Trigger sounds when a result appears
   useEffect(() => {

@@ -346,6 +346,7 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
           attempts={attempts}
           anchorIcon={resolvedAnchorIcon}
           hideQuiz={fromOrigins}
+          categoryKey={topic.categoryKey}
         />
       </StorytellerProvider>
     </Suspense>

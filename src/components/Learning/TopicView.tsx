@@ -28,6 +28,7 @@ export interface TopicViewProps {
   readonly attempts: number
   readonly anchorIcon?: string
   readonly hideQuiz?: boolean
+  readonly categoryKey?: string
 }
 
 interface InteractiveTextProps {
@@ -78,6 +79,7 @@ export const TopicView: React.FC<TopicViewProps> = ({
   attempts,
   anchorIcon,
   hideQuiz,
+  categoryKey,
 }) => {
   const {
     speak,
@@ -171,6 +173,7 @@ export const TopicView: React.FC<TopicViewProps> = ({
                 attempts={attempts}
                 funFact={funFact}
                 anchorIcon={anchorIcon}
+                categoryKey={categoryKey}
               />
             </div>
           </section>

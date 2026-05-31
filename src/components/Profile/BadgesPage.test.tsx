@@ -78,6 +78,9 @@ describe('BadgesPage', () => {
     getTickets: vi.fn().mockReturnValue(0),
     isCompleted: vi.fn().mockReturnValue(false),
     isUnlocked: vi.fn().mockReturnValue(true),
+    getStickers: vi.fn().mockReturnValue([]),
+    getUnlockedPuzzlePieces: vi.fn().mockReturnValue({}),
+    getUnlockedWallpapers: vi.fn().mockReturnValue([]),
     addXP: vi.fn(),
     addBadge: vi.fn(),
     addTickets: vi.fn(),
@@ -86,7 +89,10 @@ describe('BadgesPage', () => {
     equipAccessory: vi.fn(),
     equipCompanion: vi.fn(),
     deleteProfileProgression: vi.fn(),
-    reset: vi.fn()
+    reset: vi.fn(),
+    unlockSticker: vi.fn(),
+    unlockPuzzlePiece: vi.fn(),
+    awardPuzzlePiece: vi.fn().mockReturnValue({ success: true, pieceIndex: 0, isNew: true })
   }
 
   let playerState: PlayerStateData = {

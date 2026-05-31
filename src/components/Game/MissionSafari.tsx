@@ -201,6 +201,7 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
                   labels={labels}
                   attempts={attempts}
                   funFact={activeQuiz.funFact[language]}
+                  categoryKey={activeQuiz.categoryKey}
                 />
               )}
             </AppOverlay>

@@ -9,6 +9,11 @@ import { useSettingsStore } from './useSettingsStore';
 import { launchCelebration } from '../utils/celebrations';
 import { RANKS } from '../data/rewards';
 
+export interface Sticker {
+  readonly id: string;
+  readonly unlockedAt: string;
+}
+
 interface ProfileProgression {
   badges: EarnedBadge[];
   totalXP: number;
@@ -18,6 +23,9 @@ interface ProfileProgression {
   equippedCompanionId: string | null; // ID du compagnon actif
   tickets: number; // solde de tickets possédés
   dailyDiscoveries?: Record<string, TopicId[]>;
+  stickers?: readonly Sticker[];
+  unlockedPuzzlePieces?: Record<string, number[]>;
+  unlockedWallpapers?: readonly string[];
 }
 
 export interface ProgressionState {
@@ -35,6 +43,9 @@ export interface ProgressionState {
   getTickets: () => number;
   isCompleted: (topicId: TopicId) => boolean;
   isUnlocked: (topicId: TopicId) => boolean;
+  getStickers: () => readonly Sticker[];
+  getUnlockedPuzzlePieces: () => Record<string, number[]>;
+  getUnlockedWallpapers: () => readonly string[];
 
   // --- Actions ---
   addXP: (amount: number) => void;
@@ -47,6 +58,9 @@ export interface ProgressionState {
   equipCompanion: (companionId: string | null) => void;
   deleteProfileProgression: (profileId: string) => void;
   reset: () => void;
+  unlockSticker: (stickerId: string) => void;
+  unlockPuzzlePiece: (category: string, pieceIndex: number) => void;
+  awardPuzzlePiece: (category: string) => { readonly success: boolean; readonly pieceIndex: number; readonly isNew: boolean };
 }
 
 const xpValues: Record<string, number> = { gold: 1000, silver: 500, bronze: 250 };
@@ -88,7 +102,10 @@ const DEFAULT_PROGRESSION: ProfileProgression = {
   equippedAccessoryId: null,
   equippedCompanionId: null,
   tickets: 0,
-  dailyDiscoveries: {}
+  dailyDiscoveries: {},
+  stickers: [],
+  unlockedPuzzlePieces: {},
+  unlockedWallpapers: []
 };
 
 /**
@@ -157,7 +174,10 @@ const migrateLegacyProfile = (profileId: string): ProfileProgression => {
       equippedAccessoryId: null,
       equippedCompanionId: null,
       tickets: 0,
-      dailyDiscoveries: {}
+      dailyDiscoveries: {},
+      stickers: [],
+      unlockedPuzzlePieces: {},
+      unlockedWallpapers: []
     };
   } catch (e) {
     console.error("Migration error", e);
@@ -217,6 +237,18 @@ export const useProgressionStore = create<ProgressionState>()(
 
         const prevTopic = categoryTopics[index - 1];
         return isCompleted(prevTopic.id);
+      },
+      getStickers: () => {
+        const { progressions, activeProfileId } = get();
+        return (activeProfileId ? progressions[activeProfileId]?.stickers : []) || [];
+      },
+      getUnlockedPuzzlePieces: () => {
+        const { progressions, activeProfileId } = get();
+        return (activeProfileId ? progressions[activeProfileId]?.unlockedPuzzlePieces : {}) || {};
+      },
+      getUnlockedWallpapers: () => {
+        const { progressions, activeProfileId } = get();
+        return (activeProfileId ? progressions[activeProfileId]?.unlockedWallpapers : []) || [];
       },
 
       // --- Actions ---
@@ -559,6 +591,136 @@ export const useProgressionStore = create<ProgressionState>()(
           progressions: {},
           activeProfileId: null,
         });
+      },
+
+      unlockSticker: (stickerId) => {
+        const { activeProfileId } = get();
+        if (!activeProfileId) return;
+        set((state) => {
+          const current = state.progressions[activeProfileId] || { ...DEFAULT_PROGRESSION };
+          const stickersList = current.stickers || [];
+          if (stickersList.some(s => s.id === stickerId)) {
+            return state;
+          }
+          const nextStickers = [...stickersList, { id: stickerId, unlockedAt: new Date().toISOString() }];
+          return {
+            progressions: {
+              ...state.progressions,
+              [activeProfileId]: {
+                ...current,
+                stickers: nextStickers
+              }
+            }
+          };
+        });
+      },
+
+      unlockPuzzlePiece: (category, pieceIndex) => {
+        const { activeProfileId } = get();
+        if (!activeProfileId) return;
+        set((state) => {
+          const current = state.progressions[activeProfileId] || { ...DEFAULT_PROGRESSION };
+          const unlockedPuzzlePieces = current.unlockedPuzzlePieces || {};
+          const currentPieces = unlockedPuzzlePieces[category] || [];
+          if (currentPieces.includes(pieceIndex)) {
+            return state;
+          }
+          const nextPieces = [...currentPieces, pieceIndex].sort((a, b) => a - b);
+          const nextPuzzle = {
+            ...unlockedPuzzlePieces,
+            [category]: nextPieces
+          };
+
+          const unlockedWallpapers = current.unlockedWallpapers || [];
+          const nextWallpapers = [...unlockedWallpapers];
+          const currentStickers = current.stickers || [];
+          const nextStickers = [...currentStickers];
+
+          if (nextPieces.length === 4) {
+            const wallpaperId = `${category}-wallpaper`;
+            if (!nextWallpapers.includes(wallpaperId)) {
+              nextWallpapers.push(wallpaperId);
+            }
+            if (!nextStickers.some((s) => s.id === wallpaperId)) {
+              nextStickers.push({ id: wallpaperId, unlockedAt: new Date().toISOString() });
+            }
+          }
+
+          return {
+            progressions: {
+              ...state.progressions,
+              [activeProfileId]: {
+                ...current,
+                unlockedPuzzlePieces: nextPuzzle,
+                unlockedWallpapers: nextWallpapers,
+                stickers: nextStickers
+              }
+            }
+          };
+        });
+      },
+
+      awardPuzzlePiece: (category) => {
+        const { activeProfileId } = get();
+        if (!activeProfileId) {
+          return { success: false, pieceIndex: -1, isNew: false };
+        }
+
+        let result = { success: false, pieceIndex: -1, isNew: false };
+
+        set((state) => {
+          const current = state.progressions[activeProfileId] || { ...DEFAULT_PROGRESSION };
+          const unlockedPuzzlePieces = current.unlockedPuzzlePieces || {};
+          const currentPieces = unlockedPuzzlePieces[category] || [];
+
+          if (currentPieces.length >= 4) {
+            result = { success: false, pieceIndex: -1, isNew: false };
+            return state;
+          }
+
+          const nextIndex = [0, 1, 2, 3].find(idx => !currentPieces.includes(idx));
+          if (nextIndex === undefined) {
+            result = { success: false, pieceIndex: -1, isNew: false };
+            return state;
+          }
+
+          const nextPieces = [...currentPieces, nextIndex].sort((a, b) => a - b);
+          const nextPuzzle = {
+            ...unlockedPuzzlePieces,
+            [category]: nextPieces
+          };
+
+          const unlockedWallpapers = current.unlockedWallpapers || [];
+          const nextWallpapers = [...unlockedWallpapers];
+          const currentStickers = current.stickers || [];
+          const nextStickers = [...currentStickers];
+
+          if (nextPieces.length === 4) {
+            const wallpaperId = `${category}-wallpaper`;
+            if (!nextWallpapers.includes(wallpaperId)) {
+              nextWallpapers.push(wallpaperId);
+            }
+            if (!nextStickers.some((s) => s.id === wallpaperId)) {
+              nextStickers.push({ id: wallpaperId, unlockedAt: new Date().toISOString() });
+            }
+          }
+
+          result = { success: true, pieceIndex: nextIndex, isNew: true };
+
+          return {
+            progressions: {
+              ...state.progressions,
+              [activeProfileId]: {
+                ...current,
+                unlockedPuzzlePieces: nextPuzzle,
+                unlockedWallpapers: nextWallpapers,
+                stickers: nextStickers
+              }
+            }
+          };
+        });
+
+        return result;
       }
     })
   )

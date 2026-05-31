@@ -1,6 +1,11 @@
 import Dexie, { type Table } from 'dexie';
 import { type EarnedBadge, type TopicId } from '../types/domain';
 
+export interface DbSticker {
+  readonly id: string;
+  readonly unlockedAt: string;
+}
+
 export interface DbProfileProgression {
   profileId: string;
   badges: EarnedBadge[];
@@ -11,6 +16,9 @@ export interface DbProfileProgression {
   equippedCompanionId: string | null;
   tickets: number;
   dailyDiscoveries: Record<string, TopicId[]>;
+  stickers?: readonly DbSticker[];
+  unlockedPuzzlePieces?: Record<string, number[]>;
+  unlockedWallpapers?: readonly string[];
   updatedAt: number;
 }
 
