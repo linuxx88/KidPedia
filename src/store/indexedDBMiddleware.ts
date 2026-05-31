@@ -9,8 +9,6 @@ interface StateStorageWithPromises {
   removeItem(name: string): Promise<void>;
 }
 
-const storage = indexedDBStorage as unknown as StateStorageWithPromises;
-
 export function isTestEnv(): boolean {
   const win = typeof window !== 'undefined' ? (window as unknown as Record<string, unknown>) : null;
   const glob = typeof globalThis !== 'undefined' ? (globalThis as unknown as Record<string, unknown>) : null;
@@ -40,6 +38,8 @@ export function indexedDBMiddleware<T extends object>(
 export function indexedDBMiddleware<T extends object>(
   configOrOptions: StateCreator<T> | IndexedDBMiddlewareOptions<T>
 ): StateCreator<T> | ((config: StateCreator<T>) => StateCreator<T>) {
+  const storage = indexedDBStorage as unknown as StateStorageWithPromises;
+
   if (typeof configOrOptions === 'function') {
     // Legacy Progression Mode
     const config = configOrOptions as unknown as StateCreator<ProgressionState>;
