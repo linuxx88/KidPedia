@@ -2,6 +2,8 @@ import React, { useState, useRef, useMemo, useCallback, useEffect, useLayoutEffe
 import { useNavigate } from 'react-router-dom';
 import { useSettingsStore } from '../../store/useSettingsStore';
 import { usePlayerStore } from '../../store/usePlayerStore';
+import { useProgressionStore } from '../../store/useProgressionStore';
+import { type TopicId } from '../../types/domain';
 import { PageHeader } from '../Layout/PageHeader';
 import { AppButton } from '../UI/AppButton';
 import { AppOverlay } from '../UI/AppOverlay';
@@ -105,6 +107,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
   const { labels, language } = useSettingsStore();
   const { badges } = usePlayerStore();
   const navigate = useNavigate();
+  const isUnlocked = useProgressionStore((state) => state.isUnlocked);
   
   const { zoom, zoomIn, zoomOut, resetZoom } = useMapZoom();
   const { effects: ripples, addEffect: addRipple } = useVisualEffects(MAP_SVG_CONFIG.RIPPLE_DURATION);
@@ -484,21 +487,49 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
           title={selectedPoint?.title[language]}
           data-testid="discovery-popup"
         >
-          {selectedPoint && (
-            <div className={styles.popupContent}>
-              <span className={styles.popupIcon} aria-hidden="true">{selectedPoint.icon}</span>
-              <p className={styles.popupText}>{labels.discovery.discoveryMessage}</p>
-              <AppButton 
-                onClick={() => {
-                  playClickSound();
-                  navigate(`/topic/${selectedPoint.topicId}`);
-                }}
-                className={styles.explorerBtnMap}
-              >
-                {labels.discovery.explore(selectedPoint.title[language])}
-              </AppButton>
-            </div>
-          )}
+          {selectedPoint && (() => {
+            const unlocked = isUnlocked(selectedPoint.topicId as TopicId);
+            return (
+              <div className={styles.popupContent}>
+                {unlocked ? (
+                  <>
+                    <span className={styles.popupIcon} aria-hidden="true">{selectedPoint.icon}</span>
+                    <p className={styles.popupText}>{labels.discovery.discoveryMessage}</p>
+                    <AppButton 
+                      onClick={() => {
+                        playClickSound();
+                        navigate(`/topic/${selectedPoint.topicId}`);
+                      }}
+                      className={styles.explorerBtnMap}
+                    >
+                      {labels.discovery.explore(selectedPoint.title[language])}
+                    </AppButton>
+                  </>
+                ) : (
+                  <>
+                    <span className={`${styles.popupIcon} ${styles.lockedIcon}`} aria-hidden="true">🦉🧙‍♂️🔒</span>
+                    <h3 className={styles.owlTitle}>
+                      {language === 'fr' ? 'Le Sage Hibou te chuchote...' : 'The Wise Owl whispers...'}
+                    </h3>
+                    <p className={styles.popupText}>
+                      {language === 'fr' 
+                        ? `Oh oh ! ${selectedPoint.title.fr} est encore secret. Réussis les aventures précédentes pour obtenir la clé magique ! 🗝️✨`
+                        : `Oops! ${selectedPoint.title.en} is still secret. Succeed in the previous adventures to get the magic key! 🗝️✨`}
+                    </p>
+                    <AppButton 
+                      onClick={() => {
+                        playClickSound();
+                        setSelectedPoint(null);
+                      }}
+                      className={styles.explorerBtnMap}
+                    >
+                      {language === 'fr' ? 'Compris ! 🚀' : 'Got it! 🚀'}
+                    </AppButton>
+                  </>
+                )}
+              </div>
+            );
+          })()}
         </AppOverlay>
       </div>
     </OrientationGuard>

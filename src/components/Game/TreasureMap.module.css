@@ -227,3 +227,15 @@
     font-size: 2rem;
   }
 }
+
+.lockedIcon {
+  animation: none;
+  font-size: 5rem;
+}
+
+.owlTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  margin: -0.5rem 0 0 0;
+}
