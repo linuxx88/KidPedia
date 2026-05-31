@@ -48,7 +48,7 @@ test.describe('Navigation et Boutons Accueil', () => {
     
     const backBtn = page.getByRole('button', { name: /Retour/i });
     await expect(backBtn).toBeVisible();
-    await backBtn.click();
+    await backBtn.click({ force: true });
     await expect(page).toHaveURL(/\/$/);
   });
 

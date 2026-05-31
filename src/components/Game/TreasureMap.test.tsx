@@ -6,6 +6,7 @@ import { fr } from '../../locales/fr'
 import { en } from '../../locales/en'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { usePlayerStore, type PlayerStateData } from '../../store/usePlayerStore'
+import { useProgressionStore, type ProgressionState } from '../../store/useProgressionStore'
 import { type Labels } from '../../locales/types'
 
 // On mock scrollTo car JSDOM ne le supporte pas
@@ -18,6 +19,10 @@ vi.mock('../../store/useSettingsStore', () => ({
 
 vi.mock('../../store/usePlayerStore', () => ({
   usePlayerStore: vi.fn(),
+}))
+
+vi.mock('../../store/useProgressionStore', () => ({
+  useProgressionStore: vi.fn(),
 }))
 
 const mockNavigate = vi.fn()
@@ -76,10 +81,43 @@ describe('TreasureMap', () => {
     avatar: '🦁'
   }
 
+  const progressionState: ProgressionState = {
+    progressions: {},
+    activeProfileId: null,
+    getBadges: vi.fn().mockReturnValue([]),
+    getTotalXP: vi.fn().mockReturnValue(0),
+    getCurrentRankId: vi.fn().mockReturnValue('apprentice'),
+    getUnlockedAccessories: vi.fn().mockReturnValue([]),
+    getEquippedAccessoryId: vi.fn().mockReturnValue(null),
+    getEquippedCompanionId: vi.fn().mockReturnValue(null),
+    getTickets: vi.fn().mockReturnValue(0),
+    isCompleted: vi.fn().mockReturnValue(false),
+    isUnlocked: vi.fn().mockReturnValue(true),
+    getStickers: vi.fn().mockReturnValue([]),
+    getUnlockedPuzzlePieces: vi.fn().mockReturnValue({}),
+    getUnlockedWallpapers: vi.fn().mockReturnValue([]),
+    addXP: vi.fn(),
+    addBadge: vi.fn(),
+    addTickets: vi.fn(),
+    buyAccessory: vi.fn().mockReturnValue(true),
+    clearBadges: vi.fn(),
+    syncWithProfile: vi.fn(),
+    equipAccessory: vi.fn(),
+    equipCompanion: vi.fn(),
+    deleteProfileProgression: vi.fn(),
+    reset: vi.fn(),
+    unlockSticker: vi.fn(),
+    unlockPuzzlePiece: vi.fn(),
+    awardPuzzlePiece: vi.fn().mockReturnValue({ success: true, pieceIndex: 0, isNew: true })
+  }
+
   beforeEach(() => {
     vi.clearAllMocks()
     vi.mocked(useSettingsStore).mockReturnValue(defaultSettings)
     vi.mocked(usePlayerStore).mockReturnValue(defaultPlayer)
+    vi.mocked(useProgressionStore).mockImplementation((selector) => {
+      return typeof selector === 'function' ? selector(progressionState) : progressionState;
+    })
   })
 
   it('affiche la carte et les points initiaux (minZoom: 1)', () => {
