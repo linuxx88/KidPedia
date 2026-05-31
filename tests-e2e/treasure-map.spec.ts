@@ -32,30 +32,30 @@ test.describe('La Carte aux Trésors', () => {
   });
 
   test('devrait afficher des nouveaux points lors du zoom', async ({ page }) => {
-    await expect(page.getByText('Le Grand Canyon')).toBeVisible();
-    await expect(page.getByText('Le Panda')).not.toBeVisible();
+    await expect(page.getByText('La Tour Eiffel')).toBeVisible();
+    await expect(page.getByText('Le Sahara')).not.toBeVisible();
 
     await page.getByLabel('Zoomer', { exact: true }).click();
-    await expect(page.getByText('Le Panda')).toBeVisible();
+    await expect(page.getByText('Le Sahara')).toBeVisible();
   });
 
   test('devrait ouvrir une popup et naviguer vers un sujet', async ({ page }) => {
-    const grandCanyon = page.getByText('Le Grand Canyon');
-    await grandCanyon.click();
+    const tourEiffel = page.getByText('La Tour Eiffel');
+    await tourEiffel.click();
 
     // Vérifier la popup via testid (maintenant transmis par AppOverlay)
     const popup = page.getByTestId('discovery-popup');
     await expect(popup).toBeVisible();
     
     // Le titre est dans un h2 à l'intérieur
-    await expect(popup.locator('h2')).toContainText('Grand Canyon');
+    await expect(popup.locator('h2')).toContainText('Tour Eiffel');
 
     // Cliquer sur le bouton d'exploration
     const exploreBtn = popup.getByRole('button', { name: /Explorer/i });
     await exploreBtn.click();
 
-    await expect(page).toHaveURL(/\/topic\/grand-canyon/);
-    await expect(page.getByRole('heading', { level: 2 }).first()).toContainText('Grand Canyon');
+    await expect(page).toHaveURL(/\/topic\/tour-eiffel/);
+    await expect(page.getByRole('heading', { level: 2 }).first()).toContainText('Tour Eiffel');
   });
 
   test('devrait zoomer par double-clic sur la carte', async ({ page }) => {
