@@ -5,10 +5,12 @@ import styles from './StorytellerButton.module.css'
 
 export interface StorytellerButtonProps {
   readonly className?: string
+  readonly onClick?: () => void
 }
 
 export const StorytellerButton: React.FC<StorytellerButtonProps> = ({
   className = '',
+  onClick,
 }) => {
   const language = useSettingsStore((state) => state.language)
   const { isMagicWandActive, isSpeaking, toggleMagicWand } = useStoryteller()
@@ -54,7 +56,7 @@ export const StorytellerButton: React.FC<StorytellerButtonProps> = ({
       <button
         type="button"
         disabled={!isSupported}
-        onClick={toggleMagicWand}
+        onClick={onClick || toggleMagicWand}
         className={`${styles.storytellerBtn} ${isMagicWandActive ? styles.speaking : ''}`}
         title={getTitle()}
         aria-label={getAriaLabel()}

@@ -113,6 +113,8 @@ export interface Labels {
     secretHistory: string;
     closeHistory: string;
     journeyContinues: string;
+    owlWhispers: string;
+    lockedTopicMessage: (title: string) => string;
   };
   quiz: {
     title: string;

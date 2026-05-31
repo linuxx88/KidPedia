@@ -120,6 +120,8 @@ export const fr: Labels = {
     secretHistory: "L'Histoire Secrète",
     closeHistory: "Fermer l'histoire ✖️",
     journeyContinues: 'Le voyage ne fait que commencer...',
+    owlWhispers: 'Le Sage Hibou te chuchote...',
+    lockedTopicMessage: (title: string) => `Oh oh ! ${title} est encore secret. Réussis les aventures précédentes pour obtenir la clé magique ! 🗝️✨`,
   },
   quiz: {
     title: '🧩 Petit Quiz !',

@@ -142,8 +142,7 @@ export const ParallaxTopicCard: React.FC<ParallaxTopicCardProps> = ({
     >
       <button
         className={styles.cardInteractiveArea}
-        onClick={isUnlocked ? onClick : undefined}
-        disabled={!isUnlocked}
+        onClick={onClick}
         aria-label={`${title}. ${description}${!isUnlocked ? '. Verrouillé' : ''}${isDiscovered ? '. Médaille obtenue' : ''}`}
         data-testid={`topic-card-${id}`}
       >

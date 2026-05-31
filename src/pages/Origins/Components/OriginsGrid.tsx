@@ -4,6 +4,12 @@ import { useSettingsStore } from '../../../store/useSettingsStore'
 import { type HistoryNode } from '../../../data/originData'
 import { ORIGINS_SVG_CONFIG } from '../../../constants/geometry'
 import styles from '../Origins.module.css'
+import { useProgressionStore } from '../../../store/useProgressionStore'
+import { type TopicId } from '../../../types/domain'
+import { AppOverlay } from '../../../components/UI/AppOverlay'
+import { AppButton } from '../../../components/UI/AppButton'
+import { StorytellerButton } from '../../../components/UI/StorytellerButton'
+import { useStoryteller } from '../../../hooks/useStoryteller'
 
 interface OriginsGridProps {
   nodes: HistoryNode[]
@@ -12,8 +18,12 @@ interface OriginsGridProps {
 
 export const OriginsGrid: React.FC<OriginsGridProps> = ({ nodes, getStroke }) => {
   const navigate = useNavigate()
-  const { language } = useSettingsStore()
+  const { labels, language } = useSettingsStore()
   const [activeId, setActiveId] = useState<string | null>(null)
+  const [lockedTopic, setLockedTopic] = useState<HistoryNode | null>(null)
+
+  const isUnlocked = useProgressionStore((state) => state.isUnlocked)
+  const { speak, stopStory } = useStoryteller()
 
   const handleNodeClick = (node: HistoryNode) => {
     const isActive = activeId === node.id;
@@ -23,7 +33,11 @@ export const OriginsGrid: React.FC<OriginsGridProps> = ({ nodes, getStroke }) =>
         navigate(`/origins/${node.id}`)
         setActiveId(null)
       } else if (node.topicId) {
-        navigate(`/topic/${node.topicId}`, { state: { fromOrigins: true } })
+        if (isUnlocked(node.topicId as TopicId)) {
+          navigate(`/topic/${node.topicId}`, { state: { fromOrigins: true } })
+        } else {
+          setLockedTopic(node)
+        }
       } else {
         setActiveId(null)
       }
@@ -92,6 +106,40 @@ export const OriginsGrid: React.FC<OriginsGridProps> = ({ nodes, getStroke }) =>
           )
         })}
       </div>
+
+      <AppOverlay
+        isOpen={!!lockedTopic}
+        onClose={() => {
+          stopStory()
+          setLockedTopic(null)
+        }}
+        closeLabel={labels.common.close}
+        title={lockedTopic?.title[language]}
+        data-testid="locked-topic-popup"
+      >
+        {lockedTopic && (
+          <div className={styles.popupContent}>
+            <StorytellerButton 
+              onClick={() => speak(`${labels.discovery.owlWhispers}. ${labels.discovery.lockedTopicMessage(lockedTopic.title[language])}`)}
+            />
+            <h3 className={styles.owlTitle}>
+              {labels.discovery.owlWhispers}
+            </h3>
+            <p className={styles.popupText}>
+              {labels.discovery.lockedTopicMessage(lockedTopic.title[language])}
+            </p>
+            <AppButton 
+              onClick={() => {
+                stopStory()
+                setLockedTopic(null)
+              }}
+              className={styles.explorerBtnMap}
+            >
+              {language === 'fr' ? 'Compris ! 🚀' : 'Got it! 🚀'}
+            </AppButton>
+          </div>
+        )}
+      </AppOverlay>
     </div>
   )
 }

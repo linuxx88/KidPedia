@@ -19,6 +19,10 @@ import { type TopicId, type TopicsData } from '../../types/domain'
 import { getMedalIcon } from '../../utils/quizMessages'
 import styles from './Home.module.css'
 import AppIcon from '../../components/UI/AppIcon'
+import { AppOverlay } from '../../components/UI/AppOverlay'
+import { AppButton } from '../../components/UI/AppButton'
+import { StorytellerButton } from '../../components/UI/StorytellerButton'
+import { useStoryteller } from '../../hooks/useStoryteller'
 
 export interface HomePageProps {
   topicsData: TopicsData
@@ -32,12 +36,21 @@ export function HomePage({ topicsData }: HomePageProps) {
   const [searchParams, setSearchParams] = useSearchParams()
   const { setSearch, groupedTopics, handleTopicClick } = topicsData
 
+  const { speak, stopStory } = useStoryteller()
+
   const isUnlocked = useProgressionStore((state) => state.isUnlocked)
   const tickets = useProgressionStore((state) => state.getTickets())
+
+  const [lockedTopic, setLockedTopic] = useState<Topic | null>(null)
 
   const handleTopicCardClick = (id: string) => {
     if (isUnlocked(id as TopicId)) {
       handleTopicClick(id)
+    } else {
+      const topicObj = encyclopedia.find((t) => t.id === id)
+      if (topicObj) {
+        setLockedTopic(topicObj)
+      }
     }
   }
 
@@ -331,6 +344,40 @@ export function HomePage({ topicsData }: HomePageProps) {
           </div>
         </div>
       )}
+
+      <AppOverlay
+        isOpen={!!lockedTopic}
+        onClose={() => {
+          stopStory()
+          setLockedTopic(null)
+        }}
+        closeLabel={labels.common.close}
+        title={lockedTopic?.title[language]}
+        data-testid="locked-topic-popup"
+      >
+        {lockedTopic && (
+          <div className={styles.popupContent}>
+            <StorytellerButton 
+              onClick={() => speak(`${labels.discovery.owlWhispers}. ${labels.discovery.lockedTopicMessage(lockedTopic.title[language])}`)}
+            />
+            <h3 className={styles.owlTitle}>
+              {labels.discovery.owlWhispers}
+            </h3>
+            <p className={styles.popupText}>
+              {labels.discovery.lockedTopicMessage(lockedTopic.title[language])}
+            </p>
+            <AppButton 
+              onClick={() => {
+                stopStory()
+                setLockedTopic(null)
+              }}
+              className={styles.explorerBtnMap}
+            >
+              {language === 'fr' ? 'Compris ! 🚀' : 'Got it! 🚀'}
+            </AppButton>
+          </div>
+        )}
+      </AppOverlay>
     </div>
   )
 }

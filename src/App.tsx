@@ -38,6 +38,7 @@ import { HomePage } from './pages/Home'
 
 import { PWAPrompt } from './components/UI/PWAPrompt'
 import ScrollToTop from './components/UI/ScrollToTop'
+import { StorytellerProvider } from './hooks/useStoryteller'
 import styles from './App.module.css'
 
 // Un petit composant de chargement simple et rapide
@@ -176,151 +177,152 @@ export function App() {
   }
 
   return (
+    <StorytellerProvider>
+      <MainLayout
+        isDarkMode={isDarkMode}
+        toggleTheme={handleToggleTheme}
+        gender={gender}
+        toggleGender={handleToggleGender}
+        search={search}
+        setSearch={setSearch}
+        onClearSearch={resetSearch}
+        onOpenParents={openParentsZone}
+      >
+        <ScrollToTop />
+        <ToastContainer />
+        <ProgressionListener />
 
-    <MainLayout
-      isDarkMode={isDarkMode}
-      toggleTheme={handleToggleTheme}
-      gender={gender}
-      toggleGender={handleToggleGender}
-      search={search}
-      setSearch={setSearch}
-      onClearSearch={resetSearch}
-      onOpenParents={openParentsZone}
-    >
-      <ScrollToTop />
-      <ToastContainer />
-      <ProgressionListener />
+        {showParentalGate && (
+          <ParentalGate 
+            onSuccess={handleParentalSuccess}
+            onCancel={() => setShowParentalGate(false)}
+          />
+        )}
 
-      {showParentalGate && (
-        <ParentalGate 
-          onSuccess={handleParentalSuccess}
-          onCancel={() => setShowParentalGate(false)}
-        />
-      )}
+        {(isFirstVisit || !activeProfileId) && (
+          <ProfileSelection 
+            profiles={profiles}
+            isFirstVisit={isFirstVisit}
+            labels={labels}
+            language={language}
+            onAddProfile={addProfile}
+            onSelectProfile={selectProfile}
+            onDeleteProfile={deleteProfile}
+          />
+        )}
 
-      {(isFirstVisit || !activeProfileId) && (
-        <ProfileSelection 
-          profiles={profiles}
-          isFirstVisit={isFirstVisit}
-          labels={labels}
-          language={language}
-          onAddProfile={addProfile}
-          onSelectProfile={selectProfile}
-          onDeleteProfile={deleteProfile}
-        />
-      )}
+        <Suspense fallback={<LoadingFallback />}>
+          <Routes location={location} key={location.pathname}>
+            <Route
+              path="/"
+              element={
+                <div className={styles.routeWrapper}>
+                  <HomePage topicsData={topicsData} />
+                </div>
+              }
+            />
+            <Route
+              path="/topic/:topicId"
+              element={
+                <div className={styles.routeWrapper}>
+                  <TopicPage handleGoHome={handleGoHome} />
+                </div>
+              }
+            />
+            <Route
+              path="/badges"
+              element={
+                <div className={styles.routeWrapper}>
+                  <BadgesPage onBack={() => navigate('/')} />
+                </div>
+              }
+            />
+            <Route
+              path="/gallery"
+              element={
+                <div className={styles.routeWrapper}>
+                  <ExplorerGallery onTopicClick={(id) => navigate(`/topic/${id}`)} />
+                </div>
+              }
+            />
+            <Route
+              path="/gifts"
+              element={
+                <div className={styles.routeWrapper}>
+                  <GiftsPage />
+                </div>
+              }
+            />
+            <Route
+              path="/parents"
+              element={
+                <div className={styles.routeWrapper}>
+                  <ParentsDashboard onBack={() => navigate('/')} />
+                </div>
+              }
+            />
+            <Route
+              path="/parents/flow"
+              element={
+                <div className={styles.routeWrapper}>
+                  <FlowDashboard onBack={() => navigate('/parents')} />
+                </div>
+              }
+            />
+            <Route
+              path="/map"
+              element={
+                <div className={styles.routeWrapper}>
+                  <TreasureMap onBack={() => navigate('/')} markers={mapData} />
+                </div>
+              }
+            />
+            <Route path="/origins" element={<OriginsLayout />}>
+              <Route index element={<OriginsList />} />
+              <Route path=":id" element={<OriginsDetail />} />
+            </Route>
+            <Route
+              path="/safari"
+              element={
+                <div className={styles.routeWrapper}>
+                  <MissionSafari onBack={() => navigate('/')} />
+                </div>
+              }
+            />
+            <Route
+              path="/lifecircle"
+              element={
+                <div className={styles.routeWrapper}>
+                  <LifeCirclePage />
+                </div>
+              }
+            />
 
-      <Suspense fallback={<LoadingFallback />}>
-        <Routes location={location} key={location.pathname}>
-          <Route
-            path="/"
-            element={
-              <div className={styles.routeWrapper}>
-                <HomePage topicsData={topicsData} />
-              </div>
-            }
-          />
-          <Route
-            path="/topic/:topicId"
-            element={
-              <div className={styles.routeWrapper}>
-                <TopicPage handleGoHome={handleGoHome} />
-              </div>
-            }
-          />
-          <Route
-            path="/badges"
-            element={
-              <div className={styles.routeWrapper}>
-                <BadgesPage onBack={() => navigate('/')} />
-              </div>
-            }
-          />
-          <Route
-            path="/gallery"
-            element={
-              <div className={styles.routeWrapper}>
-                <ExplorerGallery onTopicClick={(id) => navigate(`/topic/${id}`)} />
-              </div>
-            }
-          />
-          <Route
-            path="/gifts"
-            element={
-              <div className={styles.routeWrapper}>
-                <GiftsPage />
-              </div>
-            }
-          />
-          <Route
-            path="/parents"
-            element={
-              <div className={styles.routeWrapper}>
-                <ParentsDashboard onBack={() => navigate('/')} />
-              </div>
-            }
-          />
-          <Route
-            path="/parents/flow"
-            element={
-              <div className={styles.routeWrapper}>
-                <FlowDashboard onBack={() => navigate('/parents')} />
-              </div>
-            }
-          />
-          <Route
-            path="/map"
-            element={
-              <div className={styles.routeWrapper}>
-                <TreasureMap onBack={() => navigate('/')} markers={mapData} />
-              </div>
-            }
-          />
-          <Route path="/origins" element={<OriginsLayout />}>
-            <Route index element={<OriginsList />} />
-            <Route path=":id" element={<OriginsDetail />} />
-          </Route>
-          <Route
-            path="/safari"
-            element={
-              <div className={styles.routeWrapper}>
-                <MissionSafari onBack={() => navigate('/')} />
-              </div>
-            }
-          />
-          <Route
-            path="/lifecircle"
-            element={
-              <div className={styles.routeWrapper}>
-                <LifeCirclePage />
-              </div>
-            }
-          />
-
-          <Route
-            path="/championship"
-            element={
-              <div className={styles.routeWrapper}>
-                <ChampionshipPage />
-              </div>
-            }
-          />
-          {/* Catch-all route */}
-          <Route
-            path="*"
-            element={
-              <div className={styles.notFoundContainer}>
-                <h2 className={styles.notFoundTitle}>{labels.errors.pageNotFound}</h2>
-                <AppButton onClick={() => navigate('/')}>
-                  {labels.common.goHome}
-                </AppButton>
-              </div>
-            }
-          />
-        </Routes>
-      </Suspense>
-      <PWAPrompt />
-    </MainLayout>
+            <Route
+              path="/championship"
+              element={
+                <div className={styles.routeWrapper}>
+                  <ChampionshipPage />
+                </div>
+              }
+            />
+            {/* Catch-all route */}
+            <Route
+              path="*"
+              element={
+                <div className={styles.notFoundContainer}>
+                  <h2 className={styles.notFoundTitle}>{labels.errors.pageNotFound}</h2>
+                  <AppButton onClick={() => navigate('/')}>
+                    {labels.common.goHome}
+                  </AppButton>
+                </div>
+              }
+            />
+          </Routes>
+        </Suspense>
+        <PWAPrompt />
+      </MainLayout>
+    </StorytellerProvider>
   )
 }
 

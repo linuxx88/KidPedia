@@ -119,6 +119,8 @@ export const en: Labels = {
     secretHistory: 'The Secret History',
     closeHistory: 'Close history ✖️',
     journeyContinues: 'The journey is just beginning...',
+    owlWhispers: 'The Wise Owl whispers...',
+    lockedTopicMessage: (title: string) => `Oops! ${title} is still secret. Succeed in the previous adventures to get the magic key! 🗝️✨`,
   },
   quiz: {
     title: '🧩 Quick Quiz!',

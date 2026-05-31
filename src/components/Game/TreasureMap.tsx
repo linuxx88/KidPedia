@@ -7,6 +7,8 @@ import { type TopicId } from '../../types/domain';
 import { PageHeader } from '../Layout/PageHeader';
 import { AppButton } from '../UI/AppButton';
 import { AppOverlay } from '../UI/AppOverlay';
+import { StorytellerButton } from '../UI/StorytellerButton';
+import { useStoryteller } from '../../hooks/useStoryteller';
 import { MAP_SVG_CONFIG } from '../../constants/geometry';
 import { useMapZoom } from '../../hooks/useMapZoom';
 import { useVisualEffects } from '../../hooks/useVisualEffects';
@@ -108,6 +110,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
   const { badges } = usePlayerStore();
   const navigate = useNavigate();
   const isUnlocked = useProgressionStore((state) => state.isUnlocked);
+  const { speak, stopStory } = useStoryteller();
   
   const { zoom, zoomIn, zoomOut, resetZoom } = useMapZoom();
   const { effects: ripples, addEffect: addRipple } = useVisualEffects(MAP_SVG_CONFIG.RIPPLE_DURATION);
@@ -480,6 +483,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
         <AppOverlay
           isOpen={!!selectedPoint}
           onClose={() => {
+            stopStory();
             playClickSound();
             setSelectedPoint(null);
           }}
@@ -507,7 +511,14 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
                   </>
                 ) : (
                   <>
-                    <span className={`${styles.popupIcon} ${styles.lockedIcon}`} aria-hidden="true">🦉🧙‍♂️🔒</span>
+                    <StorytellerButton 
+                      onClick={() => {
+                        const message = language === 'fr' 
+                          ? `Le Sage Hibou te chuchote... Oh oh ! ${selectedPoint.title.fr} est encore secret. Réussis les aventures précédentes pour obtenir la clé magique ! 🗝️✨`
+                          : `The Wise Owl whispers... Oops! ${selectedPoint.title.en} is still secret. Succeed in the previous adventures to get the magic key! 🗝️✨`;
+                        speak(message);
+                      }}
+                    />
                     <h3 className={styles.owlTitle}>
                       {language === 'fr' ? 'Le Sage Hibou te chuchote...' : 'The Wise Owl whispers...'}
                     </h3>
@@ -518,6 +529,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
                     </p>
                     <AppButton 
                       onClick={() => {
+                        stopStory();
                         playClickSound();
                         setSelectedPoint(null);
                       }}
