@@ -22,8 +22,6 @@ import { TreasureMap } from './components/Game/TreasureMap'
 import { MissionSafari } from './components/Game/MissionSafari'
 import { ExplorerGallery } from './components/Profile/ExplorerGallery'
 
-// Import direct de toutes les pages pour garantir une stabilité totale des tests E2E sous WebKit (pas de code-splitting instable en dev)
-import { LifeCirclePage } from './pages/LifeCircle/LifeCirclePage'
 import { BadgesPage } from './components/Profile/BadgesPage'
 import { ParentsDashboard } from './pages/Parents/ParentsDashboard'
 import { OriginsLayout } from './pages/Origins/OriginsLayout'
@@ -286,14 +284,6 @@ export function App() {
               element={
                 <div className={styles.routeWrapper}>
                   <MissionSafari onBack={() => navigate('/')} />
-                </div>
-              }
-            />
-            <Route
-              path="/lifecircle"
-              element={
-                <div className={styles.routeWrapper}>
-                  <LifeCirclePage />
                 </div>
               }
             />
