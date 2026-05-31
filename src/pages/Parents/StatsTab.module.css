@@ -1,0 +1,254 @@
+.tabContent {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Stats Cards Grid */
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.statsCard {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 2.2rem;
+  padding: 2rem;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.03);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+:global(html[data-theme='dark']) .statsCard {
+  background: rgba(30, 41, 59, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.statsCard:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 35px rgba(0, 0, 0, 0.06);
+}
+
+.statsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.statsTitle {
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: var(--color-app-text-muted, #64748b);
+  text-transform: uppercase;
+}
+
+.statsValue {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: var(--color-primary, #6366f1);
+}
+
+:global(html[data-theme='dark']) .statsValue {
+  color: var(--color-primary, #818cf8);
+}
+
+.statsCardDesc {
+  font-size: 0.9rem;
+  color: var(--color-app-text-muted, #64748b);
+  line-height: 1.5;
+  font-weight: 600;
+}
+
+.rankBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(99, 102, 241, 0.08);
+  padding: 0.75rem 1.25rem;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(99, 102, 241, 0.15);
+  align-self: flex-start;
+}
+
+.rankIcon {
+  font-size: 1.5rem;
+}
+
+.rankTitle {
+  font-weight: 900;
+  color: var(--color-primary, #6366f1);
+  font-size: 1.1rem;
+}
+
+/* Level Progress */
+.levelProgressWrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.levelProgressHeader {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--color-app-text-muted, #64748b);
+}
+
+.levelProgressBar {
+  height: 10px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+:global(html[data-theme='dark']) .levelProgressBar {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.levelProgressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary, #6366f1), var(--color-secondary, #ec4899));
+  border-radius: 999px;
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Medals List */
+.medalsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.medalItem {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: rgba(0, 0, 0, 0.03);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+}
+
+:global(html[data-theme='dark']) .medalItem {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.medalIcon {
+  font-size: 1.25rem;
+}
+
+.medalCount {
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+/* Category Progress */
+.categorySection {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1rem;
+}
+
+.sectionTitle {
+  font-size: 1.35rem;
+  font-weight: 900;
+  color: var(--color-app-text, #1e293b);
+  letter-spacing: -0.02em;
+}
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.25rem;
+}
+
+.categoryCard {
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  border-radius: 1.8rem;
+  padding: 1.5rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.02);
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+:global(html[data-theme='dark']) .categoryCard {
+  background: rgba(30, 41, 59, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.categoryHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.categoryIcon {
+  font-size: 1.4rem;
+}
+
+.categoryName {
+  font-weight: 900;
+  font-size: 1rem;
+  flex-grow: 1;
+}
+
+.categoryCount {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--color-app-text-muted, #64748b);
+  background: rgba(0, 0, 0, 0.04);
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+}
+
+:global(html[data-theme='dark']) .categoryCount {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.categoryProgressWrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.categoryProgressBar {
+  height: 10px;
+  background: rgba(0, 0, 0, 0.05);
+  border-radius: 999px;
+  flex-grow: 1;
+  overflow: hidden;
+}
+
+:global(html[data-theme='dark']) .categoryProgressBar {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.categoryProgressFill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.categoryPercent {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: var(--color-primary, #6366f1);
+  min-width: 32px;
+  text-align: right;
+}

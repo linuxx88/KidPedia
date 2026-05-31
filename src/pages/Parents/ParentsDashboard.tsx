@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProgressionStore } from '../../store/useProgressionStore';
 import { useProfileStore } from '../../store/useProfileStore';
@@ -7,14 +7,10 @@ import { encyclopedia } from '../../data/topics';
 import { PageHeader } from '../../components/Layout/PageHeader';
 import { AppButton } from '../../components/UI/AppButton';
 import { AvatarDisplay } from '../../components/UI/AvatarDisplay';
+import { StatsTab } from './StatsTab';
+import { ControlTab } from './ControlTab';
+import { type ProfileProgression } from '../../store/progression/types';
 import styles from './ParentsDashboard.module.css';
-
-const RANKS = [
-  { id: 'apprentice', minXP: 0, icon: '🌱', title: { fr: 'Apprenti', en: 'Apprentice' } },
-  { id: 'explorer', minXP: 1000, icon: '🧭', title: { fr: 'Explorateur', en: 'Explorer' } },
-  { id: 'expert', minXP: 5000, icon: '🧠', title: { fr: 'Expert', en: 'Expert' } },
-  { id: 'sage', minXP: 10000, icon: '🧙', title: { fr: 'Grand Sage', en: 'Grand Sage' } },
-];
 
 const CONVERSATION_STARTERS: Record<string, { fr: string; en: string }> = {
   espace: {
@@ -74,20 +70,12 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
   const language = useSettingsStore(state => state.language);
   const t = labels.parents;
 
-  const isMusicMuted = useSettingsStore(state => state.isMusicMuted);
-  const isSfxMuted = useSettingsStore(state => state.isSfxMuted);
-  const toggleMusicMute = useSettingsStore(state => state.toggleMusicMute);
-  const toggleSfxMute = useSettingsStore(state => state.toggleSfxMute);
-
   // States
   const [activeTab, setActiveTab] = useState<'stats' | 'control' | 'tips' | 'tech'>('stats');
   const [selectedProfileId, setSelectedProfileId] = useState<string | null>(() => {
     const currentProfiles = useProfileStore.getState().profiles;
     return currentProfiles.length > 0 ? currentProfiles[0].id : null;
   });
-  const [screentimeLimit, setScreentimeLimit] = useState<number>(0);
-  const [isEditingName, setIsEditingName] = useState(false);
-  const [editNameValue, setEditNameValue] = useState('');
 
   // Sync profile values
   const activeProfile = useMemo(() => {
@@ -96,56 +84,11 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
 
   const currentProfileId = activeProfile ? activeProfile.id : null;
 
-  useEffect(() => {
-    if (currentProfileId) {
-      const saved = localStorage.getItem(`kp-screentime-limit-${currentProfileId}`);
-      const limit = saved ? parseInt(saved, 10) : 0;
-      Promise.resolve().then(() => {
-        setScreentimeLimit(limit);
-      });
-    }
-  }, [currentProfileId]);
-
-  const handleScreentimeChange = (val: number) => {
-    if (!currentProfileId) return;
-    setScreentimeLimit(val);
-    localStorage.setItem(`kp-screentime-limit-${currentProfileId}`, val.toString());
-  };
-
-  const handleStartEditName = () => {
-    if (activeProfile) {
-      setEditNameValue(activeProfile.name);
-      setIsEditingName(true);
-    }
-  };
-
-  const handleSaveName = () => {
-    if (activeProfile && editNameValue.trim()) {
-      useProfileStore.getState().updateProfile(activeProfile.id, { name: editNameValue.trim() });
-      setIsEditingName(false);
-    }
-  };
-
   // Progression stats
-  const currentProg = useMemo(() => {
-    if (!currentProfileId) return { totalXP: 0, badges: [], tickets: 0, currentRankId: 'apprentice' };
-    return progressions[currentProfileId] || { totalXP: 0, badges: [], tickets: 0, currentRankId: 'apprentice' };
+  const currentProg = useMemo((): ProfileProgression => {
+    if (!currentProfileId) return { totalXP: 0, badges: [], tickets: 0, currentRankId: 'apprentice', unlockedAccessories: [], equippedAccessoryId: null, equippedCompanionId: null };
+    return progressions[currentProfileId] || { totalXP: 0, badges: [], tickets: 0, currentRankId: 'apprentice', unlockedAccessories: [], equippedAccessoryId: null, equippedCompanionId: null };
   }, [progressions, currentProfileId]);
-
-  const stats = useMemo(() => {
-    const badgesList = currentProg.badges || [];
-    const gold = badgesList.filter(b => b.medal === 'gold').length;
-    const silver = badgesList.filter(b => b.medal === 'silver').length;
-    const bronze = badgesList.filter(b => b.medal === 'bronze').length;
-    return {
-      gold,
-      silver,
-      bronze,
-      total: badgesList.length,
-      tickets: currentProg.tickets || 0,
-      xp: currentProg.totalXP || 0
-    };
-  }, [currentProg]);
 
   // Categories mapping
   const categoriesMap = useMemo(() => {
@@ -190,23 +133,6 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
       };
     });
   }, [currentProfileId, currentProg.badges, categoriesMap]);
-
-  // Rank calculation
-  const currentRank = useMemo(() => {
-    return RANKS.find(r => r.id === currentProg.currentRankId) || RANKS[0];
-  }, [currentProg.currentRankId]);
-
-  const nextRank = useMemo(() => {
-    const idx = RANKS.findIndex(r => r.id === currentRank.id) + 1;
-    return idx < RANKS.length ? RANKS[idx] : null;
-  }, [currentRank]);
-
-  const xpProgressPercentage = useMemo(() => {
-    if (!nextRank) return 100;
-    const range = nextRank.minXP - currentRank.minXP;
-    const currentDiff = stats.xp - currentRank.minXP;
-    return Math.min(100, Math.max(0, Math.round((currentDiff / range) * 100)));
-  }, [stats.xp, currentRank, nextRank]);
 
   // Conversation Starters
   const activeStarters = useMemo(() => {
@@ -267,227 +193,19 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
 
         {/* Tab 1: Stats & Progression */}
         {activeTab === 'stats' && activeProfile && (
-          <div className={styles.tabContent}>
-            {/* Quick Stats Grid */}
-            <div className={styles.statsGrid}>
-              <div className={styles.statsCard}>
-                <div className={styles.statsHeader}>
-                  <span className={styles.statsTitle}>🌟 {language === 'fr' ? 'Expérience' : 'Experience'}</span>
-                  <span className={styles.statsValue}>{stats.xp} XP</span>
-                </div>
-                <div className={styles.rankBadge}>
-                  <span className={styles.rankIcon}>{currentRank.icon}</span>
-                  <span className={styles.rankTitle}>{currentRank.title[language]}</span>
-                </div>
-                {nextRank && (
-                  <div className={styles.levelProgressWrapper}>
-                    <div className={styles.levelProgressHeader}>
-                      <span>{language === 'fr' ? 'Prochain rang' : 'Next rank'} : {nextRank.title[language]}</span>
-                      <span>{stats.xp} / {nextRank.minXP} XP</span>
-                    </div>
-                    <div className={styles.levelProgressBar}>
-                      <div className={styles.levelProgressFill} style={{ width: `${xpProgressPercentage}%` }} />
-                    </div>
-                  </div>
-                )}
-              </div>
-
-              <div className={styles.statsCard}>
-                <div className={styles.statsHeader}>
-                  <span className={styles.statsTitle}>🏆 {language === 'fr' ? 'Médailles' : 'Medals'}</span>
-                  <span className={styles.statsValue}>{stats.total}</span>
-                </div>
-                <div className={styles.medalsList}>
-                  <div className={styles.medalItem}>
-                    <span className={styles.medalIcon}>🥇</span>
-                    <span className={styles.medalCount}>{stats.gold} {language === 'fr' ? 'Or' : 'Gold'}</span>
-                  </div>
-                  <div className={styles.medalItem}>
-                    <span className={styles.medalIcon}>🥈</span>
-                    <span className={styles.medalCount}>{stats.silver} {language === 'fr' ? 'Argent' : 'Silver'}</span>
-                  </div>
-                  <div className={styles.medalItem}>
-                    <span className={styles.medalIcon}>🥉</span>
-                    <span className={styles.medalCount}>{stats.bronze} {language === 'fr' ? 'Bronze' : 'Bronze'}</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className={styles.statsCard}>
-                <div className={styles.statsHeader}>
-                  <span className={styles.statsTitle}>🎟️ {language === 'fr' ? 'Monnaie' : 'Currency'}</span>
-                  <span className={styles.statsValue}>{stats.tickets} {language === 'fr' ? 'Tickets' : 'Tickets'}</span>
-                </div>
-                <p className={styles.statsCardDesc}>
-                  {language === 'fr' 
-                    ? 'Gagnés en répondant aux quiz. Permettent d\'acheter des accessoires et compagnons !' 
-                    : 'Earned by answering quizzes. Used to buy accessories and companions!'}
-                </p>
-              </div>
-            </div>
-
-            {/* Category Progress Grid */}
-            <div className={styles.categorySection}>
-              <h3 className={styles.sectionTitle}>📚 {language === 'fr' ? 'Progression de l\'Encyclopédie' : 'Encyclopedia Progression'}</h3>
-              <div className={styles.categoryGrid}>
-                {categoryProgress.map(cat => (
-                  <div key={cat.key} className={styles.categoryCard}>
-                    <div className={styles.categoryHeader}>
-                      <span className={styles.categoryIcon}>{cat.icon}</span>
-                      <span className={styles.categoryName}>{cat.label[language]}</span>
-                      <span className={styles.categoryCount}>{cat.completed} / {cat.total}</span>
-                    </div>
-                    <div className={styles.categoryProgressWrapper}>
-                      <div className={styles.categoryProgressBar}>
-                        <div 
-                          className={styles.categoryProgressFill} 
-                          style={{ 
-                            width: `${cat.percentage}%`,
-                            background: `linear-gradient(90deg, var(--color-primary), var(--color-secondary))`
-                          }} 
-                        />
-                      </div>
-                      <span className={styles.categoryPercent}>{cat.percentage}%</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+          <StatsTab 
+            currentProg={currentProg} 
+            language={language} 
+          />
         )}
 
         {/* Tab 2: Parental Control */}
         {activeTab === 'control' && activeProfile && (
-          <div className={styles.tabContent}>
-            {/* Screen Time Limit Card */}
-            <div className={styles.settingsCard}>
-              <h3 className={styles.sectionTitle}>⏱️ {language === 'fr' ? 'Limite de Temps de Jeu' : 'Play Screen Time Limit'}</h3>
-              <p className={styles.settingDesc}>
-                {language === 'fr' 
-                  ? 'Définissez une limite quotidienne pour encourager une saine utilisation des écrans. KidPedia se verrouillera automatiquement une fois le temps écoulé.' 
-                  : 'Set a daily play time limit to encourage healthy screen usage. KidPedia will lock automatically once the time is up.'}
-              </p>
-              
-              <div className={styles.screentimeOptions}>
-                {[0, 15, 30, 45, 60].map(mins => (
-                  <button
-                    key={mins}
-                    className={`${styles.screentimeBtn} ${screentimeLimit === mins ? styles.screentimeBtnActive : ''}`}
-                    onClick={() => handleScreentimeChange(mins)}
-                  >
-                    {mins === 0 
-                      ? (language === 'fr' ? 'Illimité ♾️' : 'Unlimited ♾️') 
-                      : `${mins} ${language === 'fr' ? 'min' : 'min'}`}
-                  </button>
-                ))}
-              </div>
-            </div>
-
-            {/* Audio Settings */}
-            <div className={styles.settingsCard}>
-              <h3 className={styles.sectionTitle}>🎛️ {t.audioSettingsTitle}</h3>
-              <div className={styles.audioSettingsGrid}>
-                <div className={styles.audioRow}>
-                  <div className={styles.audioLabel}>
-                    <span className={styles.audioTitle}>🎵 {language === 'fr' ? 'Musique d\'ambiance' : 'Background Music'}</span>
-                    <span className={styles.audioDesc}>{t.musicMute}</span>
-                  </div>
-                  <label className={styles.switch}>
-                    <input 
-                      type="checkbox" 
-                      checked={isMusicMuted} 
-                      onChange={toggleMusicMute}
-                      aria-label={t.musicMute}
-                    />
-                    <span className={styles.slider}></span>
-                  </label>
-                </div>
-
-                <div className={styles.audioRow}>
-                  <div className={styles.audioLabel}>
-                    <span className={styles.audioTitle}>🔊 {language === 'fr' ? 'Effets Sonores (SFX)' : 'Sound Effects (SFX)'}</span>
-                    <span className={styles.audioDesc}>{t.sfxMute}</span>
-                  </div>
-                  <label className={styles.switch}>
-                    <input 
-                      type="checkbox" 
-                      checked={isSfxMuted} 
-                      onChange={toggleSfxMute}
-                      aria-label={t.sfxMute}
-                    />
-                    <span className={styles.slider}></span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            {/* Manage Profile & Actions */}
-            <div className={styles.settingsCard}>
-              <h3 className={styles.sectionTitle}>👤 {language === 'fr' ? 'Gestion du Profil' : 'Profile Management'}</h3>
-              
-              <div className={styles.profileManageArea}>
-                <div className={styles.profileIdentityRow}>
-                  <AvatarDisplay avatar={activeProfile.avatar} name={activeProfile.name} size="medium" />
-                  
-                  {isEditingName ? (
-                    <div className={styles.editNameInputWrapper}>
-                      <input
-                        type="text"
-                        value={editNameValue}
-                        onChange={(e) => setEditNameValue(e.target.value)}
-                        className={styles.editNameInput}
-                        maxLength={15}
-                        placeholder={language === 'fr' ? 'Nouveau nom...' : 'New name...'}
-                        autoFocus
-                      />
-                      <div className={styles.editNameActions}>
-                        <AppButton onClick={handleSaveName} className={styles.saveNameBtn}>
-                          {language === 'fr' ? 'Enregistrer' : 'Save'}
-                        </AppButton>
-                        <AppButton variant="outline" onClick={() => setIsEditingName(false)}>
-                          {language === 'fr' ? 'Annuler' : 'Cancel'}
-                        </AppButton>
-                      </div>
-                    </div>
-                  ) : (
-                    <div className={styles.profileNameDisplayWrapper}>
-                      <h4 className={styles.profileNameDisplay}>{activeProfile.name}</h4>
-                      <AppButton variant="outline" onClick={handleStartEditName} className={styles.editNameBtn}>
-                        ✏️ {language === 'fr' ? 'Renommer' : 'Rename'}
-                      </AppButton>
-                    </div>
-                  )}
-                </div>
-
-                <div className={styles.dangerActionsRow}>
-                  <AppButton 
-                    variant="outline" 
-                    className={styles.resetBtn}
-                    onClick={() => {
-                      if (window.confirm(t.confirmReset(activeProfile.name))) {
-                        useProgressionStore.getState().clearBadges(activeProfile.id);
-                      }
-                    }}
-                  >
-                    🗑️ {language === 'fr' ? 'Réinitialiser la progression' : 'Reset progression'}
-                  </AppButton>
-                  
-                  <AppButton 
-                    variant="outline" 
-                    className={styles.deleteBtn}
-                    onClick={() => {
-                      if (window.confirm(language === 'fr' ? `Voulez-vous vraiment supprimer le profil de ${activeProfile.name} ? Cette action effacera définitivement toutes ses données.` : `Do you really want to delete ${activeProfile.name}'s profile? This action will permanently erase all data.`)) {
-                        useProfileStore.getState().deleteProfile(activeProfile.id);
-                        setSelectedProfileId(null);
-                      }
-                    }}
-                  >
-                    🚨 {language === 'fr' ? 'Supprimer le profil' : 'Delete profile'}
-                  </AppButton>
-                </div>
-              </div>
-            </div>
-          </div>
+          <ControlTab 
+            activeProfile={activeProfile} 
+            language={language} 
+            onProfileDeleted={() => setSelectedProfileId(null)} 
+          />
         )}
 
         {/* Tab 3: Educational Guide & Discussion */}
