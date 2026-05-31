@@ -148,7 +148,7 @@ export const useStoryteller = (): StorytellerContextType => {
     isSpeaking,
     speak,
     stopStory,
-    toggleMagicWand: () => {},
+    toggleMagicWand: () => { },
     // Keep internal legacy functions to maintain test coverage
     pause,
     stop: stopStory,
@@ -287,7 +287,18 @@ export const StorytellerProvider: React.FC<StorytellerProviderProps> = ({ childr
   }, [stopStory])
 
   useEffect(() => {
+    const handleGlobalStop = () => {
+      stopStory()
+    }
+
+    window.addEventListener('popstate', handleGlobalStop)
+    window.addEventListener('pagehide', handleGlobalStop)
+    window.addEventListener('beforeunload', handleGlobalStop)
+
     return () => {
+      window.removeEventListener('popstate', handleGlobalStop)
+      window.removeEventListener('pagehide', handleGlobalStop)
+      window.removeEventListener('beforeunload', handleGlobalStop)
       stopStory()
     }
   }, [stopStory])
