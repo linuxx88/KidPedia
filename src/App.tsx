@@ -1,5 +1,7 @@
 import { Suspense, useEffect, useState } from 'react'
 import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { AppLoader } from './components/UI/AppLoader'
+
 
 import { AppButton } from './components/UI/AppButton'
 import { MainLayout } from './components/Layout/MainLayout'
@@ -55,7 +57,29 @@ export function App() {
   const [showParentalGate, setShowParentalGate] = useState(false)
   const [pendingRoute, setPendingRoute] = useState<string | null>(null)
   
+  const [hydrated, setHydrated] = useState(false)
+
+  useEffect(() => {
+    const checkHydration = () => {
+      if (useSettingsStore.persist?.hasHydrated()) {
+        setHydrated(true)
+        return true
+      }
+      return false
+    }
+
+    if (!checkHydration()) {
+      const interval = setInterval(() => {
+        if (checkHydration()) {
+          clearInterval(interval)
+        }
+      }, 5)
+      return () => clearInterval(interval)
+    }
+  }, [])
+
   const labels = useSettingsStore(state => state.labels)
+
   const isDarkMode = useSettingsStore(state => state.isDarkMode)
   const toggleTheme = useSettingsStore(state => state.toggleTheme)
   const gender = useSettingsStore(state => state.gender)
@@ -147,7 +171,12 @@ export function App() {
     }
   }
 
+  if (!hydrated) {
+    return <AppLoader />
+  }
+
   return (
+
     <MainLayout
       isDarkMode={isDarkMode}
       toggleTheme={handleToggleTheme}

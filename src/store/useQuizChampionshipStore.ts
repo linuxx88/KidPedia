@@ -23,7 +23,7 @@ export interface QuizChampionshipRecord {
 
 export interface QuizChampionshipState {
   // Persisted state
-  records: QuizChampionshipRecord[];
+  records: readonly QuizChampionshipRecord[];
   highScores: ChampionshipHighScore[];
 
   // Runtime state
@@ -43,6 +43,7 @@ export interface QuizChampionshipState {
   nextQuestion: () => void;
   tickTimer: () => void;
   resetGame: () => void;
+  addRecord: (record: QuizChampionshipRecord) => void;
 }
 
 // Helper to shuffle and pick 10 random quizzes
@@ -55,7 +56,7 @@ export function getRandomChampionshipQuestions(): { topicId: string; quiz: Quiz 
   return shuffled.slice(0, 10);
 }
 
-export function syncHighScores(records: QuizChampionshipRecord[]): ChampionshipHighScore[] {
+export function syncHighScores(records: readonly QuizChampionshipRecord[]): ChampionshipHighScore[] {
   const profileStore = useProfileStore.getState();
   const profiles = profileStore.profiles || [];
   const activeProfile = profileStore.activeProfile;
@@ -143,14 +144,24 @@ export const useQuizChampionshipStore = create<QuizChampionshipState>()(
       return { success: true, isCorrect };
     },
 
+    addRecord: (record: QuizChampionshipRecord) => {
+      const currentRecords = [...get().records, record];
+      // Ensure addRecord enforces records.sort(...).slice(0, 5) before state mutation.
+      currentRecords.sort((a, b) => b.score - a.score);
+      const truncatedRecords = currentRecords.slice(0, 5);
+      
+      set({
+        records: truncatedRecords,
+        highScores: syncHighScores(truncatedRecords),
+      });
+    },
+
     nextQuestion: () => {
       const { currentQuestionIndex, questions } = get();
       if (currentQuestionIndex >= 9 || currentQuestionIndex >= questions.length - 1) {
         // Finish the game
-        const { correctAnswersCount, records } = get();
+        const { correctAnswersCount } = get();
         const activeProfile = useProfileStore.getState().activeProfile;
-        
-        let updatedRecords = [...records];
         
         if (activeProfile) {
           const newRecord: QuizChampionshipRecord = {
@@ -159,11 +170,7 @@ export const useQuizChampionshipStore = create<QuizChampionshipState>()(
             completedAt: new Date().toISOString(),
           };
           
-          updatedRecords.push(newRecord);
-          // Sort: score desc
-          updatedRecords.sort((a, b) => b.score - a.score);
-          // Keep top 5
-          updatedRecords = updatedRecords.slice(0, 5);
+          get().addRecord(newRecord);
           
           // Reward XP and tickets
           // 100 XP per correct answer
@@ -182,8 +189,6 @@ export const useQuizChampionshipStore = create<QuizChampionshipState>()(
         
         set({
           gameState: 'ended',
-          records: updatedRecords,
-          highScores: syncHighScores(updatedRecords),
         });
       } else {
         set((state) => ({
@@ -239,6 +244,7 @@ export const useQuizChampionshipStore = create<QuizChampionshipState>()(
   persist: {
     rehydrate: () => Promise<void>;
     clearStorage: () => Promise<void>;
+    hasHydrated: () => boolean;
   };
 };
 

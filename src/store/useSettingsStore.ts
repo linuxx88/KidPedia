@@ -160,5 +160,7 @@ export const useSettingsStore = create<SettingsState>()(
   persist: {
     rehydrate: () => Promise<void>;
     clearStorage: () => Promise<void>;
+    hasHydrated: () => boolean;
   };
 };
+

@@ -48,6 +48,8 @@ export function indexedDBMiddleware<T extends object>(
       get: StoreApi<ProgressionState>['getState'],
       api: StoreApi<ProgressionState>
     ) => {
+      let hasHydratedState = false;
+
       // Surcharges de type conformes à la signature Zustand set
       function customSet(
         partial: ProgressionState | Partial<ProgressionState> | ((state: ProgressionState) => ProgressionState | Partial<ProgressionState>),
@@ -110,8 +112,15 @@ export function indexedDBMiddleware<T extends object>(
         api
       );
 
-      const storeApiWithPersist = api as StoreApi<ProgressionState> & { persist?: { rehydrate: () => Promise<void>; clearStorage: () => Promise<void> } };
+      const storeApiWithPersist = api as StoreApi<ProgressionState> & {
+        persist?: {
+          rehydrate: () => Promise<void>;
+          clearStorage: () => Promise<void>;
+          hasHydrated: () => boolean;
+        };
+      };
       storeApiWithPersist.persist = {
+        hasHydrated: () => hasHydratedState,
         rehydrate: async () => {
           try {
             const raw = await storage.getItem('kp-progression-storage');
@@ -125,6 +134,8 @@ export function indexedDBMiddleware<T extends object>(
             if (!isTestEnv()) {
               console.error('[indexedDBMiddleware] Échec de réhydratation du store:', error);
             }
+          } finally {
+            hasHydratedState = true;
           }
         },
         clearStorage: async () => {
@@ -157,6 +168,8 @@ export function indexedDBMiddleware<T extends object>(
         get: StoreApi<T>['getState'],
         api: StoreApi<T>
       ) => {
+        let hasHydratedState = false;
+
         // Override api.setState to intercept all updates (actions & direct setState calls)
         const originalSetState = api.setState;
         api.setState = (partial, replace) => {
@@ -184,8 +197,15 @@ export function indexedDBMiddleware<T extends object>(
           api
         );
 
-        const storeApiWithPersist = api as StoreApi<T> & { persist?: { rehydrate: () => Promise<void>; clearStorage: () => Promise<void> } };
+        const storeApiWithPersist = api as StoreApi<T> & {
+          persist?: {
+            rehydrate: () => Promise<void>;
+            clearStorage: () => Promise<void>;
+            hasHydrated: () => boolean;
+          };
+        };
         storeApiWithPersist.persist = {
+          hasHydrated: () => hasHydratedState,
           rehydrate: async () => {
             try {
               // Intercept legacy localStorage migration BEFORE calling storage.getItem(name)
@@ -262,6 +282,8 @@ export function indexedDBMiddleware<T extends object>(
               if (!isTestEnv()) {
                 console.error(`[indexedDBMiddleware] Échec de réhydratation du store ${name}:`, error);
               }
+            } finally {
+              hasHydratedState = true;
             }
           },
           clearStorage: async () => {
