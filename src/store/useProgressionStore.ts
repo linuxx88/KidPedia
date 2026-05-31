@@ -1,189 +1,32 @@
 import { create, type UseBoundStore, type StoreApi } from 'zustand';
 import { indexedDBMiddleware } from './indexedDBMiddleware';
-import { type MedalType } from '../utils/quizMessages';
-import { type TopicId, type EarnedBadge } from '../types/domain';
 import { ACCESSORIES_DB } from '../data/accessories';
 import { encyclopedia } from '../data/topics';
 import { useNotificationStore } from './useNotificationStore';
 import { useSettingsStore } from './useSettingsStore';
 import { launchCelebration } from '../utils/celebrations';
-import { RANKS } from '../data/rewards';
+import { type TopicId } from '../types/domain';
 
-export interface Sticker {
-  readonly id: string;
-  readonly unlockedAt: string;
-}
+// Extracted modules imports
+import { type Sticker, type ProgressionState } from './progression/types';
+import {
+  xpValues,
+  medalTier,
+  ticketValues,
+  PERFECT_BONUS_XP,
+  DEFAULT_PROGRESSION
+} from './progression/constants';
+import {
+  getLocalDateString,
+  getCutoffDateString,
+  calculateRankId
+} from './progression/helpers';
+import { checkAccessoryUnlocks } from './progression/accessoryUnlocks';
+import { migrateLegacyProfile } from './progression/migration';
 
-interface ProfileProgression {
-  badges: EarnedBadge[];
-  totalXP: number;
-  currentRankId: string;
-  unlockedAccessories: string[]; // IDs des accessoires possédés
-  equippedAccessoryId: string | null; // ID de l'accessoire porté
-  equippedCompanionId: string | null; // ID du compagnon actif
-  tickets: number; // solde de tickets possédés
-  dailyDiscoveries?: Record<string, TopicId[]>;
-  stickers?: readonly Sticker[];
-  unlockedPuzzlePieces?: Record<string, number[]>;
-  unlockedWallpapers?: readonly string[];
-}
+// Re-export type for external compatibility
+export type { Sticker, ProgressionState };
 
-export interface ProgressionState {
-  // --- Global Progressions Map ---
-  progressions: Record<string, ProfileProgression>;
-  activeProfileId: string | null;
-
-  // --- Getters ---
-  getBadges: () => EarnedBadge[];
-  getTotalXP: () => number;
-  getCurrentRankId: () => string;
-  getUnlockedAccessories: () => string[];
-  getEquippedAccessoryId: () => string | null;
-  getEquippedCompanionId: () => string | null;
-  getTickets: () => number;
-  isCompleted: (topicId: TopicId) => boolean;
-  isUnlocked: (topicId: TopicId) => boolean;
-  getStickers: () => readonly Sticker[];
-  getUnlockedPuzzlePieces: () => Record<string, number[]>;
-  getUnlockedWallpapers: () => readonly string[];
-
-  // --- Actions ---
-  addXP: (amount: number) => void;
-  addBadge: (topicId: TopicId, medal: MedalType) => void;
-  addTickets: (amount: number) => void;
-  buyAccessory: (accessoryId: string, price: number) => boolean;
-  clearBadges: (profileId?: string) => void;
-  syncWithProfile: (profileId: string | null) => void;
-  equipAccessory: (accessoryId: string | null) => void;
-  equipCompanion: (companionId: string | null) => void;
-  deleteProfileProgression: (profileId: string) => void;
-  reset: () => void;
-  unlockSticker: (stickerId: string) => void;
-  unlockPuzzlePiece: (category: string, pieceIndex: number) => void;
-  awardPuzzlePiece: (category: string) => { readonly success: boolean; readonly pieceIndex: number; readonly isNew: boolean };
-}
-
-const xpValues: Record<string, number> = { gold: 1000, silver: 500, bronze: 250 };
-const medalTier: Record<MedalType, number> = { gold: 3, silver: 2, bronze: 1 };
-const ticketValues: Record<MedalType, number> = { gold: 3, silver: 2, bronze: 1 };
-const PERFECT_BONUS_XP = 500;
-
-/**
- * Formate une date en YYYY-MM-DD local
- */
-const formatDate = (date: Date): string => {
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, '0');
-  const day = String(date.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-};
-
-const getLocalDateString = (): string => formatDate(new Date());
-
-const getCutoffDateString = (): string => {
-  const cutoff = new Date();
-  cutoff.setDate(cutoff.getDate() - 7);
-  return formatDate(cutoff);
-};
-
-/**
- * Calcule le rang correspondant au total d'XP actuel.
- */
-const calculateRankId = (xp: number): string => {
-  const rank = [...RANKS].reverse().find(r => xp >= r.minXP);
-  return rank ? rank.id : RANKS[0].id;
-};
-
-const DEFAULT_PROGRESSION: ProfileProgression = {
-  badges: [],
-  totalXP: 0,
-  currentRankId: 'apprentice',
-  unlockedAccessories: [],
-  equippedAccessoryId: null,
-  equippedCompanionId: null,
-  tickets: 0,
-  dailyDiscoveries: {},
-  stickers: [],
-  unlockedPuzzlePieces: {},
-  unlockedWallpapers: []
-};
-
-/**
- * Logique de déblocage automatique d'accessoires basée sur la progression actuelle
- */
-const checkAccessoryUnlocks = (prog: ProfileProgression): string[] => {
-  const currentUnlocked = prog.unlockedAccessories || [];
-  const newUnlocked = [...currentUnlocked];
-
-  ACCESSORIES_DB.forEach(acc => {
-    if (newUnlocked.includes(acc.id)) return;
-
-    let conditionMet = false;
-    const { type, value, medal, category } = acc.unlockCondition;
-
-    if (type === 'xp') {
-      conditionMet = prog.totalXP >= (value as number);
-    } 
-    else if (type === 'specific_topic') {
-      const badge = prog.badges.find(b => b.id === value);
-      conditionMet = !!(badge && (!medal || medalTier[badge.medal] >= medalTier[medal]));
-    }
-    else if (type === 'count' && category) {
-      const count = prog.badges.filter(b => {
-        const topic = encyclopedia.find(t => t.id === b.id);
-        return topic?.categoryKey.toLowerCase() === category && (!medal || medalTier[b.medal] >= medalTier[medal]);
-      }).length;
-      conditionMet = count >= (value as number);
-    }
-
-    if (conditionMet) {
-      newUnlocked.push(acc.id);
-    }
-  });
-
-  return newUnlocked;
-};
-
-/**
- * Logique de migration pour les anciens formats de stockage (v1.x).
- * Isolé pour ne pas polluer le flux réactif principal.
- */
-const migrateLegacyProfile = (profileId: string): ProfileProgression => {
-  const legacyBadges = localStorage.getItem(`kp-badges-${profileId}`);
-  if (!legacyBadges) return { ...DEFAULT_PROGRESSION };
-
-  try {
-    const parsed = JSON.parse(legacyBadges);
-    const badgeList = parsed.map((b: string | EarnedBadge) =>
-      typeof b === 'string' ? { id: b, medal: 'gold' } : b
-    );
-    const totalXP = badgeList.reduce((acc: number, badge: EarnedBadge) => {
-      const baseXP = xpValues[badge.medal] || 0;
-      const bonus = badge.medal === 'gold' ? PERFECT_BONUS_XP : 0;
-      return acc + baseXP + bonus;
-    }, 0);
-    
-    // Nettoyage après migration réussie
-    localStorage.removeItem(`kp-badges-${profileId}`);
-
-    return {
-      badges: badgeList,
-      totalXP,
-      currentRankId: calculateRankId(totalXP),
-      unlockedAccessories: [],
-      equippedAccessoryId: null,
-      equippedCompanionId: null,
-      tickets: 0,
-      dailyDiscoveries: {},
-      stickers: [],
-      unlockedPuzzlePieces: {},
-      unlockedWallpapers: []
-    };
-  } catch (e) {
-    console.error("Migration error", e);
-    return { ...DEFAULT_PROGRESSION };
-  }
-};
 export const useProgressionStore = create<ProgressionState>()(
   indexedDBMiddleware(
     (set, get) => ({
