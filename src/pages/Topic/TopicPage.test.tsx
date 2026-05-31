@@ -2,7 +2,7 @@ import { screen } from '@testing-library/react'
 import { render, resetAllStores } from '../../test/test-utils'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { TopicPage } from './index'
-import { isSpoiler } from './index'
+import { isSpoiler } from './utils/spoiler'
 import { setupSpeechMock, setupAudioMock } from '../../test/mockUtils'
 import { useProgressionStore } from '../../store/useProgressionStore'
 
