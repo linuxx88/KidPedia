@@ -154,6 +154,45 @@
   --color-origins-middleages-start: #475569;
   --color-origins-middleages-mid: #8b5cf6;
   --color-origins-middleages-end: #94a3b8;
+
+  /* --- QUIZ SPECIFIC DESIGN VARIABLES --- */
+  /* Option Colors (A: Sky, B: Amethyst, C: Coral) */
+  --color-option-a: #38bdf8;
+  --color-option-a-glow: rgba(56, 189, 248, 0.1);
+  --color-option-a-glow-hover: rgba(56, 189, 248, 0.3);
+  --color-option-a-glow-focus: rgba(2, 132, 199, 0.4);
+  --color-option-a-outline: #0284c7;
+
+  --color-option-b: #a78bfa;
+  --color-option-b-glow: rgba(168, 85, 247, 0.1);
+  --color-option-b-glow-hover: rgba(168, 85, 247, 0.3);
+  --color-option-b-glow-focus: rgba(124, 58, 237, 0.4);
+  --color-option-b-outline: #7c3aed;
+
+  --color-option-c: #fb7185;
+  --color-option-c-glow: rgba(244, 63, 94, 0.1);
+  --color-option-c-glow-hover: rgba(244, 63, 94, 0.3);
+  --color-option-c-glow-focus: rgba(225, 29, 72, 0.4);
+  --color-option-c-outline: #e11d48;
+
+  /* Hint Colors (Yellow Theme) */
+  --color-hint-bg-start: #fefce8;
+  --color-hint-bg-end: #fef9c3;
+  --color-hint-border: #facc15;
+  --color-hint-shadow: #fde047;
+  --color-hint-text-title: #a16207;
+  --color-hint-text-body: #854d0e;
+
+  /* Retry Colors (Red/Error Theme) */
+  --color-retry-bg: rgba(239, 68, 68, 0.1);
+  --color-retry-text: #ef4444;
+  --color-retry-border: rgba(239, 68, 68, 0.2);
+
+  /* Success / Medal Colors */
+  --color-success-green: #22c55e;
+  --gradient-medal-gold: linear-gradient(135deg, #fbbf24, #d97706);
+  --gradient-medal-silver: linear-gradient(135deg, #94a3b8, #475569);
+  --gradient-medal-bronze: linear-gradient(135deg, #fb923c, #9a3412);
 }
 
 /* --- VARIATIONS SAISONNIÈRES (NATURE EXPLORER) --- */

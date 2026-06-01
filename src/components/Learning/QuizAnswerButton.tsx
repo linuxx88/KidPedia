@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { useStoryteller } from '../../hooks/useStoryteller'
-import styles from './Quiz.module.css'
+import styles from './QuizAnswerButton.module.css'
 
 interface QuizAnswerButtonProps {
   readonly text: string

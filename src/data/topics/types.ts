@@ -1,5 +1,4 @@
 import type { SupportedLanguage } from '../../locales';
-import type { TopicId } from '../../types/domain';
 
 export type LocalizedString = Record<SupportedLanguage, string>;
 
@@ -12,7 +11,7 @@ export interface Quiz {
 }
 
 export interface Topic {
-  id: TopicId
+  id: string
   title: LocalizedString
   category: LocalizedString
   categoryKey: string
@@ -22,6 +21,18 @@ export interface Topic {
   fullContents?: readonly LocalizedString[]
   funFact: LocalizedString
   funFacts?: readonly LocalizedString[]
+  quiz?: Quiz
+  audioFile?: string
+  anchorIcon?: string
+}
+
+export interface RawTopic {
+  id: string
+  title: LocalizedString
+  icon: string
+  shortDesc: LocalizedString
+  fullContents: readonly LocalizedString[]
+  funFacts: readonly LocalizedString[]
   quiz?: Quiz
   audioFile?: string
   anchorIcon?: string

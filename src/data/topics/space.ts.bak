@@ -1,16 +1,19 @@
-import type { RawTopic, Topic } from './types';
 
-const CATEGORY = { fr: 'Espace 🚀', en: 'Space 🚀' } as const;
-const CATEGORY_KEY = 'espace' as const;
 
-const rawSpace: readonly RawTopic[] = [
+export const space = [
   {
     id: 'soleil',
     title: { fr: 'Le Soleil', en: 'The Sun' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '☀️',
     shortDesc: {
       fr: "L'étoile au centre de notre système.",
       en: 'The star at the center of our system.',
+    },
+    fullContent: {
+      fr: 'Le Soleil est une étoile géante. Toutes les planètes tournent autour de lui. Il nous donne de la lumière et de la chaleur.',
+      en: 'The Sun is a giant star. All the planets orbit around it. It gives us light and heat.',
     },
     fullContents: [
       {
@@ -30,6 +33,10 @@ const rawSpace: readonly RawTopic[] = [
         en: "The Sun is a giant, hot star shining bright in space to give us light. Just like the Sun shares its warm light with everyone, you can also warm people's hearts with your kindest smile."
       }
     ],
+    funFact: {
+      fr: "On pourrait mettre 1 million de Terres à l'intérieur du Soleil !",
+      en: 'You could fit 1 million Earths inside the Sun!',
+    },
     funFacts: [
       {
         fr: "On pourrait mettre 1 million de Terres à l'intérieur du Soleil !",
@@ -43,15 +50,22 @@ const rawSpace: readonly RawTopic[] = [
         fr: "Le Soleil est si grand qu'il représente 99% de tout le système solaire !",
         en: "The Sun is so big that it makes up 99% of the entire solar system!"
       }
-    ]
+    ],
+    
   },
   {
     id: 'mercure',
     title: { fr: 'Mercure', en: 'Mercury' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '🌑',
     shortDesc: {
       fr: 'La petite planète proche du Soleil.',
       en: 'The small planet near the Sun.',
+    },
+    fullContent: {
+      fr: "C'est la plus petite planète et la plus proche du Soleil. Il y fait très chaud le jour et très froid la nuit.",
+      en: 'It is the smallest planet and the closest to the Sun. It is very hot during the day and very cold at night.',
     },
     fullContents: [
       {
@@ -67,18 +81,23 @@ const rawSpace: readonly RawTopic[] = [
         en: "This tiny planet speeds through space. It goes around the Sun so fast that a year there lasts only three Earth months!"
       }
     ],
-    funFacts: [
-      {
-        fr: 'Une année sur Mercure dure seulement 88 jours !',
-        en: 'A year on Mercury lasts only 88 days!',
-      }
-    ]
+    funFact: {
+      fr: 'Une année sur Mercure dure seulement 88 jours !',
+      en: 'A year on Mercury lasts only 88 days!',
+    },
+    
   },
   {
     id: 'venus',
     title: { fr: 'Vénus', en: 'Venus' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '☁️',
     shortDesc: { fr: 'La planète la plus chaude de toutes.', en: 'The hottest planet of all.' },
+    fullContent: {
+      fr: "Vénus est recouverte de gros nuages qui gardent la chaleur. C'est comme une serre géante !",
+      en: "Venus is covered in thick clouds that trap heat. It's like a giant greenhouse!",
+    },
     fullContents: [
       {
         fr: "Vénus est recouverte de gros nuages qui gardent la chaleur. C'est comme une serre géante !",
@@ -93,18 +112,23 @@ const rawSpace: readonly RawTopic[] = [
         en: "On Venus, the air is so heavy and suffocating that it would crush any explorer robot in just a few minutes!"
       }
     ],
-    funFacts: [
-      {
-        fr: "Sur Vénus, le Soleil se lève à l'ouest et se couche à l'est.",
-        en: 'On Venus, the Sun rises in the west and sets in the east.',
-      }
-    ]
+    funFact: {
+      fr: "Sur Vénus, le Soleil se lève à l'ouest et se couche à l'est.",
+      en: 'On Venus, the Sun rises in the west and sets in the east.',
+    },
+    
   },
   {
     id: 'terre',
     title: { fr: 'La Terre', en: 'The Earth' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '🌍',
     shortDesc: { fr: 'Notre maison, la planète bleue.', en: 'Our home, the blue planet.' },
+    fullContent: {
+      fr: "La Terre est la seule planète connue avec de la vie. Elle a de l'eau, de l'air et une température parfaite.",
+      en: 'Earth is the only known planet with life. It has water, air, and a perfect temperature.',
+    },
     fullContents: [
       {
         fr: "La Terre est la seule planète connue avec de la vie. Elle a de l'eau, de l'air et une température parfaite.",
@@ -123,6 +147,10 @@ const rawSpace: readonly RawTopic[] = [
         en: "The Earth is our beautiful home, the only known planet in the universe that supports life thanks to its water and fresh air. Like a grand, caring garden that feeds and protects all plants and animals, the Earth takes care of you, and you can also take care of it with your small actions every day."
       }
     ],
+    funFact: {
+      fr: 'La Terre tourne à 1600 km/h, mais on ne sent rien !',
+      en: 'The Earth spins at 1600 km/h, but we feel nothing!',
+    },
     funFacts: [
       {
         fr: 'La Terre tourne à 1600 km/h, mais on ne sent rien !',
@@ -136,13 +164,20 @@ const rawSpace: readonly RawTopic[] = [
         fr: "La Terre n'est pas parfaitement ronde, elle est un peu aplatie aux pôles !",
         en: "The Earth is not perfectly round, it is slightly flattened at the poles!"
       }
-    ]
+    ],
+    
   },
   {
     id: 'mars',
     title: { fr: 'Mars', en: 'Mars' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '🔴',
     shortDesc: { fr: 'La célèbre planète rouge.', en: 'The famous red planet.' },
+    fullContent: {
+      fr: 'Mars est rouge à cause de la rouille dans son sol. Des robots explorent sa surface.',
+      en: 'Mars is red because of rust in its soil. Robots explore its surface.',
+    },
     fullContents: [
       {
         fr: 'Mars est rouge à cause de la rouille dans son sol. Des robots explorent sa surface.',
@@ -157,18 +192,23 @@ const rawSpace: readonly RawTopic[] = [
         en: "On Mars, you can find spectacular landscapes like giant canyons and Mount Olympus, a volcano three times higher than our Mount Everest!"
       }
     ],
-    funFacts: [
-      {
-        fr: 'Le plus grand volcan du système solaire est sur Mars !',
-        en: 'The largest volcano in the solar system is on Mars!',
-      }
-    ]
+    funFact: {
+      fr: 'Le plus grand volcan du système solaire est sur Mars !',
+      en: 'The largest volcano in the solar system is on Mars!',
+    },
+    
   },
   {
     id: 'jupiter',
     title: { fr: 'Jupiter', en: 'Jupiter' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '🌀',
     shortDesc: { fr: 'La plus grande planète de toutes.', en: 'The largest planet of all.' },
+    fullContent: {
+      fr: "C'est une géante de gaz. Elle est si grande qu'on pourrait y mettre 1300 Terres !",
+      en: 'It is a gas giant. It is so large that 1300 Earths could fit inside it!',
+    },
     fullContents: [
       {
         fr: "C'est une géante de gaz. Elle est si grande qu'on pourrait y mettre 1300 Terres !",
@@ -183,20 +223,25 @@ const rawSpace: readonly RawTopic[] = [
         en: "This giant planet spins on itself at high speed, creating ultra-fast winds and colorful storms that have lasted for centuries."
       }
     ],
-    funFacts: [
-      {
-        fr: 'Sa grande tache rouge est une tempête géante.',
-        en: 'Its great red spot is a giant storm.',
-      }
-    ]
+    funFact: {
+      fr: 'Sa grande tache rouge est une tempête géante.',
+      en: 'Its great red spot is a giant storm.',
+    },
+    
   },
   {
     id: 'saturne',
     title: { fr: 'Saturne', en: 'Saturn' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '🪐',
     shortDesc: {
       fr: 'La planète aux anneaux magnifiques.',
       en: 'The planet with magnificent rings.',
+    },
+    fullContent: {
+      fr: "Saturne est entourée d'anneaux de glace et de poussière. C'est aussi une géante gazeuse.",
+      en: 'Saturn is surrounded by rings of ice and dust. It is also a gas giant.',
     },
     fullContents: [
       {
@@ -212,18 +257,23 @@ const rawSpace: readonly RawTopic[] = [
         en: "Saturn has dozens of fascinating moons, including Titan, a giant moon with its own clouds and lakes of liquid gas!"
       }
     ],
-    funFacts: [
-      {
-        fr: "Saturne flotterait sur l'eau si on trouvait une baignoire assez grande !",
-        en: 'Saturn would float on water if we found a bathtub big enough!',
-      }
-    ]
+    funFact: {
+      fr: "Saturne flotterait sur l'eau si on trouvait une baignoire assez grande !",
+      en: 'Saturn would float on water if we found a bathtub big enough!',
+    },
+    
   },
   {
     id: 'uranus',
     title: { fr: 'Uranus', en: 'Uranus' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '💎',
     shortDesc: { fr: 'La planète penchée et glacée.', en: 'The tilted and icy planet.' },
+    fullContent: {
+      fr: 'Uranus est une planète bleue très froide. Elle tourne sur le côté comme une boule qui roule.',
+      en: 'Uranus is a very cold blue planet. It spins on its side like a rolling ball.',
+    },
     fullContents: [
       {
         fr: 'Uranus est une planète bleue très froide. Elle tourne sur le côté comme une boule qui roule.',
@@ -238,18 +288,23 @@ const rawSpace: readonly RawTopic[] = [
         en: "Unlike other planets, Uranus suffered a shock in the past that knocked it on its side. Its seasons thus last for more than 20 years!"
       }
     ],
-    funFacts: [
-      {
-        fr: 'Il y fait environ -220 degrés Celsius !',
-        en: 'It is about -220 degrees Celsius there!',
-      }
-    ]
+    funFact: {
+      fr: 'Il y fait environ -220 degrés Celsius !',
+      en: 'It is about -220 degrees Celsius there!',
+    },
+    
   },
   {
     id: 'neptune',
     title: { fr: 'Neptune', en: 'Neptune' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '🌊',
     shortDesc: { fr: 'La planète bleue très venteuse.', en: 'The very windy blue planet.' },
+    fullContent: {
+      fr: 'Neptune est la plus lointaine. Il y souffle les vents les plus forts de tout le système solaire.',
+      en: 'Neptune is the farthest away. The strongest winds in the entire solar system blow there.',
+    },
     fullContents: [
       {
         fr: 'Neptune est la plus lointaine. Il y souffle les vents les plus forts de tout le système solaire.',
@@ -264,18 +319,23 @@ const rawSpace: readonly RawTopic[] = [
         en: "It is a world of extreme ice and storms where winds blow at over 2000 km/h, much faster than jet fighter planes!"
       }
     ],
-    funFacts: [
-      {
-        fr: 'Une année sur Neptune dure 165 ans terrestres !',
-        en: 'A year on Neptune lasts 165 Earth years!',
-      }
-    ]
+    funFact: {
+      fr: 'Une année sur Neptune dure 165 ans terrestres !',
+      en: 'A year on Neptune lasts 165 Earth years!',
+    },
+    
   },
   {
     id: 'pluton',
     title: { fr: 'Pluton', en: 'Pluto' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '❄️',
     shortDesc: { fr: 'La petite planète naine glacée.', en: 'The small icy dwarf planet.' },
+    fullContent: {
+      fr: 'Pluton est très loin et très petite. Elle a une grande plaine blanche en forme de cœur.',
+      en: 'Pluto is very far away and very small. It has a large white heart-shaped plain.',
+    },
     fullContents: [
       {
         fr: 'Pluton est très loin et très petite. Elle a une grande plaine blanche en forme de cœur.',
@@ -290,18 +350,23 @@ const rawSpace: readonly RawTopic[] = [
         en: "This tiny icy dwarf planet has a temporary atmosphere that freezes and falls as snow when Pluto gets too far from the Sun!"
       }
     ],
-    funFacts: [
-      {
-        fr: 'Pluton possède 5 lunes !',
-        en: 'Pluto has 5 moons!',
-      }
-    ]
+    funFact: {
+      fr: 'Pluton possède 5 lunes !',
+      en: 'Pluto has 5 moons!',
+    },
+    
   },
   {
     id: 'astronaute',
     title: { fr: 'Les Astronautes', en: 'Astronauts' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '👨‍🚀',
     shortDesc: { fr: "Les explorateurs de l'espace.", en: 'Space explorers.' },
+    fullContent: {
+      fr: "Les astronautes sont des personnes entraînées pour voyager dans l'espace. Ils vivent dans la Station Spatiale Internationale et flottent car il n'y a pas de gravité.",
+      en: 'Astronauts are people trained to travel in space. They live on the International Space Station and float because there is no gravity.',
+    },
     fullContents: [
       {
         fr: "Les astronautes sont des personnes entraînées pour voyager dans l'espace. Ils vivent dans la Station Spatiale Internationale et flottent car il n'y a pas de gravité.",
@@ -316,20 +381,25 @@ const rawSpace: readonly RawTopic[] = [
         en: "In their spacesuit, astronauts have air conditioning, water to drink, and an oxygen supply to be able to walk in the vacuum of space."
       }
     ],
-    funFacts: [
-      {
-        fr: "Dans l'espace, les astronautes grandissent de quelques centimètres car leur colonne vertébrale s'étire !",
-        en: 'In space, astronauts grow a few centimeters because their spines stretch!',
-      }
-    ]
+    funFact: {
+      fr: "Dans l'espace, les astronautes grandissent de quelques centimètres car leur colonne vertébrale s'étire !",
+      en: 'In space, astronauts grow a few centimeters because their spines stretch!',
+    },
+    
   },
   {
     id: 'la-lune',
     title: { fr: 'La Lune', en: 'The Moon' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '🌙',
     shortDesc: {
       fr: 'Le satellite qui tourne autour de la Terre.',
       en: 'The satellite that orbits the Earth.',
+    },
+    fullContent: {
+      fr: "La Lune est l'objet le plus brillant de notre ciel nocturne, mais elle ne fabrique pas sa propre lumière : elle reflète celle du Soleil. Elle change d'apparence au fil du mois (pleine lune, croissant...) car elle tourne autour de la Terre. C'est le seul endroit dans l'espace où les humains ont déjà posé le pied !",
+      en: "The Moon is the brightest object in our night sky, but it doesn't make its own light: it reflects light from the Sun. It changes appearance over the month (full moon, crescent...) because it orbits the Earth. It is the only place in space where humans have already set foot!",
     },
     fullContents: [
       {
@@ -349,6 +419,10 @@ const rawSpace: readonly RawTopic[] = [
         en: "The Moon is the natural satellite that gently orbits the Earth and changes its shape in the night sky. Just like the Moon that grows bright and then rests as a quiet crescent, you are allowed to have calm days to rest: you are always wonderful and whole, even when you feel quiet."
       }
     ],
+    funFact: {
+      fr: 'Sur la Lune, on pèse 6 fois moins que sur Terre. Tu pourrais faire des bonds de géant très facilement !',
+      en: 'On the Moon, you weigh 6 times less than on Earth. You could make giant leaps very easily!',
+    },
     funFacts: [
       {
         fr: 'Sur la Lune, on pèse 6 fois moins que sur Terre. Tu pourrais faire des bonds de géant très facilement !',
@@ -360,17 +434,24 @@ const rawSpace: readonly RawTopic[] = [
       },
       {
         fr: "La Lune s'éloigne de la Terre de 3 centimètres chaque année.",
-        en: "La Lune s'éloigne de la Terre de 3 centimètres chaque année."
+        en: "The Moon is moving away from the Earth by 3 centimeters every year."
       }
-    ]
+    ],
+    
   },
   {
     id: 'singularite',
     title: { fr: 'La Singularité', en: 'The Singularity' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '💥',
     shortDesc: {
       fr: "Le point de départ mystérieux de tout notre univers !",
       en: 'The mysterious starting point of our entire universe!',
+    },
+    fullContent: {
+      fr: "La singularité est le tout premier moment de notre univers. Il y a environ 13,8 milliards d'années, tout ce qui existe aujourd'hui (les étoiles, la Terre, et même nous !) était concentré en un point incroyablement minuscule, chaud et dense. Puis, ce point a commencé à s'étendre très rapidement : c'est le Big Bang !",
+      en: "The singularity is the very first moment of our universe. About 13.8 billion years ago, everything that exists today (stars, Earth, and even us!) was concentrated in an incredibly tiny, hot, and dense point. Then, this point began to expand very quickly: that is the Big Bang!",
     },
     fullContents: [
       {
@@ -386,6 +467,10 @@ const rawSpace: readonly RawTopic[] = [
         en: "At the very beginning, time and space did not exist as they do today. The singularity marked the starting point of an incredible cosmic expansion still ongoing today!"
       }
     ],
+    funFact: {
+      fr: "Au moment de la singularité, tout l'univers tenait dans un espace plus petit qu'un grain de sable !",
+      en: "At the moment of the singularity, the entire universe fit in a space smaller than a grain of sand!",
+    },
     funFacts: [
       {
         fr: "Au moment de la singularité, tout l'univers tenait dans un espace plus petit qu'un grain de sable !",
@@ -404,10 +489,16 @@ const rawSpace: readonly RawTopic[] = [
   {
     id: 'soupe-particules',
     title: { fr: 'Soupe de Particules', en: 'Particle Soup' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '🥣',
     shortDesc: {
       fr: "Un mélange super chaud et agité !",
       en: "A super hot and moving mix!"
+    },
+    fullContent: {
+      fr: "Juste après le Big Bang, l'univers était incroyablement chaud, comme une soupe brûlante ! De toutes petites pièces d'énergie s'agitaient et se rentraient dedans à toute vitesse sans pouvoir s'associer.",
+      en: "Just after the Big Bang, the universe was incredibly hot, like a burning soup! Tiny bits of energy moved and crashed into each other at high speed without being able to join together."
     },
     fullContents: [
       {
@@ -419,6 +510,10 @@ const rawSpace: readonly RawTopic[] = [
         en: "Imagine a giant cosmic firestorm where nothing can stay still. That was the particle soup at the birth of the universe!"
       }
     ],
+    funFact: {
+      fr: "Cette soupe était des milliards de fois plus chaude que le centre de notre Soleil !",
+      en: "This soup was billions of times hotter than the center of our Sun!"
+    },
     funFacts: [
       {
         fr: "Cette soupe était des milliards de fois plus chaude que le centre de notre Soleil !",
@@ -429,10 +524,16 @@ const rawSpace: readonly RawTopic[] = [
   {
     id: 'naissance-atomes',
     title: { fr: 'Naissance des Atomes', en: 'Birth of Atoms' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '⚛️',
     shortDesc: {
       fr: "Les petites briques de la matière apparaissent.",
       en: "The tiny bricks of matter appear."
+    },
+    fullContent: {
+      fr: "En grandissant, l'univers a commencé à se refroidir un peu. Les particules de la soupe ont enfin pu se calmer et s'assembler pour former les tout premiers atomes, qui sont les petites briques de tout ce qui existe !",
+      en: "As it grew, the universe began to cool down a bit. The particles in the soup could finally calm down and assemble to form the very first atoms, which are the tiny bricks of everything that exists!"
     },
     fullContents: [
       {
@@ -444,6 +545,10 @@ const rawSpace: readonly RawTopic[] = [
         en: "Everything around you: your toys, your cat, and even your own hands, is made from these tiny atoms born a very long time ago!"
       }
     ],
+    funFact: {
+      fr: "L'hydrogène a été le tout premier atome fabriqué dans l'univers !",
+      en: "Hydrogen was the very first atom made in the universe!"
+    },
     funFacts: [
       {
         fr: "L'hydrogène a été le tout premier atome fabriqué dans l'univers !",
@@ -454,10 +559,16 @@ const rawSpace: readonly RawTopic[] = [
   {
     id: 'expansion',
     title: { fr: "L'Expansion", en: 'Expansion' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '✨',
     shortDesc: {
       fr: "L'univers grandit à toute vitesse !",
       en: "The universe grows at high speed!"
+    },
+    fullContent: {
+      fr: "Depuis sa naissance, l'univers ne s'arrête jamais de grandir ! Il s'étend dans toutes les directions à une vitesse incroyable, emportant toutes les galaxies de plus en plus loin les unes des autres.",
+      en: "Since its birth, the universe never stops growing! It expands in all directions at an incredible speed, carrying all galaxies further and further apart."
     },
     fullContents: [
       {
@@ -469,6 +580,10 @@ const rawSpace: readonly RawTopic[] = [
         en: "Expansion doesn't push objects; it is space itself between galaxies that stretches, like cake dough rising in the oven!"
       }
     ],
+    funFact: {
+      fr: "L'univers s'étend si vite que même la lumière a du mal à le rattraper !",
+      en: "The universe expands so fast that even light has a hard time catching up!"
+    },
     funFacts: [
       {
         fr: "L'univers s'étend si vite que même la lumière a du mal à le rattraper !",
@@ -479,10 +594,16 @@ const rawSpace: readonly RawTopic[] = [
   {
     id: 'premieres-etoiles',
     title: { fr: 'Premières Étoiles', en: 'First Stars' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '⭐',
     shortDesc: {
       fr: "La lumière s'allume enfin !",
       en: "The light finally turns on!"
+    },
+    fullContent: {
+      fr: "Après des millions d'années d'obscurité, la gravité a rassemblé de grands nuages de gaz. Ces nuages sont devenus si denses et chauds qu'ils se sont allumés : les toutes premières étoiles sont nées !",
+      en: "After millions of years of darkness, gravity gathered huge clouds of gas. These clouds became so dense and hot that they ignited: the very first stars were born!"
     },
     fullContents: [
       {
@@ -494,6 +615,10 @@ const rawSpace: readonly RawTopic[] = [
         en: "These giant suns manufactured the first metals and heavy chemical elements of our entire universe in their hot core!"
       }
     ],
+    funFact: {
+      fr: "Les premières étoiles étaient de véritables géantes, des centaines de fois plus grandes que notre Soleil !",
+      en: "The first stars were true giants, hundreds of times larger than our Sun!"
+    },
     funFacts: [
       {
         fr: "Les premières étoiles étaient de véritables géantes, des centaines de fois plus grandes que notre Soleil !",
@@ -504,10 +629,16 @@ const rawSpace: readonly RawTopic[] = [
   {
     id: 'premieres-galaxies',
     title: { fr: 'Premières Galaxies', en: 'First Galaxies' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '🌀',
     shortDesc: {
       fr: "Les étoiles se regroupent en familles.",
       en: "Stars group into families."
+    },
+    fullContent: {
+      fr: "Les étoiles ne restent pas seules dans l'espace. Attirées les unes par les autres, elles se sont regroupées par milliards pour former les premières galaxies, de grands tourbillons de lumière céleste.",
+      en: "Stars do not stay alone in space. Attracted to each other, they grouped together by the billions to form the first galaxies, large swirls of celestial light."
     },
     fullContents: [
       {
@@ -519,6 +650,10 @@ const rawSpace: readonly RawTopic[] = [
         en: "The first galaxies were smaller and more turbulent than today's galaxies, often colliding to form larger systems."
       }
     ],
+    funFact: {
+      fr: "Il existe des centaines de milliards de galaxies dans notre univers visible !",
+      en: "There are hundreds of billions of galaxies in our visible universe!"
+    },
     funFacts: [
       {
         fr: "Il existe des centaines de milliards de galaxies dans notre univers visible !",
@@ -529,10 +664,16 @@ const rawSpace: readonly RawTopic[] = [
   {
     id: 'voie-lactee',
     title: { fr: 'La Voie Lactée', en: 'The Milky Way' },
+    category: { fr: 'Espace 🚀', en: 'Space 🚀' },
+    categoryKey: 'espace',
     icon: '🌌',
     shortDesc: {
       fr: "Notre merveilleuse maison galactique.",
       en: "Our wonderful galactic home."
+    },
+    fullContent: {
+      fr: "La Voie Lactée est notre galaxie. C'est une magnifique spirale qui tourne lentement sur elle-même. Elle contient plus de 200 milliards d'étoiles, dont notre Soleil, situé sur l'un de ses bras de lumière.",
+      en: "The Milky Way is our galaxy. It is a beautiful spiral that slowly spins on itself. It contains over 200 billion stars, including our Sun, located on one of its arms of light."
     },
     fullContents: [
       {
@@ -544,19 +685,15 @@ const rawSpace: readonly RawTopic[] = [
         en: "If we could travel at the speed of light, it would take us 100,000 years to cross the Milky Way entirely!"
       }
     ],
+    funFact: {
+      fr: "Elle s'appelle 'Voie Lactée' car elle ressemble à une traînée de lait blanc dans le ciel de nuit !",
+      en: "It is called the 'Milky Way' because it looks like a trail of white milk in the night sky!"
+    },
     funFacts: [
       {
         fr: "Elle s'appelle 'Voie Lactée' car elle ressemble à une traînée de lait blanc dans le ciel de nuit !",
         en: "It is called the 'Milky Way' because it looks like a trail of white milk in the night sky!"
       }
     ]
-  }
-];
-
-export const space: readonly Topic[] = rawSpace.map((item) => ({
-  ...item,
-  category: CATEGORY,
-  categoryKey: CATEGORY_KEY,
-  fullContent: item.fullContents[0],
-  funFact: item.funFacts[0],
-}));
+  },
+] as const

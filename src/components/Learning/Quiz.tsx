@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react'
-import { type MedalType, getRandomMessage, getMedalIcon } from '../../utils/quizMessages'
+import { type MedalType } from '../../utils/quizMessages'
 import { type Gender } from '../../utils/helpers'
 import { type Labels } from '../../locales/types'
 import { useAudioFeedback } from '../../hooks/useAudioFeedback'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { useStoryteller } from '../../hooks/useStoryteller'
 import { QuizAnswerButton } from './QuizAnswerButton'
+import { QuizHeader } from './QuizHeader'
+import { QuizResults } from './QuizResults'
 import { useProgressionStore } from '../../store/useProgressionStore'
 import styles from './Quiz.module.css'
 
@@ -240,30 +242,10 @@ export const QuizComponent: React.FC<QuizProps> = ({
     }
   }
 
-  const medalStyles = {
-    gold: {
-      bg: 'bg-gold-gradient',
-      text: 'text-white',
-      label: labels.quiz.goldMedal,
-    },
-    silver: {
-      bg: 'bg-silver-gradient',
-      text: 'text-white',
-      label: labels.quiz.silverMedal,
-    },
-    bronze: {
-      bg: 'bg-bronze-gradient',
-      text: 'text-white',
-      label: labels.quiz.bronzeMedal,
-    },
-  }
 
   return (
     <div className={styles.quizContainer}>
-      <div className={styles.quizHeader}>
-        <span className={styles.quizHeaderIcon}>{anchorIcon || '🧩'}</span>
-        <h3 className={styles.quizHeaderTitle}>{labels.quiz.title}</h3>
-      </div>
+      <QuizHeader anchorIcon={anchorIcon} title={labels.quiz.title} />
 
       {!result ? (
         <div className={styles.quizBody}>
@@ -361,37 +343,12 @@ export const QuizComponent: React.FC<QuizProps> = ({
           )}
         </div>
       ) : (
-        <div
-          className={styles.resultBox}
-          data-medal={result.medal}
-        >
-          {result.medal === 'gold' && (
-            <div className={styles.perfectBanner} data-testid="perfect-banner">
-              <span>{labels.quiz.perfectBadge}</span>
-            </div>
-          )}
-
-          {/* Dynamic QC PASS stamp validation overlay */}
-          <div className={styles.qcPassStamp} data-testid="qc-pass-stamp">
-            <div className={styles.qcPassTitle}>★ KIDPEDIA ★</div>
-            <div className={styles.qcPassBadge}>QC PASS</div>
-            <div className={styles.qcPassStatus}>
-              {language === 'fr' ? 'APPROUVÉ' : 'APPROVED'}
-            </div>
-          </div>
-
-          <div className={styles.resultContent}>
-            <div className={styles.resultIcon}>
-              {getMedalIcon(result.medal)}
-            </div>
-            <h4 className={styles.resultTitle}>
-              {getRandomMessage(result.medal, gender, labels)}
-            </h4>
-            <div className={styles.resultBadge}>
-              {labels.quiz.winMessage(medalStyles[result.medal].label)}
-            </div>
-          </div>
-        </div>
+        <QuizResults
+          result={result}
+          gender={gender}
+          labels={labels}
+          language={language}
+        />
       )}
     </div>
   )
