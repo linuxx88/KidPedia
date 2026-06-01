@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './ParentalGate.module.css';
 import { useSettingsStore } from '../../store/useSettingsStore';
 
@@ -285,17 +285,20 @@ export const ParentalGate: React.FC<ParentalGateProps> = ({ onSuccess, onCancel 
   const [challenge, setChallenge] = useState<PuzzleChallenge>(() => generatePuzzleChallenge());
   const [error, setError] = useState(false);
 
+  useEffect(() => {
+    if (!error) return;
+    const timer = setTimeout(() => {
+      setChallenge(generatePuzzleChallenge());
+      setError(false);
+    }, 500);
+    return () => clearTimeout(timer);
+  }, [error]);
+
   const handleOptionClick = (option: PuzzleOption) => {
     if (option.isCorrect) {
       onSuccess();
     } else {
       setError(true);
-      
-      // Automatically scramble and generate a brand new puzzle to block random tapping
-      setTimeout(() => {
-        setChallenge(generatePuzzleChallenge());
-        setError(false);
-      }, 500);
     }
   };
 
