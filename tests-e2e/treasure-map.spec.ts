@@ -4,8 +4,6 @@ test.describe('La Carte aux Trésors', () => {
   test.beforeEach(async ({ page }) => {
     // 1. Initialisation : Création d'un profil
     await page.goto('/');
-    await page.evaluate(() => localStorage.clear());
-    await page.reload();
     
     await page.getByTestId('profile-name-input').fill('Explorateur E2E');
     await page.getByRole('button', { name: /parti/i }).click();
