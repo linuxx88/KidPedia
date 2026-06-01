@@ -14,7 +14,7 @@ interface AppImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
 export const AppImage: React.FC<AppImageProps> = ({ 
   src, 
   alt, 
-  fallback = '/assets/images/placeholder.webp', 
+  fallback = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100' fill='none'><rect width='100' height='100' rx='8' fill='%23f1f5f9'/><path d='M35 45a3 3 0 1 0 0-6 3 3 0 0 0 0 6Zm-7 19 12-12 10 10 15-15 12 12v3H28v-8Z' stroke='%23cbd5e1' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>", 
   loader,
   className,
   webpSrc,
@@ -35,7 +35,9 @@ export const AppImage: React.FC<AppImageProps> = ({
 
   const handleError = () => {
     setIsLoading(false);
-    if (fallback) setSrc(fallback);
+    if (fallback && imgSrc !== fallback) {
+      setSrc(fallback);
+    }
   };
 
   const imageElement = (

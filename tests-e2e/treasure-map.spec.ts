@@ -61,7 +61,6 @@ test.describe('La Carte aux Trésors', () => {
   });
 
   test('devrait zoomer par double-clic sur la carte', async ({ page }) => {
-    const mapImage = page.getByTestId('treasure-map-image');
     const zoomLevel = page.getByTestId('zoom-level');
     
     await expect(zoomLevel).toHaveText('x1');
