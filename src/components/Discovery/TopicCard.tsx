@@ -59,10 +59,13 @@ export const TopicCard = forwardRef<HTMLButtonElement, TopicCardProps>(
     const isDisabled = !isUnlocked || isOfflineAndUnavailable
 
     const offlineHint = language === 'fr' ? 'Non disponible hors-ligne' : 'Not available offline'
+    const availableOfflineHint = language === 'fr' ? 'Disponible hors-ligne' : 'Available offline'
     const statusDesc = !isUnlocked
       ? '. Verrouillé'
       : isOfflineAndUnavailable
       ? `. ${offlineHint}`
+      : isAvailableOffline
+      ? `. ${availableOfflineHint}`
       : ''
     const medalDesc = isDiscovered ? '. Médaille obtenue' : ''
     const ariaLabelValue = `${title}. ${description}${statusDesc}${medalDesc}`
@@ -103,6 +106,12 @@ export const TopicCard = forwardRef<HTMLButtonElement, TopicCardProps>(
         {isOfflineAndUnavailable && isUnlocked && (
           <div className={styles.offlineOverlay} data-testid="offline-badge">
             <span aria-hidden="true">☁️🚫</span>
+          </div>
+        )}
+
+        {isUnlocked && isAvailableOffline && (
+          <div className={styles.offlineAvailableOverlay} data-testid="offline-available-badge" title={availableOfflineHint}>
+            <span aria-hidden="true">☁️</span>
           </div>
         )}
 

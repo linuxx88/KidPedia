@@ -105,4 +105,17 @@ describe('TopicCard', () => {
     // Slashed cloud icon overlay should not be visible
     expect(screen.queryByTestId('offline-badge')).toBeNull()
   })
+
+  it('affiche le badge de disponibilité hors-ligne quand le sujet est en cache', () => {
+    vi.mocked(useOfflineAvailability).mockReturnValue(true)
+    render(<TopicCard {...defaultProps} />)
+
+    const badge = screen.getByTestId('offline-available-badge')
+    expect(badge).toBeDefined()
+    expect(screen.getByText('☁️')).toBeDefined()
+    expect(badge.getAttribute('title')).toBe('Disponible hors-ligne')
+
+    const button = screen.getByRole('button')
+    expect(button.getAttribute('aria-label')).toContain('Disponible hors-ligne')
+  })
 })
