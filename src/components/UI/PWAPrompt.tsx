@@ -33,6 +33,13 @@ export const PWAPrompt: React.FC = () => {
     return false;
   });
 
+  // Force show prompt if a new critical update is available, even if previously dismissed
+  React.useEffect(() => {
+    if (needRefresh) {
+      setIsDismissed(false);
+    }
+  }, [needRefresh]);
+
   const close = () => {
     setOfflineReady(false);
     setNeedRefresh(false);
