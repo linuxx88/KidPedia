@@ -266,9 +266,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
       setHasMoved(true);
     }
 
-    // eslint-disable-next-line react-hooks/immutability
     containerRef.current.scrollLeft = dragStart.scrollLeft - dx;
-    // eslint-disable-next-line react-hooks/immutability
     containerRef.current.scrollTop = dragStart.scrollTop - dy;
   };
 
@@ -343,9 +341,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
       setHasMoved(true);
     }
 
-    // eslint-disable-next-line react-hooks/immutability
     containerRef.current.scrollLeft = dragStart.scrollLeft - dx;
-    // eslint-disable-next-line react-hooks/immutability
     containerRef.current.scrollTop = dragStart.scrollTop - dy;
   };
 
