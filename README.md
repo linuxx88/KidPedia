@@ -161,6 +161,8 @@ KidPedia/
 ├── src/
 │   ├── assets/           # 🎵 Ressources audio et images
 │   ├── components/       # 🧩 Composants React réutilisables (UI, Cartes, etc.)
+│   │   └── Learning/
+│   │       └── ExplorerGallery/ # 🎁 Section Cadeaux (modularisée : GiftsPage, GiftCard, GiftChest)
 │   ├── constants/        # 📌 Constantes globales
 │   ├── data/             # 📊 Données statiques (Thèmes, Quizzes, Safari)
 │   ├── hooks/            # 🪝 Custom hooks (Audio, Swipe, Offline, etc.)
