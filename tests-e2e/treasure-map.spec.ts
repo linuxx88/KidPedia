@@ -2,17 +2,22 @@ import { test, expect } from '@playwright/test';
 
 test.describe('La Carte aux Trésors', () => {
   test.beforeEach(async ({ page }) => {
-    // 1. Initialisation : Création d'un profil
-    await page.goto('/');
-    
-    await page.getByTestId('profile-name-input').fill('Explorateur E2E');
-    await page.getByRole('button', { name: /parti/i }).click();
+    // 1. Initialisation : Injecter un profil directement dans le localStorage avant le chargement de la page
+    await page.addInitScript(() => {
+      const profile = {
+        id: 'e2e-profile-id',
+        name: 'Explorateur E2E',
+        avatar: '/avatars/boy-1.webp',
+        gender: 'boy',
+        theme: 'light',
+        language: 'fr',
+      };
+      localStorage.setItem('kp-profiles-index', JSON.stringify([profile]));
+      localStorage.setItem('kp-active-profile-id', 'e2e-profile-id');
+    });
 
-    // 2. Accéder à la Carte aux Trésors
-    const mapLink = page.getByText('La Carte aux Trésors');
-    await expect(mapLink).toBeVisible();
-    await mapLink.click();
-    await expect(page).toHaveURL(/\/map/);
+    // 2. Accéder directement à la Carte aux Trésors
+    await page.goto('/map');
   });
 
   test('devrait permettre de zoomer et dézoomer', async ({ page }) => {
@@ -62,8 +67,8 @@ test.describe('La Carte aux Trésors', () => {
     
     await expect(zoomLevel).toHaveText('x1');
     
-    // On utilise force: true car le conteneur peut intercepter l'événement
-    await mapImage.dblclick({ force: true });
+    // Double-clic sur l'élément picture (parent direct de l'image) pour zoomer sans contourner l'actionnabilité
+    await page.locator('picture:has([data-testid="treasure-map-image"])').dblclick();
     
     await expect(zoomLevel).toHaveText('x2');
   });
