@@ -58,7 +58,7 @@ test.describe('La Carte aux Trésors', () => {
     await exploreBtn.click();
 
     await expect(page).toHaveURL(/\/topic\/tour-eiffel/);
-    await expect(page.getByRole('heading', { level: 2 }).first()).toContainText('Tour Eiffel');
+    await expect(page.getByRole('heading', { level: 2, name: /Tour Eiffel/i })).toBeVisible();
   });
 
   test('devrait zoomer par double-clic sur la carte', async ({ page }) => {
