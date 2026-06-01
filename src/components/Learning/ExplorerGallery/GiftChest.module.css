@@ -1,0 +1,354 @@
+/* --- SECTION COFFRE INTERACTIF --- */
+.chestSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2.5rem;
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(16px);
+  border-radius: 2.5rem;
+  padding: 2.5rem;
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.35);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  width: 100%;
+}
+
+.chestSection:hover {
+  box-shadow: 0 25px 60px rgba(124, 58, 237, 0.15), 0 20px 50px rgba(0, 0, 0, 0.4);
+}
+
+@media (min-width: 768px) {
+  .chestSection {
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding: 3rem;
+  }
+}
+
+/* --- AVATAR PREVIEW --- */
+.avatarPreview {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  padding: 2rem;
+  border-radius: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 4px 20px rgba(0, 0, 0, 0.3);
+  min-width: 220px;
+}
+
+.avatarLabel {
+  margin-top: 1.2rem;
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--color-gold-light);
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 0 2px 10px rgba(251, 191, 36, 0.3), 0 2px 4px rgba(0, 0, 0, 0.5);
+  margin-bottom: 0;
+}
+
+/* --- CHEST DISPLAY CARD --- */
+.chestDisplayCard {
+  flex: 1;
+  max-width: 500px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  min-height: 320px;
+  width: 100%;
+}
+
+/* --- COFFRE FERME ET INTERACTIF --- */
+.chestAction {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  outline: none;
+  width: 100%;
+  border-radius: 2rem;
+  padding: 1.5rem;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.chestAction:focus-visible {
+  outline: 3px solid var(--color-gold-light);
+}
+
+.chestAction:hover {
+  transform: scale(1.05);
+}
+
+.chestAction:active {
+  transform: scale(0.96);
+}
+
+.chestEmoji {
+  font-size: 7.5rem;
+  filter: drop-shadow(0 15px 30px rgba(236, 72, 153, 0.4));
+  user-select: none;
+  line-height: 1;
+}
+
+.chestAction:hover .chestEmoji {
+  animation: chestWiggle 0.6s ease infinite alternate;
+}
+
+@keyframes chestWiggle {
+  0% { transform: rotate(-8deg) scale(1.05); }
+  100% { transform: rotate(8deg) scale(1.05); }
+}
+
+.pulsing {
+  animation: chestFloatAndPulse 3s infinite ease-in-out;
+}
+
+@keyframes chestFloatAndPulse {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 15px 25px rgba(236, 72, 153, 0.4));
+  }
+  50% {
+    transform: translateY(-15px) scale(1.06);
+    filter: drop-shadow(0 30px 45px rgba(236, 72, 153, 0.7));
+  }
+}
+
+.chestTitle {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #ffffff;
+  margin: 1.5rem 0 0.5rem;
+  text-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  line-height: 1.2;
+}
+
+.chestHint {
+  font-size: 1.15rem;
+  color: #fed7aa;
+  font-weight: 700;
+  margin: 0;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  animation: softPulse 2s infinite ease-in-out;
+}
+
+/* --- COFFRE REVELE --- */
+.chestRevealed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  animation: revealSpring 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes revealSpring {
+  0% { transform: scale(0.5); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.haloEffect {
+  position: relative;
+  width: 180px;
+  height: 180px;
+  background: radial-gradient(circle, rgba(251, 191, 36, 0.35) 0%, rgba(251, 191, 36, 0) 70%);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+
+.haloEffect::before {
+  content: '';
+  position: absolute;
+  top: -10px; left: -10px; right: -10px; bottom: -10px;
+  border-radius: 50%;
+  border: 3px dashed rgba(251, 191, 36, 0.5);
+  animation: rotateGlow 20s linear infinite;
+}
+
+@keyframes rotateGlow {
+  100% { transform: rotate(360deg); }
+}
+
+.revealedAccessoryIcon {
+  font-size: 6.5rem;
+  filter: drop-shadow(0 12px 24px rgba(251, 191, 36, 0.4));
+  animation: accessoryFloat 3s ease-in-out infinite;
+  user-select: none;
+  line-height: 1;
+}
+
+@keyframes accessoryFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-12px) rotate(4deg); }
+}
+
+.revealedTitle {
+  font-size: 1.8rem;
+  font-weight: 900;
+  color: #fff;
+  margin: 0 0 1.5rem;
+  text-shadow: 0 4px 15px rgba(0, 0, 0, 0.6);
+  line-height: 1.25;
+}
+
+/* --- BOUTON D'EQUIPEMENT GEANT --- */
+.btnEquipLarge {
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: 900;
+  padding: 1.1rem 2.2rem;
+  border-radius: 50px;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btnEquipLarge:focus-visible {
+  outline: 4px solid #fff;
+}
+
+.btnEquipPrimary {
+  background: linear-gradient(135deg, var(--color-gold-light) 0%, var(--color-gold-medium) 50%, var(--color-gold-dark) 100%);
+  color: #fff;
+  box-shadow: 0 6px 0 var(--color-gold-shadow), 0 12px 25px rgba(0, 0, 0, 0.4);
+}
+
+.btnEquipPrimary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 9px 0 var(--color-gold-shadow), 0 15px 30px rgba(0, 0, 0, 0.4);
+}
+
+.btnEquipPrimary:active {
+  transform: translateY(3px);
+  box-shadow: 0 3px 0 var(--color-gold-shadow), 0 6px 12px rgba(0, 0, 0, 0.3);
+}
+
+.btnEquipActive {
+  background: linear-gradient(135deg, var(--color-red-light) 0%, var(--color-red-medium) 100%);
+  color: #fff;
+  box-shadow: 0 2px 0 var(--color-red-dark), 0 6px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(4px);
+}
+
+.btnEquipActive:hover {
+  filter: brightness(1.1);
+  transform: translateY(4px) scale(1.02);
+}
+
+/* --- COFFRE VERROUILLE --- */
+.chestLocked {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.lockedChestIcon {
+  font-size: 6rem;
+  filter: grayscale(0.9) opacity(0.65) drop-shadow(0 8px 16px rgba(0, 0, 0, 0.5));
+  margin-bottom: 1rem;
+  user-select: none;
+  line-height: 1;
+}
+
+.lockedTitle {
+  font-size: 1.6rem;
+  font-weight: 900;
+  color: #e2e8f0;
+  margin: 0 0 1.5rem;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.5);
+}
+
+/* Capsule 3D Progress Bar System */
+.progressContainer {
+  width: 100%;
+  max-width: 340px;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 1.25rem;
+  border-radius: 2rem;
+  border: 1.5px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset 0 4px 15px rgba(0, 0, 0, 0.5);
+  margin-bottom: 1.2rem;
+}
+
+.progressBarWrapper {
+  height: 28px;
+  width: 100%;
+  background: rgba(15, 12, 30, 0.6);
+  border-radius: 14px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.6);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.progressBarFill {
+  height: 100%;
+  border-radius: 14px;
+  background: linear-gradient(90deg, var(--color-indigo-light) 0%, var(--color-purple-accent) 50%, var(--color-pink-accent) 100%);
+  background-size: 200% 100%;
+  animation: shineProgress 3s linear infinite;
+  box-shadow: 0 0 15px rgba(168, 85, 247, 0.6);
+  transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  position: relative;
+}
+
+.progressBarFill::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 14px 14px 0 0;
+}
+
+@keyframes shineProgress {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 200% 50%; }
+}
+
+.progressLabels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.6rem;
+  font-size: 0.95rem;
+  font-weight: 900;
+  color: #cbd5e1;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  padding: 0 0.25rem;
+}
+
+.motivationalMessage {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-gold-light);
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  margin: 0;
+  animation: softPulse 2s infinite ease-in-out;
+}
+
+@keyframes softPulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.03); opacity: 0.9; }
+}
+
+@media (max-width: 600px) {
+  .chestSection {
+    padding: 1.75rem;
+    gap: 1.75rem;
+  }
+  .avatarPreview {
+    padding: 1.25rem;
+    min-width: 180px;
+  }
+}

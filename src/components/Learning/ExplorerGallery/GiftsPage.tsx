@@ -7,8 +7,8 @@ import { useAudioFeedback } from '../../../hooks/useAudioFeedback';
 import { useProgressionStore } from '../../../store/useProgressionStore';
 import { useGiftStore } from '../../../store/useGiftStore';
 import { usePlayerStore } from '../../../store/usePlayerStore';
-import { AvatarDisplay } from '../../UI/AvatarDisplay';
-import { TransformedEmoji } from '../../UI/TransformedEmoji';
+import { GiftChest } from './GiftChest';
+import { GiftCard } from './GiftCard';
 import { ACCESSORIES_DB, type UnlockCondition } from '../../../data/accessories';
 import { encyclopedia } from '../../../data/topics';
 import styles from './GiftsPage.module.css';
@@ -148,85 +148,20 @@ export const GiftsPage: React.FC = () => {
         </div>
 
         {/* SECTION COFFRE MAGIQUE */}
-        <section className={styles.chestSection}>
-          <div className={styles.avatarPreview}>
-            <AvatarDisplay 
-              avatar={avatar} 
-              name={playerName}
-              accessoryId={equippedAccessoryId} 
-              companionId={equippedCompanionId}
-              size="large" 
-              animate={true}
-            />
-            <p className={styles.avatarLabel}>
-              {language === 'fr' ? 'Mon Explorateur' : 'My Explorer'}
-            </p>
-          </div>
-
-          <div className={styles.chestDisplayCard}>
-            {!isChestOpened && isEligibleToOpen && (
-              <div className={styles.chestAction} onClick={handleOpenChest} role="button" tabIndex={0} aria-label="Ouvrir le coffre magique">
-                <div className={`${styles.chestEmoji} ${styles.pulsing}`}>🎁</div>
-                <h2 className={styles.chestTitle}>
-                  {language === 'fr' ? 'Un cadeau magique t\'attend !' : 'A magical gift awaits!'}
-                </h2>
-                <p className={styles.chestHint}>
-                  {language === 'fr' ? 'Clique sur le coffre pour l\'ouvrir ! ✨' : 'Click the chest to open it! ✨'}
-                </p>
-              </div>
-            )}
-
-            {isChestOpened && (
-              <div className={styles.chestRevealed}>
-                <div className={styles.haloEffect}>
-                  <span className={styles.revealedAccessoryIcon}>🤠</span>
-                </div>
-                <h2 className={styles.revealedTitle}>
-                  {language === 'fr' ? 'Chapeau de Brousse débloqué !' : 'Explorer Hat Unlocked!'}
-                </h2>
-                <button
-                  className={`${styles.btnEquipLarge} ${equippedAccessoryId === 'explorer-hat' ? styles.btnEquipActive : styles.btnEquipPrimary}`}
-                  onClick={() => handleToggleEquip('explorer-hat', equippedAccessoryId === 'explorer-hat')}
-                >
-                  {equippedAccessoryId === 'explorer-hat' ? (
-                    language === 'fr' ? 'Retirer de mon avatar ❌' : 'Remove from avatar ❌'
-                  ) : (
-                    language === 'fr' ? 'Mettre sur mon avatar ! 🤠' : 'Equip on avatar! 🤠'
-                  )}
-                </button>
-              </div>
-            )}
-
-            {!isEligibleToOpen && (
-              <div className={styles.chestLocked}>
-                <div className={styles.lockedChestIcon}>🔒🎁</div>
-                <h2 className={styles.lockedTitle}>
-                  {language === 'fr' ? 'Le Coffre des Secrets' : 'The Secrets Chest'}
-                </h2>
-                
-                {/* 3D Progress Bar */}
-                <div className={styles.progressContainer}>
-                  <div className={styles.progressBarWrapper}>
-                    <div 
-                      className={styles.progressBarFill} 
-                      style={{ width: `${progressPercent}%` }}
-                    />
-                  </div>
-                  <div className={styles.progressLabels}>
-                    <span>{totalXP} XP</span>
-                    <span>1000 XP</span>
-                  </div>
-                </div>
-
-                <p className={styles.motivationalMessage}>
-                  {language === 'fr' 
-                    ? `Plus que ${xpNeeded} 🌟 pour ouvrir ton coffre !` 
-                    : `Only ${xpNeeded} 🌟 left to open your chest!`}
-                </p>
-              </div>
-            )}
-          </div>
-        </section>
+        <GiftChest
+          avatar={avatar}
+          playerName={playerName}
+          equippedAccessoryId={equippedAccessoryId}
+          equippedCompanionId={equippedCompanionId}
+          language={language}
+          isChestOpened={isChestOpened}
+          isEligibleToOpen={isEligibleToOpen}
+          progressPercent={progressPercent}
+          totalXP={totalXP}
+          xpNeeded={xpNeeded}
+          onOpenChest={handleOpenChest}
+          onToggleEquip={handleToggleEquip}
+        />
 
         {/* SECTION GRILLE MES TRESORS */}
         <section className={styles.treasuresSection}>
@@ -244,63 +179,20 @@ export const GiftsPage: React.FC = () => {
                 {ACCESSORIES_DB.filter(acc => acc.slot !== 'companion').map((accessory) => {
                   const isUnlocked = unlockedAccessories.includes(accessory.id);
                   const isEquipped = equippedAccessoryId === accessory.id;
-                  const name = accessory.name[language];
                   const hint = getUnlockHint(accessory.unlockCondition, language);
 
                   return (
-                    <div 
-                      key={accessory.id} 
-                      className={`${styles.giftCard} ${isUnlocked ? styles.unlocked : styles.locked}`}
-                      aria-label={isUnlocked ? name : `Cadeau mystère: ${hint}`}
-                    >
-                      <div className={styles.iconWrapper}>
-                        {isUnlocked ? (
-                          <span className={styles.icon}>
-                            <TransformedEmoji emoji={accessory.icon} size="large" />
-                          </span>
-                        ) : (
-                          <span className={styles.lockIcon}>❓</span>
-                        )}
-                      </div>
-                      
-                      <h3 className={styles.giftName}>
-                        {isUnlocked ? name : (accessory.price !== undefined ? name : '???')}
-                      </h3>
-
-                      {isUnlocked ? (
-                        <button
-                          className={`${styles.btnGift} ${isEquipped ? styles.btnGiftActive : styles.btnGiftPrimary}`}
-                          onClick={() => handleToggleEquip(accessory.id, isEquipped, accessory.slot)}
-                          aria-label={isEquipped ? `Enlever ${name}` : `Porter ${name}`}
-                        >
-                          {isEquipped ? (
-                            language === 'fr' ? 'Enlever ❌' : 'Remove ❌'
-                          ) : (
-                            language === 'fr' ? 'Porter' : 'Wear'
-                          )}
-                        </button>
-                      ) : (
-                        <div className={styles.lockHintWrapper}>
-                          <span className={styles.lockEmoji}>🔒</span>
-                          <p className={styles.lockHintText}>{hint}</p>
-                          {accessory.price !== undefined && (
-                            <button
-                              className={styles.btnBuyAccessory}
-                              disabled={tickets < accessory.price}
-                              onClick={() => setPurchaseTarget({
-                                id: accessory.id,
-                                name,
-                                price: accessory.price!,
-                                icon: accessory.icon,
-                                isCompanion: false
-                              })}
-                            >
-                              {language === 'fr' ? `Acheter (${accessory.price} 🎫)` : `Buy (${accessory.price} 🎫)`}
-                            </button>
-                          )}
-                        </div>
-                      )}
-                    </div>
+                    <GiftCard
+                      key={accessory.id}
+                      accessory={accessory}
+                      isUnlocked={isUnlocked}
+                      isEquipped={isEquipped}
+                      language={language}
+                      tickets={tickets}
+                      hint={hint}
+                      onToggleEquip={handleToggleEquip}
+                      onSelectPurchase={setPurchaseTarget}
+                    />
                   );
                 })}
               </div>
@@ -315,63 +207,20 @@ export const GiftsPage: React.FC = () => {
                 {ACCESSORIES_DB.filter(acc => acc.slot === 'companion').map((accessory) => {
                   const isUnlocked = unlockedAccessories.includes(accessory.id);
                   const isEquipped = equippedCompanionId === accessory.id;
-                  const name = accessory.name[language];
                   const hint = getUnlockHint(accessory.unlockCondition, language);
 
                   return (
-                    <div 
-                      key={accessory.id} 
-                      className={`${styles.giftCard} ${isUnlocked ? styles.unlocked : styles.locked}`}
-                      aria-label={isUnlocked ? name : `Cadeau mystère: ${hint}`}
-                    >
-                      <div className={styles.iconWrapper}>
-                        {isUnlocked ? (
-                          <span className={styles.icon}>
-                            <TransformedEmoji emoji={accessory.icon} size="large" />
-                          </span>
-                        ) : (
-                          <span className={styles.lockIcon}>❓</span>
-                        )}
-                      </div>
-                      
-                      <h3 className={styles.giftName}>
-                        {isUnlocked ? name : (accessory.price !== undefined ? name : '???')}
-                      </h3>
-
-                      {isUnlocked ? (
-                        <button
-                          className={`${styles.btnGift} ${isEquipped ? styles.btnGiftActive : styles.btnGiftPrimary}`}
-                          onClick={() => handleToggleEquip(accessory.id, isEquipped, accessory.slot)}
-                          aria-label={isEquipped ? `Enlever ${name}` : `Porter ${name}`}
-                        >
-                          {isEquipped ? (
-                            language === 'fr' ? 'Enlever ❌' : 'Remove ❌'
-                          ) : (
-                            language === 'fr' ? 'Porter' : 'Wear'
-                          )}
-                        </button>
-                      ) : (
-                        <div className={styles.lockHintWrapper}>
-                          <span className={styles.lockEmoji}>🔒</span>
-                          <p className={styles.lockHintText}>{hint}</p>
-                          {accessory.price !== undefined && (
-                            <button
-                              className={styles.btnBuyAccessory}
-                              disabled={tickets < accessory.price}
-                              onClick={() => setPurchaseTarget({
-                                id: accessory.id,
-                                name,
-                                price: accessory.price!,
-                                icon: accessory.icon,
-                                isCompanion: true
-                              })}
-                            >
-                              {language === 'fr' ? `Acheter (${accessory.price} 🎫)` : `Buy (${accessory.price} 🎫)`}
-                            </button>
-                          )}
-                        </div>
-                      )}
-                    </div>
+                    <GiftCard
+                      key={accessory.id}
+                      accessory={accessory}
+                      isUnlocked={isUnlocked}
+                      isEquipped={isEquipped}
+                      language={language}
+                      tickets={tickets}
+                      hint={hint}
+                      onToggleEquip={handleToggleEquip}
+                      onSelectPurchase={setPurchaseTarget}
+                    />
                   );
                 })}
               </div>
