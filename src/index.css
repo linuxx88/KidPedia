@@ -1,5 +1,6 @@
 @import './styles/vars.css';
 @import './styles/reset.css';
+@import './styles/magicWand.css';
 
 /* FORCE GLOBAL BACKGROUND VARIABLES FOR STRUCTURAL ELEMENTS */
 html {

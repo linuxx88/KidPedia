@@ -1,0 +1,301 @@
+.dictionaryContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  position: relative;
+  z-index: 10;
+}
+
+.titleSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.title {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-black);
+  color: var(--color-primary);
+  margin: 0;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.subtitle {
+  font-size: var(--fs-xs);
+  color: var(--color-app-text-muted);
+  margin: 0;
+}
+
+/* Glassmorphism search & filter panel */
+.searchFilterPanel {
+  background: var(--glass-bg);
+  border: 2px solid var(--glass-border);
+  backdrop-filter: var(--glass-blur);
+  padding: 1.5rem;
+  border-radius: var(--radius-2xl);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.searchBox {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.searchIcon {
+  position: absolute;
+  left: 1.25rem;
+  font-size: 1.25rem;
+  pointer-events: none;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 1rem 1rem 1rem 3.25rem;
+  font-family: var(--font-main);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  border: 3px solid var(--color-border-neutral);
+  border-radius: var(--radius-xl);
+  background-color: var(--card-bg);
+  color: var(--color-app-text);
+  outline: none;
+  transition: var(--transition-bounce);
+}
+
+.searchInput:focus {
+  border-color: var(--color-primary);
+  box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
+  transform: scale(1.01);
+}
+
+/* Alphabet Filter Slider */
+.alphabetContainer {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-dark) transparent;
+}
+
+.alphabetContainer::-webkit-scrollbar {
+  height: 6px;
+}
+
+.alphabetContainer::-webkit-scrollbar-thumb {
+  background: var(--color-border-dark);
+  border-radius: 10px;
+}
+
+.letterButton {
+  flex-shrink: 0;
+  min-width: 2.75rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-main);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-black);
+  border: none;
+  background-color: var(--card-bg);
+  color: var(--color-app-text);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  border: 2px solid var(--card-border);
+  transition: var(--transition-bounce);
+}
+
+.letterButton:hover {
+  transform: translateY(-3px) scale(1.05);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+}
+
+.activeLetter {
+  background-color: var(--color-primary) !important;
+  color: #ffffff !important;
+  border-color: var(--color-primary) !important;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Grid layout for Glossary Cards */
+.wordsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+/* Dictionary card style */
+.wordCard {
+  background: var(--card-bg);
+  border: 3px solid var(--card-border);
+  border-radius: var(--radius-2xl);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  transition: var(--transition-bounce);
+}
+
+.wordCard:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: var(--shadow-lg);
+  border-color: var(--color-primary);
+}
+
+.cardHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.emojiBadge {
+  font-size: 2.25rem;
+  background: var(--color-border-neutral);
+  padding: 0.5rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.categoryTag {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-black);
+  color: var(--color-accent);
+  background-color: rgba(16, 185, 129, 0.1);
+  padding: 0.35rem 0.75rem;
+  border-radius: var(--radius-full);
+  text-transform: uppercase;
+}
+
+.wordTitleWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.wordTitle {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-black);
+  color: var(--color-app-text);
+  margin: 0;
+}
+
+.definitionText {
+  font-size: var(--fs-sm);
+  color: var(--color-app-text-muted);
+  line-height: 1.5;
+  margin: 0;
+  flex-grow: 1;
+}
+
+/* Audio Owl Speak Button */
+.speakButton {
+  border: none;
+  background: var(--color-border-neutral);
+  color: var(--color-app-text);
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.35rem;
+  box-shadow: var(--shadow-sm);
+  transition: var(--transition-bounce);
+}
+
+.speakButton:hover {
+  background-color: var(--color-primary);
+  color: #ffffff;
+  transform: rotate(-10deg) scale(1.1);
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.speakingOwl {
+  animation: wobble 0.6s infinite alternate ease-in-out;
+  background-color: var(--color-accent) !important;
+  color: #ffffff !important;
+}
+
+@keyframes wobble {
+  0% { transform: rotate(-8deg) scale(1.05); }
+  100% { transform: rotate(8deg) scale(1.05); }
+}
+
+/* Empty states */
+.emptyState {
+  background: var(--card-bg);
+  border: 3px dashed var(--color-border-dark);
+  border-radius: var(--radius-2xl);
+  padding: 4rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.25rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.emptyEmoji {
+  font-size: 4rem;
+  animation: bounce 2s infinite ease-in-out;
+}
+
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.emptyTitle {
+  font-size: var(--fs-lg);
+  font-weight: var(--fw-black);
+  color: var(--color-app-text);
+  margin: 0;
+}
+
+.emptyText {
+  font-size: var(--fs-sm);
+  color: var(--color-app-text-muted);
+  max-width: 400px;
+  margin: 0;
+}
+
+/* Responsive adjustment for Mobile screens */
+@media (max-width: 480px) {
+  .dictionaryContainer {
+    padding: 1rem;
+    gap: 1.25rem;
+  }
+  
+  .searchFilterPanel {
+    padding: 1rem;
+    border-radius: var(--radius-xl);
+  }
+}

@@ -1,0 +1,102 @@
+.detailNav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.5rem 1rem;
+  width: 100%;
+}
+
+.navActions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.navBtn {
+  padding: 0.75rem 1.5rem;
+  border-radius: 1rem;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.2s;
+  border: none;
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
+}
+
+.navBtn:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+.navBtn[data-disabled="true"] {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+}
+
+.btnAudio {
+  background-color: #3b82f6;
+  color: white;
+}
+
+.btnStop {
+  background-color: var(--color-explorer-coral);
+  color: white;
+  animation: pulseStop 1.5s infinite;
+}
+
+@keyframes pulseStop {
+  0% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0.4); }
+  70% { box-shadow: 0 0 0 10px rgba(244, 63, 94, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(244, 63, 94, 0); }
+}
+
+.speakingIndicator {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  height: 14px;
+  margin-right: 8px;
+}
+
+.bar {
+  width: 3px;
+  height: 100%;
+  background-color: white;
+  border-radius: 1px;
+  animation: wave 1s infinite ease-in-out;
+}
+
+.bar:nth-child(2) { animation-delay: 0.2s; }
+.bar:nth-child(3) { animation-delay: 0.4s; }
+
+@keyframes wave {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1.2); }
+}
+
+.dicoShortcutBtn {
+  border: none;
+  background-color: var(--color-border-neutral);
+  color: var(--color-app-text);
+  font-size: 1.5rem;
+  width: 3rem;
+  height: 3rem;
+  border-radius: var(--radius-full);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: var(--transition-bounce);
+}
+
+.dicoShortcutBtn:hover {
+  background-color: var(--color-primary);
+  color: white;
+  transform: rotate(-10deg) scale(1.1);
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.dicoShortcutBtn:active {
+  transform: scale(0.95);
+}

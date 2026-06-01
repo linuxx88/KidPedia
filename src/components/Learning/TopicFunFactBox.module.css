@@ -1,0 +1,92 @@
+.topicFunFactBox {
+  background-color: #fffbeb;
+  border: 4px dashed #fcd34d;
+  border-radius: 2rem;
+  padding: 2.5rem;
+  position: relative;
+  transition: transform 0.3s;
+}
+
+:global(.dark) .topicFunFactBox {
+  background-color: rgba(251, 191, 36, 0.05);
+}
+
+.topicFunFactBox:hover {
+  transform: scale(1.02) rotate(-1deg);
+}
+
+.topicFunFactIcon {
+  position: absolute;
+  top: -1.5rem;
+  left: 2rem;
+  background-color: #fcd34d;
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.topicFunFactTitle {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  color: #d97706;
+  margin-bottom: 1rem;
+  letter-spacing: 0.1em;
+}
+
+.funFactLine {
+  width: 2rem;
+  height: 3px;
+  background-color: #fcd34d;
+  border-radius: 99px;
+}
+
+.topicFunFactText {
+  font-size: var(--fs-lg);
+  font-weight: 800;
+  color: #92400e;
+  line-height: 1.5;
+  font-style: italic;
+}
+
+:global(.dark) .topicFunFactText {
+  color: #fcd34d;
+}
+
+.funFactContentWrapper {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+/* Responsive styles */
+@media (max-width: 480px) {
+  .topicFunFactBox {
+    padding: 1.5rem;
+    border-radius: 1.5rem;
+    border-width: 3px;
+  }
+  .topicFunFactIcon {
+    width: 2.5rem;
+    height: 2.5rem;
+    font-size: 1.25rem;
+    top: -1.25rem;
+    left: 1.5rem;
+    border-radius: 0.75rem;
+  }
+  .topicFunFactTitle {
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+  .funFactContentWrapper {
+    gap: 1rem;
+  }
+}

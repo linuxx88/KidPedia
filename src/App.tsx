@@ -30,6 +30,7 @@ import { OriginsDetail } from './pages/Origins/OriginsDetail'
 import { GiftsPage } from './components/Learning/ExplorerGallery/GiftsPage'
 import { FlowDashboard } from './pages/Parents/FlowDashboard'
 import { ChampionshipPage } from './pages/Championship/ChampionshipPage'
+import { DictionaryPage } from './pages/Dictionary/DictionaryPage'
 
 // Import direct de la page d'accueil (pas de lazy load car route par défaut)
 import { HomePage } from './pages/Home'
@@ -288,6 +289,14 @@ export function App() {
               element={
                 <div className={styles.routeWrapper}>
                   <ChampionshipPage />
+                </div>
+              }
+            />
+            <Route
+              path="/dictionary"
+              element={
+                <div className={styles.routeWrapper}>
+                  <DictionaryPage />
                 </div>
               }
             />

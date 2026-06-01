@@ -351,4 +351,12 @@ export const fr: Labels = {
     dateLabel: "Date",
     newRecord: "🎉 NOUVEAU RECORD PERSO ! 🎉",
   },
+  dictionary: {
+    title: "Mon Dico Magique 📖",
+    searchPlaceholder: "Recherche un mot magique...",
+    noResults: "Oups ! Aucun mot trouvé dans le dico...",
+    allLetters: "Toutes",
+    listenTip: "Clique sur le hibou pour m'écouter ! 🦉",
+    navBtn: "Dictionnaire",
+  },
 };

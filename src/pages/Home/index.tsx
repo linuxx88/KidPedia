@@ -234,6 +234,14 @@ export function HomePage({ topicsData }: HomePageProps) {
               color: '#fbbf24',
               path: '/championship',
             },
+            {
+              id: 'dictionary',
+              icon: <AppIcon name="help" size="large" />,
+              title: labels.dictionary.title,
+              desc: labels.dictionary.listenTip,
+              color: '#10b981',
+              path: '/dictionary',
+            },
 
           ].map((hub) => (
             <button

@@ -350,4 +350,12 @@ export const en: Labels = {
     dateLabel: "Date",
     newRecord: "🎉 NEW PERSONAL RECORD! 🎉",
   },
+  dictionary: {
+    title: "My Magic Dico 📖",
+    searchPlaceholder: "Search for a magic word...",
+    noResults: "Oops! No words found in the dico...",
+    allLetters: "All",
+    listenTip: "Click the owl to hear me! 🦉",
+    navBtn: "Dictionary",
+  },
 };

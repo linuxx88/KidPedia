@@ -4,9 +4,9 @@ import { QuizComponent } from './Quiz'
 import { type Gender } from '../../utils/helpers'
 import { type MedalType } from '../../utils/quizMessages'
 import { type Labels } from '../../locales/types'
-import BackButton from '../UI/BackButton'
 import { useStoryteller } from '../../hooks/useStoryteller'
-import { StorytellerButton } from '../UI/StorytellerButton'
+import { TopicFunFactBox } from './TopicFunFactBox'
+import { TopicNavigation } from './TopicNavigation'
 import styles from './TopicView.module.css'
 
 export interface TopicViewProps {
@@ -49,7 +49,7 @@ export const InteractiveText: React.FC<InteractiveTextProps> = ({ text, onSpeak 
         e.stopPropagation()
         onSpeak()
       }}
-      className={styles.magicWandInteractiveText}
+      className="magicWandInteractiveText"
       style={{
         cursor: 'help',
         textDecoration: 'underline dotted',
@@ -102,14 +102,7 @@ export const TopicView: React.FC<TopicViewProps> = ({
 
   return (
     <div className={styles.topicDetailCard}>
-      <div className={styles.detailNav}>
-        <BackButton onClick={handleBack} />
-
-        <div className={styles.navActions}>
-          {/* Le Hibou StorytellerButton principal de la fiche */}
-          <StorytellerButton />
-        </div>
-      </div>
+      <TopicNavigation onBack={handleBack} />
 
       <div className={styles.topicGlassSheet}>
         <section className={styles.topicSectionHeader}>
@@ -136,23 +129,11 @@ export const TopicView: React.FC<TopicViewProps> = ({
             </div>
           </div>
 
-          <div className={styles.topicFunFactBox}>
-            <div className={styles.topicFunFactIcon}>{anchorIcon || '💡'}</div>
-            <div className={styles.topicFunFactTitle}>
-              <span className={styles.funFactLine}></span>
-              {labels.quiz.didYouKnow}
-            </div>
-            <div className={styles.funFactContentWrapper}>
-              <p className={styles.topicFunFactText}>
-                "
-                <InteractiveText 
-                  text={funFact} 
-                  onSpeak={() => { stopStory(); speak(`${labels.quiz.didYouKnow}. ${funFact}`); }} 
-                />
-                "
-              </p>
-            </div>
-          </div>
+          <TopicFunFactBox
+            funFact={funFact}
+            anchorIcon={anchorIcon}
+            didYouKnowLabel={labels.quiz.didYouKnow}
+          />
         </section>
 
         {!hideQuiz && <div className={styles.topicSeparator} />}

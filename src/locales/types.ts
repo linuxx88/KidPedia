@@ -277,4 +277,12 @@ export interface Labels {
     dateLabel: string;
     newRecord: string;
   };
+  dictionary: {
+    title: string;
+    searchPlaceholder: string;
+    noResults: string;
+    allLetters: string;
+    listenTip: string;
+    navBtn: string;
+  };
 }
