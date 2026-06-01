@@ -127,11 +127,6 @@ export function App() {
     updateDiscoveryGroups()
   }, [language, updateDiscoveryGroups])
 
-  // Correction globale du scroll : remonte en haut à chaque changement de page
-  useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location.pathname])
-
   // Appliquer le genre à la racine pour les styles CSS
   useEffect(() => {
     document.documentElement.setAttribute('data-gender', gender)
