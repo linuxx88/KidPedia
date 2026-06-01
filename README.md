@@ -359,6 +359,8 @@ Pour plus de détails, consultez le fichier [LICENSE](LICENSE).
 KidPedia est construit avec ❤️ pour rendre l'éducation accessible et amusante pour tous les enfants!
 
 Merci à:
+- **Gemini de Google** 🤖 (pour l'aide précieuse au développement et à l'automatisation)
+- Les photographes et créateurs des images de fond utilisées dans **Origin of Time** 📸
 - La communauté React ⚛️
 - Le projet Zustand 📦
 - Les contributeurs 🤝
