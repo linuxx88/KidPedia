@@ -39,14 +39,16 @@ export const ProgressionListener = () => {
         // On récupère le dernier badge ajouté
         const lastBadge = currentBadges[currentBadges.length - 1];
         const topic = encyclopedia.find(t => t.id === lastBadge.id);
-        const medalIcons = { gold: '🥇', silver: '🥈', bronze: '🥉' };
         
-        useNotificationStore.getState().addNotification({
-          type: 'badge',
-          title: language === 'fr' ? "Nouvelle Médaille ! 🎖️" : "New Medal! 🎖️",
-          message: `${topic?.title[language] || lastBadge.id} : ${labels.quiz[lastBadge.medal + 'Medal' as keyof typeof labels.quiz]}`,
-          icon: medalIcons[lastBadge.medal]
-        });
+        if (topic) {
+          const medalIcons = { gold: '🥇', silver: '🥈', bronze: '🥉' };
+          useNotificationStore.getState().addNotification({
+            type: 'badge',
+            title: language === 'fr' ? "Nouvelle Médaille ! 🎖️" : "New Medal! 🎖️",
+            message: `${topic.title[language]} : ${labels.quiz[lastBadge.medal + 'Medal' as keyof typeof labels.quiz]}`,
+            icon: medalIcons[lastBadge.medal]
+          });
+        }
       }
       prevBadgesCountRef.current = currentBadges.length;
 

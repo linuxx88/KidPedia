@@ -43,6 +43,14 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
 
   const addBadge = useProgressionStore(state => state.addBadge)
   const isUnlocked = useProgressionStore(state => state.isUnlocked)
+  const markTopicAsRead = useProgressionStore(state => state.markTopicAsRead)
+
+  // Marquer le sujet comme lu
+  useEffect(() => {
+    if (topicId && isUnlocked(topicId as TopicId) && markTopicAsRead) {
+      markTopicAsRead(topicId)
+    }
+  }, [topicId, isUnlocked, markTopicAsRead])
 
   const isStatic = useMemo(() => encyclopedia.some((t) => t.id === topicId), [topicId]);
   const { data: dynamicTopic, isLoading: isLoadingDecoupled, error: fetchError } = useTopicFetcher(isStatic ? undefined : topicId);

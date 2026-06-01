@@ -225,6 +225,90 @@ describe('useProgressionStore', () => {
       expect(result.current.getTickets()).toBe(10)
     })
 
+    it('devrait débloquer automatiquement le badge "super-squirrel" si le solde de tickets atteint 50', () => {
+      const { result } = renderHook(() => useProgressionStore())
+      act(() => { result.current.syncWithProfile('alice') })
+
+      // Pas de badge au départ
+      expect(result.current.getBadges().some(b => b.id === 'super-squirrel')).toBe(false)
+
+      // Ajoute 49 tickets -> Pas de badge
+      act(() => {
+        result.current.addTickets(49)
+      })
+      expect(result.current.getTickets()).toBe(49)
+      expect(result.current.getBadges().some(b => b.id === 'super-squirrel')).toBe(false)
+
+      // Ajoute 1 ticket de plus -> Badge débloqué !
+      act(() => {
+        result.current.addTickets(1)
+      })
+      expect(result.current.getTickets()).toBe(50)
+      expect(result.current.getBadges()).toContainEqual({ id: 'super-squirrel', medal: 'gold' })
+    })
+
+    it('devrait débloquer automatiquement le badge "animal-friend" si un compagnon est acheté', () => {
+      const { result } = renderHook(() => useProgressionStore())
+      act(() => { result.current.syncWithProfile('alice') })
+
+      // Pas de compagnon et pas de badge au départ
+      expect(result.current.getBadges().some(b => b.id === 'animal-friend')).toBe(false)
+
+      // Créditer des tickets et acheter le robot-companion
+      act(() => {
+        result.current.addTickets(10)
+      })
+      let buyResult = false
+      act(() => {
+        buyResult = result.current.buyAccessory('robot-companion', 10)
+      })
+
+      expect(buyResult).toBe(true)
+      expect(result.current.getBadges()).toContainEqual({ id: 'animal-friend', medal: 'gold' })
+    })
+
+    it('devrait débloquer le badge "perseverant" lors de la mise à niveau de bronze à or', () => {
+      const { result } = renderHook(() => useProgressionStore())
+      act(() => { result.current.syncWithProfile('alice') })
+
+      // Pas de badge au départ
+      expect(result.current.getBadges().some(b => b.id === 'perseverant')).toBe(false)
+
+      // Gagner une médaille de bronze
+      act(() => {
+        result.current.addBadge('lion', 'bronze')
+      })
+      expect(result.current.getBadges().some(b => b.id === 'perseverant')).toBe(false)
+
+      // Upgrader la médaille en or -> Persévérant débloqué !
+      act(() => {
+        result.current.addBadge('lion', 'gold')
+      })
+      expect(result.current.getBadges()).toContainEqual({ id: 'perseverant', medal: 'gold' })
+    })
+
+    it('devrait débloquer automatiquement le badge "library-rat" quand 10 fiches sont lues', () => {
+      const { result } = renderHook(() => useProgressionStore())
+      act(() => { result.current.syncWithProfile('alice') })
+
+      // Pas de badge au départ
+      expect(result.current.getBadges().some(b => b.id === 'library-rat')).toBe(false)
+
+      // Lire 9 fiches -> Pas de badge
+      for (let i = 1; i <= 9; i++) {
+        act(() => {
+          result.current.markTopicAsRead?.(`topic-${i}`)
+        })
+      }
+      expect(result.current.getBadges().some(b => b.id === 'library-rat')).toBe(false)
+
+      // Lire la 10e fiche -> Badge bibliothèque débloqué !
+      act(() => {
+        result.current.markTopicAsRead?.('topic-10')
+      })
+      expect(result.current.getBadges()).toContainEqual({ id: 'library-rat', medal: 'gold' })
+    })
+
     it('devrait acheter un accessoire si le solde est suffisant et l\'équiper', () => {
       const { result } = renderHook(() => useProgressionStore())
       act(() => { result.current.syncWithProfile('alice') })
