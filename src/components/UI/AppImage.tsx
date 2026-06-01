@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styles from './AppImage.module.css';
 
 interface AppImageProps extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -24,10 +24,10 @@ export const AppImage: React.FC<AppImageProps> = ({
   const [imgSrc, setSrc] = useState(src);
 
   // Synchronisation du src si la prop change
-  if (src !== imgSrc && !isLoading && src) {
-     setSrc(src);
-     setIsLoading(true);
-  }
+  useEffect(() => {
+    setSrc(src);
+    setIsLoading(true);
+  }, [src]);
 
   const handleLoad = () => {
     setIsLoading(false);
