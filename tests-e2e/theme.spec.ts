@@ -4,8 +4,6 @@ test.describe('Thèmes et Styles', () => {
   test('devrait permettre de changer de thème et de style (genre)', async ({ page }) => {
     // 1. Initialisation
     await page.goto('/');
-    await page.evaluate(() => localStorage.clear());
-    await page.reload();
     
     await page.getByTestId('profile-name-input').fill('StarBoy');
     const boyOption = page.getByText('👦 Garçon');

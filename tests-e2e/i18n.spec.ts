@@ -4,8 +4,6 @@ test.describe('Internationalisation (i18n)', () => {
   test('devrait permettre de changer la langue du profil', async ({ page }) => {
     // 1. Nettoyage et Navigation
     await page.goto('/');
-    await page.evaluate(() => localStorage.clear());
-    await page.reload();
 
     const bodyText = await page.innerText('body');
     console.log('Contenu du body au démarrage:', bodyText.substring(0, 200));

@@ -12,9 +12,11 @@ test.describe('KidPedia Smoke Tests', () => {
 
   test('should allow language switching', async ({ page }) => {
     await page.goto('/');
-    
-    // This is a placeholder, as I don't know the exact UI for language switching
-    // but we can try to find buttons with "FR" or "EN" or specific icons
-    // if LanguageSwitcher is present.
+    const title = page.getByTestId('main-title');
+    await title.waitFor({ state: 'visible', timeout: 15000 });
+
+    // Switch to English
+    await page.getByRole('button').filter({ hasText: 'English' }).click();
+    await expect(title).toContainText('Explorer');
   });
 });
