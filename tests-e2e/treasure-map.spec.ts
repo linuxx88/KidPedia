@@ -24,26 +24,25 @@ test.describe('La Carte aux Trésors', () => {
     const zoomLevel = page.getByTestId('zoom-level');
     await expect(zoomLevel).toHaveText('x1');
 
-    // Utilisation de aria-label pour éviter les conflits de titre avec raccourcis
-    const zoomInBtn = page.getByLabel('Zoomer', { exact: true });
+    const zoomInBtn = page.getByTestId('zoom-in-btn');
     await zoomInBtn.click();
     await expect(zoomLevel).toHaveText('x2');
 
-    const zoomOutBtn = page.getByLabel('Dézoomer', { exact: true });
+    const zoomOutBtn = page.getByTestId('zoom-out-btn');
     await zoomOutBtn.click();
     await expect(zoomLevel).toHaveText('x1');
   });
 
   test('devrait afficher des nouveaux points lors du zoom', async ({ page }) => {
-    await expect(page.getByText('La Tour Eiffel')).toBeVisible();
-    await expect(page.getByText('Le Sahara')).not.toBeVisible();
+    await expect(page.getByTestId('map-point-tour-eiffel')).toBeVisible();
+    await expect(page.getByTestId('map-point-desert-sahara')).not.toBeVisible();
 
-    await page.getByLabel('Zoomer', { exact: true }).click();
-    await expect(page.getByText('Le Sahara')).toBeVisible();
+    await page.getByTestId('zoom-in-btn').click();
+    await expect(page.getByTestId('map-point-desert-sahara')).toBeVisible();
   });
 
   test('devrait ouvrir une popup et naviguer vers un sujet', async ({ page }) => {
-    const tourEiffel = page.getByText('La Tour Eiffel');
+    const tourEiffel = page.getByTestId('map-point-tour-eiffel');
     await tourEiffel.click();
 
     // Vérifier la popup via testid (maintenant transmis par AppOverlay)
@@ -74,11 +73,11 @@ test.describe('La Carte aux Trésors', () => {
   });
 
   test('devrait réinitialiser le zoom avec le bouton maison', async ({ page }) => {
-    await page.getByLabel('Zoomer', { exact: true }).click();
-    await page.getByLabel('Zoomer', { exact: true }).click();
+    await page.getByTestId('zoom-in-btn').click();
+    await page.getByTestId('zoom-in-btn').click();
     await expect(page.getByTestId('zoom-level')).toHaveText('x3');
 
-    await page.getByLabel('Vue globale', { exact: true }).click();
+    await page.getByTestId('zoom-reset-btn').click();
     await expect(page.getByTestId('zoom-level')).toHaveText('x1');
   });
 });

@@ -408,6 +408,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
                 disabled={zoom === 1} 
                 title={`${labels.discovery.zoomOut} (-)`} 
                 aria-label={labels.discovery.zoomOut}
+                data-testid="zoom-out-btn"
               >-</button>
               <span className={styles.zoomLevelBadge} data-testid="zoom-level" aria-live="polite">x{zoom}</span>
               <button 
@@ -420,6 +421,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
                 disabled={zoom === MAP_SVG_CONFIG.MAX_ZOOM} 
                 title={`${labels.discovery.zoomIn} (+)`} 
                 aria-label={labels.discovery.zoomIn}
+                data-testid="zoom-in-btn"
               >+</button>
               <button 
                 className={styles.zoomBtn} 
@@ -430,6 +432,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
                 }} 
                 title={labels.discovery.globalView} 
                 aria-label={labels.discovery.globalView}
+                data-testid="zoom-reset-btn"
               >🏠</button>
             </div>
           }
