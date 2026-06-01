@@ -3,10 +3,11 @@
 <div align="center">
 
 [![License: CC BY-NC-SA 4.0](https://img.shields.io/badge/License-CC%20BY--NC--SA%204.0-lightgrey.svg)](LICENSE)
-[![Node.js](https://img.shields.io/badge/Node.js-20.x-green.svg)](https://nodejs.org/)
-[![React](https://img.shields.io/badge/React-18.x-blue.svg)](https://react.dev/)
+[![Node.js](https://img.shields.io/badge/Node.js-24.x-green.svg)](https://nodejs.org/)
+[![React](https://img.shields.io/badge/React-19.x-blue.svg)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.x-blue.svg)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-5.x-purple.svg)](https://vitejs.dev/)
+[![Vite](https://img.shields.io/badge/Vite-8.x-purple.svg)](https://vitejs.dev/)
+
 
 **Une expérience d'apprentissage ludique et interactive conçue pour les enfants** 🎓✨
 
@@ -54,10 +55,11 @@ Rendre l'apprentissage **amusant**, **accessible** et **gratuit** pour tous les 
 ## 🛠️ Stack Technologique
 
 ### Frontend
-- **[React 18](https://react.dev/)** - UI Reactive
+- **[React 19](https://react.dev/)** - UI Reactive
+- **[React Router 7](https://reactrouter.com/)** - Client-side Routing
 - **[TypeScript 5](https://www.typescriptlang.org/)** - Type Safety
-- **[Zustand](https://github.com/pmndrs/zustand)** - State Management
-- **[Vite 5](https://vitejs.dev/)** - Build Tool (Lightning Fast ⚡)
+- **[Zustand 5](https://github.com/pmndrs/zustand)** - State Management
+- **[Vite 8](https://vitejs.dev/)** - Build Tool (Lightning Fast ⚡)
 - **[CSS Modules](https://github.com/css-modules/css-modules)** - Scoped Styling
 
 ### Testing & Quality
@@ -68,16 +70,16 @@ Rendre l'apprentissage **amusant**, **accessible** et **gratuit** pour tous les 
 
 ### Tools & Infrastructure
 - **[GitHub Actions](https://github.com/features/actions)** - CI/CD Pipeline
-- **[Node.js 20](https://nodejs.org/)** - Runtime
-- **[npm](https://www.npmjs.com/)** - Package Manager
+- **[Node.js 24](https://nodejs.org/)** - Runtime
+- **[npm 11](https://www.npmjs.com/)** - Package Manager
 
 ---
 
 ## 🚀 Lancement Rapide
 
 ### Prérequis
-- Node.js 20+ ([Télécharger](https://nodejs.org/))
-- npm 10+ (Inclus avec Node.js)
+- Node.js 24+ ([Télécharger](https://nodejs.org/))
+- npm 11+ (Inclus avec Node.js)
 - Git ([Télécharger](https://git-scm.com/))
 
 ### Installation
@@ -152,23 +154,33 @@ La documentation complète du projet se trouve dans le dossier `/docs`:
 
 ```
 KidPedia/
-├── src/
-│   ├── components/        # 🧩 Composants React réutilisables
-│   ├── hooks/            # 🪝 Custom hooks (Audio, ScrollSpy, Effects)
-│   ├── store/            # 📦 Zustand stores (State Management)
-│   ├── data/             # 📊 Données statiques (Contenu, jeux)
-│   ├── styles/           # 🎨 CSS Modules globaux
-│   ├── types/            # 📝 TypeScript types
-│   ├── utils/            # 🔧 Utilitaires et helpers
-│   └── App.tsx           # 📱 Composant racine
-├── public/               # 📦 Assets statiques
-├── docs/                 # 📖 Documentation
 ├── .github/
 │   └── workflows/        # ⚙️ CI/CD Pipelines
-├── vite.config.ts        # ⚡ Configuration Vite
-├── vitest.config.ts      # 🧪 Configuration Vitest
+├── docs/                 # 📖 Documentation & Guides
+├── public/               # 📦 Assets statiques publics
+├── src/
+│   ├── assets/           # 🎵 Ressources audio et images
+│   ├── components/       # 🧩 Composants React réutilisables (UI, Cartes, etc.)
+│   ├── constants/        # 📌 Constantes globales
+│   ├── data/             # 📊 Données statiques (Thèmes, Quizzes, Safari)
+│   ├── hooks/            # 🪝 Custom hooks (Audio, Swipe, Offline, etc.)
+│   ├── locales/          # 🌍 Fichiers de traduction (FR / EN)
+│   ├── pages/            # 📄 Pages principales (Home, TopicDetail, Safari, etc.)
+│   ├── store/            # 📦 Zustand stores (Gestion d'état global)
+│   ├── styles/           # 🎨 CSS Modules et styles globaux
+│   ├── templates/        # 📝 Gabarits de composants ou pages
+│   ├── test/             # 🧪 Tests d'intégration et utilitaires
+│   ├── types/            # 📝 Définitions des types TypeScript
+│   ├── utils/            # 🔧 Utilitaires et fonctions d'aide
+│   ├── App.module.css    # 🎨 Style racine
+│   ├── App.tsx           # 📱 Composant racine applicatif
+│   ├── index.css         # 🎨 Style de base global
+│   └── main.tsx          # 🚀 Point d'entrée de l'application
+├── tests-e2e/            # 🎭 Tests de bout en bout (Playwright)
+├── eslint.config.js      # 🧹 Configuration ESLint
 ├── playwright.config.ts  # 🎭 Configuration Playwright
-└── tsconfig.json         # 📝 Configuration TypeScript
+├── tsconfig.json         # 📝 Configuration TypeScript
+└── vite.config.ts        # ⚡ Configuration Vite & Vitest
 ```
 
 ---
@@ -296,7 +308,7 @@ Ouvre une [nouvelle issue](https://github.com/linuxx88/KidPedia/issues/new) avec
 - [x] Progressive Web App (PWA), Cache Stale-While-Revalidate & Mode Hors-ligne résilient pour les fiches JSON (Ticket #SW-Cache)
 - [x] Hook de disponibilité offline `useOfflineAvailability` & désactivation visuelle/logique des TopicCard (Ticket #SW-Availability)
 - [x] GitHub Actions (CI/CD)
-- [x] Tests de couverture (100% de réussite avec 222 tests unitaires et d'intégration)
+- [x] Tests de couverture (100% de réussite avec 243 tests unitaires et d'intégration)
 
 ### 🚧 En cours
 - [ ] Intégration Backend API
@@ -364,4 +376,4 @@ Merci à:
 
 ---
 
-*Dernière mise à jour: 26 mai 2026*
+*Dernière mise à jour: 31 mai 2026*
