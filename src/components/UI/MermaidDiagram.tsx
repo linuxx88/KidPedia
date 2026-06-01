@@ -103,5 +103,3 @@ export const MermaidDiagram: React.FC<MermaidDiagramProps> = ({ chart }) => {
     />
   );
 };
-
-export default MermaidDiagram;

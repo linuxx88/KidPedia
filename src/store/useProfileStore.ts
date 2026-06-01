@@ -56,7 +56,7 @@ const getInitialState = () => {
  * Utilise l'API Web Crypto native si disponible (contextes HTTPS/localhost),
  * ou bascule vers un fallback mathématique standard RFC4122 v4 pour les contextes non sécurisés (HTTP).
  */
-export const generateUUID = (): string => {
+const generateUUID = (): string => {
   if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
     return crypto.randomUUID();
   }

@@ -3,7 +3,7 @@ import { useProgressionStore } from '../store/useProgressionStore';
 import { DISCUSSION_STARTERS, FALLBACK_DISCUSSIONS, type DiscussionStarter } from '../data/discussionStarters';
 import { type TopicId } from '../types/domain';
 
-export interface DiscussionItem {
+interface DiscussionItem {
   topicId: TopicId;
   question: {
     fr: string;

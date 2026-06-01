@@ -7,7 +7,7 @@ interface ExplorerHatSVGProps {
   className?: string;
 }
 
-export const ExplorerHatSVG: React.FC<ExplorerHatSVGProps> = ({
+const ExplorerHatSVG: React.FC<ExplorerHatSVGProps> = ({
   sizeClass,
   customStyle,
   className

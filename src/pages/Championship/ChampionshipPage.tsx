@@ -470,4 +470,3 @@ export function ChampionshipPage() {
 
   return null;
 }
-export default ChampionshipPage;

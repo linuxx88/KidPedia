@@ -45,26 +45,3 @@ export const usePlayerStore = () => {
     badges,
   }), [activeProfile, xp, badges]);
 };
-
-/**
- * Version "Store" pour compatibilité ascendante avec les composants 
- * qui utilisent usePlayerStore(state => state.xxx).
- * 
- * @deprecated Préférer l'utilisation directe des stores sources ou du hook ci-dessus.
- */
-export const usePlayerStoreCompat = <T>(selector: (state: PlayerStateData) => T): T => {
-  const activeProfile = useProfileStore(state => state.activeProfile);
-  const progressions = useProgressionStore(state => state.progressions);
-  const activeId = useProgressionStore(state => state.activeProfileId);
-  
-  const prog = (activeId ? progressions[activeId] : null) || { badges: EMPTY_BADGES, totalXP: 0, currentRankId: 'apprentice' };
-
-  const state: PlayerStateData = useMemo(() => ({
-    playerName: activeProfile?.name || "Explorateur",
-    avatar: activeProfile?.avatar || "🦁",
-    xp: prog.totalXP,
-    badges: prog.badges,
-  }), [activeProfile, prog.totalXP, prog.badges]);
-
-  return selector(state);
-};

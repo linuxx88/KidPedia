@@ -4,7 +4,7 @@ import { type TopicId } from '../types/domain';
 /**
  * Valide qu'un champ est un objet localisé (contenant 'fr' et 'en' comme chaînes non vides).
  */
-export function validateLocalizedString(field: unknown, fieldName: string): void {
+function validateLocalizedString(field: unknown, fieldName: string): void {
   if (!field || typeof field !== 'object') {
     throw new Error(`Validation Error: [${fieldName}] must be an object containing localized strings.`);
   }
@@ -20,7 +20,7 @@ export function validateLocalizedString(field: unknown, fieldName: string): void
 /**
  * Valide le schéma d'un Quiz.
  */
-export function validateQuiz(quiz: unknown, topicId: string): void {
+function validateQuiz(quiz: unknown, topicId: string): void {
   if (!quiz || typeof quiz !== 'object') {
     throw new Error(`Validation Error: Quiz for topic [${topicId}] must be an object.`);
   }

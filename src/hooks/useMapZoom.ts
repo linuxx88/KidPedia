@@ -1,7 +1,7 @@
 import { useState, useCallback } from 'react';
 import { MAP_SVG_CONFIG } from '../constants/geometry';
 
-export interface ZoomState {
+interface ZoomState {
   level: number;
   origin: string;
 }

@@ -1,6 +1,6 @@
 import { render, screen, fireEvent, waitFor, resetAllStores } from './test-utils'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import App from '../App'
+import { App } from '../App'
 
 // Mock des composants qui posent problème en environnement JSDOM
 vi.mock('../components/Layout/StarBackground', () => ({

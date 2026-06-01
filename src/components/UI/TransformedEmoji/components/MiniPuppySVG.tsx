@@ -7,7 +7,7 @@ interface MiniPuppySVGProps {
   className?: string;
 }
 
-export const MiniPuppySVG: React.FC<MiniPuppySVGProps> = ({
+const MiniPuppySVG: React.FC<MiniPuppySVGProps> = ({
   sizeClass,
   customStyle,
   className

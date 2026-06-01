@@ -550,5 +550,3 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
     </OrientationGuard>
   );
 };
-
-export default TreasureMap;

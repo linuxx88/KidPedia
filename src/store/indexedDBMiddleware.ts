@@ -9,7 +9,7 @@ interface StateStorageWithPromises {
   removeItem(name: string): Promise<void>;
 }
 
-export function isTestEnv(): boolean {
+function isTestEnv(): boolean {
   const win = typeof window !== 'undefined' ? (window as unknown as Record<string, unknown>) : null;
   const glob = typeof globalThis !== 'undefined' ? (globalThis as unknown as Record<string, unknown>) : null;
   
@@ -315,5 +315,3 @@ export function indexedDBMiddleware<T extends object>(
 function networkErrorLog(name: string, err: unknown) {
   console.error(`[indexedDBMiddleware] Échec de persistance pour ${name}:`, err);
 }
-
-export default indexedDBMiddleware;

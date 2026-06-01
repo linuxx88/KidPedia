@@ -53,11 +53,6 @@ export type NatureElementId =
   | 'animal';
 
 /**
- * Type pour un badge gagné (lié à un sujet).
- */
-export type BadgeId = TopicId;
-
-/**
  * Structure de données pour le hub de découverte.
  */
 export interface TopicsData {
@@ -69,25 +64,4 @@ export interface TopicsData {
   handleSurprise: () => void;
 }
 
-/**
- * Identifiants pour les époques du Grand Voyage du Temps.
- */
-export type HistoryNodeId = 
-  | 'big-bang' | 'oceans' | 'life' | 'dinosaurs' | 'humans' | 'civilization';
 
-/**
- * Structure globale de la progression d'un joueur.
- */
-export interface PlayerProgression {
-  xp: number;
-  badges: EarnedBadge[];
-  rankId: string;
-}
-
-/**
- * Interface unifiée pour l'identité du joueur.
- */
-export interface PlayerIdentity {
-  name: string;
-  avatar: string;
-}

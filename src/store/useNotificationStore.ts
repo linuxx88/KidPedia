@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-export type NotificationType = 'badge' | 'rank' | 'xp';
+type NotificationType = 'badge' | 'rank' | 'xp';
 
 export interface AppNotification {
   id: string;

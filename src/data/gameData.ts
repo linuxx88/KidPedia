@@ -1,6 +1,6 @@
 import { type TopicId } from '../types/domain';
 
-export type SafariCellType = 'start' | 'neutral' | 'boost' | 'hazard' | 'animal' | 'end';
+type SafariCellType = 'start' | 'neutral' | 'boost' | 'hazard' | 'animal' | 'end';
 
 export interface SafariCell {
   id: number;

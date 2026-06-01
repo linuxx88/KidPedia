@@ -29,5 +29,3 @@ export const AppGradients: React.FC = () => {
     </svg>
   );
 };
-
-export default AppGradients;

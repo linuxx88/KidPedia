@@ -1,6 +1,6 @@
 import { type TopicId } from '../types/domain';
 
-export interface BilingualQuestion {
+interface BilingualQuestion {
   fr: string;
   en: string;
 }

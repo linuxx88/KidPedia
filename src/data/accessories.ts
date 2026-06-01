@@ -1,6 +1,6 @@
 import { type MedalType } from '../utils/quizMessages';
 
-export type AccessoryCategory = 'espace' | 'animaux' | 'dinosaures' | 'nature' | 'histoire' | 'corps-humain';
+type AccessoryCategory = 'espace' | 'animaux' | 'dinosaures' | 'nature' | 'histoire' | 'corps-humain';
 
 export interface UnlockCondition {
   type: 'count' | 'specific_topic' | 'xp';

@@ -14,14 +14,6 @@ export const ORIGINS_SVG_CONFIG = {
   PATH_LENGTH: "1000",
 };
 
-export const NATURE_SVG_CONFIG = {
-  /** Viewbox pour l'expérience NatureExplorer (Arbre central) */
-  VIEWBOX: "0 0 400 800",
-  
-  /** Tracé de base d'une feuille stylisée */
-  LEAF_PATH: "M0,0 C10,-10 20,-10 30,0 C20,10 10,10 0,0",
-};
-
 export const MAP_SVG_CONFIG = {
   /** Zoom maximum autorisé sur la carte */
   MAX_ZOOM: 3,

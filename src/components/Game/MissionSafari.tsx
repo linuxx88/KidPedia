@@ -237,5 +237,3 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
     </OrientationGuard>
   );
 };
-
-export default MissionSafari;

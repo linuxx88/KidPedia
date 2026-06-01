@@ -47,7 +47,7 @@ export interface QuizChampionshipState {
 }
 
 // Helper to shuffle and pick 10 random quizzes
-export function getRandomChampionshipQuestions(): { topicId: string; quiz: Quiz }[] {
+function getRandomChampionshipQuestions(): { topicId: string; quiz: Quiz }[] {
   const allQuizzes = Object.entries(QUIZZES)
     .filter(([_, quiz]) => quiz !== undefined)
     .map(([topicId, quiz]) => ({ topicId, quiz: quiz! }));
@@ -56,7 +56,7 @@ export function getRandomChampionshipQuestions(): { topicId: string; quiz: Quiz 
   return shuffled.slice(0, 10);
 }
 
-export function syncHighScores(records: readonly QuizChampionshipRecord[]): ChampionshipHighScore[] {
+function syncHighScores(records: readonly QuizChampionshipRecord[]): ChampionshipHighScore[] {
   const profileStore = useProfileStore.getState();
   const profiles = profileStore.profiles || [];
   const activeProfile = profileStore.activeProfile;

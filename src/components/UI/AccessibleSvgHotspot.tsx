@@ -49,5 +49,3 @@ export const AccessibleSvgHotspot: React.FC<AccessibleSvgHotspotProps> = ({
     },
   } as React.Attributes & React.SVGAttributes<SVGElement>);
 };
-
-export default AccessibleSvgHotspot;

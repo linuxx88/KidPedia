@@ -406,5 +406,3 @@ export const FlowDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) => {
     </div>
   );
 };
-
-export default FlowDashboard;

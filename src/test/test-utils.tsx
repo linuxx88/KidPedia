@@ -1,8 +1,8 @@
 /* eslint-disable react-refresh/only-export-components */
 import React from 'react';
 import type { ReactNode } from 'react';
-import { render as rtlRender, renderHook as rtlRenderHook } from '@testing-library/react';
-import type { RenderOptions, RenderHookOptions } from '@testing-library/react';
+import { render as rtlRender } from '@testing-library/react';
+import type { RenderOptions } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 
 import { useProfileStore } from '../store/useProfileStore';
@@ -42,10 +42,5 @@ const resetAllStores = () => {
 const render = (ui: React.ReactElement, options?: Omit<RenderOptions, 'wrapper'>) =>
   rtlRender(ui, { wrapper: AllTheProviders, ...options });
 
-const renderHook = <Result, Props>(
-  hook: (initialProps: Props) => Result,
-  options?: Omit<RenderHookOptions<Props>, 'wrapper'>
-) => rtlRenderHook(hook, { wrapper: AllTheProviders, ...options });
-
 export * from '@testing-library/react';
-export { render, renderHook, resetAllStores };
+export { render, resetAllStores };

@@ -319,5 +319,3 @@ export function App() {
     </StorytellerProvider>
   )
 }
-
-export default App

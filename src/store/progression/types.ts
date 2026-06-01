@@ -1,7 +1,7 @@
 import { type MedalType } from '../../utils/quizMessages';
 import { type TopicId, type EarnedBadge } from '../../types/domain';
 
-export interface Sticker {
+interface Sticker {
   readonly id: string;
   readonly unlockedAt: string;
 }

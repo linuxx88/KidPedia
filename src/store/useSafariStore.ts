@@ -4,7 +4,7 @@ import { encyclopedia, type Topic } from '../data/topics';
 import { DICE_COLORS, type DiceColor } from '../components/UI/DiceRoller.types';
 import { SAFARI_GEOMETRY } from '../constants/geometry';
 
-export type GameState = 'IDLE' | 'ROLLING' | 'MOVING' | 'EVENT' | 'VICTORY';
+type GameState = 'IDLE' | 'ROLLING' | 'MOVING' | 'EVENT' | 'VICTORY';
 
 /**
  * Codes d'événements pour l'UI

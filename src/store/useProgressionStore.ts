@@ -1,13 +1,13 @@
 import { create, type UseBoundStore, type StoreApi } from 'zustand';
 import { indexedDBMiddleware } from './indexedDBMiddleware';
-import { type Sticker, type ProgressionState } from './progression/types';
+import { type ProgressionState } from './progression/types';
 import { createProfileSlice } from './progression/profileSlice';
 import { createXpBadgeSlice } from './progression/xpBadgeSlice';
 import { createAccessorySlice } from './progression/accessorySlice';
 import { createCollectiblesSlice } from './progression/collectiblesSlice';
 
 // Re-export type for external compatibility
-export type { Sticker, ProgressionState };
+export type { ProgressionState };
 
 export const useProgressionStore = create<ProgressionState>()(
   indexedDBMiddleware(

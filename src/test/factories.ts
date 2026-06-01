@@ -1,23 +1,5 @@
-import { type Topic, type Quiz } from '../data/topics/types';
+import { type Quiz } from '../data/topics/types';
 import { type Profile } from '../store/useProfileStore';
-import { type TopicId, type EarnedBadge } from '../types/domain';
-import { type MedalType } from '../utils/quizMessages';
-
-/**
- * Factory pour les sujets (Topic).
- * Garantit un objet complet et typé pour les tests.
- */
-export const createMockTopic = (overrides?: Partial<Topic>): Topic => ({
-  id: 'lion' as TopicId,
-  title: { fr: 'Le Lion', en: 'The Lion' },
-  category: { fr: 'Animaux', en: 'Animals' },
-  categoryKey: 'animaux',
-  icon: '🦁',
-  shortDesc: { fr: 'Court', en: 'Short' },
-  fullContent: { fr: 'Contenu complet', en: 'Full content' },
-  funFact: { fr: 'Fait amusant', en: 'Fun fact' },
-  ...overrides,
-});
 
 /**
  * Factory pour les profils utilisateurs.
@@ -29,15 +11,6 @@ export const createMockProfile = (overrides?: Partial<Profile>): Profile => ({
   gender: 'boy',
   theme: 'light',
   language: 'fr',
-  ...overrides,
-});
-
-/**
- * Factory pour les badges gagnés.
- */
-export const createMockEarnedBadge = (overrides?: Partial<EarnedBadge>): EarnedBadge => ({
-  id: 'lion',
-  medal: 'gold' as MedalType,
   ...overrides,
 });
 

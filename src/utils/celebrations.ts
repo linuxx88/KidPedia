@@ -35,15 +35,3 @@ export const launchCelebration = () => {
     });
   }, 250);
 };
-
-/**
- * Une explosion unique et rapide.
- */
-export const quickPop = () => {
-  confetti({
-    particleCount: 150,
-    spread: 70,
-    origin: { y: 0.6 },
-    colors: ['#3b82f6', '#8b5cf6', '#10b981']
-  });
-};

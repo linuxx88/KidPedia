@@ -1,6 +1,6 @@
 import { type Quiz } from '../../../data/topics/types';
 
-export const STOP_WORDS = new Set([
+const STOP_WORDS = new Set([
   // French
   'le', 'la', 'les', 'de', 'du', 'des', 'un', 'une', 'et', 'est', 'estce', 'qui', 'que', 'aux',
   'a', 'pour', 'dans', 'par', 'sur', 'avec', 'plus', 'comme', 'comment', 'quelle', 'quelles',

@@ -54,5 +54,3 @@ export function AppLoader({ message }: AppLoaderProps) {
     </div>
   );
 }
-
-export default AppLoader;

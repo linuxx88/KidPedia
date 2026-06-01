@@ -7,7 +7,7 @@ interface BabyDinoSVGProps {
   className?: string;
 }
 
-export const BabyDinoSVG: React.FC<BabyDinoSVGProps> = ({
+const BabyDinoSVG: React.FC<BabyDinoSVGProps> = ({
   sizeClass,
   customStyle,
   className

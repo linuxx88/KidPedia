@@ -1,7 +1,7 @@
 import Dexie, { type Table } from 'dexie';
 import { type EarnedBadge, type TopicId } from '../types/domain';
 
-export interface DbSticker {
+interface DbSticker {
   readonly id: string;
   readonly unlockedAt: string;
 }
@@ -22,12 +22,12 @@ export interface DbProfileProgression {
   updatedAt: number;
 }
 
-export interface KeyValEntry {
+interface KeyValEntry {
   key: string;
   value: string;
 }
 
-export class KidPediaDexieDB extends Dexie {
+class KidPediaDexieDB extends Dexie {
   progression!: Table<DbProfileProgression, string>;
   keyval!: Table<KeyValEntry, string>;
 
