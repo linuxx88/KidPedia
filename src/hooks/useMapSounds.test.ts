@@ -164,4 +164,36 @@ describe('useMapSounds', () => {
       result.current.playClickSound();
     });
   });
+
+  it('clears timers and schedules on unmount', () => {
+    const { result, unmount } = renderHook(() => useMapSounds(containerRef));
+
+    act(() => {
+      window.dispatchEvent(new MouseEvent('mousedown'));
+    });
+
+    const mockPoint = {
+      id: 'm1',
+      topicId: 'astronaute',
+      title: { fr: 'Les Astronautes', en: 'The Astronauts' },
+      icon: '👨‍🚀',
+      x: 30,
+      y: 40,
+      minZoom: 1,
+    };
+
+    act(() => {
+      result.current.handleIslandHoverStart(mockPoint);
+    });
+
+    act(() => {
+      result.current.handleIslandHoverEnd(mockPoint);
+    });
+
+    unmount();
+
+    expect(() => {
+      vi.runAllTimers();
+    }).not.toThrow();
+  });
 });

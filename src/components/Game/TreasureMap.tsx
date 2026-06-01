@@ -117,6 +117,25 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
   
   const [selectedPoint, setSelectedPoint] = useState<MapMarker | null>(null);
   
+  // Rétablir le focus sur le bouton de l'île précédemment sélectionnée lors de la fermeture de la modale
+  const prevSelectedPointRef = useRef<MapMarker | null>(null);
+
+  useEffect(() => {
+    if (selectedPoint) {
+      prevSelectedPointRef.current = selectedPoint;
+    } else if (prevSelectedPointRef.current) {
+      const prevPoint = prevSelectedPointRef.current;
+      prevSelectedPointRef.current = null;
+      
+      setTimeout(() => {
+        const button = document.querySelector(`[data-testid="map-point-${prevPoint.topicId}"]`) as HTMLButtonElement | null;
+        if (button) {
+          button.focus();
+        }
+      }, 0);
+    }
+  }, [selectedPoint]);
+
   // --- ÉTAT DU DRAG (PANNING) ---
   const containerRef = useRef<HTMLDivElement>(null);
   const [isDragging, setIsDragging] = useState(false);
@@ -134,8 +153,8 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
   const zoomTargetRef = useRef<{ rx: number; ry: number }>({ rx: 0.5, ry: 0.5 });
 
   // --- DOUBLE-TAP POUR SUPPORT TABLETTE/MOBILE ---
-  const lastTouchTimeRef = useRef<number>(0);
-  const lastTouchPosRef = useRef<{ x: number; y: number }>({ x: 0, y: 0 });
+  const lastTouchTimeRef = useRef<number | null>(null);
+  const lastTouchPosRef = useRef<{ x: number; y: number } | null>(null);
 
   const captureViewportCenterAsZoomTarget = useCallback(() => {
     const container = containerRef.current;
@@ -247,7 +266,9 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
       setHasMoved(true);
     }
 
+    // eslint-disable-next-line react-hooks/immutability
     containerRef.current.scrollLeft = dragStart.scrollLeft - dx;
+    // eslint-disable-next-line react-hooks/immutability
     containerRef.current.scrollTop = dragStart.scrollTop - dy;
   };
 
@@ -271,30 +292,37 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
 
     // Détection personnalisée du double-tap
     const currentTime = Date.now();
-    const timeDiff = currentTime - lastTouchTimeRef.current;
     
-    if (timeDiff < 300) {
-      const dx = Math.abs(touch.clientX - lastTouchPosRef.current.x);
-      const dy = Math.abs(touch.clientY - lastTouchPosRef.current.y);
-      if (dx < 20 && dy < 20) {
-        const mapContainer = containerRef.current.firstElementChild as HTMLElement;
-        if (mapContainer) {
-          const rect = mapContainer.getBoundingClientRect();
-          const x = touch.clientX - rect.left;
-          const y = touch.clientY - rect.top;
-          
-          if (rect.width > 0 && rect.height > 0) {
-            zoomTargetRef.current = {
-              rx: x / rect.width,
-              ry: y / rect.height
-            };
+    if (lastTouchTimeRef.current !== null && lastTouchPosRef.current !== null) {
+      const timeDiff = currentTime - lastTouchTimeRef.current;
+      if (timeDiff < 300) {
+        const dx = Math.abs(touch.clientX - lastTouchPosRef.current.x);
+        const dy = Math.abs(touch.clientY - lastTouchPosRef.current.y);
+        if (dx < 20 && dy < 20) {
+          const mapContainer = containerRef.current.firstElementChild as HTMLElement;
+          if (mapContainer) {
+            const rect = mapContainer.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            
+            if (rect.width > 0 && rect.height > 0) {
+              zoomTargetRef.current = {
+                rx: x / rect.width,
+                ry: y / rect.height
+              };
+            }
+            
+            zoomIn();
+            addRipple(x, y);
+            
+            // Désactiver le drag pour ce toucher afin d'éviter les tressautements
+            setIsDragging(false);
+            
+            // Réinitialisation du timer et de la position après un double-tap réussi
+            lastTouchTimeRef.current = null;
+            lastTouchPosRef.current = null;
+            return;
           }
-          
-          zoomIn();
-          addRipple(x, y);
-          
-          // Désactiver le drag pour ce toucher afin d'éviter les tressautements
-          setIsDragging(false);
         }
       }
     }
@@ -315,7 +343,9 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
       setHasMoved(true);
     }
 
+    // eslint-disable-next-line react-hooks/immutability
     containerRef.current.scrollLeft = dragStart.scrollLeft - dx;
+    // eslint-disable-next-line react-hooks/immutability
     containerRef.current.scrollTop = dragStart.scrollTop - dy;
   };
 

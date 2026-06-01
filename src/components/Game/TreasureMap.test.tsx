@@ -391,4 +391,29 @@ describe('TreasureMap', () => {
     // Le zoom est x2, donc l'échelle du marqueur doit être 1/2 = 0.5
     expect(marker1.style.transform).toContain('scale(0.5)')
   })
+
+  it('restaure le focus sur le bouton du marqueur d\'île lors de la fermeture de la modale', async () => {
+    render(<TreasureMap onBack={onBack} markers={mockMarkers} />)
+    
+    const marker = screen.getByTestId('map-point-grand-canyon')
+    
+    // Activer la modale en cliquant sur le marqueur
+    fireEvent.click(marker)
+    
+    // Vérifier que la modale est ouverte
+    const modalTitle = screen.getByText('Le Grand Canyon', { selector: 'h2' })
+    expect(modalTitle).toBeDefined()
+    
+    // Fermer la modale
+    const closeBtn = screen.getByLabelText('Fermer')
+    fireEvent.click(closeBtn)
+    
+    // Attendre la fin du setTimeout(..., 0)
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 0))
+    })
+    
+    // Vérifier que le focus est restauré sur le marqueur d'île
+    expect(document.activeElement).toBe(marker)
+  })
 })

@@ -38,6 +38,7 @@ export const useMapSounds = (containerRef: React.RefObject<HTMLDivElement | null
   const islandGainRef = useRef<GainNode | null>(null);
   const islandPannerRef = useRef<StereoPannerNode | null>(null);
   const islandSchedulerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const activeSourcesRef = useRef<AudioScheduledSourceNode[]>([]);
 
   // Refs for tracking position without re-rendering
@@ -306,6 +307,10 @@ export const useMapSounds = (containerRef: React.RefObject<HTMLDivElement | null
       clearInterval(islandSchedulerRef.current);
       islandSchedulerRef.current = null;
     }
+    if (timeoutRef.current) {
+      clearTimeout(timeoutRef.current);
+      timeoutRef.current = null;
+    }
 
     if (activeIslandRef.current && !point) {
       // Fade Out over 400ms
@@ -314,7 +319,8 @@ export const useMapSounds = (containerRef: React.RefObject<HTMLDivElement | null
       islandGain.gain.linearRampToValueAtTime(0, ctx.currentTime + 0.4);
       
       // Stop continuous rumbles shortly after fade
-      setTimeout(() => {
+      timeoutRef.current = setTimeout(() => {
+        timeoutRef.current = null;
         if (!activeIslandRef.current) {
           stopActiveSources();
         }
@@ -438,6 +444,9 @@ export const useMapSounds = (containerRef: React.RefObject<HTMLDivElement | null
     return () => {
       if (islandSchedulerRef.current) {
         clearInterval(islandSchedulerRef.current);
+      }
+      if (timeoutRef.current) {
+        clearTimeout(timeoutRef.current);
       }
       stopActiveSources();
 

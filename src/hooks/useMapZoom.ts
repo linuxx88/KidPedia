@@ -1,20 +1,14 @@
 import { useState, useCallback } from 'react';
 import { MAP_SVG_CONFIG } from '../constants/geometry';
 
-interface ZoomState {
-  level: number;
-  origin: string;
-}
-
 export interface MapZoomHook {
   zoom: number;
-  origin: string;
   zoomIn: () => void;
   zoomOut: () => void;
   resetZoom: () => void;
-  handleZoomAt: (e?: React.MouseEvent | React.TouchEvent) => void;
   isMin: boolean;
   isMax: boolean;
+  setZoomLevel: (level: number) => void;
 }
 
 /**
@@ -22,53 +16,32 @@ export interface MapZoomHook {
  * Centralise l'état et les calculs de transformation pour les cartes.
  */
 export const useMapZoom = (): MapZoomHook => {
-  const [zoom, setZoom] = useState<ZoomState>({
-    level: 1,
-    origin: '0 0',
-  });
+  const [zoom, setZoom] = useState<number>(1);
 
   const zoomIn = useCallback(() => {
-    setZoom(prev => ({
-      ...prev,
-      level: Math.min(prev.level + 1, MAP_SVG_CONFIG.MAX_ZOOM)
-    }));
+    setZoom(prev => Math.min(prev + 1, MAP_SVG_CONFIG.MAX_ZOOM));
   }, []);
 
   const zoomOut = useCallback(() => {
-    setZoom(prev => ({
-      ...prev,
-      level: Math.max(prev.level - 1, 1),
-      origin: '0 0'
-    }));
+    setZoom(prev => Math.max(prev - 1, 1));
   }, []);
 
   const resetZoom = useCallback(() => {
-    setZoom({
-      level: 1,
-      origin: '0 0'
-    });
+    setZoom(1);
   }, []);
 
-  /**
-   * Calcule et définit l'origine du zoom basée sur un événement de clic.
-   * Permet de zoomer vers le point cliqué par l'utilisateur.
-   */
-  const handleZoomAt = useCallback(() => {
-    setZoom(prev => ({
-      ...prev,
-      level: Math.min(prev.level + 1, MAP_SVG_CONFIG.MAX_ZOOM),
-      origin: '0 0'
-    }));
+  const setZoomLevel = useCallback((level: number) => {
+    setZoom(Math.max(1, Math.min(level, MAP_SVG_CONFIG.MAX_ZOOM)));
   }, []);
 
   return {
-    zoom: zoom.level,
-    origin: zoom.origin,
+    zoom,
     zoomIn,
     zoomOut,
     resetZoom,
-    handleZoomAt,
-    isMin: zoom.level === 1,
-    isMax: zoom.level === MAP_SVG_CONFIG.MAX_ZOOM,
+    isMin: zoom === 1,
+    isMax: zoom === MAP_SVG_CONFIG.MAX_ZOOM,
+    setZoomLevel,
   };
 };
+

@@ -22,7 +22,7 @@
   border: 4px solid var(--card-border);
   margin-top: 1rem;
   cursor: grab;
-  touch-action: none; /* Crucial pour le drag manuel sur mobile */
+  touch-action: none; /* Crucial pour le drag manuel et pour éviter le zoom viewport natif lors du pinch-to-zoom JS */
 }
 
 .mapWrapperScroll.isDragging {
