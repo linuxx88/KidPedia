@@ -5,7 +5,7 @@ test.describe('Persistance des données', () => {
     // 1. Initialisation : Création d'un profil et gain d'une médaille
     await page.goto('/');
     
-    await page.getByTestId('profile-name-input').fill('Explorateur Persistant');
+    await page.getByTestId('profile-name-input').fill('Persistant');
     await page.getByRole('button', { name: /parti/i }).click();
 
     // On gagne une médaille sur le Lion pour avoir un état à sauvegarder
@@ -20,7 +20,7 @@ test.describe('Persistance des données', () => {
     await page.reload();
 
     // 3. Vérification : Les données doivent être toujours là
-    await expect(page.getByAltText('Explorateur Persistant')).toBeVisible();
+    await expect(page.getByAltText('Persistant')).toBeVisible();
     await expect(page.getByTestId('medal-count')).toHaveText('1');
     await expect(page.getByTestId('topic-card-lion').getByTestId('medal-badge')).toBeVisible();
   });

@@ -77,6 +77,30 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
     }
   }, [topicId, startQuiz, isUnlocked])
 
+  const forceLeaveQuiz = () => {
+    resetQuiz()
+    if (fromOrigins) {
+      navigate(-1)
+    } else {
+      navigate(`/?category=${topic?.categoryKey || ''}`)
+    }
+  }
+
+  const handleBack = () => {
+    if (!fromOrigins && quizResult === null) {
+      if (!window.confirm(labels.quiz.quitConfirmMessage)) {
+        return;
+      }
+    }
+    forceLeaveQuiz()
+  }
+
+  useNavigationConfirm({
+    active: !fromOrigins && quizResult === null,
+    message: labels.quiz.quitConfirmMessage,
+    onConfirm: forceLeaveQuiz
+  });
+
   if (isLoadingDecoupled) {
     return <AppLoader message={labels.common.loading} />;
   }
@@ -123,30 +147,6 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   };
 
   const resolvedAnchorIcon = topic ? (topic.anchorIcon || CATEGORY_ANCHOR_ICONS[topic.categoryKey.toLowerCase()] || '📍') : undefined;
-
-  const forceLeaveQuiz = () => {
-    resetQuiz()
-    if (fromOrigins) {
-      navigate(-1)
-    } else {
-      navigate(`/?category=${topic.categoryKey}`)
-    }
-  }
-
-  const handleBack = () => {
-    if (!fromOrigins && quizResult === null) {
-      if (!window.confirm(labels.quiz.quitConfirmMessage)) {
-        return;
-      }
-    }
-    forceLeaveQuiz()
-  }
-
-  useNavigationConfirm({
-    active: !fromOrigins && quizResult === null,
-    message: labels.quiz.quitConfirmMessage,
-    onConfirm: forceLeaveQuiz
-  });
 
   return (
     <Suspense fallback={<AppLoader message={labels.common.loading} />}>
