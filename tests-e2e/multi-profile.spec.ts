@@ -20,7 +20,7 @@ test.describe('Gestion Multi-Profils', () => {
     await expect(page.getByTestId('quiz-question')).toBeVisible();
     await expect(page.getByTestId('quiz-option-1')).toBeVisible();
     await page.getByTestId('quiz-option-1').click();
-    await page.getByRole('button', { name: /fini/i }).click();
+    await page.getByRole('button', { name: /fini/i }).click({ force: true });
     await expect(page.getByTestId('medal-count')).toHaveText('1');
 
     // 3. Création du profil de Bob

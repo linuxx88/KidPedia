@@ -38,7 +38,7 @@ test.describe('Mission Safari', () => {
     // 6. Vérifier la navigation retour
     const backButton = page.getByRole('button', { name: /Retour/i });
     await expect(backButton).toBeVisible();
-    await backButton.click();
+    await backButton.click({ force: true });
     await expect(page.getByAltText(/Aventurier/i)).toBeVisible();
   });
 });

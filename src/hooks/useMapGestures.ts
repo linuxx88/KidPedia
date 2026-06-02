@@ -1,4 +1,5 @@
 import { useState, useRef, useCallback, useEffect, useLayoutEffect } from 'react';
+import { type MapMarker } from '../data/mapData';
 
 interface UseMapGesturesProps {
   zoom: number;
@@ -6,7 +7,7 @@ interface UseMapGesturesProps {
   zoomOut: () => void;
   resetZoom: () => void;
   addRipple: (x: number, y: number) => void;
-  selectedPoint: any;
+  selectedPoint: MapMarker | null;
 }
 
 export const useMapGestures = ({
