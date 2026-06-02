@@ -182,9 +182,7 @@
     border-radius: 0.75rem;
     box-shadow: 0 3px 0 #fde047;
   }
-
-
-
+}
 
 .questionContainer {
   display: flex;
@@ -264,6 +262,4 @@
   50% { transform: translateY(-2px) scale(1.1); }
   100% { transform: translateY(0) scale(1); }
 }
-
-
 
