@@ -3,7 +3,7 @@ import histoire from './histoire.json'
 import nature from './nature.json'
 import science from './science.json'
 
-export interface GlossaryWord {
+interface GlossaryWord {
   word: {
     fr: string
     en: string

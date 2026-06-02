@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react'
+import React, { useState, useEffect, useRef } from 'react'
 import { type MedalType } from '../../utils/quizMessages'
 import { type Gender } from '../../utils/helpers'
 import { type Labels } from '../../locales/types'
@@ -9,6 +9,11 @@ import { QuizAnswerButton } from './QuizAnswerButton'
 import { QuizHeader } from './QuizHeader'
 import { QuizResults } from './QuizResults'
 import { useProgressionStore } from '../../store/useProgressionStore'
+import {
+  playSynthesizedDing,
+  playSynthesizedPerfectFanfare,
+  playSynthesizedPuzzleChime
+} from '../../utils/quizAudioSynth'
 import styles from './Quiz.module.css'
 
 interface QuizProps {
@@ -64,122 +69,6 @@ export const QuizComponent: React.FC<QuizProps> = ({
     stopStory()
   }, [question, stopStory])
 
-  // Synthesized ding sound using native Web Audio API
-  const playSynthesizedDing = useCallback(() => {
-    const isMuted = useSettingsStore.getState().isMuted
-    const isSfxMuted = useSettingsStore.getState().isSfxMuted
-    if (isMuted || isSfxMuted) return
-
-    stopStory()
-
-    try {
-      const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
-      if (!AudioContextClass) return
-
-      const ctx = new AudioContextClass()
-      const osc = ctx.createOscillator()
-      const gain = ctx.createGain()
-
-      osc.connect(gain)
-      gain.connect(ctx.destination)
-
-      osc.type = 'sine'
-      // Crystal clear "ding" bell sound
-      osc.frequency.setValueAtTime(1200, ctx.currentTime)
-      osc.frequency.exponentialRampToValueAtTime(800, ctx.currentTime + 0.15)
-
-      gain.gain.setValueAtTime(0, ctx.currentTime)
-      gain.gain.linearRampToValueAtTime(0.3, ctx.currentTime + 0.02) // Rapid attack
-      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8) // Smooth decay
-
-      osc.start(ctx.currentTime)
-      osc.stop(ctx.currentTime + 0.8)
-    } catch (e: unknown) {
-      console.warn('Web Audio API synthesizer failed to play ding sound', e)
-    }
-  }, [stopStory])
-
-  // Synthesized perfect fanfare sound using native Web Audio API
-  const playSynthesizedPerfectFanfare = useCallback(() => {
-    const isMuted = useSettingsStore.getState().isMuted
-    const isSfxMuted = useSettingsStore.getState().isSfxMuted
-    if (isMuted || isSfxMuted) return
-
-    stopStory()
-
-    try {
-      const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
-      if (!AudioContextClass) return
-
-      const ctx = new AudioContextClass()
-      
-      // Ascending major chord notes: C6, E6, G6, C7
-      const notes = [1046.50, 1318.51, 1567.98, 2093.00]
-      notes.forEach((freq, idx) => {
-        const timeOffset = idx * 0.08 // Fast sparkling arpeggio
-        const osc = ctx.createOscillator()
-        const gain = ctx.createGain()
-
-        osc.connect(gain)
-        gain.connect(ctx.destination)
-
-        osc.type = 'sine'
-        osc.frequency.setValueAtTime(freq, ctx.currentTime + timeOffset)
-
-        gain.gain.setValueAtTime(0, ctx.currentTime + timeOffset)
-        gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + timeOffset + 0.02)
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + timeOffset + 0.4)
-
-        osc.start(ctx.currentTime + timeOffset)
-        osc.stop(ctx.currentTime + timeOffset + 0.4)
-      })
-    } catch (e: unknown) {
-      console.warn('Web Audio API perfect arpeggio failed to play', e)
-    }
-  }, [stopStory])
-
-  // Synthesized puzzle piece discovery chime using native Web Audio API
-  const playSynthesizedPuzzleChime = useCallback(() => {
-    const isMuted = useSettingsStore.getState().isMuted
-    const isSfxMuted = useSettingsStore.getState().isSfxMuted
-    if (isMuted || isSfxMuted) return
-
-    try {
-      const AudioContextClass = window.AudioContext || (window as Window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext
-      if (!AudioContextClass) return
-
-      const ctx = new AudioContextClass()
-      
-      // A magical rising sparkling sound: E5 -> G5 -> C6 -> E6
-      const freqs = [329.63, 392.00, 523.25, 659.25]
-      freqs.forEach((freq, idx) => {
-        const timeOffset = idx * 0.12 // fast arpeggio
-        const osc = ctx.createOscillator()
-        const gain = ctx.createGain()
-
-        osc.connect(gain)
-        gain.connect(ctx.destination)
-
-        osc.type = 'triangle' // warmer, puzzle-like sound
-        osc.frequency.setValueAtTime(freq, ctx.currentTime + timeOffset)
-
-        gain.gain.setValueAtTime(0, ctx.currentTime + timeOffset)
-        gain.gain.linearRampToValueAtTime(0.25, ctx.currentTime + timeOffset + 0.03)
-        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + timeOffset + 0.5)
-
-        osc.start(ctx.currentTime + timeOffset)
-        osc.stop(ctx.currentTime + timeOffset + 0.5)
-      })
-
-      // Zero sound leaks: close context when arpeggio ends
-      setTimeout(() => {
-        ctx.close().catch(() => {});
-      }, 1000);
-    } catch (e: unknown) {
-      console.warn('Web Audio API puzzle chime failed to play', e)
-    }
-  }, [])
-
   const hasAwardedPiece = useRef(false)
 
   // Award puzzle piece on quiz success (result set)
@@ -197,7 +86,7 @@ export const QuizComponent: React.FC<QuizProps> = ({
         playSynthesizedPuzzleChime()
       }
     }
-  }, [result, categoryKey, playSynthesizedPuzzleChime])
+  }, [result, categoryKey])
 
   // Trigger sounds when a result appears
   useEffect(() => {
@@ -205,12 +94,12 @@ export const QuizComponent: React.FC<QuizProps> = ({
       stopStory()
       playSound('success')
       if (result.medal === 'gold') {
-        playSynthesizedPerfectFanfare()
+        playSynthesizedPerfectFanfare(stopStory)
       } else {
-        playSynthesizedDing()
+        playSynthesizedDing(stopStory)
       }
     }
-  }, [result, playSound, stopStory, playSynthesizedPerfectFanfare, playSynthesizedDing])
+  }, [result, playSound, stopStory])
 
   const handleAnswerClick = (index: number) => {
     stopStory()

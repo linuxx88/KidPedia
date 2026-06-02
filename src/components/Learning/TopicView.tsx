@@ -7,6 +7,7 @@ import { type Labels } from '../../locales/types'
 import { useStoryteller } from '../../hooks/useStoryteller'
 import { TopicFunFactBox } from './TopicFunFactBox'
 import { TopicNavigation } from './TopicNavigation'
+import { InteractiveText } from '../UI/InteractiveText'
 import styles from './TopicView.module.css'
 
 export interface TopicViewProps {
@@ -29,36 +30,6 @@ export interface TopicViewProps {
   readonly anchorIcon?: string
   readonly hideQuiz?: boolean
   readonly categoryKey?: string
-}
-
-interface InteractiveTextProps {
-  readonly text: string
-  readonly onSpeak: () => void
-}
-
-export const InteractiveText: React.FC<InteractiveTextProps> = ({ text, onSpeak }) => {
-  const { isMagicWandActive } = useStoryteller()
-
-  if (!isMagicWandActive) {
-    return <>{text}</>
-  }
-
-  return (
-    <span
-      onClick={(e) => {
-        e.stopPropagation()
-        onSpeak()
-      }}
-      className="magicWandInteractiveText"
-      style={{
-        cursor: 'help',
-        textDecoration: 'underline dotted',
-      }}
-      title="Clique pour écouter !"
-    >
-      {text}
-    </span>
-  )
 }
 
 export const TopicView: React.FC<TopicViewProps> = ({

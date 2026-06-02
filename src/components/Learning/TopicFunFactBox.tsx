@@ -1,5 +1,5 @@
 import React from 'react'
-import { InteractiveText } from './TopicView'
+import { InteractiveText } from '../UI/InteractiveText'
 import { useStoryteller } from '../../hooks/useStoryteller'
 import styles from './TopicFunFactBox.module.css'
 
