@@ -137,7 +137,7 @@ export function ChampionshipPage() {
             secondsRemaining={secondsRemaining}
             selectedAnswerIndex={selectedAnswerIndex}
             hasAnsweredCurrent={hasAnsweredCurrent}
-            isCorrectCurrent={isCorrectCurrent}
+            isCorrectCurrent={isCorrectCurrent ?? false}
             questionWrapper={currentQuestionWrapper}
             labels={labels}
             language={language}

@@ -1,43 +1,18 @@
-import { Suspense, useEffect, useState } from 'react'
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { Suspense } from 'react'
 import { AppLoader } from './components/UI/AppLoader'
-
-
-import { AppButton } from './components/UI/AppButton'
 import { MainLayout } from './components/Layout/MainLayout'
-import { encyclopedia } from './data/topics'
-import { mapData } from './data/mapData'
 import { useSettingsStore } from './store/useSettingsStore'
-import { useProfileStore } from './store/useProfileStore'
-import { useDiscoveryStore } from './store/useDiscoveryStore'
 
 import { ProfileSelection } from './components/Profile/ProfileSelection'
 import { ToastContainer } from './components/UI/Toast/ToastContainer'
 import { ProgressionListener } from './components/Layout/ProgressionListener'
 import { ParentalGate } from './components/UI/ParentalGate'
 
-// Import direct des pages majeures pour éviter les erreurs d'import de module dynamique sous WebKit E2E
-import { TopicPage } from './pages/Topic'
-import { TreasureMap } from './components/Game/TreasureMap'
-import { MissionSafari } from './components/Game/MissionSafari'
-import { ExplorerGallery } from './components/Profile/ExplorerGallery'
-
-import { BadgesPage } from './components/Profile/BadgesPage'
-import { ParentsDashboard } from './pages/Parents/ParentsDashboard'
-import { OriginsLayout } from './pages/Origins/OriginsLayout'
-import { OriginsList } from './pages/Origins/OriginsList'
-import { OriginsDetail } from './pages/Origins/OriginsDetail'
-import { GiftsPage } from './components/Learning/ExplorerGallery/GiftsPage'
-import { FlowDashboard } from './pages/Parents/FlowDashboard'
-import { ChampionshipPage } from './pages/Championship/ChampionshipPage'
-import { DictionaryPage } from './pages/Dictionary/DictionaryPage'
-
-// Import direct de la page d'accueil (pas de lazy load car route par défaut)
-import { HomePage } from './pages/Home'
-
 import { PWAPrompt } from './components/UI/PWAPrompt'
 import ScrollToTop from './components/UI/ScrollToTop'
 import { StorytellerProvider } from './hooks/useStoryteller'
+import { useAppInit } from './hooks/useAppInit'
+import { AppRoutes } from './routes/AppRoutes'
 import styles from './App.module.css'
 
 // Un petit composant de chargement simple et rapide
@@ -51,120 +26,30 @@ const LoadingFallback = () => {
 }
 
 export function App() {
-  const navigate = useNavigate()
-  const location = useLocation()
-  
-  const [showParentalGate, setShowParentalGate] = useState(false)
-  const [pendingRoute, setPendingRoute] = useState<string | null>(null)
-  
-  const [hydrated, setHydrated] = useState(false)
-
-  useEffect(() => {
-    const checkHydration = () => {
-      if (useSettingsStore.persist?.hasHydrated()) {
-        setHydrated(true)
-        return true
-      }
-      return false
-    }
-
-    if (!checkHydration()) {
-      const interval = setInterval(() => {
-        if (checkHydration()) {
-          clearInterval(interval)
-        }
-      }, 5)
-      return () => clearInterval(interval)
-    }
-  }, [])
-
-  const labels = useSettingsStore(state => state.labels)
-
-  const isDarkMode = useSettingsStore(state => state.isDarkMode)
-  const toggleTheme = useSettingsStore(state => state.toggleTheme)
-  const gender = useSettingsStore(state => state.gender)
-  const language = useSettingsStore(state => state.language)
-  const toggleGender = useSettingsStore(state => state.toggleGender)
-
-  const activeProfileId = useProfileStore(state => state.activeProfileId)
-  const isFirstVisit = useProfileStore(state => state.isFirstVisit)
-  const updateProfile = useProfileStore(state => state.updateProfile)
-  const profiles = useProfileStore(state => state.profiles)
-  const addProfile = useProfileStore(state => state.addProfile)
-  const selectProfile = useProfileStore(state => state.selectProfile)
-  const deleteProfile = useProfileStore(state => state.deleteProfile)
-
-  const search = useDiscoveryStore(state => state.search)
-  const setSearch = useDiscoveryStore(state => state.setSearch)
-  const resetSearch = useDiscoveryStore(state => state.resetSearch)
-  const groupedTopics = useDiscoveryStore(state => state.groupedTopics)
-  const updateDiscoveryGroups = useDiscoveryStore(state => state.updateGroups)
-
-  const handleTopicClick = (id: string) => {
-    navigate(`/topic/${id}`)
-  }
-
-  const handleGoHome = (callback?: () => void) => {
-    navigate('/')
-    if (callback) callback()
-  }
-
-  const handleSurprise = () => {
-    const rand = encyclopedia[Math.floor(Math.random() * encyclopedia.length)]
-    handleTopicClick(rand.id)
-  }
-
-  const topicsData = {
+  const {
+    hydrated,
+    labels,
+    isDarkMode,
+    gender,
+    language,
+    activeProfileId,
+    isFirstVisit,
+    profiles,
+    addProfile,
+    selectProfile,
+    deleteProfile,
     search,
     setSearch,
-    groupedTopics,
-    handleTopicClick,
+    resetSearch,
+    topicsData,
+    showParentalGate,
+    setShowParentalGate,
+    openParentsZone,
+    handleParentalSuccess,
+    handleToggleTheme,
+    handleToggleGender,
     handleGoHome,
-    handleSurprise,
-  }
-
-  // Synchronisation des groupes de découverte lors du changement de langue
-  useEffect(() => {
-    updateDiscoveryGroups()
-  }, [language, updateDiscoveryGroups])
-
-  // Appliquer le genre à la racine pour les styles CSS
-  useEffect(() => {
-    document.documentElement.setAttribute('data-gender', gender)
-  }, [gender])
-
-  // Activer les transitions de thème après le chargement initial pour éviter un flash
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      document.documentElement.classList.add('theme-ready')
-    }, 150)
-    return () => clearTimeout(timer)
-  }, [])
-
-  const handleToggleTheme = () => {
-    toggleTheme((newTheme) => {
-      if (activeProfileId) updateProfile(activeProfileId, { theme: newTheme })
-    })
-  }
-
-  const handleToggleGender = () => {
-    toggleGender((newGender) => {
-      if (activeProfileId) updateProfile(activeProfileId, { gender: newGender })
-    })
-  }
-
-  const openParentsZone = () => {
-    setPendingRoute('/parents')
-    setShowParentalGate(true)
-  }
-
-  const handleParentalSuccess = () => {
-    setShowParentalGate(false)
-    if (pendingRoute) {
-      navigate(pendingRoute)
-      setPendingRoute(null)
-    }
-  }
+  } = useAppInit()
 
   if (!hydrated) {
     return <AppLoader />
@@ -206,113 +91,11 @@ export function App() {
         )}
 
         <Suspense fallback={<LoadingFallback />}>
-          <Routes location={location} key={location.pathname}>
-            <Route
-              path="/"
-              element={
-                <div className={styles.routeWrapper}>
-                  <HomePage topicsData={topicsData} />
-                </div>
-              }
-            />
-            <Route
-              path="/topic/:topicId"
-              element={
-                <div className={styles.routeWrapper}>
-                  <TopicPage handleGoHome={handleGoHome} />
-                </div>
-              }
-            />
-            <Route
-              path="/badges"
-              element={
-                <div className={styles.routeWrapper}>
-                  <BadgesPage onBack={() => navigate('/')} />
-                </div>
-              }
-            />
-            <Route
-              path="/gallery"
-              element={
-                <div className={styles.routeWrapper}>
-                  <ExplorerGallery onTopicClick={(id) => navigate(`/topic/${id}`)} />
-                </div>
-              }
-            />
-            <Route
-              path="/gifts"
-              element={
-                <div className={styles.routeWrapper}>
-                  <GiftsPage />
-                </div>
-              }
-            />
-            <Route
-              path="/parents"
-              element={
-                <div className={styles.routeWrapper}>
-                  <ParentsDashboard onBack={() => navigate('/')} />
-                </div>
-              }
-            />
-            <Route
-              path="/parents/flow"
-              element={
-                <div className={styles.routeWrapper}>
-                  <FlowDashboard onBack={() => navigate('/parents')} />
-                </div>
-              }
-            />
-            <Route
-              path="/map"
-              element={
-                <div className={styles.routeWrapper}>
-                  <TreasureMap onBack={() => navigate('/')} markers={mapData} />
-                </div>
-              }
-            />
-            <Route path="/origins" element={<OriginsLayout />}>
-              <Route index element={<OriginsList />} />
-              <Route path=":id" element={<OriginsDetail />} />
-            </Route>
-            <Route
-              path="/safari"
-              element={
-                <div className={styles.routeWrapper}>
-                  <MissionSafari onBack={() => navigate('/')} />
-                </div>
-              }
-            />
-
-            <Route
-              path="/championship"
-              element={
-                <div className={styles.routeWrapper}>
-                  <ChampionshipPage />
-                </div>
-              }
-            />
-            <Route
-              path="/dictionary"
-              element={
-                <div className={styles.routeWrapper}>
-                  <DictionaryPage />
-                </div>
-              }
-            />
-            {/* Catch-all route */}
-            <Route
-              path="*"
-              element={
-                <div className={styles.notFoundContainer}>
-                  <h2 className={styles.notFoundTitle}>{labels.errors.pageNotFound}</h2>
-                  <AppButton onClick={() => navigate('/')}>
-                    {labels.common.goHome}
-                  </AppButton>
-                </div>
-              }
-            />
-          </Routes>
+          <AppRoutes 
+            topicsData={topicsData} 
+            labels={labels} 
+            handleGoHome={handleGoHome} 
+          />
         </Suspense>
         <PWAPrompt />
       </MainLayout>
