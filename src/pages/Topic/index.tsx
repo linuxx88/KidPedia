@@ -8,6 +8,7 @@ import { useProgressionStore } from '../../store/useProgressionStore'
 import { getMedalIcon } from '../../utils/quizMessages'
 import { type TopicId } from '../../types/domain'
 import BackButton from '../../components/UI/BackButton'
+import { useNavigationConfirm } from '../../hooks/useNavigationConfirm'
 import styles from './TopicPage.module.css'
 
 
@@ -123,7 +124,7 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
 
   const resolvedAnchorIcon = topic ? (topic.anchorIcon || CATEGORY_ANCHOR_ICONS[topic.categoryKey.toLowerCase()] || '📍') : undefined;
 
-  const handleBack = () => {
+  const forceLeaveQuiz = () => {
     resetQuiz()
     if (fromOrigins) {
       navigate(-1)
@@ -131,6 +132,21 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
       navigate(`/?category=${topic.categoryKey}`)
     }
   }
+
+  const handleBack = () => {
+    if (!fromOrigins && quizResult === null) {
+      if (!window.confirm(labels.quiz.quitConfirmMessage)) {
+        return;
+      }
+    }
+    forceLeaveQuiz()
+  }
+
+  useNavigationConfirm({
+    active: !fromOrigins && quizResult === null,
+    message: labels.quiz.quitConfirmMessage,
+    onConfirm: forceLeaveQuiz
+  });
 
   return (
     <Suspense fallback={<AppLoader message={labels.common.loading} />}>

@@ -14,6 +14,7 @@ import { OrientationGuard } from '../Layout/OrientationGuard';
 import { VictoryCelebration } from './VictoryCelebration';
 import { QUIZZES } from '../../data/quizzes';
 import { type TopicId } from '../../types/domain';
+import { useNavigationConfirm } from '../../hooks/useNavigationConfirm';
 
 interface MissionSafariProps {
   onBack: () => void;
@@ -47,6 +48,23 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
     getCompanionIcon,
   } = useSafariGame();
 
+  useNavigationConfirm({
+    active: !!activeQuiz,
+    message: labels.safari.quitConfirmMessage,
+    onConfirm: () => {
+      setShowQuitConfirm(false);
+      handleQuizAnswer(false);
+    }
+  });
+
+  const handleBack = () => {
+    if (activeQuiz) {
+      setShowQuitConfirm(true);
+    } else {
+      onBack();
+    }
+  };
+
   return (
     <OrientationGuard>
       <div className={styles.safariContainer}>
@@ -54,7 +72,7 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
           <PageHeader 
             title={labels.safari.title} 
             icon="🦁" 
-            onBack={onBack}
+            onBack={handleBack}
             rightElement={<ThemeToggle />}
           />
           

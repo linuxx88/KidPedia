@@ -128,6 +128,7 @@ export interface Labels {
     hintTitle: string;
     reviewAction: string;
     almostMessage: string;
+    quitConfirmMessage: string;
     successMessages: {
       gold: {
         boy: string[];
@@ -172,6 +173,7 @@ export interface Labels {
     deleteConfirm: string;
     empty: string;
     backToSelection: string;
+    quitConfirmMessage: string;
   };
   badges: {
     title: string;

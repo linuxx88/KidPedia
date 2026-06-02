@@ -5,6 +5,7 @@ import { heroAssets } from '../../assets/hero';
 import { AppButton } from '../UI/AppButton';
 import { LanguageSwitcher } from '../UI/LanguageSwitcher';
 import { AvatarDisplay } from '../UI/AvatarDisplay';
+import { useNavigationConfirm } from '../../hooks/useNavigationConfirm';
 import styles from './ProfileSelection.module.css';
 
 interface ProfileSelectionProps {
@@ -42,6 +43,17 @@ export const ProfileSelection: React.FC<ProfileSelectionProps> = ({
   const [selectedAvatar, setSelectedAvatar] = useState(0);
 
   const avatars = selectedGender === 'boy' ? heroAssets.boy : heroAssets.girl;
+
+  // Confirmation before leaving profile creation
+  useNavigationConfirm({
+    active: isCreating,
+    message: labels.profiles.quitConfirmMessage,
+    onConfirm: () => {
+      if (!isFirstVisit) {
+        setIsCreating(false);
+      }
+    }
+  });
 
   const handleCreate = (e: React.FormEvent) => {
     e.preventDefault();
@@ -144,7 +156,11 @@ export const ProfileSelection: React.FC<ProfileSelectionProps> = ({
               <AppButton 
                 type="button" 
                 variant="outline" 
-                onClick={() => setIsCreating(false)}
+                onClick={() => {
+                  if (window.confirm(labels.profiles.quitConfirmMessage)) {
+                    setIsCreating(false);
+                  }
+                }}
                 className={styles.backBtn}
               >
                 {labels.profiles.backToSelection}

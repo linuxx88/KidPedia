@@ -135,6 +135,7 @@ export const fr: Labels = {
     hintTitle: '💡 Un petit indice...',
     reviewAction: '🔍 Revoir le secret',
     almostMessage: 'Presque ! Écoute bien cet indice pour t\'aider :',
+    quitConfirmMessage: 'Veux-tu vraiment quitter le quiz ? Tu vas perdre ta progression !',
     successMessages: {
       gold: {
         boy: [
@@ -245,6 +246,7 @@ export const fr: Labels = {
     deleteConfirm: 'Voulez-vous vraiment supprimer ce profil et toutes ses médailles ?',
     empty: 'Aucun explorateur trouvé. Crées-en un !',
     backToSelection: 'Retour au choix',
+    quitConfirmMessage: 'Veux-tu vraiment abandonner la création de ton profil ?',
   },
   badges: {
     title: 'Ma Collection de Médailles 🏆',
