@@ -1,0 +1,82 @@
+.discoveryHub {
+  padding: 0 1.5rem;
+
+  @media (min-width: 768px) {
+    padding-right: 5rem;
+  }
+}
+
+.hubGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  max-height: 70vh;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  @media (min-width: 600px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1024px) {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
+
+.hubCard {
+  background-color: var(--card-bg);
+  border-radius: 2rem;
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  text-align: left;
+  transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+  border: 4px solid var(--card-border);
+  box-shadow: 0 4px 0 var(--card-shadow);
+  outline: none;
+  flex-direction: column;
+
+  :global(.dark) & {
+    box-shadow: 0 4px 0 var(--card-shadow);
+  }
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 0 var(--card-shadow);
+  }
+
+  &:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 0 var(--card-shadow);
+  }
+}
+
+.hubIconBox {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+}
+
+.hubTitle {
+  font-size: 1.15rem;
+  font-weight: 950;
+  color: var(--color-app-text);
+  margin-bottom: 0.25rem;
+}
+
+.hubDesc {
+  font-size: 0.85rem;
+  color: var(--color-app-text-muted);
+  font-weight: 700;
+}

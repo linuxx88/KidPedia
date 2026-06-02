@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
-import { useNavigate, Link, useSearchParams } from 'react-router-dom'
+import { useSearchParams } from 'react-router-dom'
 
 import { ParallaxTopicCard } from '../../components/Discovery/ParallaxTopicCard'
 import { HeroCarousel } from '../../components/Discovery/HeroCarousel'
 import { CategoryScrollSpy } from '../../components/Discovery/CategoryScrollSpy'
+import { PillDashboard } from '../../components/Dashboard/PillDashboard'
+import { DiscoveryHub } from '../../components/Discovery/DiscoveryHub/DiscoveryHub'
+import { LockedTopicOverlay } from '../../components/Discovery/LockedTopicOverlay'
 
 import { getGreeting } from '../../utils/helpers'
 import { encyclopedia } from '../../data/topics'
@@ -18,11 +21,8 @@ import { type Topic } from '../../data/topics/types'
 import { type TopicId, type TopicsData } from '../../types/domain'
 import { getMedalIcon } from '../../utils/quizMessages'
 import styles from './Home.module.css'
-import AppIcon from '../../components/UI/AppIcon'
-import { AppOverlay } from '../../components/UI/AppOverlay'
-import { AppButton } from '../../components/UI/AppButton'
-import { StorytellerButton } from '../../components/UI/StorytellerButton'
-import { useStoryteller } from '../../hooks/useStoryteller'
+
+
 
 export interface HomePageProps {
   topicsData: TopicsData
@@ -31,15 +31,11 @@ export interface HomePageProps {
 
 export function HomePage({ topicsData }: HomePageProps) {
   const { gender, labels, language } = useSettingsStore()
-  const { xp, badges } = usePlayerStore()
-  const navigate = useNavigate()
+  const { badges } = usePlayerStore()
   const [searchParams, setSearchParams] = useSearchParams()
   const { setSearch, groupedTopics, handleTopicClick } = topicsData
 
-  const { speak, stopStory } = useStoryteller()
-
   const isUnlocked = useProgressionStore((state) => state.isUnlocked)
-  const tickets = useProgressionStore((state) => state.getTickets())
 
   const [lockedTopic, setLockedTopic] = useState<Topic | null>(null)
 
@@ -104,9 +100,6 @@ export function HomePage({ topicsData }: HomePageProps) {
     }
   }, [searchParams, groupedTopics, setSearchParams, setCategoryExpanded])
 
-  const progressPercent = Math.round((badges.length / encyclopedia.length) * 100)
-  const formattedXP = xp >= 1000 ? `${(xp / 1000).toFixed(1)}k` : xp
-
   const categories = Object.entries(groupedTopics).map(([key, group]) => ({
     key,
     name: group.name,
@@ -155,115 +148,10 @@ export function HomePage({ topicsData }: HomePageProps) {
       </HeroCarousel>
 
       {/* Pill Dashboard - Suivi personnel */}
-      <div className={styles.dashboardWrapper}>
-        <Link
-          to="/gallery"
-          className={styles.pillDashboard}
-          aria-label={`Voir mes médailles. Progression : ${progressPercent} pour cent. Total XP : ${xp}`}
-        >
-          <div className={styles.dashItem}>
-            <span className={styles.dashIcon}>🏆</span>
-            <span className={styles.dashNumber} data-testid="medal-count">{badges.length}</span>
-            <span className={styles.dashLabel}>{labels.home.medals}</span>
-          </div>
-
-          <div className={styles.dashSeparator}></div>
-
-          <div className={styles.dashItem}>
-            <span className={styles.dashIcon}>🎫</span>
-            <span className={styles.dashNumber} data-testid="ticket-count">{tickets}</span>
-            <span className={styles.dashLabel}>{labels.home.tickets}</span>
-          </div>
-
-          <div className={styles.dashSeparator}></div>
-
-          <div className={styles.dashItem}>
-            <span className={`${styles.dashIcon} text-amber-400`}>⚡</span>
-            <span className={styles.dashNumber} data-testid="xp-count">{formattedXP}</span>
-            <span className={styles.dashLabel}>XP</span>
-          </div>
-
-          <div className={styles.dashSeparator}></div>
-
-          <div className={styles.progressContainer}>
-            <span className={styles.dashNumber}>{progressPercent}%</span>
-            <div className={styles.progressBarBg}>
-              <div
-                className={styles.progressBarFill}
-                style={{ width: `${progressPercent}%` }}
-              ></div>
-            </div>
-          </div>
-        </Link>
-      </div>
+      <PillDashboard />
 
       {/* Discovery Hub */}
-      <section className={styles.discoveryHub}>
-        <div className={styles.hubGrid}>
-          {[
-            {
-              id: 'origins',
-              icon: <AppIcon name="hourglass" size="large" />,
-              title: labels.discovery.originsTitle,
-              desc: labels.discovery.originsDesc,
-              color: '#6366f1',
-              path: '/origins',
-            },
-            {
-              id: 'map',
-              icon: <AppIcon name="compass" size="large" />,
-              title: labels.discovery.mapTitle,
-              desc: labels.discovery.mapDesc,
-              color: '#f97316',
-              path: '/map',
-            },
-            {
-              id: 'safari',
-              icon: <AppIcon name="paw" size="large" />,
-              title: labels.discovery.safariTitle,
-              desc: labels.discovery.safariDesc,
-              color: '#f59e0b',
-              path: '/safari',
-            },
-
-            {
-              id: 'championship',
-              icon: <AppIcon name="rocket" size="large" />,
-              title: labels.discovery.championshipTitle,
-              desc: labels.discovery.championshipDesc,
-              color: '#fbbf24',
-              path: '/championship',
-            },
-            {
-              id: 'dictionary',
-              icon: <AppIcon name="help" size="large" />,
-              title: labels.dictionary.title,
-              desc: labels.dictionary.listenTip,
-              color: '#10b981',
-              path: '/dictionary',
-            },
-
-          ].map((hub) => (
-            <button
-              key={hub.id}
-              className={styles.hubCard}
-              onClick={() => navigate(hub.path)}
-              style={{ borderColor: hub.color } as React.CSSProperties}
-            >
-              <div
-                className={styles.hubIconBox}
-                style={{ backgroundColor: `${hub.color}20`, color: hub.color }}
-              >
-                {hub.icon}
-              </div>
-              <div>
-                <h3 className={styles.hubTitle}>{hub.title}</h3>
-                <p className={styles.hubDesc}>{hub.desc}</p>
-              </div>
-            </button>
-          ))}
-        </div>
-      </section>
+      <DiscoveryHub />
 
       {/* Topics by Categories */}
       {categories.length > 0 ? (
@@ -345,39 +233,10 @@ export function HomePage({ topicsData }: HomePageProps) {
         </div>
       )}
 
-      <AppOverlay
-        isOpen={!!lockedTopic}
-        onClose={() => {
-          stopStory()
-          setLockedTopic(null)
-        }}
-        closeLabel={labels.common.close}
-        title={lockedTopic?.title[language]}
-        data-testid="locked-topic-popup"
-      >
-        {lockedTopic && (
-          <div className={styles.popupContent}>
-            <StorytellerButton 
-              onClick={() => speak(`${labels.discovery.owlWhispers}. ${labels.discovery.lockedTopicMessage(lockedTopic.title[language])}`)}
-            />
-            <h3 className={styles.owlTitle}>
-              {labels.discovery.owlWhispers}
-            </h3>
-            <p className={styles.popupText}>
-              {labels.discovery.lockedTopicMessage(lockedTopic.title[language])}
-            </p>
-            <AppButton 
-              onClick={() => {
-                stopStory()
-                setLockedTopic(null)
-              }}
-              className={styles.explorerBtnMap}
-            >
-              {language === 'fr' ? 'Compris ! 🚀' : 'Got it! 🚀'}
-            </AppButton>
-          </div>
-        )}
-      </AppOverlay>
+      <LockedTopicOverlay
+        lockedTopic={lockedTopic}
+        onClose={() => setLockedTopic(null)}
+      />
     </div>
   )
 }

@@ -1,0 +1,73 @@
+/* Timer and Matchstick */
+.timerWrapper {
+  width: 100%;
+  max-width: 450px;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.timerLabel {
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #6b7280;
+}
+
+:global([data-theme='dark']) .timerLabel {
+  color: #9ca3af;
+}
+
+.matchstickSvg {
+  width: 100%;
+  height: auto;
+  overflow: visible;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+}
+
+@keyframes flicker {
+  0% {
+    transform: scale(1) rotate(-2deg);
+    filter: drop-shadow(0 0 4px #ff5722) brightness(1);
+  }
+  50% {
+    transform: scale(1.2) rotate(2deg);
+    filter: drop-shadow(0 0 12px #ffeb3b) brightness(1.2);
+  }
+  100% {
+    transform: scale(1) rotate(-1deg);
+    filter: drop-shadow(0 0 4px #ff5722) brightness(1.1);
+  }
+}
+
+.flameGlow {
+  transform-origin: center;
+  animation: flicker 0.15s infinite alternate;
+}
+
+.flameEmoji {
+  transform-origin: center;
+  animation: flicker 0.15s infinite alternate;
+}
+
+.secondsCount {
+  font-size: 2.2rem;
+  font-weight: 800;
+  font-family: monospace;
+  color: #f59e0b;
+  text-shadow: 0 0 10px rgba(245, 158, 11, 0.4);
+}
+
+.secondsWarning {
+  color: #ef4444;
+  text-shadow: 0 0 10px rgba(239, 68, 68, 0.6);
+  animation: pulseWarning 0.5s infinite alternate;
+}
+
+@keyframes pulseWarning {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.15); }
+}

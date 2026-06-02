@@ -1,0 +1,139 @@
+/* Wall of Fame / Leaderboard */
+.leaderboardSection {
+  width: 100%;
+  max-width: 600px;
+  margin-top: 3rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding-top: 2rem;
+}
+
+.leaderboardTitle {
+  font-size: 1.5rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1.5rem;
+  color: #f59e0b;
+}
+
+.leaderboardList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.leaderboardItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(255, 255, 255, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 0.75rem 1.25rem;
+  border-radius: 16px;
+  transition: all 0.2s ease;
+}
+
+:global([data-theme='dark']) .leaderboardItem {
+  background: rgba(30, 41, 59, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.leaderboardItemActive {
+  background: rgba(251, 191, 36, 0.15) !important;
+  border-color: rgba(251, 191, 36, 0.3) !important;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.15);
+}
+
+.leaderboardLeft {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.rankBadge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.9rem;
+}
+
+.rankBadgeGold {
+  background: #fbbf24;
+  color: white;
+}
+
+.rankBadgeSilver {
+  background: #cbd5e1;
+  color: #475569;
+}
+
+.rankBadgeBronze {
+  background: #d97706;
+  color: white;
+}
+
+.playerInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.playerName {
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: #1f2937;
+}
+
+:global([data-theme='dark']) .playerName {
+  color: #f1f5f9;
+}
+
+.scoreBadge {
+  font-weight: 800;
+  color: #f59e0b;
+  font-size: 1.15rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.timeSpentText {
+  font-size: 0.85rem;
+  color: #6b7280;
+  font-weight: 600;
+  margin-top: 0.15rem;
+}
+
+:global([data-theme='dark']) .timeSpentText {
+  color: #94a3b8;
+}
+
+.noScoresText {
+  text-align: center;
+  color: #6b7280;
+  font-style: italic;
+}
+
+:global([data-theme='dark']) .noScoresText {
+  color: #94a3b8;
+}
+
+.newRecordBadge {
+  background: #ef4444;
+  color: white;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 0.2rem 0.5rem;
+  border-radius: 9999px;
+  animation: pulse 1s infinite alternate;
+  margin-bottom: 1rem;
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.05); }
+}
