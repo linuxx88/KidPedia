@@ -204,6 +204,10 @@ input:checked + .slider:before {
   font-size: 1.5rem;
   font-weight: 900;
   color: var(--color-app-text, #1e293b);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 250px;
 }
 
 .editNameBtn {

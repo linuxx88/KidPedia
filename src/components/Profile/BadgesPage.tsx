@@ -25,6 +25,7 @@ export function BadgesPage({ onBack }: BadgesPageProps) {
   const navigate = useNavigate()
   
   const [activeCategory, setActiveCategory] = useState('all')
+  const [isResetting, setIsResetting] = useState(false)
 
   const {
     xp,
@@ -275,10 +276,17 @@ export function BadgesPage({ onBack }: BadgesPageProps) {
           <AppButton 
             variant="outline" 
             onClick={() => {
-              if (window.confirm(labels.badges.confirmReset)) {
-                clearBadges()
+              if (isResetting) return
+              setIsResetting(true)
+              try {
+                if (window.confirm(labels.badges.confirmReset)) {
+                  clearBadges()
+                }
+              } finally {
+                setIsResetting(false)
               }
             }} 
+            disabled={isResetting}
             icon="🗑️" 
           >
             {labels.badges.reset}

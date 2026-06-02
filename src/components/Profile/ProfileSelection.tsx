@@ -34,6 +34,7 @@ export const ProfileSelection: React.FC<ProfileSelectionProps> = ({
   onClose
 }) => {
   const [isCreating, setIsCreating] = useState(isFirstVisit);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   
   // Form state (UI local)
   const [name, setName] = useState('');
@@ -44,18 +45,29 @@ export const ProfileSelection: React.FC<ProfileSelectionProps> = ({
 
   const handleCreate = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name.trim()) return;
+    if (!name.trim() || isSubmitting) return;
     
-    // On passe la version WebP comme avatar principal, 
-    // AvatarDisplay s'occupera de la résolution du fallback.
-    onAddProfile(name, avatars[selectedAvatar].webp, selectedGender, language);
-    setIsCreating(false);
-    if (onClose) onClose();
+    setIsSubmitting(true);
+    try {
+      // On passe la version WebP comme avatar principal, 
+      // AvatarDisplay s'occupera de la résolution du fallback.
+      onAddProfile(name, avatars[selectedAvatar].webp, selectedGender, language);
+      setIsCreating(false);
+      if (onClose) onClose();
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const handleSelect = (id: string) => {
-    onSelectProfile(id);
-    if (onClose) onClose();
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    try {
+      onSelectProfile(id);
+      if (onClose) onClose();
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -76,6 +88,7 @@ export const ProfileSelection: React.FC<ProfileSelectionProps> = ({
               onChange={(e) => setName(e.target.value)}
               placeholder={labels.profiles.namePlaceholder}
               data-testid="profile-name-input"
+              maxLength={15}
               required
               autoFocus
               autoComplete="off"
@@ -137,7 +150,7 @@ export const ProfileSelection: React.FC<ProfileSelectionProps> = ({
                 {labels.profiles.backToSelection}
               </AppButton>
             )}
-            <AppButton type="submit" variant="primary">
+            <AppButton type="submit" variant="primary" disabled={isSubmitting}>
               {labels.profiles.createBtn}
             </AppButton>
           </div>
@@ -163,11 +176,18 @@ export const ProfileSelection: React.FC<ProfileSelectionProps> = ({
                   className={styles.deleteBtn}
                   onClick={(e) => {
                     e.stopPropagation();
-                    if (window.confirm(labels.profiles.deleteConfirm)) {
-                      onDeleteProfile(profile.id);
+                    if (isSubmitting) return;
+                    setIsSubmitting(true);
+                    try {
+                      if (window.confirm(labels.profiles.deleteConfirm)) {
+                        onDeleteProfile(profile.id);
+                      }
+                    } finally {
+                      setIsSubmitting(false);
                     }
                   }}
                   title={labels.profiles.deleteBtn}
+                  disabled={isSubmitting}
                 >
                   🗑️
                 </button>
@@ -185,13 +205,17 @@ export const ProfileSelection: React.FC<ProfileSelectionProps> = ({
             <div 
               className={`${styles.addBtn} ${styles.staggerItem}`}
               style={{ '--index': profiles.length } as React.CSSProperties}
-              onClick={() => setIsCreating(true)}
+              onClick={() => {
+                if (isSubmitting) return;
+                setIsCreating(true);
+              }}
               data-testid="add-profile-btn"
               role="button"
               tabIndex={0}
               onKeyDown={(e) => {
                 if (e.key === 'Enter' || e.key === ' ') {
                   e.preventDefault();
+                  if (isSubmitting) return;
                   setIsCreating(true);
                 }
               }}

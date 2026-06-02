@@ -27,6 +27,7 @@ export const useStoryteller = (): StorytellerContextType => {
   const language = useSettingsStore((state) => state.language)
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
   const speakTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lastClickTimeRef = useRef<number>(0)
 
   const stopStory = useCallback(() => {
     if (speakTimeoutRef.current) {
@@ -48,6 +49,12 @@ export const useStoryteller = (): StorytellerContextType => {
       if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
         return
       }
+
+      const now = Date.now()
+      if (now - lastClickTimeRef.current < 300) {
+        return
+      }
+      lastClickTimeRef.current = now
 
       stopStory()
 
@@ -165,6 +172,7 @@ export const StorytellerProvider: React.FC<StorytellerProviderProps> = ({ childr
   const language = useSettingsStore((state) => state.language)
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
   const speakTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lastClickTimeRef = useRef<number>(0)
 
   const stopStory = useCallback(() => {
     if (speakTimeoutRef.current) {
@@ -186,6 +194,12 @@ export const StorytellerProvider: React.FC<StorytellerProviderProps> = ({ childr
       if (typeof window === 'undefined' || !('speechSynthesis' in window)) {
         return
       }
+
+      const now = Date.now()
+      if (now - lastClickTimeRef.current < 300) {
+        return
+      }
+      lastClickTimeRef.current = now
 
       // Precede speak by stopStory to guarantee exclusivity as requested
       stopStory()

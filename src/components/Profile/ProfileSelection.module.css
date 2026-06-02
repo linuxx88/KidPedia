@@ -139,6 +139,10 @@
   font-size: var(--fs-lg);
   color: var(--color-app-text);
   font-weight: var(--fw-black);
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .addBtn {

@@ -183,4 +183,18 @@ describe('useStoryteller', () => {
     // Ne devrait pas appeler speak car aucune voix locale n'est disponible
     expect(window.speechSynthesis.speak).not.toHaveBeenCalled()
   })
+
+  it('devrait ignorer les appels de speak trop rapproches (anti-matraquage)', () => {
+    const { result } = renderHook(() => useStoryteller())
+
+    act(() => {
+      result.current.speak('Premier message')
+      result.current.speak('Deuxieme message')
+      vi.advanceTimersByTime(250)
+    })
+
+    expect(window.speechSynthesis.speak).toHaveBeenCalledTimes(1)
+    const utterance = vi.mocked(window.speechSynthesis.speak).mock.calls[0][0]
+    expect(utterance.text).toBe('Premier message')
+  })
 })

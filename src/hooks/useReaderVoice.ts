@@ -14,6 +14,7 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
   const [isVoicesReady, setIsVoicesReady] = useState(false)
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null)
   const speakTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const lastClickTimeRef = useRef<number>(0)
 
   // Charger les voix disponibles dans le navigateur
   useEffect(() => {
@@ -75,6 +76,12 @@ export function useReaderVoice({ language, onError }: UseReaderVoiceProps) {
         if (onError) onError('Speech synthesis not supported')
         return
       }
+
+      const now = Date.now()
+      if (now - lastClickTimeRef.current < 300) {
+        return
+      }
+      lastClickTimeRef.current = now
 
       if (speakTimeoutRef.current) {
         clearTimeout(speakTimeoutRef.current)

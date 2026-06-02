@@ -124,4 +124,19 @@ describe('useReaderVoice', () => {
     expect(result.current.highlightIndex).toBe(0)
     expect(result.current.highlightLength).toBe(5)
   })
+
+  it('devrait ignorer les appels speak trop rapproches (anti-matraquage)', () => {
+    const { result } = renderHook(() => useReaderVoice({ language: 'fr' }))
+
+    act(() => {
+      result.current.speak('Premier texte', 'id1')
+      result.current.speak('Deuxieme texte', 'id2')
+      vi.advanceTimersByTime(250)
+    })
+
+    // Seul le premier speak devrait avoir ete appele
+    expect(window.speechSynthesis.speak).toHaveBeenCalledTimes(1)
+    const mockUtterance = vi.mocked(window.speechSynthesis.speak).mock.calls[0][0]
+    expect(mockUtterance.text).toBe('Premier texte')
+  })
 })

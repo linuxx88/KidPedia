@@ -24,6 +24,7 @@ export const ControlTab: React.FC<ControlTabProps> = ({ activeProfile, language,
   const [screentimeLimit, setScreentimeLimit] = useState<number>(0);
   const [isEditingName, setIsEditingName] = useState(false);
   const [editNameValue, setEditNameValue] = useState('');
+  const [isActionPending, setIsActionPending] = useState(false);
 
   const currentProfileId = activeProfile.id;
 
@@ -159,10 +160,17 @@ export const ControlTab: React.FC<ControlTabProps> = ({ activeProfile, language,
               variant="outline" 
               className={styles.resetBtn}
               onClick={() => {
-                if (window.confirm(t.confirmReset(activeProfile.name))) {
-                  useProgressionStore.getState().clearBadges(activeProfile.id);
+                if (isActionPending) return;
+                setIsActionPending(true);
+                try {
+                  if (window.confirm(t.confirmReset(activeProfile.name))) {
+                    useProgressionStore.getState().clearBadges(activeProfile.id);
+                  }
+                } finally {
+                  setIsActionPending(false);
                 }
               }}
+              disabled={isActionPending}
             >
               🗑️ {language === 'fr' ? 'Réinitialiser la progression' : 'Reset progression'}
             </AppButton>
@@ -171,11 +179,18 @@ export const ControlTab: React.FC<ControlTabProps> = ({ activeProfile, language,
               variant="outline" 
               className={styles.deleteBtn}
               onClick={() => {
-                if (window.confirm(language === 'fr' ? `Voulez-vous vraiment supprimer le profil de ${activeProfile.name} ? Cette action effacera définitivement toutes ses données.` : `Do you really want to delete ${activeProfile.name}'s profile? This action will permanently erase all data.`)) {
-                  useProfileStore.getState().deleteProfile(activeProfile.id);
-                  onProfileDeleted();
+                if (isActionPending) return;
+                setIsActionPending(true);
+                try {
+                  if (window.confirm(language === 'fr' ? `Voulez-vous vraiment supprimer le profil de ${activeProfile.name} ? Cette action effacera définitivement toutes ses données.` : `Do you really want to delete ${activeProfile.name}'s profile? This action will permanently erase all data.`)) {
+                    useProfileStore.getState().deleteProfile(activeProfile.id);
+                    onProfileDeleted();
+                  }
+                } finally {
+                  setIsActionPending(false);
                 }
               }}
+              disabled={isActionPending}
             >
               🚨 {language === 'fr' ? 'Supprimer le profil' : 'Delete profile'}
             </AppButton>
