@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { useStoryteller } from '../../hooks/useStoryteller'
 import BackButton from '../../components/UI/BackButton'
-import glossaryData from '../../data/glossary.json'
+import glossaryData from '../../data/glossary'
 import styles from './DictionaryPage.module.css'
 
 interface GlossaryWord {

@@ -1,0 +1,122 @@
+[
+  {
+    "word": {
+      "fr": "Dinosaure",
+      "en": "Dinosaur"
+    },
+    "definition": {
+      "fr": "Un groupe d'animaux géants terrestres qui ont vécu sur notre planète il y a des millions d'années, bien avant l'apparition des premiers humains.",
+      "en": "A group of giant land animals that lived on our planet millions of years ago, long before the first humans appeared."
+    },
+    "emoji": "🦖",
+    "category": "histoire"
+  },
+  {
+    "word": {
+      "fr": "Fossile",
+      "en": "Fossil"
+    },
+    "definition": {
+      "fr": "L'empreinte ou le reste d'une plante ou d'un animal très ancien, transformé en pierre après être resté caché dans la terre pendant des millions d'années.",
+      "en": "The print or remains of a very ancient plant or animal, turned into stone after being hidden in the ground for millions of years."
+    },
+    "emoji": "🐚",
+    "category": "histoire"
+  },
+  {
+    "word": {
+      "fr": "Fossilisation",
+      "en": "Fossilization"
+    },
+    "definition": {
+      "fr": "Le phénomène très lent qui transforme les restes d'animaux ou de plantes en pierre sur des millions d'années !",
+      "en": "The very slow process that turns animal or plant remains into stone over millions of years!"
+    },
+    "emoji": "🦴",
+    "category": "histoire"
+  },
+  {
+    "word": {
+      "fr": "Archéologue",
+      "en": "Archaeologist"
+    },
+    "definition": {
+      "fr": "Un détective du passé qui creuse la terre pour trouver des objets très anciens et raconter l'histoire des humains d'autrefois !",
+      "en": "A detective of the past who digs into the ground to find ancient things and tell the story of people from long ago!"
+    },
+    "emoji": "🤠",
+    "category": "histoire"
+  },
+  {
+    "word": {
+      "fr": "Mammouth",
+      "en": "Mammoth"
+    },
+    "definition": {
+      "fr": "Un cousin géant de l'éléphant avec de très longs poils et de grandes défenses courbées, qui vivait pendant l'âge de glace !",
+      "en": "A giant cousin of the elephant with very long fur and huge curved tusks, that lived during the Ice Age!"
+    },
+    "emoji": "🦣",
+    "category": "histoire"
+  },
+  {
+    "word": {
+      "fr": "Momie",
+      "en": "Mummy"
+    },
+    "definition": {
+      "fr": "Un corps de l'Égypte ancienne enveloppé de bandelettes de tissu pour le conserver pendant très, très longtemps !",
+      "en": "A body from ancient Egypt wrapped in cloth bandages to preserve it for a very, very long time!"
+    },
+    "emoji": "🩹",
+    "category": "histoire"
+  },
+  {
+    "word": {
+      "fr": "Pyramide",
+      "en": "Pyramid"
+    },
+    "definition": {
+      "fr": "Un immense monument en pierre avec des côtés en forme de triangle, construit il y a très longtemps pour les rois d'Égypte !",
+      "en": "A huge stone monument with triangle-shaped sides, built long ago for the kings of Egypt!"
+    },
+    "emoji": "🔺",
+    "category": "histoire"
+  },
+  {
+    "word": {
+      "fr": "Sarcophage",
+      "en": "Sarcophagus"
+    },
+    "definition": {
+      "fr": "Un magnifique cercueil en pierre ou en bois, souvent décoré de peintures et d'or, utilisé pour protéger les momies !",
+      "en": "A beautiful stone or wooden coffin, often decorated with paintings and gold, used to protect mummies!"
+    },
+    "emoji": "⚰️",
+    "category": "histoire"
+  },
+  {
+    "word": {
+      "fr": "Préhistoire",
+      "en": "Prehistory"
+    },
+    "definition": {
+      "fr": "La période de l'histoire très ancienne qui a commencé bien avant l'invention de l'écriture, à l'époque des mammouths et des premiers humains !",
+      "en": "The very ancient period of history that began long before the invention of writing, during the time of mammoths and early humans!"
+    },
+    "emoji": "🛖",
+    "category": "histoire"
+  },
+  {
+    "word": {
+      "fr": "Moyen-Âge",
+      "en": "Middle Ages"
+    },
+    "definition": {
+      "fr": "Une époque du passé avec de grands châteaux forts en pierre, des chevaliers en armure, des princesses et des tournois à cheval !",
+      "en": "A time in the past with huge stone castles, knights in armor, princesses, and horseback tournaments!"
+    },
+    "emoji": "🏰",
+    "category": "histoire"
+  }
+]

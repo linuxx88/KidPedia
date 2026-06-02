@@ -1,0 +1,230 @@
+[
+  {
+    "word": {
+      "fr": "Volcan",
+      "en": "Volcano"
+    },
+    "definition": {
+      "fr": "Une montagne magique avec une ouverture par laquelle de la roche fondue très chaude (la lave), des gaz et des cendres peuvent s'échapper de la Terre !",
+      "en": "A magic mountain with an opening through which very hot melted rock (lava), gases, and ashes can escape from the Earth!"
+    },
+    "emoji": "🌋",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Photosynthèse",
+      "en": "Photosynthesis"
+    },
+    "definition": {
+      "fr": "La super recette magique des plantes pour fabriquer leur propre nourriture en utilisant la lumière du Soleil, de l'eau et de l'air !",
+      "en": "The super magic recipe plants use to make their own food using sunlight, water, and air!"
+    },
+    "emoji": "🌿",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Mammifère",
+      "en": "Mammal"
+    },
+    "definition": {
+      "fr": "Un animal à sang chaud, généralement couvert de poils, dont les mamans nourrissent leurs bébés avec du bon lait chaud (comme les chiens, les chats ou toi !).",
+      "en": "A warm-blooded animal, usually covered in fur, whose mothers feed their babies with warm milk (like dogs, cats, or you!)."
+    },
+    "emoji": "🐻",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Félin",
+      "en": "Feline"
+    },
+    "definition": {
+      "fr": "Un animal de la famille des chats, comme le lion majestueux, le tigre rapide ou ton petit chat de maison !",
+      "en": "An animal from the cat family, like the majestic lion, the fast tiger, or your little pet cat!"
+    },
+    "emoji": "🐱",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Crinière",
+      "en": "Mane"
+    },
+    "definition": {
+      "fr": "Les longs poils soyeux qui poussent autour de la tête d'un lion ou sur le cou d'un cheval comme une belle coiffure !",
+      "en": "The long, silky hair growing around a lion's head or on a horse's neck like a beautiful hairstyle!"
+    },
+    "emoji": "🦁",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Prédateur",
+      "en": "Predator"
+    },
+    "definition": {
+      "fr": "Un animal qui doit chasser d'autres animaux pour se nourrir, comme le loup ou l'aigle !",
+      "en": "An animal that hunts other animals for food, like the wolf or the eagle!"
+    },
+    "emoji": "🦅",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Bambou",
+      "en": "Bamboo"
+    },
+    "definition": {
+      "fr": "Une plante géante très solide qui ressemble à un grand roseau vert et dont les pandas adorent manger les feuilles !",
+      "en": "A very strong, giant plant that looks like a tall green reed, and pandas love to eat its leaves!"
+    },
+    "emoji": "🎋",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Écosystème",
+      "en": "Ecosystem"
+    },
+    "definition": {
+      "fr": "Une grande maison dans la nature où les plantes et les animaux vivent ensemble et s'entraident !",
+      "en": "A big home in nature where plants and animals live together and help each other!"
+    },
+    "emoji": "🌳",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Carnivore",
+      "en": "Carnivore"
+    },
+    "definition": {
+      "fr": "Un animal qui se nourrit uniquement de viande, comme le lion ou le loup !",
+      "en": "An animal that only eats meat, like the lion or the wolf!"
+    },
+    "emoji": "🥩",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Herbivore",
+      "en": "Herbivore"
+    },
+    "definition": {
+      "fr": "Un animal qui mange seulement des plantes, de l'herbe et des feuilles, comme la girafe ou le lapin !",
+      "en": "An animal that only eats plants, grass, and leaves, like the giraffe or the rabbit!"
+    },
+    "emoji": "🍃",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Biodiversité",
+      "en": "Biodiversity"
+    },
+    "definition": {
+      "fr": "La grande variété de tous les êtres vivants différents (plantes, insectes, animaux) qui partagent notre planète !",
+      "en": "The great variety of all different living things (plants, bugs, animals) that share our planet!"
+    },
+    "emoji": "🦋",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Reptile",
+      "en": "Reptile"
+    },
+    "definition": {
+      "fr": "Un animal à sang froid souvent couvert d'écailles, qui adore se chauffer au soleil, comme les lézards, les serpents ou les crocodiles !",
+      "en": "A warm-loving, cold-blooded animal covered in scales, like lizards, snakes, or crocodiles!"
+    },
+    "emoji": "🦎",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Évaporation",
+      "en": "Evaporation"
+    },
+    "definition": {
+      "fr": "C'est quand l'eau chauffe et se transforme en vapeur invisible pour monter dans le ciel et fabriquer des nuages !",
+      "en": "It is when water heats up and turns into invisible steam to go up into the sky and make clouds!"
+    },
+    "emoji": "💧",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Glacier",
+      "en": "Glacier"
+    },
+    "definition": {
+      "fr": "Une immense rivière de glace très ancienne qui se déplace très, très lentement sur les montagnes !",
+      "en": "A huge, very ancient river of ice that moves very, very slowly down mountains!"
+    },
+    "emoji": "🏔️",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Hibernation",
+      "en": "Hibernation"
+    },
+    "definition": {
+      "fr": "Le très long et profond sommeil de certains animaux, comme l'ours ou la marmotte, pour passer tout l'hiver bien au chaud sans avoir à manger !",
+      "en": "The very long and deep sleep of some animals, like bears or groundhogs, to spend the whole winter warm without needing to eat!"
+    },
+    "emoji": "🐻‍❄️",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Camouflage",
+      "en": "Camouflage"
+    },
+    "definition": {
+      "fr": "Le super-pouvoir de certains animaux pour changer de couleur ou se cacher dans leur décor afin de devenir invisibles !",
+      "en": "The superpower of some animals to change color or blend into their surroundings to become invisible!"
+    },
+    "emoji": "🦎",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Métamorphose",
+      "en": "Metamorphosis"
+    },
+    "definition": {
+      "fr": "La transformation magique d'un animal qui change complètement de forme en grandissant, comme la chenille qui devient un papillon !",
+      "en": "The magical transformation of an animal that completely changes shape as it grows, like a caterpillar becoming a butterfly!"
+    },
+    "emoji": "🐛",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Pollinisation",
+      "en": "Pollination"
+    },
+    "definition": {
+      "fr": "Le voyage du pollen transporté par le vent ou les abeilles d'une fleur à l'autre pour les aider à fabriquer des graines et des fruits !",
+      "en": "The journey of pollen carried by the wind or bees from flower to flower to help them make seeds and fruit!"
+    },
+    "emoji": "🐝",
+    "category": "nature"
+  },
+  {
+    "word": {
+      "fr": "Corail",
+      "en": "Coral"
+    },
+    "definition": {
+      "fr": "Un petit animal marin vivant en colonie qui construit de magnifiques squelettes durs et colorés formant de superbes récifs sous l'océan !",
+      "en": "A tiny marine animal living in colonies that builds beautiful, colorful hard skeletons forming gorgeous reefs under the ocean!"
+    },
+    "emoji": "🪸",
+    "category": "nature"
+  }
+]

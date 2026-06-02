@@ -1,0 +1,158 @@
+[
+  {
+    "word": {
+      "fr": "Gravité",
+      "en": "Gravity"
+    },
+    "definition": {
+      "fr": "La force invisible qui attire tous les objets vers le sol. C'est elle qui t'empêche de t'envoler dans les airs comme un ballon !",
+      "en": "The invisible force that pulls all objects toward the ground. It's what keeps you from floating away into the air like a balloon!"
+    },
+    "emoji": "🍎",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "Volcanologue",
+      "en": "Volcanologist"
+    },
+    "definition": {
+      "fr": "Un scientifique courageux qui étudie les volcans pour comprendre quand et comment ils vont cracher leur lave rouge !",
+      "en": "A brave scientist who studies volcanoes to understand when and how they will spit their red lava!"
+    },
+    "emoji": "🌋",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "ADN",
+      "en": "DNA"
+    },
+    "definition": {
+      "fr": "Le plan de construction magique et invisible caché dans chacune de tes cellules qui décide de la couleur de tes yeux et de tes cheveux !",
+      "en": "The magical and invisible blueprint hidden inside all your cells that decides your eye and hair color!"
+    },
+    "emoji": "🧬",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "Microscope",
+      "en": "Microscope"
+    },
+    "definition": {
+      "fr": "Une loupe super puissante qui permet de voir des choses minuscules et invisibles à l'œil nu, comme les microbes ou les détails d'une feuille !",
+      "en": "A super powerful magnifying glass that lets you see tiny things invisible to the naked eye, like germs or leaf details!"
+    },
+    "emoji": "🔬",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "Robotique",
+      "en": "Robotics"
+    },
+    "definition": {
+      "fr": "La science amusante qui consiste à fabriquer et programmer des robots pour qu'ils fassent des tâches à notre place !",
+      "en": "The fun science of building and programming robots to do tasks for us!"
+    },
+    "emoji": "🤖",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "Énergie",
+      "en": "Energy"
+    },
+    "definition": {
+      "fr": "La force magique qui permet de bouger, de courir, d'allumer les lumières ou de faire avancer les voitures !",
+      "en": "The magical force that lets you move, run, turn on lights, or make cars go!"
+    },
+    "emoji": "⚡",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "Oxygène",
+      "en": "Oxygen"
+    },
+    "definition": {
+      "fr": "Un gaz invisible présent dans l'air que nos poumons adorent et dont nous avons absolument besoin pour respirer et vivre !",
+      "en": "An invisible gas in the air that our lungs love and that we absolutely need to breathe and live!"
+    },
+    "emoji": "💨",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "Atome",
+      "en": "Atom"
+    },
+    "definition": {
+      "fr": "Une brique de construction minuscule, tellement petite qu'elle est invisible, et qui compose absolument tout ce qui existe dans l'univers !",
+      "en": "A tiny building block, so small that it is invisible, which makes up absolutely everything in the universe!"
+    },
+    "emoji": "⚛️",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "Molécule",
+      "en": "Molecule"
+    },
+    "definition": {
+      "fr": "Une petite équipe d'atomes qui se sont attachés ensemble pour fabriquer des choses, comme l'eau que tu bois !",
+      "en": "A small team of atoms that have joined together to make things, like the water you drink!"
+    },
+    "emoji": "🧪",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "Électricité",
+      "en": "Electricity"
+    },
+    "definition": {
+      "fr": "L'énergie invisible qui voyage dans les fils électriques pour allumer les lampes, faire chanter la télé ou recharger les tablettes !",
+      "en": "The invisible energy that travels through wires to light up lamps, make the TV sing, or charge tablets!"
+    },
+    "emoji": "🔌",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "Magnétisme",
+      "en": "Magnetism"
+    },
+    "definition": {
+      "fr": "La force invisible et magique des aimants qui leur permet d'attirer des objets en métal ou de se coller sur ton frigo !",
+      "en": "The invisible and magical force of magnets that lets them attract metal objects or stick to your fridge!"
+    },
+    "emoji": "🧲",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "Réaction",
+      "en": "Reaction"
+    },
+    "definition": {
+      "fr": "C'est quand deux choses se mélangent et se transforment pour créer quelque chose de nouveau, comme du bicarbonate et du vinaigre qui font des bulles géantes !",
+      "en": "It is when two things mix and transform to create something new, like baking soda and vinegar making giant bubbles!"
+    },
+    "emoji": "💥",
+    "category": "science"
+  },
+  {
+    "word": {
+      "fr": "Laboratoire",
+      "en": "Laboratory"
+    },
+    "definition": {
+      "fr": "La pièce spéciale remplie d'outils rigolos et de fioles où les scientifiques font des expériences pour faire des découvertes !",
+      "en": "The special room filled with funny tools and vials where scientists do experiments to make discoveries!"
+    },
+    "emoji": "🥼",
+    "category": "science"
+  }
+]

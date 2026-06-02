@@ -1,0 +1,146 @@
+[
+  {
+    "word": {
+      "fr": "Astronaute",
+      "en": "Astronaut"
+    },
+    "definition": {
+      "fr": "Une personne entraînée pour voyager dans l'espace, piloter des vaisseaux spatiaux et explorer d'autres planètes ou la Lune !",
+      "en": "A person trained to travel into space, pilot spacecraft, and explore other planets or the Moon!"
+    },
+    "emoji": "👨‍🚀",
+    "category": "espace"
+  },
+  {
+    "word": {
+      "fr": "Galaxie",
+      "en": "Galaxy"
+    },
+    "definition": {
+      "fr": "Une immense famille dans l'espace composée de milliards d'étoiles, de planètes, de poussière et de gaz retenus ensemble par la gravité. Notre galaxie s'appelle la Voie Lactée !",
+      "en": "A huge family in space made up of billions of stars, planets, dust, and gas held together by gravity. Our galaxy is called the Milky Way!"
+    },
+    "emoji": "🌌",
+    "category": "espace"
+  },
+  {
+    "word": {
+      "fr": "Atmosphère",
+      "en": "Atmosphere"
+    },
+    "definition": {
+      "fr": "L'enveloppe d'air invisible qui entoure la Terre et nous permet de respirer !",
+      "en": "The invisible blanket of air that surrounds the Earth and lets us breathe!"
+    },
+    "emoji": "🌍",
+    "category": "espace"
+  },
+  {
+    "word": {
+      "fr": "Constellation",
+      "en": "Constellation"
+    },
+    "definition": {
+      "fr": "Un groupe d'étoiles qui forment un dessin ou une figure imaginaire dans le ciel de nuit !",
+      "en": "A group of stars that make an imaginary picture or shape in the night sky!"
+    },
+    "emoji": "✨",
+    "category": "espace"
+  },
+  {
+    "word": {
+      "fr": "Météorite",
+      "en": "Meteorite"
+    },
+    "definition": {
+      "fr": "Une pierre venue de l'espace profond qui traverse le ciel et atterrit sur la Terre !",
+      "en": "A rock from deep space that travels through the sky and lands on Earth!"
+    },
+    "emoji": "☄️",
+    "category": "espace"
+  },
+  {
+    "word": {
+      "fr": "Éclipse",
+      "en": "Eclipse"
+    },
+    "definition": {
+      "fr": "C'est quand la Lune se place juste devant le Soleil et le cache, faisant régner la nuit en plein jour pendant quelques minutes !",
+      "en": "It is when the Moon moves right in front of the Sun and hides it, making it look like night during the day for a few minutes!"
+    },
+    "emoji": "🌑",
+    "category": "espace"
+  },
+  {
+    "word": {
+      "fr": "Apesanteur",
+      "en": "Weightlessness"
+    },
+    "definition": {
+      "fr": "La sensation magique de flotter dans l'espace comme si on n'avait plus de poids, parce qu'il n'y a plus de gravité pour nous retenir au sol !",
+      "en": "The magical feeling of floating in space as if you have no weight, because there is no gravity to pull you down!"
+    },
+    "emoji": "🧑‍🚀",
+    "category": "espace"
+  },
+  {
+    "word": {
+      "fr": "Télescope",
+      "en": "Telescope"
+    },
+    "definition": {
+      "fr": "Une super longue-vue géante qui permet de regarder de très près les étoiles, les planètes et les galaxies lointaines !",
+      "en": "A giant super-spyglass that lets you look very closely at faraway stars, planets, and galaxies!"
+    },
+    "emoji": "🔭",
+    "category": "espace"
+  },
+  {
+    "word": {
+      "fr": "Orbite",
+      "en": "Orbit"
+    },
+    "definition": {
+      "fr": "Le chemin invisible en forme de grand cercle qu'une planète ou la Lune suit pour tourner autour d'une étoile ou de la Terre !",
+      "en": "The invisible circular path that a planet or the Moon follows to turn around a star or the Earth!"
+    },
+    "emoji": "🔁",
+    "category": "espace"
+  },
+  {
+    "word": {
+      "fr": "Comète",
+      "en": "Comet"
+    },
+    "definition": {
+      "fr": "Une boule de neige et de poussière géante de l'espace qui a une magnifique queue brillante quand elle s'approche du Soleil !",
+      "en": "A giant ball of ice and dust in space that grows a beautiful bright tail when it gets close to the Sun!"
+    },
+    "emoji": "☄️",
+    "category": "espace"
+  },
+  {
+    "word": {
+      "fr": "Astéroïde",
+      "en": "Asteroid"
+    },
+    "definition": {
+      "fr": "Une énorme roche spatiale, plus petite qu'une planète, qui flotte dans l'espace et tourne autour du Soleil !",
+      "en": "A huge space rock, smaller than a planet, floating in space and turning around the Sun!"
+    },
+    "emoji": "🪨",
+    "category": "espace"
+  },
+  {
+    "word": {
+      "fr": "Nébuleuse",
+      "en": "Nebula"
+    },
+    "definition": {
+      "fr": "Un immense nuage de poussière et de gaz coloré dans l'espace, qui sert de pouponnière pour faire naître de nouvelles étoiles !",
+      "en": "A huge cloud of dust and colorful gas in space, which acts as a nursery to give birth to new stars!"
+    },
+    "emoji": "☁️",
+    "category": "espace"
+  }
+]
