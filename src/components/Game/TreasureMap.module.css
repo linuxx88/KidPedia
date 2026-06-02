@@ -56,59 +56,7 @@
   pointer-events: none;
 }
 
-/* --- ZOOM CONTROLS --- */
 
-.zoomSidebar {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: var(--color-surface-mixed);
-  padding: 0.5rem 1rem;
-  border-radius: 1.5rem;
-  box-shadow: var(--shadow-sm);
-}
-
-.zoomBtn {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 2px solid var(--card-border);
-  background: var(--card-bg);
-  font-size: 1.25rem;
-  font-weight: bold;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.2s;
-  color: var(--color-primary);
-}
-
-.zoomBtn:hover:not(:disabled) {
-  transform: scale(1.1);
-  background: var(--color-primary);
-  color: white;
-  border-color: var(--color-primary);
-}
-.zoomBtn:focus-visible {
-  outline: 3px solid var(--color-primary);
-  outline-offset: 2px;
-}
-.zoomBtn:active:not(:disabled) {
-  transform: scale(0.92);
-}
-
-.zoomBtn:disabled {
-  opacity: 0.3;
-  cursor: not-allowed;
-}
-
-.zoomLevelBadge {
-  font-weight: 900;
-  color: var(--color-primary);
-  min-width: 40px;
-  text-align: center;
-}
 
 /* --- MARKERS --- */
 

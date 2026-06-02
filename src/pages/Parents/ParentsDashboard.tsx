@@ -3,7 +3,7 @@ import { useProgressionStore } from '../../store/useProgressionStore';
 import { useProfileStore } from '../../store/useProfileStore';
 import { useSettingsStore } from '../../store/useSettingsStore';
 import { PageHeader } from '../../components/Layout/PageHeader';
-import { AvatarDisplay } from '../../components/UI/AvatarDisplay';
+import { ExplorerSelector } from './components/ExplorerSelector';
 import { StatsTab } from './StatsTab';
 import { ControlTab } from './ControlTab';
 import { TipsTab } from './TipsTab';
@@ -58,23 +58,12 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
 
       <div className={styles.content}>
         {/* Dynamic Profile Selector */}
-        {profiles.length > 0 && (
-          <div className={styles.profileSelectorCard}>
-            <span className={styles.selectorLabel}>{language === 'fr' ? 'Sélectionner un explorateur :' : 'Select an explorer:'}</span>
-            <div className={styles.profileSelectorList}>
-              {profiles.map(p => (
-                <button
-                  key={p.id}
-                  className={`${styles.profileSelectorBtn} ${selectedProfileId === p.id ? styles.profileSelectorBtnActive : ''}`}
-                  onClick={() => setSelectedProfileId(p.id)}
-                >
-                  <AvatarDisplay avatar={p.avatar} name={p.name} size="small" />
-                  <span className={styles.selectorBtnName}>{p.name}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        )}
+        <ExplorerSelector
+          profiles={profiles}
+          selectedProfileId={selectedProfileId}
+          setSelectedProfileId={setSelectedProfileId}
+          language={language}
+        />
 
         {/* Premium Glassmorphic Tabs Navigation */}
         <div className={styles.tabNavbar}>

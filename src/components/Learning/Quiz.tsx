@@ -8,6 +8,7 @@ import { useStoryteller } from '../../hooks/useStoryteller'
 import { QuizAnswerButton } from './QuizAnswerButton'
 import { QuizHeader } from './QuizHeader'
 import { QuizResults } from './QuizResults'
+import { WizardHelp } from './WizardHelp'
 import { useProgressionStore } from '../../store/useProgressionStore'
 import {
   playSynthesizedDing,
@@ -182,41 +183,16 @@ export const QuizComponent: React.FC<QuizProps> = ({
           )}
 
           {attempts >= 4 && (
-            <div className={styles.wizardHelpContainer}>
-              <button 
-                type="button"
-                className={styles.wizardHelpBtn}
-                onClick={() => {
-                  stopStory()
-                  playSound('click')
-                  setShowWizardHelp(prev => !prev)
-                }}
-                data-testid="wizard-help-btn"
-              >
-                🧙‍♂️ {language === 'fr' ? "Demander l'aide du Magicien" : "Ask the Wizard for help"}
-              </button>
-
-              {showWizardHelp && (
-                <div className={styles.wizardHelpBox} data-testid="wizard-help-box">
-                  <div className={styles.wizardHeader}>
-                    <span className={styles.wizardIcon}>✨🧙‍♂️✨</span>
-                    <h4 className={styles.wizardTitle}>
-                      {language === 'fr' ? "L'astuce magique du Magicien" : "The Wizard's Magic Hint"}
-                    </h4>
-                  </div>
-                  <p 
-                    className={styles.wizardText}
-                    onClick={handleWizardClick}
-                    style={{ 
-                      cursor: isMagicWandActive ? 'help' : 'default',
-                      textDecoration: isMagicWandActive ? 'underline dotted' : 'none'
-                    }}
-                  >
-                    "{funFact}"
-                  </p>
-                </div>
-              )}
-            </div>
+            <WizardHelp
+              language={language}
+              showWizardHelp={showWizardHelp}
+              setShowWizardHelp={setShowWizardHelp}
+              isMagicWandActive={isMagicWandActive}
+              funFact={funFact}
+              handleWizardClick={handleWizardClick}
+              playSound={playSound}
+              stopStory={stopStory}
+            />
           )}
 
           {retryMsg && !activeHint && (

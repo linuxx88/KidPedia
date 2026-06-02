@@ -16,6 +16,7 @@ import { OrientationGuard } from '../Layout/OrientationGuard';
 import { MapPoint } from './MapPoint';
 import { MapOverlayContent } from './Overlays/MapOverlayContent';
 import { useMapGestures } from '../../hooks/useMapGestures';
+import { ZoomControls } from './ZoomControls';
 import { filterMarkersByZoom, sortMarkersSpatially, getCanvasTransformStyle } from '../../utils/mapGeometry';
 import styles from './TreasureMap.module.css';
 
@@ -140,43 +141,20 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
             onBack();
           }}
           rightElement={
-            <div className={styles.zoomSidebar} role="group" aria-label="Contrôles du zoom">
-              <button 
-                className={styles.zoomBtn} 
-                onClick={() => {
-                  playClickSound();
-                  captureViewportCenterAsZoomTarget();
-                  zoomOut();
-                }} 
-                disabled={zoom === 1} 
-                title={`${labels.discovery.zoomOut} (-)`} 
-                aria-label={labels.discovery.zoomOut}
-                data-testid="zoom-out-btn"
-              >-</button>
-              <span className={styles.zoomLevelBadge} data-testid="zoom-level" aria-live="polite">x{zoom}</span>
-              <button 
-                className={styles.zoomBtn} 
-                onClick={() => {
-                  playClickSound();
-                  captureViewportCenterAsZoomTarget();
-                  zoomIn();
-                }} 
-                disabled={zoom === MAP_SVG_CONFIG.MAX_ZOOM} 
-                title={`${labels.discovery.zoomIn} (+)`} 
-                aria-label={labels.discovery.zoomIn}
-                data-testid="zoom-in-btn"
-              >+</button>
-              <button 
-                className={styles.zoomBtn} 
-                onClick={() => {
-                  playClickSound();
-                  resetZoom();
-                }} 
-                title={labels.discovery.globalView} 
-                aria-label={labels.discovery.globalView}
-                data-testid="zoom-reset-btn"
-              >🏠</button>
-            </div>
+            <ZoomControls
+              zoom={zoom}
+              zoomIn={zoomIn}
+              zoomOut={zoomOut}
+              resetZoom={resetZoom}
+              captureViewportCenterAsZoomTarget={captureViewportCenterAsZoomTarget}
+              playClickSound={playClickSound}
+              maxZoom={MAP_SVG_CONFIG.MAX_ZOOM}
+              labels={{
+                zoomIn: labels.discovery.zoomIn,
+                zoomOut: labels.discovery.zoomOut,
+                globalView: labels.discovery.globalView,
+              }}
+            />
           }
         />
         
