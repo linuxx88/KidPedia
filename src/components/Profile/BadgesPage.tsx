@@ -11,6 +11,8 @@ import { PageHeader } from '../Layout/PageHeader'
 import { GiftButton } from './Elements/GiftButton'
 import { BadgeCard } from './Elements/BadgeCard'
 import { BadgeFilters } from './Elements/BadgeFilters'
+import { BadgesHeader } from './Elements/BadgesHeader'
+import { ExploitsSection } from './Elements/ExploitsSection'
 import styles from './BadgesPage.module.css'
 
 interface BadgesPageProps {
@@ -18,7 +20,7 @@ interface BadgesPageProps {
 }
 
 export function BadgesPage({ onBack }: BadgesPageProps) {
-  const { gender, language, labels } = useSettingsStore()
+  const { language, labels } = useSettingsStore()
   const { playSound } = useAudioFeedback()
   
   const clearBadges = useProgressionStore(state => state.clearBadges)
@@ -27,18 +29,7 @@ export function BadgesPage({ onBack }: BadgesPageProps) {
   const [activeCategory, setActiveCategory] = useState('all')
   const [isResetting, setIsResetting] = useState(false)
 
-  const {
-    xp,
-    badges,
-    totalTopics,
-    earnedCount,
-    goldCount,
-    silverCount,
-    bronzeCount,
-    currentRank,
-    progressWidth,
-    completionPercentage,
-  } = useBadgeProgress()
+  const { badges, earnedCount } = useBadgeProgress()
 
   const handleGiftsClick = () => {
     playSound('woosh')
@@ -62,56 +53,7 @@ export function BadgesPage({ onBack }: BadgesPageProps) {
         rightElement={<GiftButton onClick={handleGiftsClick} />}
       />
 
-      <header className={styles.badgesHeader}>
-        <div className={styles.medalsSummary}>
-          <div className={`${styles.medalStat} ${styles.gold}`}>
-            <span>🥇</span> {goldCount}
-          </div>
-          <div className={`${styles.medalStat} ${styles.silver}`}>
-            <span>🥈</span> {silverCount}
-          </div>
-          <div className={`${styles.medalStat} ${styles.bronze}`}>
-            <span>🥉</span> {bronzeCount}
-          </div>
-        </div>
-
-        <div className={styles.statsBox}>
-          <div className={styles.rankBadge}>
-            <span className={styles.rankIcon}>{currentRank.icon}</span>
-            <div className={styles.rankText}>
-               <p className={styles.rankTitle}>
-                {labels.badges.rank} {currentRank.title[gender]}
-              </p>
-              <p className={styles.rankDesc}>{currentRank.description[language]}</p>
-            </div>
-          </div>
-          
-          <div className={styles.xpInfo}>
-             <span className={styles.xpTotal}>{xp} XP</span>
-          </div>
-
-          <div className={styles.progressBarContainer}>
-            <div className={styles.progressBarFill} style={{ width: `${progressWidth}%` }}>
-              {completionPercentage > 10 && (
-                <span className={styles.progressPercentage}>{completionPercentage}%</span>
-              )}
-            </div>
-          </div>
-          <p className={styles.progressText}>
-            {earnedCount === 0 
-              ? labels.badges.onboarding
-              : labels.badges.progress(earnedCount, totalTopics)
-            }
-          </p>
-          {earnedCount === 0 && (
-            <div className={styles.onboardingCTA}>
-              <AppButton onClick={onBack} variant="primary" icon="🚀">
-                {labels.badges.start}
-              </AppButton>
-            </div>
-          )}
-        </div>
-      </header>
+      <BadgesHeader onBack={onBack} />
 
       <BadgeFilters
         activeCategory={activeCategory}
@@ -162,114 +104,7 @@ export function BadgesPage({ onBack }: BadgesPageProps) {
         </div>
       )}
 
-      {showExploits && (
-        <>
-          <h3 className={styles.sectionTitle}>
-            {language === 'fr' ? '🌟 Mes Exploits d\'Explorateur' : '🌟 My Explorer Exploits'}
-          </h3>
-          <div className={styles.badgesGrid}>
-            {/* Badge Super Écureuil */}
-            {(() => {
-              const earned = badges.find((b) => b.id === 'super-squirrel')
-              const titleStr = language === 'fr' ? 'Super Écureuil' : 'Super Squirrel'
-              const descStr = language === 'fr' ? 'Avoir accumulé 50 tickets 🎫' : 'Accumulated 50 tickets 🎫'
-              
-              return (
-                <BadgeCard
-                  key="super-squirrel"
-                  icon="🐿️"
-                  title={titleStr}
-                  description={descStr}
-                  earned={!!earned}
-                  medalOverlay="🥇"
-                  onClick={() => playSound(earned ? 'click' : 'pop')}
-                  category="exploits"
-                  ariaLabel={
-                    earned
-                      ? labels.badges.earnedAria(titleStr)
-                      : labels.badges.lockedAria(titleStr)
-                  }
-                />
-              )
-            })()}
-
-            {/* Badge Ami des bêtes */}
-            {(() => {
-              const earned = badges.find((b) => b.id === 'animal-friend')
-              const titleStr = language === 'fr' ? 'Ami des bêtes' : 'Animal Friend'
-              const descStr = language === 'fr' ? 'Avoir débloqué un compagnon 🦊' : 'Unlocked a companion animal 🦊'
-              
-              return (
-                <BadgeCard
-                  key="animal-friend"
-                  icon="🦊"
-                  title={titleStr}
-                  description={descStr}
-                  earned={!!earned}
-                  medalOverlay="🥇"
-                  onClick={() => playSound(earned ? 'click' : 'pop')}
-                  category="exploits"
-                  ariaLabel={
-                    earned
-                      ? labels.badges.earnedAria(titleStr)
-                      : labels.badges.lockedAria(titleStr)
-                  }
-                />
-              )
-            })()}
-
-            {/* Badge Rat de bibliothèque */}
-            {(() => {
-              const earned = badges.find((b) => b.id === 'library-rat')
-              const titleStr = language === 'fr' ? 'Rat de bibliothèque' : 'Bookworm'
-              const descStr = language === 'fr' ? 'Avoir ouvert 10 fiches 📚' : 'Opened 10 encyclopedia pages 📚'
-              
-              return (
-                <BadgeCard
-                  key="library-rat"
-                  icon="📚"
-                  title={titleStr}
-                  description={descStr}
-                  earned={!!earned}
-                  medalOverlay="🥇"
-                  onClick={() => playSound(earned ? 'click' : 'pop')}
-                  category="exploits"
-                  ariaLabel={
-                    earned
-                      ? labels.badges.earnedAria(titleStr)
-                      : labels.badges.lockedAria(titleStr)
-                  }
-                />
-              )
-            })()}
-
-            {/* Badge Persévérant */}
-            {(() => {
-              const earned = badges.find((b) => b.id === 'perseverant')
-              const titleStr = language === 'fr' ? 'Persévérant' : 'Persistent'
-              const descStr = language === 'fr' ? 'Transformer du bronze/argent en or 🦾' : 'Upgraded bronze/silver to gold 🦾'
-              
-              return (
-                <BadgeCard
-                  key="perseverant"
-                  icon="🦾"
-                  title={titleStr}
-                  description={descStr}
-                  earned={!!earned}
-                  medalOverlay="🥇"
-                  onClick={() => playSound(earned ? 'click' : 'pop')}
-                  category="exploits"
-                  ariaLabel={
-                    earned
-                      ? labels.badges.earnedAria(titleStr)
-                      : labels.badges.lockedAria(titleStr)
-                  }
-                />
-              )
-            })()}
-          </div>
-        </>
-      )}
+      {showExploits && <ExploitsSection />}
 
       {earnedCount > 0 && (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>

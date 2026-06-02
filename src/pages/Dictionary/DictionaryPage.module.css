@@ -287,6 +287,102 @@
   margin: 0;
 }
 
+/* Categories Filter Slider */
+.categoriesContainer {
+  display: flex;
+  gap: 0.5rem;
+  overflow-x: auto;
+  padding: 0.5rem 0.25rem;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-border-dark) transparent;
+}
+
+.categoriesContainer::-webkit-scrollbar {
+  height: 6px;
+}
+
+.categoriesContainer::-webkit-scrollbar-thumb {
+  background: var(--color-border-dark);
+  border-radius: 10px;
+}
+
+.categoryButton {
+  flex-shrink: 0;
+  padding: 0.5rem 1.25rem;
+  height: 2.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-main);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-bold);
+  border: none;
+  background-color: var(--card-bg);
+  color: var(--color-app-text);
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  border: 2px solid var(--card-border);
+  transition: var(--transition-bounce);
+  cursor: pointer;
+}
+
+.categoryButton:hover {
+  transform: translateY(-3px) scale(1.05);
+  border-color: var(--color-primary);
+}
+
+.activeCategory {
+  color: #ffffff !important;
+  box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3) !important;
+}
+
+/* Category-specific active styling */
+.activeCategory:not(.espace):not(.histoire):not(.nature):not(.science) {
+  background-color: var(--color-primary) !important;
+  border-color: var(--color-primary) !important;
+}
+
+.espace {
+  background-color: #6366f1 !important; /* Indigo */
+  border-color: #6366f1 !important;
+}
+
+.histoire {
+  background-color: #f59e0b !important; /* Amber */
+  border-color: #f59e0b !important;
+}
+
+.nature {
+  background-color: #10b981 !important; /* Emerald */
+  border-color: #10b981 !important;
+}
+
+.science {
+  background-color: #3b82f6 !important; /* Blue */
+  border-color: #3b82f6 !important;
+}
+
+/* Category specific tags in word cards */
+.categoryTag.espace {
+  color: #6366f1;
+  background-color: rgba(99, 102, 241, 0.1);
+}
+
+.categoryTag.histoire {
+  color: #f59e0b;
+  background-color: rgba(245, 158, 11, 0.1);
+}
+
+.categoryTag.nature {
+  color: #10b981;
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+.categoryTag.science {
+  color: #3b82f6;
+  background-color: rgba(59, 130, 246, 0.1);
+}
+
 /* Responsive adjustment for Mobile screens */
 @media (max-width: 480px) {
   .dictionaryContainer {

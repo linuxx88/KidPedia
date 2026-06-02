@@ -286,5 +286,12 @@ export interface Labels {
     allLetters: string;
     listenTip: string;
     navBtn: string;
+    allCategories: string;
+    categories: {
+      espace: string;
+      histoire: string;
+      nature: string;
+      science: string;
+    };
   };
 }

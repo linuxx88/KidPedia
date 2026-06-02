@@ -27,6 +27,7 @@ export function DictionaryPage() {
   const [searchQuery, setSearchQuery] = useState('')
   const [debouncedSearchQuery, setDebouncedSearchQuery] = useState('')
   const [selectedLetter, setSelectedLetter] = useState<string | null>(null)
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
   const [speakingWord, setSpeakingWord] = useState<string | null>(null)
 
   // Debounce de la recherche
@@ -53,7 +54,7 @@ export function DictionaryPage() {
     return Array.from(lettersSet).sort()
   }, [words, language])
 
-  // Filtered words list based on search and selected letter
+  // Filtered words list based on search, selected letter, and category
   const filteredWords = useMemo(() => {
     return words.filter((w) => {
       const wordText = w.word[language].toLowerCase()
@@ -64,10 +65,13 @@ export function DictionaryPage() {
       const matchesLetter = selectedLetter
         ? wordText.startsWith(selectedLetter.toLowerCase())
         : true
+      const matchesCategory = selectedCategory
+        ? w.category === selectedCategory
+        : true
 
-      return matchesSearch && matchesLetter
+      return matchesSearch && matchesLetter && matchesCategory
     })
-  }, [words, debouncedSearchQuery, selectedLetter, language])
+  }, [words, debouncedSearchQuery, selectedLetter, selectedCategory, language])
 
   const handleSpeak = (word: string, definition: string) => {
     if (isSpeaking && speakingWord === word) {
@@ -110,6 +114,24 @@ export function DictionaryPage() {
           />
         </div>
 
+        <div className={styles.categoriesContainer}>
+          <button
+            className={`${styles.categoryButton} ${!selectedCategory ? styles.activeCategory : ''}`}
+            onClick={() => setSelectedCategory(null)}
+          >
+            {labels.dictionary.allCategories}
+          </button>
+          {(['espace', 'histoire', 'nature', 'science'] as const).map((cat) => (
+            <button
+              key={cat}
+              className={`${styles.categoryButton} ${selectedCategory === cat ? `${styles.activeCategory} ${styles[cat] || ''}` : ''}`}
+              onClick={() => setSelectedCategory(selectedCategory === cat ? null : cat)}
+            >
+              {labels.dictionary.categories[cat]}
+            </button>
+          ))}
+        </div>
+
         <div className={styles.alphabetContainer}>
           <button
             className={`${styles.letterButton} ${!selectedLetter ? styles.activeLetter : ''}`}
@@ -141,7 +163,9 @@ export function DictionaryPage() {
                 <article key={currentWord} className={styles.wordCard}>
                   <div className={styles.cardHeader}>
                     <span className={styles.emojiBadge}>{item.emoji}</span>
-                    <span className={styles.categoryTag}>{item.category}</span>
+                    <span className={`${styles.categoryTag} ${styles[item.category] || ''}`}>
+                      {labels.dictionary.categories[item.category as keyof typeof labels.dictionary.categories] || item.category}
+                    </span>
                   </div>
 
                   <div className={styles.wordTitleWrapper}>

@@ -360,5 +360,12 @@ export const fr: Labels = {
     allLetters: "Toutes",
     listenTip: "Clique sur le hibou pour m'écouter ! 🦉",
     navBtn: "Dictionnaire",
+    allCategories: "Toutes les catégories",
+    categories: {
+      espace: "🚀 Espace",
+      histoire: "📜 Histoire",
+      nature: "🌿 Nature",
+      science: "🔬 Science",
+    },
   },
 };

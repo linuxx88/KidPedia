@@ -359,5 +359,12 @@ export const en: Labels = {
     allLetters: "All",
     listenTip: "Click the owl to hear me! 🦉",
     navBtn: "Dictionary",
+    allCategories: "All Categories",
+    categories: {
+      espace: "🚀 Space",
+      histoire: "📜 History",
+      nature: "🌿 Nature",
+      science: "🔬 Science",
+    },
   },
 };
