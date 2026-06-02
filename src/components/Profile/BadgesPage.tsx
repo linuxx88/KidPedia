@@ -1,15 +1,16 @@
 import { useNavigate } from 'react-router-dom'
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { encyclopedia } from '../../data/topics'
-import { RANKS } from '../../data/rewards'
 import { getMedalIcon } from '../../utils/quizMessages'
 import { useSettingsStore } from '../../store/useSettingsStore'
 import { useProgressionStore } from '../../store/useProgressionStore'
-import { usePlayerStore } from '../../store/usePlayerStore'
 import { useAudioFeedback } from '../../hooks/useAudioFeedback'
+import { useBadgeProgress } from '../../hooks/useBadgeProgress'
 import { AppButton } from '../UI/AppButton'
 import { PageHeader } from '../Layout/PageHeader'
 import { GiftButton } from './Elements/GiftButton'
+import { BadgeCard } from './Elements/BadgeCard'
+import { BadgeFilters } from './Elements/BadgeFilters'
 import styles from './BadgesPage.module.css'
 
 interface BadgesPageProps {
@@ -18,45 +19,38 @@ interface BadgesPageProps {
 
 export function BadgesPage({ onBack }: BadgesPageProps) {
   const { gender, language, labels } = useSettingsStore()
-  const { xp, badges } = usePlayerStore()
   const { playSound } = useAudioFeedback()
   
-  // Correction des sélecteurs pour garantir des références stables
-  const activeProfileId = useProgressionStore(state => state.activeProfileId)
-  const currentRankId = useProgressionStore(state => {
-    if (!activeProfileId) return 'apprentice'
-    return state.progressions[activeProfileId]?.currentRankId || 'apprentice'
-  })
   const clearBadges = useProgressionStore(state => state.clearBadges)
-  
   const navigate = useNavigate()
-  const [progressWidth, setProgressWidth] = useState(0)
+  
+  const [activeCategory, setActiveCategory] = useState('all')
+
+  const {
+    xp,
+    badges,
+    totalTopics,
+    earnedCount,
+    goldCount,
+    silverCount,
+    bronzeCount,
+    currentRank,
+    progressWidth,
+    completionPercentage,
+  } = useBadgeProgress()
 
   const handleGiftsClick = () => {
     playSound('woosh')
     navigate('/gifts')
   }
 
-  const totalTopics = encyclopedia.length
-  const earnedCount = badges.length
+  const filteredEncyclopedia = useMemo(() => {
+    if (activeCategory === 'all') return encyclopedia
+    if (activeCategory === 'exploits') return []
+    return encyclopedia.filter(topic => topic.categoryKey.toLowerCase() === activeCategory.toLowerCase())
+  }, [activeCategory])
 
-  const goldCount = badges.filter((b) => b.medal === 'gold').length
-  const silverCount = badges.filter((b) => b.medal === 'silver').length
-  const bronzeCount = badges.filter((b) => b.medal === 'bronze').length
-
-  const currentRank = useMemo(() => 
-    RANKS.find(r => r.id === currentRankId) || RANKS[0]
-  , [currentRankId])
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      const percentage = totalTopics > 0 ? (earnedCount / totalTopics) * 100 : 0
-      setProgressWidth(percentage)
-    }, 150)
-    return () => clearTimeout(timer)
-  }, [earnedCount, totalTopics])
-
-  const completionPercentage = Math.round((earnedCount / totalTopics) * 100)
+  const showExploits = activeCategory === 'all' || activeCategory === 'exploits'
 
   return (
     <div className={styles.badgesPage}>
@@ -118,205 +112,163 @@ export function BadgesPage({ onBack }: BadgesPageProps) {
         </div>
       </header>
 
-      <div className={styles.badgesGrid}>
-        {encyclopedia.map((topic) => {
-          const earned = badges.find((b) => b.id === topic.id)
-          
-          const handleLockedClick = () => {
-            playSound('pop')
-            // Logique de redirection vers la catégorie pour débloquer le badge
-            const category = topic.categoryKey.toLowerCase()
-            // On pourrait imaginer un toast ou un message audio ici plus tard
-            navigate(`/?category=${category}`)
-          }
+      <BadgeFilters
+        activeCategory={activeCategory}
+        onCategoryChange={setActiveCategory}
+        language={language}
+      />
 
-          const handleEarnedClick = () => {
-            playSound('click')
-            navigate(`/topic/${topic.id}`)
-          }
+      {filteredEncyclopedia.length > 0 && (
+        <div className={styles.badgesGrid}>
+          {filteredEncyclopedia.map((topic) => {
+            const earned = badges.find((b) => b.id === topic.id)
+            
+            const handleLockedClick = () => {
+              playSound('pop')
+              const category = topic.categoryKey.toLowerCase()
+              navigate(`/?category=${category}`)
+            }
 
-          const titleStr = topic.title[language];
-          
-          // Calcul d'un délai pseudo-aléatoire mais stable basé sur l'ID pour la pureté du rendu
-          const animationDelay = !earned 
-            ? `${((topic.id.length * 7) % 200) / 100}s` 
-            : '0s';
+            const handleEarnedClick = () => {
+              playSound('click')
+              navigate(`/topic/${topic.id}`)
+            }
 
-          return (
-            <button
-              key={topic.id}
-              className={`${styles.badgeItem} ${earned ? styles.earned : styles.locked}`}
-              onClick={() => earned ? handleEarnedClick() : handleLockedClick()}
-              data-category={topic.categoryKey.toLowerCase()}
-              style={!earned ? { animationDelay } as React.CSSProperties : {}}
-              aria-label={
-                earned
-                  ? labels.badges.earnedAria(titleStr)
-                  : labels.badges.lockedAria(titleStr)
-              }
-            >
-              <div className={styles.badgeIconWrapper}>
-                <span className={styles.badgeIcon}>{topic.icon}</span>
-                {earned && (
-                  <span className={styles.medalOverlay}>{getMedalIcon(earned.medal)}</span>
-                )}
-              </div>
-              <p className={styles.badgeName}>
-                {titleStr}
-              </p>
-            </button>
-          )
-        })}
-      </div>
+            const titleStr = topic.title[language]
+            
+            const animationDelay = !earned 
+              ? `${((topic.id.length * 7) % 200) / 100}s` 
+              : '0s'
 
-      <h3 className={styles.sectionTitle}>
-        {language === 'fr' ? '🌟 Mes Exploits d\'Explorateur' : '🌟 My Explorer Exploits'}
-      </h3>
-      <div className={styles.badgesGrid}>
-        {/* Badge Super Écureuil */}
-        {(() => {
-          const earned = badges.find((b) => b.id === 'super-squirrel');
-          const titleStr = language === 'fr' ? 'Super Écureuil' : 'Super Squirrel';
-          const descStr = language === 'fr' ? 'Avoir accumulé 50 tickets 🎫' : 'Accumulated 50 tickets 🎫';
-          
-          return (
-            <button
-              key="super-squirrel"
-              className={`${styles.badgeItem} ${earned ? styles.earned : styles.locked}`}
-              onClick={() => {
-                playSound(earned ? 'click' : 'pop');
-              }}
-              data-category="exploits"
-              aria-label={
-                earned
-                  ? labels.badges.earnedAria(titleStr)
-                  : labels.badges.lockedAria(titleStr)
-              }
-            >
-              <div className={styles.badgeIconWrapper}>
-                <span className={styles.badgeIcon}>🐿️</span>
-                {earned && (
-                  <span className={styles.medalOverlay}>🥇</span>
-                )}
-              </div>
-              <p className={styles.badgeName}>
-                {titleStr}
-              </p>
-              <p className={styles.badgeDesc}>
-                {descStr}
-              </p>
-            </button>
-          );
-        })()}
+            return (
+              <BadgeCard
+                key={topic.id}
+                icon={topic.icon}
+                title={titleStr}
+                earned={!!earned}
+                medalOverlay={earned ? getMedalIcon(earned.medal) : undefined}
+                onClick={() => earned ? handleEarnedClick() : handleLockedClick()}
+                category={topic.categoryKey.toLowerCase()}
+                animationDelay={animationDelay}
+                ariaLabel={
+                  earned
+                    ? labels.badges.earnedAria(titleStr)
+                    : labels.badges.lockedAria(titleStr)
+                }
+              />
+            )
+          })}
+        </div>
+      )}
 
-        {/* Badge Ami des bêtes */}
-        {(() => {
-          const earned = badges.find((b) => b.id === 'animal-friend');
-          const titleStr = language === 'fr' ? 'Ami des bêtes' : 'Animal Friend';
-          const descStr = language === 'fr' ? 'Avoir débloqué un compagnon 🦊' : 'Unlocked a companion animal 🦊';
-          
-          return (
-            <button
-              key="animal-friend"
-              className={`${styles.badgeItem} ${earned ? styles.earned : styles.locked}`}
-              onClick={() => {
-                playSound(earned ? 'click' : 'pop');
-              }}
-              data-category="exploits"
-              aria-label={
-                earned
-                  ? labels.badges.earnedAria(titleStr)
-                  : labels.badges.lockedAria(titleStr)
-              }
-            >
-              <div className={styles.badgeIconWrapper}>
-                <span className={styles.badgeIcon}>🦊</span>
-                {earned && (
-                  <span className={styles.medalOverlay}>🥇</span>
-                )}
-              </div>
-              <p className={styles.badgeName}>
-                {titleStr}
-              </p>
-              <p className={styles.badgeDesc}>
-                {descStr}
-              </p>
-            </button>
-          );
-        })()}
+      {showExploits && (
+        <>
+          <h3 className={styles.sectionTitle}>
+            {language === 'fr' ? '🌟 Mes Exploits d\'Explorateur' : '🌟 My Explorer Exploits'}
+          </h3>
+          <div className={styles.badgesGrid}>
+            {/* Badge Super Écureuil */}
+            {(() => {
+              const earned = badges.find((b) => b.id === 'super-squirrel')
+              const titleStr = language === 'fr' ? 'Super Écureuil' : 'Super Squirrel'
+              const descStr = language === 'fr' ? 'Avoir accumulé 50 tickets 🎫' : 'Accumulated 50 tickets 🎫'
+              
+              return (
+                <BadgeCard
+                  key="super-squirrel"
+                  icon="🐿️"
+                  title={titleStr}
+                  description={descStr}
+                  earned={!!earned}
+                  medalOverlay="🥇"
+                  onClick={() => playSound(earned ? 'click' : 'pop')}
+                  category="exploits"
+                  ariaLabel={
+                    earned
+                      ? labels.badges.earnedAria(titleStr)
+                      : labels.badges.lockedAria(titleStr)
+                  }
+                />
+              )
+            })()}
 
-        {/* Badge Rat de bibliothèque */}
-        {(() => {
-          const earned = badges.find((b) => b.id === 'library-rat');
-          const titleStr = language === 'fr' ? 'Rat de bibliothèque' : 'Bookworm';
-          const descStr = language === 'fr' ? 'Avoir ouvert 10 fiches 📚' : 'Opened 10 encyclopedia pages 📚';
-          
-          return (
-            <button
-              key="library-rat"
-              className={`${styles.badgeItem} ${earned ? styles.earned : styles.locked}`}
-              onClick={() => {
-                playSound(earned ? 'click' : 'pop');
-              }}
-              data-category="exploits"
-              aria-label={
-                earned
-                  ? labels.badges.earnedAria(titleStr)
-                  : labels.badges.lockedAria(titleStr)
-              }
-            >
-              <div className={styles.badgeIconWrapper}>
-                <span className={styles.badgeIcon}>📚</span>
-                {earned && (
-                  <span className={styles.medalOverlay}>🥇</span>
-                )}
-              </div>
-              <p className={styles.badgeName}>
-                {titleStr}
-              </p>
-              <p className={styles.badgeDesc}>
-                {descStr}
-              </p>
-            </button>
-          );
-        })()}
+            {/* Badge Ami des bêtes */}
+            {(() => {
+              const earned = badges.find((b) => b.id === 'animal-friend')
+              const titleStr = language === 'fr' ? 'Ami des bêtes' : 'Animal Friend'
+              const descStr = language === 'fr' ? 'Avoir débloqué un compagnon 🦊' : 'Unlocked a companion animal 🦊'
+              
+              return (
+                <BadgeCard
+                  key="animal-friend"
+                  icon="🦊"
+                  title={titleStr}
+                  description={descStr}
+                  earned={!!earned}
+                  medalOverlay="🥇"
+                  onClick={() => playSound(earned ? 'click' : 'pop')}
+                  category="exploits"
+                  ariaLabel={
+                    earned
+                      ? labels.badges.earnedAria(titleStr)
+                      : labels.badges.lockedAria(titleStr)
+                  }
+                />
+              )
+            })()}
 
-        {/* Badge Persévérant */}
-        {(() => {
-          const earned = badges.find((b) => b.id === 'perseverant');
-          const titleStr = language === 'fr' ? 'Persévérant' : 'Persistent';
-          const descStr = language === 'fr' ? 'Transformer du bronze/argent en or 🦾' : 'Upgraded bronze/silver to gold 🦾';
-          
-          return (
-            <button
-              key="perseverant"
-              className={`${styles.badgeItem} ${earned ? styles.earned : styles.locked}`}
-              onClick={() => {
-                playSound(earned ? 'click' : 'pop');
-              }}
-              data-category="exploits"
-              aria-label={
-                earned
-                  ? labels.badges.earnedAria(titleStr)
-                  : labels.badges.lockedAria(titleStr)
-              }
-            >
-              <div className={styles.badgeIconWrapper}>
-                <span className={styles.badgeIcon}>🦾</span>
-                {earned && (
-                  <span className={styles.medalOverlay}>🥇</span>
-                )}
-              </div>
-              <p className={styles.badgeName}>
-                {titleStr}
-              </p>
-              <p className={styles.badgeDesc}>
-                {descStr}
-              </p>
-            </button>
-          );
-        })()}
-      </div>
+            {/* Badge Rat de bibliothèque */}
+            {(() => {
+              const earned = badges.find((b) => b.id === 'library-rat')
+              const titleStr = language === 'fr' ? 'Rat de bibliothèque' : 'Bookworm'
+              const descStr = language === 'fr' ? 'Avoir ouvert 10 fiches 📚' : 'Opened 10 encyclopedia pages 📚'
+              
+              return (
+                <BadgeCard
+                  key="library-rat"
+                  icon="📚"
+                  title={titleStr}
+                  description={descStr}
+                  earned={!!earned}
+                  medalOverlay="🥇"
+                  onClick={() => playSound(earned ? 'click' : 'pop')}
+                  category="exploits"
+                  ariaLabel={
+                    earned
+                      ? labels.badges.earnedAria(titleStr)
+                      : labels.badges.lockedAria(titleStr)
+                  }
+                />
+              )
+            })()}
+
+            {/* Badge Persévérant */}
+            {(() => {
+              const earned = badges.find((b) => b.id === 'perseverant')
+              const titleStr = language === 'fr' ? 'Persévérant' : 'Persistent'
+              const descStr = language === 'fr' ? 'Transformer du bronze/argent en or 🦾' : 'Upgraded bronze/silver to gold 🦾'
+              
+              return (
+                <BadgeCard
+                  key="perseverant"
+                  icon="🦾"
+                  title={titleStr}
+                  description={descStr}
+                  earned={!!earned}
+                  medalOverlay="🥇"
+                  onClick={() => playSound(earned ? 'click' : 'pop')}
+                  category="exploits"
+                  ariaLabel={
+                    earned
+                      ? labels.badges.earnedAria(titleStr)
+                      : labels.badges.lockedAria(titleStr)
+                  }
+                />
+              )
+            })()}
+          </div>
+        </>
+      )}
 
       {earnedCount > 0 && (
         <div style={{ display: 'flex', justifyContent: 'center', marginTop: '3rem' }}>
@@ -324,7 +276,7 @@ export function BadgesPage({ onBack }: BadgesPageProps) {
             variant="outline" 
             onClick={() => {
               if (window.confirm(labels.badges.confirmReset)) {
-                clearBadges();
+                clearBadges()
               }
             }} 
             icon="🗑️" 

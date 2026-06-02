@@ -313,3 +313,55 @@
   background-color: #fef3c7;
   color: #d97706;
 }
+
+.filtersContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-bottom: 2.5rem;
+  justify-content: center;
+  width: 100%;
+}
+
+.filterButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  border-radius: 1.5rem;
+  border: 3px solid var(--card-border);
+  background-color: var(--card-bg);
+  color: var(--color-app-text);
+  font-weight: 800;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: 0 4px 0 var(--card-border);
+  outline: none;
+}
+
+.filterButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--card-border);
+}
+
+.filterButton:active {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--card-border);
+}
+
+.filterButton.active {
+  background-color: var(--color-primary);
+  color: white;
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+}
+
+.filterIcon {
+  font-size: 1.2rem;
+}
+
+.filterText {
+  font-weight: 900;
+}
+

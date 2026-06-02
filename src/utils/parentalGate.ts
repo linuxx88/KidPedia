@@ -13,7 +13,7 @@ export interface PuzzleChallenge {
   options: PuzzleOption[];
 }
 
-export const PUZZLE_BANK: PuzzleChallenge[] = [
+const PUZZLE_BANK: PuzzleChallenge[] = [
   // 1. Baby to Parent
   {
     type: 'baby-parent',
