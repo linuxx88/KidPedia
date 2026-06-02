@@ -1,6 +1,5 @@
 import React from 'react';
 import { useSettingsStore } from '../../store/useSettingsStore';
-import { useProfileStore } from '../../store/useProfileStore';
 import type { SupportedLanguage } from '../../locales';
 import styles from './LanguageSwitcher.module.css';
 
@@ -11,8 +10,6 @@ interface LanguageSwitcherProps {
 export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ className }) => {
   const language = useSettingsStore((state) => state.language);
   const setStoreLanguage = useSettingsStore((state) => state.setLanguage);
-  const activeProfile = useProfileStore(state => state.activeProfile);
-  const updateProfile = useProfileStore(state => state.updateProfile);
 
   const languages: { code: SupportedLanguage; label: string; flag: string }[] = [
     { code: 'fr', label: 'Français', flag: '🇫🇷' },
@@ -20,11 +17,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({ className })
   ];
 
   const handleLanguageChange = (code: SupportedLanguage) => {
-    setStoreLanguage(code, (newLang) => {
-      if (activeProfile) {
-        updateProfile(activeProfile.id, { language: newLang });
-      }
-    });
+    setStoreLanguage(code);
   };
 
   return (

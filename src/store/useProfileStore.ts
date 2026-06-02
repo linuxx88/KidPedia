@@ -86,10 +86,6 @@ export const useProfileStore = create<ProfileState>((set) => ({
       localStorage.setItem(STORAGE_KEY_INDEX, JSON.stringify(newProfiles));
       localStorage.setItem(STORAGE_KEY_ACTIVE, newProfile.id);
       
-      // --- SYNCHRONISATION DÉCLARATIVE ---
-      useSettingsStore.getState().syncWithProfile(newProfile);
-      useProgressionStore.getState().syncWithProfile(newProfile.id);
-
       return {
         profiles: newProfiles,
         activeProfileId: newProfile.id,
@@ -106,10 +102,6 @@ export const useProfileStore = create<ProfileState>((set) => ({
       if (target) {
         localStorage.setItem(STORAGE_KEY_ACTIVE, id);
         
-        // --- SYNCHRONISATION DÉCLARATIVE ---
-        useSettingsStore.getState().syncWithProfile(target);
-        useProgressionStore.getState().syncWithProfile(id);
-
         return {
           activeProfileId: id,
           activeProfile: target
@@ -125,11 +117,6 @@ export const useProfileStore = create<ProfileState>((set) => ({
       localStorage.setItem(STORAGE_KEY_INDEX, JSON.stringify(newProfiles));
       const newActiveProfile = newProfiles.find(p => p.id === state.activeProfileId) || null;
       
-      // --- SYNCHRONISATION DÉCLARATIVE ---
-      if (id === state.activeProfileId && newActiveProfile) {
-        useSettingsStore.getState().syncWithProfile(newActiveProfile);
-      }
-
       return {
         profiles: newProfiles,
         activeProfile: newActiveProfile,
@@ -143,9 +130,6 @@ export const useProfileStore = create<ProfileState>((set) => ({
       localStorage.setItem(STORAGE_KEY_INDEX, JSON.stringify(newProfiles));
       localStorage.removeItem(`kp-badges-${id}`); // Nettoyage lié
       
-      // --- SYNCHRONISATION DÉCLARATIVE ---
-      useProgressionStore.getState().deleteProfileProgression(id);
-
       let newActiveId = state.activeProfileId;
       if (state.activeProfileId === id) {
         newActiveId = null;
@@ -172,3 +156,59 @@ export const useProfileStore = create<ProfileState>((set) => ({
     localStorage.removeItem(STORAGE_KEY_ACTIVE);
   }
 }));
+
+// --- CROSS-STORE SUBSCRIPTIONS ---
+if (typeof useProfileStore.subscribe === 'function') {
+  useProfileStore.subscribe((state, prevState) => {
+    // Synchronize Settings when activeProfile changes
+    if (state.activeProfile !== prevState.activeProfile) {
+      useSettingsStore.getState().syncWithProfile(state.activeProfile);
+    }
+
+    // Synchronize Progression when activeProfileId changes
+    if (state.activeProfileId !== prevState.activeProfileId) {
+      useProgressionStore.getState().syncWithProfile(state.activeProfileId);
+    }
+
+    // Detect and clean up progression when a profile is deleted
+    if (state.profiles !== prevState.profiles) {
+      const prevIds = prevState.profiles.map(p => p.id);
+      const currIds = state.profiles.map(p => p.id);
+      const deletedIds = prevIds.filter(id => !currIds.includes(id));
+      deletedIds.forEach(id => {
+        useProgressionStore.getState().deleteProfileProgression(id);
+      });
+    }
+  });
+}
+
+// Synchronize Settings updates back to the active Profile in ProfileStore
+if (typeof useSettingsStore.subscribe === 'function') {
+  useSettingsStore.subscribe((state, prevState) => {
+    const profileStore = useProfileStore.getState();
+    const activeProfile = profileStore.activeProfile;
+    if (activeProfile) {
+      const hasThemeChanged = state.theme !== prevState.theme;
+      const hasGenderChanged = state.gender !== prevState.gender;
+      const hasLanguageChanged = state.language !== prevState.language;
+
+      if (hasThemeChanged || hasGenderChanged || hasLanguageChanged) {
+        const updates: Partial<Omit<Profile, 'id'>> = {};
+        if (hasThemeChanged && activeProfile.theme !== state.theme) {
+          updates.theme = state.theme;
+        }
+        if (hasGenderChanged && activeProfile.gender !== state.gender) {
+          updates.gender = state.gender;
+        }
+        if (hasLanguageChanged && activeProfile.language !== state.language) {
+          updates.language = state.language;
+        }
+
+        if (Object.keys(updates).length > 0) {
+          profileStore.updateProfile(activeProfile.id, updates);
+        }
+      }
+    }
+  });
+}
+

@@ -1,6 +1,7 @@
 import { act } from '@testing-library/react'
 import { describe, it, expect, beforeEach, vi } from 'vitest'
-import { useSettingsStore } from '../store/useSettingsStore'
+import { useSettingsStore } from './useSettingsStore'
+import { useProfileStore } from './useProfileStore'
 import { createMockProfile } from '../test/factories'
 
 describe('useSettingsStore (Theme)', () => {
@@ -9,6 +10,7 @@ describe('useSettingsStore (Theme)', () => {
     document.documentElement.className = ''
     document.documentElement.removeAttribute('data-theme')
     useSettingsStore.getState().reset()
+    useProfileStore.getState().reset()
   })
 
   it('should initialize and set a theme on documentElement', () => {
@@ -37,14 +39,43 @@ describe('useSettingsStore (Theme)', () => {
     }
   })
 
-  it('should call updateProfile callback when toggling theme', () => {
-    const mockUpdateProfile = vi.fn();
-    
+  it('should update the active profile in useProfileStore when settings are toggled (bidirectional sync)', () => {
     act(() => {
-      useSettingsStore.getState().toggleTheme(mockUpdateProfile);
+      useProfileStore.getState().addProfile('Alice', '👧', 'girl');
     });
 
-    expect(mockUpdateProfile).toHaveBeenCalled();
+    expect(useProfileStore.getState().activeProfile?.theme).toBe('light');
+
+    act(() => {
+      useSettingsStore.getState().toggleTheme();
+    });
+
+    expect(useProfileStore.getState().activeProfile?.theme).toBe('dark');
+  })
+
+  it('should reset settings to default values when syncWithProfile is called with null', () => {
+    // Set non-default settings
+    act(() => {
+      useSettingsStore.setState({
+        theme: 'dark',
+        isDarkMode: true,
+        gender: 'girl',
+        language: 'en'
+      });
+    });
+
+    expect(useSettingsStore.getState().theme).toBe('dark');
+    expect(useSettingsStore.getState().gender).toBe('girl');
+    expect(useSettingsStore.getState().language).toBe('en');
+
+    // Sync with null
+    act(() => {
+      useSettingsStore.getState().syncWithProfile(null);
+    });
+
+    expect(useSettingsStore.getState().theme).toBe('light');
+    expect(useSettingsStore.getState().gender).toBe('boy');
+    expect(useSettingsStore.getState().language).toBe('fr');
   })
 
   it('devrait être idempotent lors de la synchronisation (ne pas re-rendre si identique)', () => {

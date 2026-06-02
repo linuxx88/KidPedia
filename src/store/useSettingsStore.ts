@@ -15,12 +15,12 @@ interface SettingsState {
   language: SupportedLanguage;
   labels: Labels;
   
-  toggleTheme: (updateProfileCb?: (theme: 'dark' | 'light') => void) => void;
+  toggleTheme: () => void;
   toggleMute: () => void;
   toggleMusicMute: () => void;
   toggleSfxMute: () => void;
-  toggleGender: (updateProfileCb?: (gender: Gender) => void) => void;
-  setLanguage: (lang: SupportedLanguage, updateProfileCb?: (lang: SupportedLanguage) => void) => void;
+  toggleGender: () => void;
+  setLanguage: (lang: SupportedLanguage) => void;
   syncWithProfile: (profile: Profile | null) => void;
   reset: () => void;
 }
@@ -70,12 +70,11 @@ export const useSettingsStore = create<SettingsState>()(
     language: 'fr',
     labels: locales['fr'],
 
-    toggleTheme: (updateProfileCb) => {
+    toggleTheme: () => {
       const nextTheme = get().theme === 'dark' ? 'light' : 'dark';
       const nextDark = nextTheme === 'dark';
       set({ theme: nextTheme, isDarkMode: nextDark });
       updateDOMTheme(nextDark);
-      if (updateProfileCb) updateProfileCb(nextTheme);
     },
 
     toggleMute: () => {
@@ -105,19 +104,35 @@ export const useSettingsStore = create<SettingsState>()(
       });
     },
 
-    toggleGender: (updateProfileCb) => {
+    toggleGender: () => {
       const nextGender = get().gender === 'boy' ? 'girl' : 'boy';
       set({ gender: nextGender });
-      if (updateProfileCb) updateProfileCb(nextGender);
     },
 
-    setLanguage: (lang, updateProfileCb) => {
+    setLanguage: (lang) => {
       set({ language: lang, labels: locales[lang] });
-      if (updateProfileCb) updateProfileCb(lang);
     },
 
     syncWithProfile: (profile) => {
-      if (!profile) return;
+      if (!profile) {
+        const current = get();
+        if (
+          current.theme === 'light' &&
+          current.gender === 'boy' &&
+          current.language === 'fr'
+        ) {
+          return;
+        }
+        set({
+          theme: 'light',
+          isDarkMode: false,
+          gender: 'boy',
+          language: 'fr',
+          labels: locales['fr']
+        });
+        updateDOMTheme(false);
+        return;
+      }
 
       const isDark = profile.theme === 'dark';
       const lang = profile.language || 'fr';

@@ -80,5 +80,22 @@ describe('useProfileStore (Declarative Orchestration)', () => {
     expect(deleteProgressionSpy).toHaveBeenCalledWith(profileId)
   })
 
+  it('devrait propager null aux stores dépendants lors de la réinitialisation du store', () => {
+    const syncSettingsSpy = vi.spyOn(useSettingsStore.getState(), 'syncWithProfile')
+    const syncProgressionSpy = vi.spyOn(useProgressionStore.getState(), 'syncWithProfile')
 
+    act(() => {
+      useProfileStore.getState().addProfile('Alice', '👧', 'girl')
+    })
+
+    syncSettingsSpy.mockClear()
+    syncProgressionSpy.mockClear()
+
+    act(() => {
+      useProfileStore.getState().reset()
+    })
+
+    expect(syncSettingsSpy).toHaveBeenCalledWith(null)
+    expect(syncProgressionSpy).toHaveBeenCalledWith(null)
+  })
 })

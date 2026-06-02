@@ -41,7 +41,6 @@ export function useAppInit() {
 
   const activeProfileId = useProfileStore(state => state.activeProfileId)
   const isFirstVisit = useProfileStore(state => state.isFirstVisit)
-  const updateProfile = useProfileStore(state => state.updateProfile)
   const profiles = useProfileStore(state => state.profiles)
   const addProfile = useProfileStore(state => state.addProfile)
   const selectProfile = useProfileStore(state => state.selectProfile)
@@ -95,15 +94,11 @@ export function useAppInit() {
   }, [])
 
   const handleToggleTheme = () => {
-    toggleTheme((newTheme) => {
-      if (activeProfileId) updateProfile(activeProfileId, { theme: newTheme })
-    })
+    toggleTheme()
   }
 
   const handleToggleGender = () => {
-    toggleGender((newGender) => {
-      if (activeProfileId) updateProfile(activeProfileId, { gender: newGender })
-    })
+    toggleGender()
   }
 
   const openParentsZone = () => {
