@@ -21,6 +21,7 @@ export const ParentalGate: React.FC<ParentalGateProps> = ({ onSuccess, onCancel 
   const t = labels.parents;
 
   const [challenge, setChallenge] = useState<PuzzleChallenge>(() => generatePuzzleChallenge());
+  const [successCount, setSuccessCount] = useState(0);
   const [error, setError] = useState(false);
 
   useEffect(() => {
@@ -28,15 +29,24 @@ export const ParentalGate: React.FC<ParentalGateProps> = ({ onSuccess, onCancel 
     const timer = setTimeout(() => {
       setChallenge(generatePuzzleChallenge());
       setError(false);
-    }, 500);
+    }, 800);
     return () => clearTimeout(timer);
   }, [error]);
 
   const handleOptionClick = (option: PuzzleOption) => {
+    if (error) return;
+
     if (validatePuzzleChallenge(option)) {
-      onSuccess();
+      const nextCount = successCount + 1;
+      if (nextCount >= 3) {
+        onSuccess();
+      } else {
+        setSuccessCount(nextCount);
+        setChallenge(generatePuzzleChallenge());
+      }
     } else {
       setError(true);
+      setSuccessCount(0);
     }
   };
 
@@ -54,6 +64,25 @@ export const ParentalGate: React.FC<ParentalGateProps> = ({ onSuccess, onCancel 
         </button>
         
         <h2 className={styles.title}>🔒 {t.gateTitle}</h2>
+        
+        {/* Visual Progress Indicator */}
+        <div 
+          className={styles.progressContainer} 
+          aria-label={language === 'fr' ? `Étape ${successCount} sur 3` : `Step ${successCount} of 3`}
+        >
+          {[0, 1, 2].map((idx) => (
+            <div
+              key={idx}
+              className={`${styles.progressDot} ${
+                idx < successCount 
+                  ? styles.progressDotActive 
+                  : error 
+                    ? styles.progressDotError 
+                    : ''
+              }`}
+            />
+          ))}
+        </div>
         
         <p className={styles.instruction}>
           {challenge.instruction[language]}

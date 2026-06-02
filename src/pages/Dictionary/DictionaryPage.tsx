@@ -32,10 +32,6 @@ export function DictionaryPage() {
   // Debounce de la recherche
   useEffect(() => {
     const delay = typeof process !== 'undefined' && process.env.NODE_ENV === 'test' ? 0 : 300
-    if (delay === 0) {
-      setDebouncedSearchQuery(searchQuery)
-      return
-    }
     const handler = setTimeout(() => {
       setDebouncedSearchQuery(searchQuery)
     }, delay)
