@@ -9,6 +9,7 @@ import confetti from 'canvas-confetti';
 import { ChampionshipLeaderboard } from './components/Leaderboard/ChampionshipLeaderboard';
 import { ChampionshipQuestion } from './components/Question/ChampionshipQuestion';
 import { useChampionshipSounds } from './hooks/useChampionshipSounds';
+import { ResetButton } from '../../components/UI/ResetButton';
 import styles from './ChampionshipPage.module.css';
 import leaderboardStyles from './components/Leaderboard/ChampionshipLeaderboard.module.css';
 
@@ -118,6 +119,10 @@ export function ChampionshipPage() {
             labels={labels}
             language={language}
           />
+          
+          <div className={styles.resetContainer} style={{ marginTop: '2.5rem', display: 'flex', justifyContent: 'center' }}>
+            <ResetButton mode="championship" />
+          </div>
         </div>
       </div>
     );

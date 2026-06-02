@@ -43,6 +43,7 @@ export interface QuizChampionshipState {
   nextQuestion: () => void;
   tickTimer: () => void;
   resetGame: () => void;
+  resetScores: () => void;
   addRecord: (record: QuizChampionshipRecord) => void;
 }
 
@@ -237,6 +238,13 @@ export const useQuizChampionshipStore = create<QuizChampionshipState>()(
         hasAnsweredCurrent: false,
         isCorrectCurrent: null,
         totalTimeSpent: 0,
+      });
+    },
+
+    resetScores: () => {
+      set({
+        records: [],
+        highScores: [],
       });
     },
   }))
