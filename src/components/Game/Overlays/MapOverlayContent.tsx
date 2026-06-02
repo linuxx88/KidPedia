@@ -1,9 +1,9 @@
 import React from 'react';
-import { type MapMarker } from '../../data/mapData';
-import { type Labels } from '../../locales/types';
-import { AppButton } from '../UI/AppButton';
-import { StorytellerButton } from '../UI/StorytellerButton';
-import styles from './TreasureMap.module.css';
+import { type MapMarker } from '../../../data/mapData';
+import { type Labels } from '../../../locales/types';
+import { AppButton } from '../../UI/AppButton';
+import { StorytellerButton } from '../../UI/StorytellerButton';
+import styles from '../TreasureMap.module.css';
 
 interface MapOverlayContentProps {
   selectedPoint: MapMarker;
@@ -50,7 +50,7 @@ export const MapOverlayContent: React.FC<MapOverlayContentProps> = ({
     <div className={styles.popupContent}>
       <StorytellerButton 
         onClick={() => {
-          const message = language === 'fr' 
+          const message = language === 'fr'
             ? `Le Sage Hibou te chuchote... Oh oh ! ${selectedPoint.title.fr} est encore secret. Réussis les aventures précédentes pour obtenir la clé magique ! 🗝️✨`
             : `The Wise Owl whispers... Oops! ${selectedPoint.title.en} is still secret. Succeed in the previous adventures to get the magic key! 🗝️✨`;
           speak(message);

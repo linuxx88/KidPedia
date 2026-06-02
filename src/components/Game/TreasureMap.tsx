@@ -14,9 +14,11 @@ import { useMapSounds } from '../../hooks/useMapSounds';
 import { type MapMarker } from '../../data/mapData';
 import { OrientationGuard } from '../Layout/OrientationGuard';
 import { MapPoint } from './MapPoint';
-import { MapOverlayContent } from './MapOverlayContent';
+import { MapOverlayContent } from './Overlays/MapOverlayContent';
 import { useMapGestures } from '../../hooks/useMapGestures';
+import { filterMarkersByZoom, sortMarkersSpatially, getCanvasTransformStyle } from '../../utils/mapGeometry';
 import styles from './TreasureMap.module.css';
+
 
 interface TreasureMapProps {
   onBack: () => void;
@@ -99,36 +101,33 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
    * Triés spatialement (Y puis X) pour une navigation au clavier logique.
    */
   const visibleMarkers = useMemo(() => {
-    return [...markers]
-      .filter(point => point.minZoom <= zoom)
-      .sort((a, b) => (a.y - b.y) || (a.x - b.x))
-      .map(point => {
-        const badge = badges.find(b => b.id === point.topicId);
-        return (
-          <MapPoint
-            key={point.id}
-            topicId={point.topicId}
-            x={point.x}
-            y={point.y}
-            icon={point.icon}
-            title={point.title[language]}
-            medal={badge?.medal}
-            onClick={() => handlePointClick(point)}
-            onMouseEnter={() => handleIslandHoverStart(point)}
-            onMouseLeave={() => handleIslandHoverEnd(point)}
-            onFocus={() => handleIslandHoverStart(point)}
-            onBlur={() => handleIslandHoverEnd(point)}
-            labels={labels}
-            zoom={zoom}
-          />
-        );
-      });
+    const filtered = filterMarkersByZoom(markers, zoom);
+    const sorted = sortMarkersSpatially(filtered);
+    return sorted.map(point => {
+      const badge = badges.find(b => b.id === point.topicId);
+      return (
+        <MapPoint
+          key={point.id}
+          topicId={point.topicId}
+          x={point.x}
+          y={point.y}
+          icon={point.icon}
+          title={point.title[language]}
+          medal={badge?.medal}
+          onClick={() => handlePointClick(point)}
+          onMouseEnter={() => handleIslandHoverStart(point)}
+          onMouseLeave={() => handleIslandHoverEnd(point)}
+          onFocus={() => handleIslandHoverStart(point)}
+          onBlur={() => handleIslandHoverEnd(point)}
+          labels={labels}
+          zoom={zoom}
+        />
+      );
+    });
   }, [markers, zoom, badges, language, handlePointClick, handleIslandHoverStart, handleIslandHoverEnd, labels]);
 
-  const canvasStyle: React.CSSProperties = { 
-    transform: `scale(${zoom})`, 
-    transformOrigin: '0 0' 
-  };
+  const canvasStyle = getCanvasTransformStyle(zoom);
+
 
   return (
     <OrientationGuard>

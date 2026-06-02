@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { ParallaxTopicCard } from '../../components/Discovery/ParallaxTopicCard'
 import { HeroCarousel } from '../../components/Discovery/HeroCarousel'
 import { CategoryScrollSpy } from '../../components/Discovery/CategoryScrollSpy'
 import { PillDashboard } from '../../components/Dashboard/PillDashboard'
@@ -19,15 +18,14 @@ import { useStepNavigation } from '../../hooks/useStepNavigation'
 import { useCategorySpy } from '../../hooks/useCategorySpy'
 import { type Topic } from '../../data/topics/types'
 import { type TopicId, type TopicsData } from '../../types/domain'
-import { getMedalIcon } from '../../utils/quizMessages'
 import styles from './Home.module.css'
 
-
+import { SearchBar } from './components/SearchBar'
+import { TopicGrid } from './components/TopicGrid'
 
 export interface HomePageProps {
   topicsData: TopicsData
 }
-
 
 export function HomePage({ topicsData }: HomePageProps) {
   const { gender, labels, language } = useSettingsStore()
@@ -155,82 +153,22 @@ export function HomePage({ topicsData }: HomePageProps) {
 
       {/* Topics by Categories */}
       {categories.length > 0 ? (
-        Object.entries(groupedTopics).map(([categoryKey, group]) => {
-          const { name: categoryName, topics: categoryTopics } = group
-          const isExpanded = expandedCats[categoryKey]
-          const visibleTopics = isExpanded ? categoryTopics : categoryTopics.slice(0, 3)
-          const hasMore = categoryTopics.length > 3
-          const catTitle = categoryName.split(' ').slice(0, -1).join(' ')
-
-          return (
-            <div
-              key={categoryKey}
-              id={`category-${categoryKey.toLowerCase()}`}
-              className={`${styles.categorySection} ${highlightedCat === categoryKey ? styles.highlightedCategory : ''}`}
-            >
-              <div className={styles.topicsGrid}>
-                {visibleTopics.map((topic: Topic, index: number) => {
-                  const badge = badges.find((b) => b.id === topic.id)
-                  return (
-                    <ParallaxTopicCard
-                      key={topic.id}
-                      id={topic.id}
-                      index={index}
-                      title={topic.title[language]}
-                      description={topic.shortDesc[language]}
-                      icon={topic.icon}
-                      categoryKey={topic.categoryKey}
-                      exploreLabel={labels.discovery.explore('')}
-                      isDiscovered={!!badge}
-                      medalIcon={badge ? getMedalIcon(badge.medal) : undefined}
-                      onClick={() => handleTopicCardClick(topic.id)}
-                      categoryLabel={index === 0 ? catTitle : undefined}
-                      isUnlocked={isUnlocked(topic.id)}
-                    />
-                  )
-                })}
-              </div>
-
-              {hasMore && (
-                <div className={styles.moreButtonWrapper}>
-                  <button
-                    className={styles.moreButton}
-                    onClick={() => toggleExpand(categoryKey)}
-                  >
-                    {isExpanded ? labels.common.less : `${labels.common.more} ➔`}
-                  </button>
-                </div>
-              )}
-            </div>
-          )
-        })
+        <TopicGrid
+          groupedTopics={groupedTopics}
+          expandedCats={expandedCats}
+          highlightedCat={highlightedCat}
+          badges={badges}
+          language={language}
+          labels={labels}
+          isUnlocked={isUnlocked}
+          handleTopicCardClick={handleTopicCardClick}
+          toggleExpand={toggleExpand}
+        />
       ) : (
-        <div className={styles.noResults}>
-          <span className={styles.noResultsIcon}>🔍</span>
-          <h3 className={styles.noResultsTitle}>{labels.home.noResultsTitle}</h3>
-          <button
-            className={styles.clearButton}
-            onClick={() => setSearch('')}
-          >
-            {labels.home.clearSearch}
-          </button>
-
-          <div className={styles.suggestionsContainer}>
-            <span className={styles.suggestionsTitle}>{labels.home.trySearching}</span>
-            <div className={styles.suggestionsList}>
-              {labels.home.popularSuggestions.map((suggestion) => (
-                <button
-                  key={suggestion.query}
-                  className={styles.suggestionPill}
-                  onClick={() => setSearch(suggestion.query)}
-                  aria-label={`${labels.home.trySearching} ${suggestion.label}`}
-                >
-                  {suggestion.label}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
+        <SearchBar
+          setSearch={setSearch}
+          labels={labels}
+        />
       )}
 
       <LockedTopicOverlay
