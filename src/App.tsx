@@ -3,7 +3,7 @@ import { AppLoader } from './components/UI/AppLoader'
 import { MainLayout } from './components/Layout/MainLayout'
 import { useSettingsStore } from './store/useSettingsStore'
 
-import { ProfileSelection } from './components/Profile/ProfileSelection'
+import { ProfileSelection } from './features/profile'
 import { ToastContainer } from './components/UI/Toast/ToastContainer'
 import { ProgressionListener } from './components/Layout/ProgressionListener'
 import { ParentalGate } from './components/UI/ParentalGate'

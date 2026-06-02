@@ -1,0 +1,229 @@
+import { screen } from '@testing-library/react'
+import { render, resetAllStores } from '../../test/test-utils'
+import { describe, it, expect, vi, beforeEach } from 'vitest'
+import { TopicPage } from './TopicPage'
+import { isSpoiler } from './utils_topic/spoiler'
+import { setupSpeechMock, setupAudioMock } from '../../test/mockUtils'
+import { useProgressionStore } from '../../store/useProgressionStore'
+
+// Mock react-router-dom to set custom useParams
+const mockParams = { topicId: 'soleil' }
+vi.mock('react-router-dom', async () => {
+  const actual = await vi.importActual('react-router-dom')
+  return {
+    ...actual,
+    useParams: () => mockParams,
+  }
+})
+
+describe('TopicPage - Anti-spoiler Security', () => {
+  const mockGoHome = vi.fn()
+
+  beforeEach(() => {
+    resetAllStores()
+    vi.clearAllMocks()
+    setupSpeechMock()
+    setupAudioMock()
+    
+    // Set active profile
+    useProgressionStore.getState().syncWithProfile('test-profile')
+  })
+
+  describe('isSpoiler Unit Tests', () => {
+    const sampleQuiz = {
+      question: { fr: "Question", en: "Question" },
+      options: {
+        fr: ['100', '1 000', '1 million'],
+        en: ['100', '1,000', '1 million'],
+      },
+      correctAnswer: 2, // '1 million'
+    }
+
+    it('returns true when the fun fact directly contains the correct option', () => {
+      const spoilerFunFact = {
+        fr: "Il y a 1 million de kilomètres.",
+        en: "There is 1 million kilometers.",
+      }
+      expect(isSpoiler(spoilerFunFact, sampleQuiz)).toBe(true)
+    })
+
+    it('returns false for short option values <= 3 chars to avoid false positives', () => {
+      const shortQuiz = {
+        question: { fr: "Est-ce vrai ?", en: "Is it true?" },
+        options: {
+          fr: ['Oui', 'Non'],
+          en: ['Yes', 'No'],
+        },
+        correctAnswer: 0, // 'Oui'
+      }
+      const fact = {
+        fr: "Oui, la Terre est ronde !",
+        en: "Yes, the Earth is round!",
+      }
+      expect(isSpoiler(fact, shortQuiz)).toBe(false)
+    })
+
+    it('returns true when correct answer contains a number >= 2 digits and that number is in the trivia', () => {
+      const numericQuiz = {
+        question: { fr: "Quelle vitesse ?", en: "Which speed?" },
+        options: {
+          fr: ['10 km/h', '1600 km/h'],
+          en: ['10 km/h', '1600 km/h'],
+        },
+        correctAnswer: 1, // '1600 km/h'
+      }
+      const fact = {
+        fr: "La rotation est rapide, environ 1600 km/h à l'équateur.",
+        en: "The rotation is fast, around 1600 km/h at the equator.",
+      }
+      expect(isSpoiler(fact, numericQuiz)).toBe(true)
+    })
+
+    it('returns true when there is a significant word overlap (>= 2 words) between the quiz and the fun fact', () => {
+      const overlapQuiz = {
+        question: { fr: "Quelle est la température interne ?", en: "What is the internal temperature?" },
+        options: {
+          fr: ['10 millions', '15 millions', '20 millions'],
+          en: ['10 million', '15 million', '20 million'],
+        },
+        correctAnswer: 1,
+      }
+      const overlappingFact = {
+        fr: "La température interne est extrêmement chaude.",
+        en: "The internal temperature is extremely hot.",
+      }
+      expect(isSpoiler(overlappingFact, overlapQuiz)).toBe(true)
+    })
+
+    it('returns false when the only overlap is the topic title word to avoid deadlocks', () => {
+      const sunQuiz = {
+        question: { fr: "Que fait le Soleil ?", en: "What does the Sun do?" },
+        options: {
+          fr: ['Briller', 'Geler', 'Dormir'],
+          en: ['Shine', 'Freeze', 'Sleep'],
+        },
+        correctAnswer: 0,
+      }
+      const fact = {
+        fr: "Le Soleil est beau.",
+        en: "The Sun is beautiful.",
+      }
+      const topicTitle = { fr: "Le Soleil", en: "The Sun" }
+      expect(isSpoiler(fact, sunQuiz, topicTitle)).toBe(false)
+    })
+
+    it('returns true when a number from the incorrect options is in the trivia', () => {
+      const quiz = {
+        question: { fr: "Quel âge a la Terre ?", en: "How old is the Earth?" },
+        options: {
+          fr: ['4 milliards', '99 milliards'],
+          en: ['4 billion', '99 billion'],
+        },
+        correctAnswer: 0,
+      }
+      const fact = {
+        fr: "Le chiffre 99 est marrant.",
+        en: "The number 99 is funny.",
+      }
+      expect(isSpoiler(fact, quiz)).toBe(true)
+    })
+
+    it('returns false when no overlap exists', () => {
+      const safeFunFact = {
+        fr: "Le Soleil brille fort.",
+        en: "The Sun shines brightly.",
+      }
+      expect(isSpoiler(safeFunFact, sampleQuiz)).toBe(false)
+    })
+  })
+
+  describe('TopicPage Integration', () => {
+    it('filters out the spoiler fun fact when the quiz that contains its answer is active', async () => {
+      // Mock Math.random to return 0.3.
+      // 1. selectedQuizIndex = Math.floor(0.3 * 4) = 1 (Quiz: "Combien de Terres...")
+      // 2. funFactIndex selection from 2 non-spoiler items
+      // 3. descriptionIndex selection from 4 items
+      const mockMath = vi.spyOn(Math, 'random').mockReturnValue(0.3)
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      // When quiz index is 1, the question "Combien de Terres..." should be displayed.
+      expect(await screen.findByText(/Combien de Terres/i)).toBeInTheDocument()
+
+      // The correct answer to this quiz is "1 million".
+      // The spoiler fun fact is "On pourrait mettre 1 million de Terres à l'intérieur du Soleil !".
+      // Since it is a spoiler, it MUST have been filtered out.
+      // Therefore, the text of that fun fact should NOT be present.
+      expect(screen.queryByText(/mettre 1 million de Terres/i)).not.toBeInTheDocument()
+
+      mockMath.mockRestore()
+    })
+
+    it('selects a stable random variation if fullContents and funFacts exist', async () => {
+      // Mock params to point to 'arbres' (Trees)
+      mockParams.topicId = 'arbres'
+
+      // Mock random index selections
+      const mockMath = vi.spyOn(Math, 'random').mockReturnValue(0.6) // Math.floor(0.6 * 3) = 1
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      // The description from index 1 should be displayed:
+      // "Les arbres sont comme les poumons géants..."
+      expect(await screen.findByText(/poumons géants/i)).toBeInTheDocument()
+
+      mockMath.mockRestore()
+      mockParams.topicId = 'soleil' // Restore default
+    })
+
+    it('falls back to single fullContent and funFact if variations do not exist', async () => {
+      // Mock params to point to 'pluie' (Rain) which doesn't have variations
+      mockParams.topicId = 'pluie'
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      // The standard fullContent should be displayed:
+      // "La pluie se forme quand l'eau des rivières..."
+      expect(await screen.findByText(/eau des rivières et des mers s'évapore/i)).toBeInTheDocument()
+
+      mockParams.topicId = 'soleil' // Restore default
+    })
+  })
+
+  describe('TopicPage - Decoupled Loading & Errors', () => {
+    it('affiche le composant AppLoader pendant le chargement d\'un sujet découplé', async () => {
+      mockParams.topicId = 'systeme-solaire'
+
+      // Mock fetch pour simuler un chargement lent (promesse en suspens)
+      vi.stubGlobal('fetch', vi.fn().mockReturnValue(new Promise(() => {})))
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      // AppLoader a aria-busy="true" et le rôle alert
+      expect(screen.getByRole('alert')).toBeInTheDocument()
+      expect(screen.getByText(/🚀\.\.\./)).toBeInTheDocument()
+
+      mockParams.topicId = 'soleil' // Restauration du défaut
+      vi.unstubAllGlobals()
+    })
+
+    it('affiche un écran d\'erreur adapté aux enfants en cas d\'erreur réseau', async () => {
+      mockParams.topicId = 'systeme-solaire'
+
+      vi.stubGlobal('fetch', vi.fn().mockResolvedValue({
+        ok: false,
+        status: 404,
+        statusText: 'Not Found',
+      }))
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      // L'illustration ou le message d'erreur enfantin devrait être affiché
+      expect(await screen.findByText(/Oh oh ! Problème de connexion !/i)).toBeInTheDocument()
+      expect(screen.getByText(/Le petit dinosaure n'a pas pu récupérer l'histoire/i)).toBeInTheDocument()
+
+      mockParams.topicId = 'soleil'
+      vi.unstubAllGlobals()
+    })
+  })
+})
