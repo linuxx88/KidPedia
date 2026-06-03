@@ -1,6 +1,6 @@
 import React from 'react';
-import { useSettingsStore } from '../../store/useSettingsStore';
-import type { SupportedLanguage } from '../../locales';
+import { useSettingsStore } from '../../../../store/useSettingsStore';
+import type { SupportedLanguage } from '../../../../locales';
 import styles from './LanguageSwitcher.module.css';
 
 interface LanguageSwitcherProps {

@@ -3,7 +3,7 @@ import { type Profile } from '../../store/useProfileStore';
 import { type Labels, type SupportedLanguage } from '../../locales/types';
 import { heroAssets } from '../../assets/hero';
 import { AppButton } from '../../components/UI/AppButton';
-import { LanguageSwitcher } from '../../components/UI/LanguageSwitcher';
+import { LanguageSwitcher } from './components/LanguageSwitcher/LanguageSwitcher';
 import { AvatarDisplay } from '../../components/UI/AvatarDisplay';
 import { useNavigationConfirm } from '../../hooks/useNavigationConfirm';
 import styles from './ProfileSelection.module.css';

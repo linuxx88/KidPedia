@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './ParentalGate.module.css';
-import type { PuzzleOption } from '../../utils/parentalGate';
+import type { PuzzleOption } from '../../../../utils/parentalGate';
 
 interface NumericKeypadProps {
   options: PuzzleOption[];

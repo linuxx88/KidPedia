@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { AppButton } from '../../../../components/UI/AppButton';
-import { MermaidDiagram } from '../../../../components/UI/MermaidDiagram';
+import { MermaidDiagram } from '../MermaidDiagram/MermaidDiagram';
 import { useNotificationStore } from '../../../../store/useNotificationStore';
 import { PROJECT_FLOW_CHART } from './flowData';
 import styles from './InteractiveFlowChart.module.css';

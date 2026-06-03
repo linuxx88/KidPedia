@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import styles from './ParentalGate.module.css';
-import { useSettingsStore } from '../../store/useSettingsStore';
+import { useSettingsStore } from '../../../../store/useSettingsStore';
 import type { 
   PuzzleChallenge, 
   PuzzleOption 
-} from '../../utils/parentalGate';
+} from '../../../../utils/parentalGate';
 import { 
   generatePuzzleChallenge, 
   validatePuzzleChallenge 
-} from '../../utils/parentalGate';
+} from '../../../../utils/parentalGate';
 import { NumericKeypad } from './NumericKeypad';
 
 interface ParentalGateProps {

@@ -4,7 +4,7 @@ import { SafariBoard } from './SafariBoard';
 import { PageHeader } from '../../components/Layout/PageHeader';
 import { ThemeToggle } from '../../components/UI/ThemeToggle';
 import { AppOverlay } from '../../components/UI/AppOverlay';
-import { DiceRoller } from '../../components/UI/DiceRoller';
+import { DiceRoller } from './components/DiceRoller/DiceRoller';
 
 import { EnvironmentDecor, ExplorersJournal } from './SafariDecorations';
 import { useSafariGame } from '../../hooks/useSafariGame';
