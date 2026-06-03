@@ -8,6 +8,9 @@ export const playBehavioralBadgeSuccessSound = () => {
     const AudioContextClass = window.AudioContext || (window as typeof window & { webkitAudioContext?: typeof AudioContext }).webkitAudioContext;
     if (AudioContextClass) {
       const ctx = new AudioContextClass();
+      setTimeout(() => {
+        ctx.close().catch(() => {});
+      }, 1000);
       const now = ctx.currentTime;
       const notes = [523.25, 659.25, 783.99]; // C5, E5, G5
       notes.forEach((freq, idx) => {

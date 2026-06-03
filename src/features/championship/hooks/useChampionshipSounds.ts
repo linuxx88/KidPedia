@@ -11,6 +11,10 @@ export const useChampionshipSounds = () => {
       if (!AudioContextClass) return;
       const ctx = new AudioContextClass();
       
+      setTimeout(() => {
+        ctx.close().catch(() => {});
+      }, 1500);
+      
       if (type === 'correct') {
         const now = ctx.currentTime;
         const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
