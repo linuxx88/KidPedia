@@ -1,7 +1,7 @@
 import React from 'react';
 import styles from './SafariDecorations.module.css';
 import { encyclopedia } from '../../data/topics';
-import { LABELS } from '../../utils/labels';
+import { useSettingsStore } from '../../store/useSettingsStore';
 
 export const EnvironmentDecor: React.FC = () => {
   const [staticDecor, setStaticDecor] = React.useState<{id: number, icon: string, top: string, left: string, delay: string}[]>([]);
@@ -55,11 +55,12 @@ export const EnvironmentDecor: React.FC = () => {
 };
 
 export const ExplorersJournal: React.FC<{ inventory: string[] }> = ({ inventory }) => {
+  const { labels } = useSettingsStore();
   return (
     <div className={styles.journalContainer}>
-      <h3 className={styles.journalTitle}>{LABELS.safari.journalTitle}</h3>
+      <h3 className={styles.journalTitle}>{labels.safari.journalTitle}</h3>
       <div className={styles.inventoryList}>
-        {inventory.length === 0 && <p className={styles.emptyJournal}>{LABELS.safari.emptyJournal}</p>}
+        {inventory.length === 0 && <p className={styles.emptyJournal}>{labels.safari.emptyJournal}</p>}
         {inventory.map((id, index) => {
           const topic = encyclopedia.find(t => t.id === id);
           const rotation = (index % 2 === 0 ? 1 : -1) * 5;
