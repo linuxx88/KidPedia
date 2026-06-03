@@ -143,3 +143,30 @@ export const QUIZZES: Partial<Record<TopicId, Quiz>> = {
     correctAnswer: 1,
   }
 };
+
+export const QUIZ_BANKS: Partial<Record<TopicId, Quiz[]>> = {
+  'tour-eiffel': [
+    {
+      question: {
+        fr: 'Dans quelle ville se trouve la Tour Eiffel ?',
+        en: 'In which city is the Eiffel Tower located?',
+      },
+      options: {
+        fr: ['Londres', 'New York', 'Paris'],
+        en: ['London', 'New York', 'Paris'],
+      },
+      correctAnswer: 2,
+    },
+    {
+      question: {
+        fr: 'En quelle matière principale est construite la Tour Eiffel ?',
+        en: 'What main material is the Eiffel Tower made of?',
+      },
+      options: {
+        fr: ['En bois', 'En fer', 'En plastique'],
+        en: ['Wood', 'Iron', 'Plastic'],
+      },
+      correctAnswer: 1,
+    }
+  ]
+};

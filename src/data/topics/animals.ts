@@ -12,10 +12,30 @@ export const animals = [
       fr: 'Le lion est un grand félin qui vit en Afrique. Il vit en groupes appelés troupes. Le mâle a une magnifique crinière dorée pour se protéger pendant les combats.',
       en: 'The lion is a large feline that lives in Africa. It lives in groups called prides. The male has a magnificent golden mane to protect itself during fights.',
     },
+    fullContents: [
+      {
+        fr: 'Le lion est un grand félin qui vit en Afrique. Il vit en groupes appelés troupes. Le mâle a une magnifique crinière dorée pour se protéger pendant les combats.',
+        en: 'The lion is a large feline that lives in Africa. It lives in groups called prides. The male has a magnificent golden mane to protect itself during fights.',
+      },
+      {
+        fr: 'Les lions vivent principalement dans la savane africaine. Ce sont des prédateurs très forts, et ce sont surtout les lionnes qui chassent pour nourrir toute la troupe pendant que le mâle surveille le territoire.',
+        en: 'Lions live mainly in the African savannah. They are very strong predators, and it is mostly the lionesses who hunt to feed the whole pride while the male watches the territory.'
+      }
+    ],
     funFact: {
       fr: "Le rugissement d'un lion peut être entendu jusqu'à 8 kilomètres !",
       en: "A lion's roar can be heard from up to 8 kilometers away!",
     },
+    funFacts: [
+      {
+        fr: "Le rugissement d'un lion peut être entendu jusqu'à 8 kilomètres !",
+        en: "A lion's roar can be heard from up to 8 kilometers away!",
+      },
+      {
+        fr: "Les lions dorment énormément : ils peuvent faire la sieste jusqu'à 20 heures par jour pour économiser leur énergie !",
+        en: "Lions sleep a lot: they can nap for up to 20 hours a day to save their energy!"
+      }
+    ],
     audioFile: audioAssets.lion,
     
   },
@@ -54,12 +74,31 @@ export const animals = [
       fr: "Le tigre est un chasseur solitaire qui vit dans les forêts et les jungles. Contrairement à la plupart des chats, les tigres adorent l'eau et sont d'excellents nageurs !",
       en: 'The tiger is a solitary hunter that lives in forests and jungles. Unlike most cats, tigers love water and are excellent swimmers!',
     },
+    fullContents: [
+      {
+        fr: "Le tigre est un chasseur solitaire qui vit dans les forêts et les jungles. Contrairement à la plupart des chats, les tigres adorent l'eau et sont d'excellents nageurs !",
+        en: 'The tiger is a solitary hunter that lives in forests and jungles. Unlike most cats, tigers love water and are excellent swimmers!',
+      },
+      {
+        fr: "Les tigres possèdent une magnifique fourrure rayée qui les aide à se camoufler dans les hautes herbes pour chasser sans se faire repérer.",
+        en: 'Tigers have a magnificent striped coat that helps them camouflage in the tall grass to hunt without being spotted.'
+      }
+    ],
     funFact: {
       fr: 'Chaque tigre a des rayures uniques, tout comme les empreintes digitales des humains.',
       en: 'Each tiger has unique stripes, just like human fingerprints.',
     },
+    funFacts: [
+      {
+        fr: "Les tigres peuvent nager sur des kilomètres pour traverser de grands fleuves !",
+        en: 'Tigers can swim for miles to cross wide rivers!'
+      },
+      {
+        fr: 'Chaque tigre a des rayures uniques, tout comme les empreintes digitales des humains.',
+        en: 'Each tiger has unique stripes, just like human fingerprints.',
+      }
+    ],
     audioFile: audioAssets.tiger,
-    
   },
   {
     id: 'singe',

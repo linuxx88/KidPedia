@@ -12,14 +12,33 @@ export const arts = [
       en: 'Creating beautiful images with color.',
     },
     fullContent: {
-      fr: "La painting est un art très ancien. Les artistes utilisent des pinceaux, de la peinture à l'huile ou à l'eau pour exprimer leurs sentiments sur des toiles.",
+      fr: "La peinture est un art très ancien. Les artistes utilisent des pinceaux, de la peinture à l'huile ou à l'eau pour exprimer leurs sentiments sur des toiles.",
       en: 'Painting is a very ancient art. Artists use brushes, oil paint, or watercolors to express their feelings on canvases.',
     },
+    fullContents: [
+      {
+        fr: "La peinture est un art très ancien. Les artistes utilisent des pinceaux, de la peinture à l'huile ou à l'eau pour exprimer leurs sentiments sur des toiles.",
+        en: 'Painting is a very ancient art. Artists use brushes, oil paint, or watercolors to express their feelings on canvases.',
+      },
+      {
+        fr: "L'aquarelle est une technique de peinture très douce. On mélange les pigments de couleur directement avec de l'eau pour peindre sur du papier épais.",
+        en: "Watercolor is a very soft painting technique. Color pigments are mixed directly with water to paint on thick paper."
+      }
+    ],
     funFact: {
       fr: "Vincent van Gogh a peint la célèbre 'Nuit Étoilée' en regardant par sa fenêtre !",
       en: "Vincent van Gogh painted the famous 'Starry Night' while looking out his window!",
     },
-    
+    funFacts: [
+      {
+        fr: "Vincent van Gogh a peint la célèbre 'Nuit Étoilée' en regardant par sa fenêtre !",
+        en: "Vincent van Gogh painted the famous 'Starry Night' while looking out his window!",
+      },
+      {
+        fr: "L'aquarelle sèche très rapidement, ce qui permet de peindre facilement en extérieur !",
+        en: "Watercolor dries very quickly, which makes it easy to paint outdoors!"
+      }
+    ],
   },
   {
     id: 'musique',

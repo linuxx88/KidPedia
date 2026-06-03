@@ -3,7 +3,6 @@ import { encyclopedia } from '../../../data/topics';
 import { QUIZZES, QUIZ_BANKS } from '../../../data/quizzes';
 import { type TopicId } from '../../../types/domain';
 import { type Topic, type TopicContent } from '../../../data/topics/types';
-import { isSpoiler } from '../utils_topic/spoiler';
 
 interface UseTopicContentProps {
   topicId: string | undefined;
@@ -51,37 +50,34 @@ export function useTopicContent({ topicId, dynamicTopic, language }: UseTopicCon
       setQuizIndex(null);
     }
 
-    // 2. Filtrer les anecdotes sans spoiler
-    if (topic.funFacts && topic.funFacts.length > 0) {
-      if (selectedQuizIndex !== null && bank) {
-        const quiz = bank[selectedQuizIndex];
-        const nonSpoilerIndices: number[] = [];
-        
-        topic.funFacts.forEach((ff, idx) => {
-          if (!isSpoiler(ff, quiz, topic.title)) {
-            nonSpoilerIndices.push(idx);
-          }
-        });
-
-        if (nonSpoilerIndices.length > 0) {
-          const randIdx = Math.floor(Math.random() * nonSpoilerIndices.length);
-          setFunFactIndex(nonSpoilerIndices[randIdx]);
-        } else {
-          // Repli : si tout est spoiler (cas rare), sélectionner au hasard
-          setFunFactIndex(Math.floor(Math.random() * topic.funFacts.length));
-        }
+    // 2. Sélectionner les anecdotes et descriptions de manière synchronisée avec le quiz si possible
+    if (selectedQuizIndex !== null) {
+      if (topic.funFacts && topic.funFacts.length > 0) {
+        setFunFactIndex(selectedQuizIndex % topic.funFacts.length);
       } else {
-        setFunFactIndex(Math.floor(Math.random() * topic.funFacts.length));
+        setFunFactIndex(null);
+      }
+
+      if (topic.fullContents && topic.fullContents.length > 0) {
+        setDescriptionIndex(selectedQuizIndex % topic.fullContents.length);
+      } else {
+        setDescriptionIndex(null);
       }
     } else {
-      setFunFactIndex(null);
-    }
+      // Sélection aléatoire synchronisée pour les sujets sans quiz multiples
+      const fallbackIndex = Math.floor(Math.random() * 100);
 
-    // 3. Sélectionner la description stable
-    if (topic.fullContents && topic.fullContents.length > 0) {
-      setDescriptionIndex(Math.floor(Math.random() * topic.fullContents.length));
-    } else {
-      setDescriptionIndex(null);
+      if (topic.funFacts && topic.funFacts.length > 0) {
+        setFunFactIndex(fallbackIndex % topic.funFacts.length);
+      } else {
+        setFunFactIndex(null);
+      }
+
+      if (topic.fullContents && topic.fullContents.length > 0) {
+        setDescriptionIndex(fallbackIndex % topic.fullContents.length);
+      } else {
+        setDescriptionIndex(null);
+      }
     }
   }, [topicId, topic, dynamicTopic]);
   /* eslint-enable react-hooks/set-state-in-effect */

@@ -210,3 +210,30 @@ export const QUIZZES: Partial<Record<TopicId, Quiz>> = {
     }
   }
 };
+
+export const QUIZ_BANKS: Partial<Record<TopicId, Quiz[]>> = {
+  arbres: [
+    {
+      question: {
+        fr: 'Que fabriquent les arbres pour nous ?',
+        en: 'What do trees make for us?',
+      },
+      options: {
+        fr: ['Du chocolat', "De l'oxygène", 'De la peinture'],
+        en: ['Chocolate', 'Oxygen', 'Paint'],
+      },
+      correctAnswer: 1,
+    },
+    {
+      question: {
+        fr: 'Comment les arbres respirent-ils principalement ?',
+        en: 'How do trees mainly breathe?',
+      },
+      options: {
+        fr: ['Par les racines', 'Par leurs feuilles', 'Par le tronc'],
+        en: ['Through roots', 'Through their leaves', 'Through the trunk'],
+      },
+      correctAnswer: 1,
+    }
+  ]
+};

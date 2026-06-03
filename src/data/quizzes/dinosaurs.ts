@@ -139,3 +139,30 @@ export const QUIZZES: Partial<Record<TopicId, Quiz>> = {
     correctAnswer: 1,
   }
 };
+
+export const QUIZ_BANKS: Partial<Record<TopicId, Quiz[]>> = {
+  't-rex': [
+    {
+      question: {
+        fr: 'À quoi ressemblait la taille des dents du T-Rex ?',
+        en: "What was the size of a T-Rex's teeth like?",
+      },
+      options: {
+        fr: ['Des crayons', 'Des bananes', 'Des grains de riz'],
+        en: ['Pencils', 'Bananas', 'Rice grains'],
+      },
+      correctAnswer: 1,
+    },
+    {
+      question: {
+        fr: 'Combien mesurait environ le T-Rex en longueur ?',
+        en: 'How long was the T-Rex approximately?',
+      },
+      options: {
+        fr: ['5 mètres', '12 mètres', '50 mètres'],
+        en: ['5 meters', '12 meters', '50 meters'],
+      },
+      correctAnswer: 1,
+    }
+  ]
+};

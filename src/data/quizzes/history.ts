@@ -1,1 +1,2 @@
-export { QUIZZES } from './history/index';
+export { QUIZZES, QUIZ_BANKS } from './history/index';
+

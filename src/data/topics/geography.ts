@@ -12,14 +12,33 @@ export const geography = [
       en: 'A huge iron tower located in Paris.',
     },
     fullContent: {
-      fr: "Construite par Gustave Eiffel pour une grande exposition en 1889, elle mesure 330 mètres. C'est l'un des monuments les plus célèbres du monde.",
-      en: 'Built by Gustave Eiffel for a grand exhibition in 1889, it stands 330 meters tall. It is one of the most famous monuments in the world.',
+      fr: "La Tour Eiffel est située à Paris, la capitale de la France. Elle a été construite pour accueillir les visiteurs d'une grande exposition mondiale en 1889.",
+      en: 'The Eiffel Tower is located in Paris, the capital of France. It was built to welcome visitors to a grand world exhibition in 1889.',
     },
+    fullContents: [
+      {
+        fr: "La Tour Eiffel est située à Paris, la capitale de la France. Elle a été construite pour accueillir les visiteurs d'une grande exposition mondiale en 1889.",
+        en: 'The Eiffel Tower is located in Paris, the capital of France. It was built to welcome visitors to a grand world exhibition in 1889.',
+      },
+      {
+        fr: "La Tour Eiffel est une immense tour construite entièrement en fer forgé. Elle pèse plus de 10 000 tonnes et s'élève fièrement dans le ciel de Paris.",
+        en: 'The Eiffel Tower is a huge tower built entirely of wrought iron. It weighs over 10,000 tons and rises proudly into the Paris sky.'
+      }
+    ],
     funFact: {
       fr: 'En été, la Tour Eiffel peut grandir de 15 centimètres car le métal se dilate avec la chaleur !',
       en: 'In summer, the Eiffel Tower can grow by 15 centimeters because the metal expands with the heat!',
     },
-    
+    funFacts: [
+      {
+        fr: "La Tour Eiffel a été construite pour fêter le centenaire de la Révolution française !",
+        en: "The Eiffel Tower was built to celebrate the centennial of the French Revolution!"
+      },
+      {
+        fr: 'En été, la Tour Eiffel peut grandir de 15 centimètres car le fer se dilate avec la chaleur !',
+        en: 'In summer, the Eiffel Tower can grow by 15 centimeters because the iron expands with the heat!',
+      }
+    ],
   },
   {
     id: 'amazonie',

@@ -143,3 +143,30 @@ export const QUIZZES: Partial<Record<TopicId, Quiz>> = {
     correctAnswer: 1,
   }
 };
+
+export const QUIZ_BANKS: Partial<Record<TopicId, Quiz[]>> = {
+  peinture: [
+    {
+      question: {
+        fr: "Quel artiste a peint 'La Nuit Étoilée' ?",
+        en: "Which artist painted 'The Starry Night'?",
+      },
+      options: {
+        fr: ['Pablo Picasso', 'Leonardo da Vinci', 'Vincent van Gogh'],
+        en: ['Pablo Picasso', 'Leonardo da Vinci', 'Vincent van Gogh'],
+      },
+      correctAnswer: 2,
+    },
+    {
+      question: {
+        fr: "Quelle est la particularité de la peinture à l'aquarelle ?",
+        en: 'What is special about watercolor painting?',
+      },
+      options: {
+        fr: ["Elle utilise de l'huile", "Elle se mélange avec de l'eau", "Elle brille dans le noir"],
+        en: ['It uses oil', 'It mixes with water', 'It glows in the dark'],
+      },
+      correctAnswer: 1,
+    }
+  ]
+};

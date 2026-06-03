@@ -91,3 +91,30 @@ export const prehistoireQuizzes: Partial<Record<TopicId, Quiz>> = {
     correctAnswer: 0,
   }
 };
+
+export const prehistoireQuizBanks: Partial<Record<TopicId, Quiz[]>> = {
+  prehistoire: [
+    {
+      question: {
+        fr: 'Où les hommes préhistoriques dessinaient-ils souvent ?',
+        en: 'Where did prehistoric humans often draw?',
+      },
+      options: {
+        fr: ['Sur du papier', 'Dans des grottes', 'Sur des voitures'],
+        en: ['On paper', 'In caves', 'On cars'],
+      },
+      correctAnswer: 1,
+    },
+    {
+      question: {
+        fr: "Quel est l'outil principal fabriqué en pierre par les hommes préhistoriques ?",
+        en: 'What was the main stone tool made by prehistoric humans?',
+      },
+      options: {
+        fr: ['Un tournevis', 'Un biface ou silex taillé', 'Un marteau-piqueur'],
+        en: ['A screwdriver', 'A hand axe or knapped flint', 'A jackhammer'],
+      },
+      correctAnswer: 1,
+    }
+  ]
+};

@@ -135,3 +135,30 @@ export const QUIZZES: Partial<Record<TopicId, Quiz>> = {
     correctAnswer: 1,
   }
 };
+
+export const QUIZ_BANKS: Partial<Record<TopicId, Quiz[]>> = {
+  roue: [
+    {
+      question: {
+        fr: 'Il y a combien de temps environ la roue a-t-elle été inventée ?',
+        en: 'About how long ago was the wheel invented?',
+      },
+      options: {
+        fr: ['100 ans', '5 000 ans', "1 million d'années"],
+        en: ['100 years', '5,000 years', '1 million years'],
+      },
+      correctAnswer: 1,
+    },
+    {
+      question: {
+        fr: 'En quelle matière étaient faites les toutes premières roues ?',
+        en: 'What material were the very first wheels made of?',
+      },
+      options: {
+        fr: ['En caoutchouc', 'En pierre ou en bois', 'En fer'],
+        en: ['Rubber', 'Stone or wood', 'Iron'],
+      },
+      correctAnswer: 1,
+    }
+  ]
+};

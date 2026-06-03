@@ -1,1 +1,2 @@
-export { QUIZZES } from './animals/index';
+export { QUIZZES, QUIZ_BANKS } from './animals/index';
+

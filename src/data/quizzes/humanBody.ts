@@ -143,3 +143,30 @@ export const QUIZZES: Partial<Record<TopicId, Quiz>> = {
     correctAnswer: 1,
   }
 };
+
+export const QUIZ_BANKS: Partial<Record<TopicId, Quiz[]>> = {
+  cerveau: [
+    {
+      question: {
+        fr: 'À quoi ressemble ton cerveau ?',
+        en: 'What is your brain like?',
+      },
+      options: {
+        fr: ['À un muscle', 'À un ordinateur super puissant', 'À un ballon'],
+        en: ['A muscle', 'A super-powerful computer', 'A balloon'],
+      },
+      correctAnswer: 1,
+    },
+    {
+      question: {
+        fr: "Quelle est la tâche principale du cerveau ?",
+        en: "What is the brain's main job?",
+      },
+      options: {
+        fr: ['Pomper le sang', 'Contrôler tout ce que tu fais', 'Digérer les aliments'],
+        en: ['Pump blood', 'Control everything you do', 'Digest food'],
+      },
+      correctAnswer: 1,
+    }
+  ]
+};

@@ -135,3 +135,30 @@ export const QUIZZES: Partial<Record<TopicId, Quiz>> = {
     correctAnswer: 1,
   }
 };
+
+export const QUIZ_BANKS: Partial<Record<TopicId, Quiz[]>> = {
+  'ciel-bleu': [
+    {
+      question: {
+        fr: "Quelle couleur s'éparpille le plus ?",
+        en: 'Which color scatters the most?',
+      },
+      options: {
+        fr: ['Vert', 'Bleu', 'Rose'],
+        en: ['Green', 'Blue', 'Pink'],
+      },
+      correctAnswer: 1,
+    },
+    {
+      question: {
+        fr: "Qu'est-ce qui diffuse la lumière du Soleil dans l'air ?",
+        en: "What scatters Sunlight in the air?",
+      },
+      options: {
+        fr: ['Les oiseaux', "L'atmosphère (l'air)", 'La Lune'],
+        en: ['The birds', "The atmosphere (air)", 'The Moon'],
+      },
+      correctAnswer: 1,
+    }
+  ]
+};

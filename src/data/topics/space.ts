@@ -14,16 +14,16 @@ const rawSpace: readonly RawTopic[] = [
     },
     fullContents: [
       {
-        fr: 'Le Soleil est une étoile géante. Toutes les planètes tournent autour de lui. Il nous donne de la lumière et de la chaleur.',
-        en: 'The Sun is a giant star. All the planets orbit around it. It gives us light and heat.',
+        fr: "Le Soleil est le cœur de notre système solaire. Grâce à sa gravité, toutes les planètes restent bien sagement sur leur orbite sans s'échapper.",
+        en: "The Sun is the heart of our solar system. Thanks to its gravity, all the planets stay nicely on their orbit without escaping."
       },
       {
         fr: "Le Soleil est une gigantesque boule de gaz brûlant. C'est l'étoile la plus proche de la Terre, et elle brille si fort qu'elle éclaire toute notre journée !",
         en: "The Sun is a giant ball of burning gas. It is the closest star to Earth, and it shines so brightly that it lights up our entire day!"
       },
       {
-        fr: "Le Soleil est le cœur de notre système solaire. Grâce à sa gravité, toutes les planètes restent bien sagement sur leur orbite sans s'échapper.",
-        en: "The Sun is the heart of our solar system. Thanks to its gravity, all the planets stay nicely on their orbit without escaping."
+        fr: 'Le Soleil est une étoile géante. Toutes les planètes tournent autour de lui. Il nous donne de la lumière et de la chaleur.',
+        en: 'The Sun is a giant star. All the planets orbit around it. It gives us light and heat.',
       },
       {
         fr: "Le Soleil est une étoile géante et très chaude qui brille tout en haut dans l'Espace pour nous éclairer. De même qu'il partage sa douce chaleur avec toute la Terre sans rien demander, tu peux toi aussi réchauffer le cœur des autres avec ton plus beau sourire.",
@@ -31,6 +31,10 @@ const rawSpace: readonly RawTopic[] = [
       }
     ],
     funFacts: [
+      {
+        fr: "Le Soleil est si grand qu'il représente 99% de tout le système solaire !",
+        en: "The Sun is so big that it makes up 99% of the entire solar system!"
+      },
       {
         fr: "On pourrait mettre 1 million de Terres à l'intérieur du Soleil !",
         en: 'You could fit 1 million Earths inside the Sun!',
@@ -40,8 +44,8 @@ const rawSpace: readonly RawTopic[] = [
         en: "Sunlight takes 8 minutes to reach us on Earth."
       },
       {
-        fr: "Le Soleil est si grand qu'il représente 99% de tout le système solaire !",
-        en: "The Sun is so big that it makes up 99% of the entire solar system!"
+        fr: "Le Soleil est si chaud que sa température de surface est d'environ 5 500 degrés Celsius !",
+        en: "The Sun is so hot that its surface temperature is around 5,500 degrees Celsius!"
       }
     ]
   },
@@ -107,10 +111,6 @@ const rawSpace: readonly RawTopic[] = [
     shortDesc: { fr: 'Notre maison, la planète bleue.', en: 'Our home, the blue planet.' },
     fullContents: [
       {
-        fr: "La Terre est la seule planète connue avec de la vie. Elle a de l'eau, de l'air et une température parfaite.",
-        en: 'Earth is the only known planet with life. It has water, air, and a perfect temperature.',
-      },
-      {
         fr: "Notre Terre est souvent appelée la planète bleue car elle est recouverte à plus de 70% par de grands océans d'eau liquide.",
         en: "Our Earth is often called the blue planet because more than 70% of it is covered by vast oceans of liquid water."
       },
@@ -119,11 +119,19 @@ const rawSpace: readonly RawTopic[] = [
         en: "The Earth has an invisible magnetic shield that protects it from the Sun's dangerous rays, allowing plants and animals to grow safely."
       },
       {
+        fr: "La Terre est la seule planète connue avec de la vie. Elle a de l'eau, de l'air et une température parfaite.",
+        en: 'Earth is the only known planet with life. It has water, air, and a perfect temperature.',
+      },
+      {
         fr: "La Terre est notre magnifique maison, la seule planète connue dans l'univers qui abrite de la vie grâce à son eau et son air pur. Comme un grand jardin bienveillant qui nourrit et protège toutes les plantes et les animaux, la Terre prend soin de toi, et tu peux toi aussi en prendre soin par tes petits gestes chaque jour.",
         en: "The Earth is our beautiful home, the only known planet in the universe that supports life thanks to its water and fresh air. Like a grand, caring garden that feeds and protects all plants and animals, the Earth takes care of you, and you can also take care of it with your small actions every day."
       }
     ],
     funFacts: [
+      {
+        fr: "La Terre n'est pas parfaitement ronde, elle est un peu aplatie aux pôles !",
+        en: "The Earth is not perfectly round, it is slightly flattened at the poles!"
+      },
       {
         fr: 'La Terre tourne à 1600 km/h, mais on ne sent rien !',
         en: 'The Earth spins at 1600 km/h, but we feel nothing!',
@@ -133,8 +141,8 @@ const rawSpace: readonly RawTopic[] = [
         en: "It is the only known planet to have liquid water on its surface."
       },
       {
-        fr: "La Terre n'est pas parfaitement ronde, elle est un peu aplatie aux pôles !",
-        en: "The Earth is not perfectly round, it is slightly flattened at the poles!"
+        fr: "La Terre s'est formée il y a environ 4,5 milliards d'années !",
+        en: "The Earth formed about 4.5 billion years ago!"
       }
     ]
   },
