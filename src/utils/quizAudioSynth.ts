@@ -43,6 +43,11 @@ export const playSynthesizedDing = (stopStory: () => void) => {
 
     osc.start(ctx.currentTime);
     osc.stop(ctx.currentTime + 0.8);
+
+    // Clean up AudioContext to prevent memory/context leaks
+    setTimeout(() => {
+      ctx.close().catch(() => {});
+    }, 1000);
   } catch (e: unknown) {
     console.warn('Web Audio API synthesizer failed to play ding sound', e);
   }
@@ -78,6 +83,11 @@ export const playSynthesizedPerfectFanfare = (stopStory: () => void) => {
       osc.start(ctx.currentTime + timeOffset);
       osc.stop(ctx.currentTime + timeOffset + 0.4);
     });
+
+    // Clean up AudioContext to prevent memory/context leaks
+    setTimeout(() => {
+      ctx.close().catch(() => {});
+    }, 1200);
   } catch (e: unknown) {
     console.warn('Web Audio API perfect arpeggio failed to play', e);
   }
