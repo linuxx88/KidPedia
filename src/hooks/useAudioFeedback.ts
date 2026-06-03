@@ -54,6 +54,10 @@ export const useAudioFeedback = () => {
         if (AudioContextClass) {
           const ctx = new AudioContextClass();
           
+          setTimeout(() => {
+            ctx.close().catch(() => {});
+          }, 1000);
+          
           if (type === 'click') {
             const osc = ctx.createOscillator();
             const gain = ctx.createGain();
