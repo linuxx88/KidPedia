@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, useLocation } from 'react-router-dom'
 import { encyclopedia } from '../data/topics'
 import { useSettingsStore } from '../store/useSettingsStore'
 import { useProfileStore } from '../store/useProfileStore'
@@ -7,10 +7,12 @@ import { useDiscoveryStore } from '../store/useDiscoveryStore'
 
 export function useAppInit() {
   const navigate = useNavigate()
+  const location = useLocation()
   
   const [showParentalGate, setShowParentalGate] = useState(false)
   const [pendingRoute, setPendingRoute] = useState<string | null>(null)
   const [hydrated, setHydrated] = useState(false)
+  const [isParentalUnlocked, setIsParentalUnlocked] = useState(false)
 
   // Hydratation du store
   useEffect(() => {
@@ -113,7 +115,19 @@ export function useAppInit() {
     setShowParentalGate(true)
   }
 
+  // Bloquer l'accès direct aux pages parents si non déverrouillé
+  useEffect(() => {
+    if (location.pathname.startsWith('/parents') && !isParentalUnlocked) {
+      requestAnimationFrame(() => {
+        setPendingRoute(location.pathname)
+        setShowParentalGate(true)
+        navigate('/')
+      })
+    }
+  }, [location.pathname, isParentalUnlocked, navigate])
+
   const handleParentalSuccess = () => {
+    setIsParentalUnlocked(true)
     setShowParentalGate(false)
     if (pendingRoute) {
       navigate(pendingRoute)
@@ -144,5 +158,7 @@ export function useAppInit() {
     handleToggleTheme,
     handleToggleGender,
     handleGoHome,
+    isParentalUnlocked,
+    setIsParentalUnlocked,
   }
 }

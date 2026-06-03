@@ -42,6 +42,8 @@ export const useSettingsStore = create<SettingsState>()(
     name: 'kp-settings-storage',
     partialize: (state) => ({
       isMuted: state.isMuted,
+      isMusicMuted: state.isMusicMuted,
+      isSfxMuted: state.isSfxMuted,
       theme: state.theme,
       language: state.language,
     }),
@@ -57,6 +59,10 @@ export const useSettingsStore = create<SettingsState>()(
         }
         updateDOMTheme(state.isDarkMode);
         state.labels = locales[state.language || 'fr'];
+        if (state.isMuted !== undefined) {
+          if (state.isMusicMuted === undefined) state.isMusicMuted = state.isMuted;
+          if (state.isSfxMuted === undefined) state.isSfxMuted = state.isMuted;
+        }
       }
     }
   })((set, get) => ({

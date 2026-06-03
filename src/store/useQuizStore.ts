@@ -52,8 +52,8 @@ export const useQuizStore = create<QuizState>((set, get) => ({
   },
 
   submitAnswer: (index, currentQuiz) => {
-    const { activeTopicId, attempts } = get();
-    if (!activeTopicId) return { success: false };
+    const { activeTopicId, attempts, quizResult } = get();
+    if (!activeTopicId || quizResult) return { success: false };
 
     const quiz = currentQuiz || QUIZZES[activeTopicId];
     if (!quiz) return { success: false };

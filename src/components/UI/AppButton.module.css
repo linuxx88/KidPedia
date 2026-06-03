@@ -13,8 +13,16 @@
   outline: none;
 }
 
-.btn:active {
+.btn:active:not(:disabled) {
   transform: translateY(var(--depth-sm));
+  box-shadow: none !important;
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  filter: grayscale(1);
+  transform: none !important;
   box-shadow: none !important;
 }
 
@@ -24,7 +32,7 @@
   box-shadow: 0 var(--depth-md) 0 var(--color-primary-dark);
 }
 
-.primary:hover {
+.primary:hover:not(:disabled) {
   filter: brightness(1.1);
   transform: translateY(-2px);
   box-shadow: 0 var(--depth-lg) 0 var(--color-primary-dark);
@@ -37,7 +45,7 @@
   filter: hue-rotate(-15deg);
 }
 
-.secondary:hover {
+.secondary:hover:not(:disabled) {
   filter: brightness(1.1) hue-rotate(-15deg);
   transform: translateY(-2px);
   box-shadow: 0 var(--depth-lg) 0 var(--color-primary-dark);

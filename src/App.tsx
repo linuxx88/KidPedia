@@ -49,6 +49,8 @@ export function App() {
     handleToggleTheme,
     handleToggleGender,
     handleGoHome,
+    isParentalUnlocked,
+    setIsParentalUnlocked,
   } = useAppInit()
 
   if (!hydrated) {
@@ -94,7 +96,9 @@ export function App() {
           <AppRoutes 
             topicsData={topicsData} 
             labels={labels} 
-            handleGoHome={handleGoHome} 
+            handleGoHome={handleGoHome}
+            isParentalUnlocked={isParentalUnlocked}
+            setIsParentalUnlocked={setIsParentalUnlocked}
           />
         </Suspense>
         <PWAPrompt />

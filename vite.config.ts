@@ -2,11 +2,13 @@
 import { defineConfig } from 'vitest/config'
 import react from '@vitejs/plugin-react'
 import { VitePWA } from 'vite-plugin-pwa'
+import { devDashboardPlugin } from './vite-plugins/dev-dashboard'
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
+    devDashboardPlugin(),
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['favicon.svg', 'apple-touch-icon.png', 'icon-192.png', 'icon-512.png', 'icons.svg', 'assets/**/*.webp', 'assets/**/*.png', 'assets/**/*.m4a'],

@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate, useLocation } from 'react-router-dom'
+import { Routes, Route, useNavigate, useLocation, Navigate } from 'react-router-dom'
 import { AppButton } from '../components/UI/AppButton'
 import { mapData } from '../data/mapData'
 
@@ -28,9 +28,17 @@ interface AppRoutesProps {
   }
   labels: Labels
   handleGoHome: (callback?: () => void) => void
+  isParentalUnlocked: boolean
+  setIsParentalUnlocked: (unlocked: boolean) => void
 }
 
-export function AppRoutes({ topicsData, labels, handleGoHome }: AppRoutesProps) {
+export function AppRoutes({
+  topicsData,
+  labels,
+  handleGoHome,
+  isParentalUnlocked,
+  setIsParentalUnlocked
+}: AppRoutesProps) {
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -79,25 +87,37 @@ export function AppRoutes({ topicsData, labels, handleGoHome }: AppRoutesProps) 
       <Route
         path="/parents"
         element={
-          <div className={styles.routeWrapper}>
-            <ParentsDashboard onBack={() => navigate('/')} />
-          </div>
+          !isParentalUnlocked ? (
+            <Navigate to="/" replace />
+          ) : (
+            <div className={styles.routeWrapper}>
+              <ParentsDashboard onBack={() => { setIsParentalUnlocked(false); navigate('/'); }} />
+            </div>
+          )
         }
       />
       <Route
         path="/parents/flow"
         element={
-          <div className={styles.routeWrapper}>
-            <FlowDashboard onBack={() => navigate('/parents')} />
-          </div>
+          !isParentalUnlocked ? (
+            <Navigate to="/" replace />
+          ) : (
+            <div className={styles.routeWrapper}>
+              <FlowDashboard onBack={() => navigate('/parents')} />
+            </div>
+          )
         }
       />
       <Route
         path="/parents/editor"
         element={
-          <div className={styles.routeWrapper}>
-            <ContentEditor onBack={() => navigate('/parents')} />
-          </div>
+          !isParentalUnlocked ? (
+            <Navigate to="/" replace />
+          ) : (
+            <div className={styles.routeWrapper}>
+              <ContentEditor onBack={() => navigate('/parents')} />
+            </div>
+          )
         }
       />
       <Route

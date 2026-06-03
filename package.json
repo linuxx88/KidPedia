@@ -17,8 +17,10 @@
     "test:e2e:ui": "playwright test --ui"
   },
   "dependencies": {
+    "@xyflow/react": "^12.11.0",
     "canvas-confetti": "^1.9.4",
     "dexie": "^4.4.2",
+    "lucide-react": "^1.17.0",
     "mermaid": "^11.15.0",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",

@@ -278,3 +278,44 @@
     }
   }
 }
+
+/* React Flow controls overrides */
+:global(.react-flow__controls) {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4) !important;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+:global(.react-flow__controls-button) {
+  background: #1e1e2f !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05) !important;
+  color: #f3f4f6 !important;
+  fill: #f3f4f6 !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.2s ease !important;
+}
+
+:global(.react-flow__controls-button:last-child) {
+  border-bottom: none !important;
+}
+
+:global(.react-flow__controls-button:hover) {
+  background: #8b5cf6 !important;
+  color: #ffffff !important;
+  fill: #ffffff !important;
+}
+
+:global(.react-flow__controls-button svg) {
+  fill: currentColor !important;
+  width: 14px !important;
+  height: 14px !important;
+}
