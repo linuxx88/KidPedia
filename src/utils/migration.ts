@@ -107,6 +107,28 @@ export async function migrateLocalStorageToDB(): Promise<void> {
     return;
   }
 
+  // Restaurer depuis IndexedDB si localStorage est vide mais qu'on a déjà fait la migration par le passé
+  try {
+    const savedProfiles = await db.keyval.get('kp-profiles-index');
+    if (savedProfiles && savedProfiles.value && !localStorage.getItem('kp-profiles-index')) {
+      localStorage.setItem('kp-profiles-index', savedProfiles.value);
+      const activeId = await db.keyval.get('kp-active-profile-id');
+      if (activeId && activeId.value) {
+        localStorage.setItem('kp-active-profile-id', activeId.value);
+      }
+      const settings = await db.keyval.get('kp-settings-storage');
+      if (settings && settings.value) {
+        localStorage.setItem('kp-settings-storage', settings.value);
+      }
+      localStorage.setItem(STORAGE_FLAG, 'true');
+      console.log('[Migration] Données restaurées depuis IndexedDB vers localStorage avec succès.');
+      window.location.reload();
+      return;
+    }
+  } catch (err) {
+    console.error('[Migration] Échec de la restauration depuis IndexedDB:', err);
+  }
+
   // Court-circuiter si la migration a déjà été validée par le passé
   if (localStorage.getItem(STORAGE_FLAG) === 'true') {
     return;
