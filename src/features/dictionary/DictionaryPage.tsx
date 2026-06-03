@@ -112,6 +112,16 @@ export function DictionaryPage() {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
+          {searchQuery && (
+            <button
+              type="button"
+              className={styles.clearButton}
+              onClick={() => setSearchQuery('')}
+              aria-label={labels.home.clearSearch}
+            >
+              ❌
+            </button>
+          )}
         </div>
 
         <div className={styles.categoriesContainer}>

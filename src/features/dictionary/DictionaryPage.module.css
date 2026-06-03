@@ -69,7 +69,7 @@
 
 .searchInput {
   width: 100%;
-  padding: 1rem 1rem 1rem 3.25rem;
+  padding: 1rem 3.25rem 1rem 3.25rem;
   font-family: var(--font-main);
   font-size: var(--fs-sm);
   font-weight: var(--fw-bold);
@@ -79,6 +79,24 @@
   color: var(--color-app-text);
   outline: none;
   transition: var(--transition-bounce);
+}
+
+.clearButton {
+  position: absolute;
+  right: 1.25rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 1.1rem;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease;
+}
+
+.clearButton:hover {
+  transform: scale(1.15);
 }
 
 .searchInput:focus {
