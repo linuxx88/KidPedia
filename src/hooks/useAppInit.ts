@@ -32,6 +32,13 @@ export function useAppInit() {
     }
   }, [])
 
+  // Chargement des sujets personnalisés depuis IndexedDB
+  useEffect(() => {
+    if (hydrated) {
+      useDiscoveryStore.getState().loadCustomTopics()
+    }
+  }, [hydrated])
+
   const labels = useSettingsStore(state => state.labels)
   const isDarkMode = useSettingsStore(state => state.isDarkMode)
   const toggleTheme = useSettingsStore(state => state.toggleTheme)

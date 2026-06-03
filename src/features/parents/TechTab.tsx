@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSettingsStore } from '../../store/useSettingsStore';
 import { useProfileStore } from '../../store/useProfileStore';
-import { encyclopedia } from '../../data/topics';
+import { useDiscoveryStore } from '../../store/useDiscoveryStore';
 import { AppButton } from '../../components/UI/AppButton';
 import styles from './TechTab.module.css';
 
@@ -16,8 +16,9 @@ export const TechTab: React.FC<TechTabProps> = ({ language }) => {
   const labels = useSettingsStore(state => state.labels);
   const t = labels.parents;
 
-  const topicsCount = encyclopedia.length;
-  const quizzesCount = encyclopedia.filter(t => 'quiz' in t && t.quiz).length;
+  const topics = useDiscoveryStore(state => state.topics);
+  const topicsCount = topics.length;
+  const quizzesCount = topics.filter(t => 'quiz' in t && t.quiz).length;
 
   return (
     <div className={styles.tabContent}>
@@ -44,9 +45,14 @@ export const TechTab: React.FC<TechTabProps> = ({ language }) => {
       <div className={styles.developerCard}>
         <h3 className={styles.sectionTitle}>🛠️ {t.devSectionTitle}</h3>
         <p className={styles.devDesc}>{t.devSectionDesc}</p>
-        <AppButton onClick={() => navigate('/parents/flow')}>
-          🗺️ {t.devSectionBtn}
-        </AppButton>
+        <div style={{ display: 'flex', gap: '1rem', flexWrap: 'wrap' }}>
+          <AppButton onClick={() => navigate('/parents/flow')}>
+            🗺️ {t.devSectionBtn}
+          </AppButton>
+          <AppButton onClick={() => navigate('/parents/editor')} variant="secondary">
+            📝 {language === 'fr' ? 'Éditeur de Contenu' : 'Content Editor'}
+          </AppButton>
+        </div>
       </div>
 
       {/* Why KidPedia Info Box */}

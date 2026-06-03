@@ -6,7 +6,7 @@ import { mapData } from '../data/mapData'
 import { TopicPage, GiftsPage } from '../features/learning'
 import { TreasureMap, MissionSafari } from '../features/game'
 import { ExplorerGallery, BadgesPage } from '../features/profile'
-import { ParentsDashboard, FlowDashboard } from '../features/parents'
+import { ParentsDashboard, FlowDashboard, ContentEditor } from '../features/parents'
 import { OriginsLayout, OriginsList, OriginsDetail } from '../features/origins'
 import { ChampionshipPage } from '../features/championship'
 import { DictionaryPage } from '../features/dictionary'
@@ -19,12 +19,12 @@ import styles from '../App.module.css'
 
 interface AppRoutesProps {
   topicsData: {
-    search: string
-    setSearch: (value: string) => void
-    groupedTopics: Record<string, { name: string; topics: Topic[] }>
-    handleTopicClick: (id: string) => void
-    handleGoHome: (callback?: () => void) => void
-    handleSurprise: () => void
+    search: string;
+    setSearch: (value: string) => void;
+    groupedTopics: Record<string, { name: string; topics: Topic[] }>;
+    handleTopicClick: (id: string) => void;
+    handleGoHome: (callback?: () => void) => void;
+    handleSurprise: () => void;
   }
   labels: Labels
   handleGoHome: (callback?: () => void) => void
@@ -89,6 +89,14 @@ export function AppRoutes({ topicsData, labels, handleGoHome }: AppRoutesProps) 
         element={
           <div className={styles.routeWrapper}>
             <FlowDashboard onBack={() => navigate('/parents')} />
+          </div>
+        }
+      />
+      <Route
+        path="/parents/editor"
+        element={
+          <div className={styles.routeWrapper}>
+            <ContentEditor onBack={() => navigate('/parents')} />
           </div>
         }
       />

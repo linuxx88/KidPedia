@@ -1,5 +1,6 @@
 import Dexie, { type Table } from 'dexie';
 import { type EarnedBadge, type TopicId } from '../types/domain';
+import { type Topic } from '../data/topics';
 
 interface DbSticker {
   readonly id: string;
@@ -30,12 +31,18 @@ interface KeyValEntry {
 class KidPediaDexieDB extends Dexie {
   progression!: Table<DbProfileProgression, string>;
   keyval!: Table<KeyValEntry, string>;
+  topics!: Table<Topic, string>;
 
   constructor() {
     super('KidPediaDexieDB');
     this.version(1).stores({
       progression: 'profileId, totalXP, currentRankId, updatedAt',
       keyval: 'key'
+    });
+    this.version(2).stores({
+      progression: 'profileId, totalXP, currentRankId, updatedAt',
+      keyval: 'key',
+      topics: 'id, categoryKey'
     });
   }
 }

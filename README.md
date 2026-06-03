@@ -160,15 +160,22 @@ KidPedia/
 ├── public/               # 📦 Assets statiques publics
 ├── src/
 │   ├── assets/           # 🎵 Ressources audio et images
-│   ├── components/       # 🧩 Composants React réutilisables (UI, Cartes, etc.)
-│   │   └── Learning/
-│   │       └── ExplorerGallery/ # 🎁 Section Cadeaux (modularisée : GiftsPage, GiftCard, GiftChest)
+│   ├── components/       # 🧩 Composants React génériques et réutilisables (Layout, UI)
 │   ├── constants/        # 📌 Constantes globales
 │   ├── data/             # 📊 Données statiques (Thèmes, Quizzes, Safari)
-│   ├── hooks/            # 🪝 Custom hooks (Audio, Swipe, Offline, etc.)
+│   ├── features/         # ⚡ Fonctionnalités modulaires (components, hooks, stores et styles par domaine)
+│   │   ├── championship/ # 🏆 Quiz championnat
+│   │   ├── dictionary/   # 📖 Dictionnaire interactif
+│   │   ├── game/         # 🎮 Jeux (Plateau Safari, Carte aux trésors)
+│   │   ├── home/         # 🏠 Page d'accueil
+│   │   ├── learning/     # 📚 Fiches d'apprentissage & Cadeaux
+│   │   ├── origins/      # 🌍 Frise chronologique (Origines du Temps)
+│   │   ├── parents/      # 👨‍👩‍👧‍👦 Tableau de bord parents & Éditeur de contenu
+│   │   └── profile/      # 👤 Gestion d'avatar & Progression
+│   ├── hooks/            # 🪝 Custom hooks globaux (Audio, Swipe, Offline, etc.)
 │   ├── locales/          # 🌍 Fichiers de traduction (FR / EN)
-│   ├── pages/            # 📄 Pages principales (Home, TopicDetail, Safari, etc.)
-│   ├── store/            # 📦 Zustand stores (Gestion d'état global)
+│   ├── routes/           # 🛣️ Gestion des routes de l'application
+│   ├── store/            # 📦 Zustand stores globaux (Settings, Environment, etc.)
 │   ├── styles/           # 🎨 CSS Modules et styles globaux
 │   ├── templates/        # 📝 Gabarits de composants ou pages
 │   ├── test/             # 🧪 Tests d'intégration et utilitaires
