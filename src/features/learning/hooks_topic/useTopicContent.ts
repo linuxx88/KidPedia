@@ -3,6 +3,7 @@ import { encyclopedia } from '../../../data/topics';
 import { QUIZZES, QUIZ_BANKS } from '../../../data/quizzes';
 import { type TopicId } from '../../../types/domain';
 import { type Topic, type TopicContent } from '../../../data/topics/types';
+import { isSpoiler } from '../utils_topic/spoiler';
 
 interface UseTopicContentProps {
   topicId: string | undefined;
@@ -50,34 +51,47 @@ export function useTopicContent({ topicId, dynamicTopic, language }: UseTopicCon
       setQuizIndex(null);
     }
 
-    // 2. Sélectionner les anecdotes et descriptions de manière synchronisée avec le quiz si possible
-    if (selectedQuizIndex !== null) {
-      if (topic.funFacts && topic.funFacts.length > 0) {
-        setFunFactIndex(selectedQuizIndex % topic.funFacts.length);
-      } else {
-        setFunFactIndex(null);
-      }
+    // Récupérer le quiz actif
+    const activeQuiz = (bank && selectedQuizIndex !== null && bank[selectedQuizIndex])
+      ? bank[selectedQuizIndex]
+      : (QUIZZES[topic.id] || dynamicTopic?.quiz);
 
-      if (topic.fullContents && topic.fullContents.length > 0) {
-        setDescriptionIndex(selectedQuizIndex % topic.fullContents.length);
+    // 2. Sélectionner les descriptions et anecdotes de manière cohérente et sécurisée
+    const syncIndex = selectedQuizIndex !== null ? selectedQuizIndex : Math.floor(Math.random() * 100);
+
+    // Description
+    if (topic.fullContents && topic.fullContents.length > 0) {
+      setDescriptionIndex(syncIndex % topic.fullContents.length);
+    } else {
+      setDescriptionIndex(null);
+    }
+
+    // Anecdote (avec vérification anti-spoiler)
+    if (topic.funFacts && topic.funFacts.length > 0) {
+      const defaultFactIndex = syncIndex % topic.funFacts.length;
+      const defaultFact = topic.funFacts[defaultFactIndex];
+
+      if (activeQuiz && isSpoiler(defaultFact, activeQuiz, topic.title)) {
+        // En cas de spoiler, chercher une alternative sécurisée
+        const nonSpoilerIndices: number[] = [];
+        topic.funFacts.forEach((ff, idx) => {
+          if (!isSpoiler(ff, activeQuiz, topic.title)) {
+            nonSpoilerIndices.push(idx);
+          }
+        });
+
+        if (nonSpoilerIndices.length > 0) {
+          // Prendre la première alternative non-spoiler
+          setFunFactIndex(nonSpoilerIndices[0]);
+        } else {
+          // Si tout est spoiler, masquer l'anecdote pour préserver le secret
+          setFunFactIndex(null);
+        }
       } else {
-        setDescriptionIndex(null);
+        setFunFactIndex(defaultFactIndex);
       }
     } else {
-      // Sélection aléatoire synchronisée pour les sujets sans quiz multiples
-      const fallbackIndex = Math.floor(Math.random() * 100);
-
-      if (topic.funFacts && topic.funFacts.length > 0) {
-        setFunFactIndex(fallbackIndex % topic.funFacts.length);
-      } else {
-        setFunFactIndex(null);
-      }
-
-      if (topic.fullContents && topic.fullContents.length > 0) {
-        setDescriptionIndex(fallbackIndex % topic.fullContents.length);
-      } else {
-        setDescriptionIndex(null);
-      }
+      setFunFactIndex(null);
     }
   }, [topicId, topic, dynamicTopic]);
   /* eslint-enable react-hooks/set-state-in-effect */
