@@ -1,1 +1,74 @@
-{"nodes":[{"id":"1","type":"taskNode","position":{"x":138.7803531646652,"y":98.59754414558313},"data":{"label":"Initialisation du Projet","status":"done","priority":"high","assignee":"Système"}},{"id":"2","type":"taskNode","position":{"x":450,"y":100},"data":{"label":"Design System & Thème Sombre","status":"done","priority":"medium","assignee":"Design"}},{"id":"3","type":"taskNode","position":{"x":450.0824117549418,"y":247.91552205895914},"data":{"label":"Middleware API (Vite)","status":"in_progress","priority":"high","assignee":"Dev"}},{"id":"4","type":"taskNode","position":{"x":150,"y":400},"data":{"label":"Composants React Flow","status":"todo","priority":"high","assignee":"Dev"}},{"id":"5","type":"taskNode","position":{"x":450,"y":400},"data":{"label":"Dashboard Intégration Finale","status":"todo","priority":"medium","assignee":"Dev"}},{"id":"1780533566601","type":"taskNode","position":{"x":138.33021952858223,"y":247.00552317411749},"data":{"label":"dynamiser Quizz_bank","priority":"medium","status":"todo","assignee":"dev"}}],"edges":[{"id":"e1-3","source":"1","target":"3","animated":true},{"id":"e2-3","source":"2","target":"3","animated":true},{"id":"e3-4","source":"3","target":"4","animated":true},{"id":"e4-5","source":"4","target":"5","animated":true},{"source":"3","target":"5","animated":true,"id":"xy-edge__3-5"},{"source":"1","target":"4","animated":true,"id":"xy-edge__1-4"},{"source":"1780533566601","target":"4","animated":true,"id":"xy-edge__1780533566601-4"}]}
+{
+  "nodes": [
+    {
+      "id": "KP-1",
+      "type": "taskNode",
+      "position": {
+        "x": 100,
+        "y": 80
+      },
+      "data": {
+        "label": "Optimisation des Images (WebP)",
+        "priority": "medium",
+        "status": "done",
+        "assignee": "marc"
+      }
+    },
+    {
+      "id": "KP-2",
+      "type": "taskNode",
+      "position": {
+        "x": 350,
+        "y": 80
+      },
+      "data": {
+        "label": "Musique d'ambiance",
+        "priority": "low",
+        "status": "todo"
+      }
+    },
+    {
+      "id": "KP-3",
+      "type": "taskNode",
+      "position": {
+        "x": 600,
+        "y": 80
+      },
+      "data": {
+        "label": "Verrouillage de Profil Kid-Safe",
+        "priority": "high",
+        "status": "todo",
+        "assignee": "Marc"
+      }
+    },
+    {
+      "id": "KP-4",
+      "type": "taskNode",
+      "position": {
+        "x": 100,
+        "y": 230
+      },
+      "data": {
+        "label": "Variabilité Dynamique des Effets Sonores",
+        "priority": "low",
+        "status": "todo",
+        "assignee": "Sophie"
+      }
+    },
+    {
+      "id": "KP-5",
+      "type": "taskNode",
+      "position": {
+        "x": 350.4615988685073,
+        "y": 215.03187772161837
+      },
+      "data": {
+        "label": "Continuer modularisation fichier 400 ligne +",
+        "priority": "high",
+        "status": "done",
+        "assignee": "dev"
+      }
+    }
+  ],
+  "edges": []
+}
