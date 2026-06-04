@@ -47,27 +47,40 @@ export const CodeDepsGraph: React.FC = () => {
       // Layout constants
       const colWidth = 220;
       const rowHeight = 70;
+      const maxNodesPerCol = 20;
       
       let colIndex = 0;
       GROUPS_ORDER.forEach(group => {
         const groupNodes = groupNodesMap.get(group) || [];
         if (groupNodes.length === 0) return;
         
-        groupNodes.forEach((node, rowIndex) => {
-          arrangedNodes.push({
-            ...node,
-            type: 'codeNode',
-            position: {
-              x: colIndex * colWidth + 50,
-              y: rowIndex * rowHeight + 80
-            }
+        for (let i = 0; i < groupNodes.length; i += maxNodesPerCol) {
+          const chunk = groupNodes.slice(i, i + maxNodesPerCol);
+          chunk.forEach((node, rowIndex) => {
+            arrangedNodes.push({
+              ...node,
+              type: 'codeNode',
+              position: {
+                x: colIndex * colWidth + 50,
+                y: rowIndex * rowHeight + 80
+              }
+            });
           });
-        });
-        colIndex++;
+          colIndex++;
+        }
       });
 
       setNodes(arrangedNodes);
-      setEdges(data.edges || []);
+      
+      const uniqueEdges: Edge[] = [];
+      const edgeIds = new Set<string>();
+      ((data.edges as Edge[]) || []).forEach(edge => {
+        if (!edgeIds.has(edge.id)) {
+          edgeIds.add(edge.id);
+          uniqueEdges.push(edge);
+        }
+      });
+      setEdges(uniqueEdges);
       setError(null);
     } catch (err) {
       console.error('Error fetching code dependencies:', err);
@@ -95,18 +108,7 @@ export const CodeDepsGraph: React.FC = () => {
     };
   }, [isFullscreen]);
 
-  // Tracing hovered dependencies
-  const connectedNodeIds = React.useMemo(() => {
-    const set = new Set<string>();
-    if (!hoveredNodeId) return set;
-    
-    set.add(hoveredNodeId);
-    edges.forEach(edge => {
-      if (edge.source === hoveredNodeId) set.add(edge.target);
-      if (edge.target === hoveredNodeId) set.add(edge.source);
-    });
-    return set;
-  }, [hoveredNodeId, edges]);
+
 
   // Map nodes styling based on search term and hover tracing
   const displayedNodes = React.useMemo(() => {
@@ -118,18 +120,14 @@ export const CodeDepsGraph: React.FC = () => {
       // Search matching
       const isSearchMatch = searchTerm ? (nodeLabel.includes(search) || nodePath.includes(search)) : true;
       
-      // Hover matching
-      const isHoverMatch = hoveredNodeId ? connectedNodeIds.has(node.id) : true;
-      
-      const isActive = isSearchMatch && isHoverMatch;
+      const isActive = isSearchMatch;
 
       return {
         ...node,
         style: {
           ...node.style,
           opacity: isActive ? 1 : 0.12,
-          transition: 'opacity 0.25s, box-shadow 0.25s, transform 0.25s',
-          transform: hoveredNodeId && node.id === hoveredNodeId ? 'scale(1.1)' : undefined,
+          transition: 'opacity 0.25s, box-shadow 0.25s',
           boxShadow: hoveredNodeId && node.id === hoveredNodeId 
             ? '0 0 25px rgba(45, 212, 191, 0.9)' 
             : (searchTerm && isSearchMatch ? '0 0 20px rgba(45, 212, 191, 0.6)' : undefined),
@@ -137,7 +135,7 @@ export const CodeDepsGraph: React.FC = () => {
         }
       };
     });
-  }, [nodes, searchTerm, hoveredNodeId, connectedNodeIds]);
+  }, [nodes, searchTerm, hoveredNodeId]);
 
   // Highlight active edges when hovered
   const displayedEdges = React.useMemo(() => {
@@ -342,6 +340,7 @@ export const CodeDepsGraph: React.FC = () => {
         </div>
 
         <ReactFlow
+          key={nodes.length > 0 ? 'loaded' : 'loading'}
           nodes={displayedNodes}
           edges={displayedEdges}
           nodeTypes={nodeTypes}

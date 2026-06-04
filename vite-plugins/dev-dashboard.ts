@@ -141,12 +141,15 @@ function getCodeDeps(srcDir: string) {
         if (finalRelative && fileToId.has(finalRelative)) {
           const targetId = fileToId.get(finalRelative);
           if (targetId) {
-            edges.push({
-              id: `edge-${fileId}-${targetId}`,
-              source: fileId,
-              target: targetId,
-              animated: true
-            });
+            const edgeId = `edge-${fileId}-${targetId}`;
+            if (!edges.some(e => e.id === edgeId)) {
+              edges.push({
+                id: edgeId,
+                source: fileId,
+                target: targetId,
+                animated: true
+              });
+            }
           }
         }
       }
