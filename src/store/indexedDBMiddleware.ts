@@ -85,6 +85,10 @@ export function indexedDBMiddleware<T extends object>(
               unlockedPuzzlePieces: prog.unlockedPuzzlePieces || {},
               unlockedWallpapers: prog.unlockedWallpapers || [],
               updatedAt: Date.now()
+            }).then(() => {
+              import('../utils/syncService').then(({ syncProgression }) => {
+                syncProgression().catch(console.error);
+              }).catch(console.error);
             }).catch((err: unknown) => {
               if (!isTestEnv()) {
                 console.error('[indexedDBMiddleware] Échec saveProgress:', err);

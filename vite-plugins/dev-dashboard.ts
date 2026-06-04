@@ -159,9 +159,110 @@ function getCodeDeps(srcDir: string) {
   return { nodes, edges };
 }
 
+interface TicketInfo {
+  id: string;
+  label: string;
+  priority: 'high' | 'medium' | 'low';
+  status: 'todo' | 'in_progress' | 'done';
+  assignee?: string;
+}
+
+function parseTicketsFromMarkdown(filePath: string): TicketInfo[] {
+  if (!fs.existsSync(filePath)) return [];
+  const content = fs.readFileSync(filePath, 'utf8');
+  const lines = content.split('\n');
+  const tickets: TicketInfo[] = [];
+  
+  const regex = /^\s*-\s*\[([\sxX/])\]\s*\*\*\*?\[([a-zA-Z0-9_-]+)\]\*\*\*?\s*([^|]+)(?:\|\s*priorit[eé]:\s*([^\s|]+))?(?:\s*\|\s*assign[eé]:\s*([^\s|]+))?/;
+  
+  for (const line of lines) {
+    const match = line.match(regex);
+    if (match) {
+      const statusChar = match[1].toLowerCase();
+      let status: 'todo' | 'in_progress' | 'done' = 'todo';
+      if (statusChar === '/' || statusChar === 'in_progress') status = 'in_progress';
+      else if (statusChar === 'x') status = 'done';
+      
+      const id = match[2];
+      const label = match[3].trim();
+      
+      let priority: 'high' | 'medium' | 'low' = 'medium';
+      const priorityStr = (match[4] || '').trim().toLowerCase();
+      if (priorityStr.includes('haut')) priority = 'high';
+      else if (priorityStr.includes('bas')) priority = 'low';
+      
+      const assignee = (match[5] || '').trim();
+      
+      tickets.push({
+        id,
+        label,
+        priority,
+        status,
+        assignee: assignee || undefined
+      });
+    }
+  }
+  return tickets;
+}
+
+function writeTicketsToMarkdown(filePath: string, tickets: TicketInfo[]) {
+  let header = `# Système de Suivi des Bugs (Tickets Actifs)
+
+Voici la liste des tickets ouverts concernant les bugs fonctionnels, les failles de sécurité, l'accessibilité ou les améliorations requises, basés sur l'audit complet du projet.
+
+Vous pouvez consulter l'historique de tous les tickets déjà résolus et clôturés ici : [TICKETS_ARCHIVE.md](./TICKETS_ARCHIVE.md).
+
+---
+`;
+  if (fs.existsSync(filePath)) {
+    const existing = fs.readFileSync(filePath, 'utf8');
+    const separatorIdx = existing.indexOf('---');
+    if (separatorIdx !== -1) {
+      header = existing.substring(0, separatorIdx + 3) + '\n';
+    }
+  }
+  
+  const lines = tickets.map(t => {
+    let statusChar = ' ';
+    if (t.status === 'in_progress') statusChar = '/';
+    else if (t.status === 'done') statusChar = 'x';
+    
+    let priorityStr = 'moyenne';
+    if (t.priority === 'high') priorityStr = 'haute';
+    else if (t.priority === 'low') priorityStr = 'basse';
+    
+    let line = `- [${statusChar}] **[${t.id}]** ${t.label} | priorité: ${priorityStr}`;
+    if (t.assignee) {
+      line += ` | assigné: ${t.assignee}`;
+    }
+    return line;
+  });
+  
+  fs.writeFileSync(filePath, header + '\n' + lines.join('\n') + '\n', 'utf8');
+}
+
+interface SavedNode {
+  id: string;
+  position?: { x: number; y: number };
+  data?: {
+    label?: string;
+    priority?: 'high' | 'medium' | 'low';
+    status?: 'todo' | 'in_progress' | 'done';
+    assignee?: string;
+  };
+}
+
+interface SavedEdge {
+  id: string;
+  source: string;
+  target: string;
+  animated?: boolean;
+}
+
 export function devDashboardPlugin(): Plugin {
   const srcDir = path.resolve(process.cwd(), 'src');
   const tasksFilePath = path.resolve(process.cwd(), 'tasks.json');
+  const ticketsFilePath = path.resolve(process.cwd(), 'docs', 'TICKETS.md');
 
   return {
     name: 'dev-dashboard-api',
@@ -172,11 +273,41 @@ export function devDashboardPlugin(): Plugin {
         // GET /api/tasks
         if (req.url === '/api/tasks' && req.method === 'GET') {
           res.setHeader('Content-Type', 'application/json');
+          
+          const tickets = parseTicketsFromMarkdown(ticketsFilePath);
+          
+          let savedTasks: { nodes: SavedNode[]; edges: SavedEdge[] } = { nodes: [], edges: [] };
           if (fs.existsSync(tasksFilePath)) {
-            res.end(fs.readFileSync(tasksFilePath, 'utf8'));
-          } else {
-            res.end(JSON.stringify({ nodes: [], edges: [] }));
+            try {
+              savedTasks = JSON.parse(fs.readFileSync(tasksFilePath, 'utf8'));
+            } catch (e) {
+              console.error('Error parsing tasks.json:', e);
+            }
           }
+          
+          const savedNodesMap = new Map(savedTasks.nodes.map(n => [n.id, n]));
+          
+          const mergedNodes = tickets.map((t, idx) => {
+            const savedNode = savedNodesMap.get(t.id);
+            return {
+              id: t.id,
+              type: 'taskNode',
+              position: savedNode?.position || { x: 100 + (idx % 3) * 250, y: 80 + Math.floor(idx / 3) * 150 },
+              data: {
+                label: t.label,
+                priority: t.priority,
+                status: t.status,
+                assignee: t.assignee
+              }
+            };
+          });
+          
+          const validNodeIds = new Set(mergedNodes.map(n => n.id));
+          const filteredEdges = (savedTasks.edges || []).filter(
+            (e: SavedEdge) => validNodeIds.has(e.source) && validNodeIds.has(e.target)
+          );
+          
+          res.end(JSON.stringify({ nodes: mergedNodes, edges: filteredEdges }));
           return;
         }
 
@@ -188,7 +319,19 @@ export function devDashboardPlugin(): Plugin {
           });
           req.on('end', () => {
             try {
-              fs.writeFileSync(tasksFilePath, body, 'utf8');
+              const data = JSON.parse(body) as { nodes?: SavedNode[]; edges?: SavedEdge[] };
+              fs.writeFileSync(tasksFilePath, JSON.stringify(data, null, 2), 'utf8');
+              
+              const tickets = (data.nodes || []).map((n: SavedNode) => ({
+                id: n.id,
+                label: n.data?.label || '',
+                priority: n.data?.priority || 'medium',
+                status: n.data?.status || 'todo',
+                assignee: n.data?.assignee
+              }));
+              
+              writeTicketsToMarkdown(ticketsFilePath, tickets);
+              
               res.setHeader('Content-Type', 'application/json');
               res.end(JSON.stringify({ success: true }));
             } catch (err) {
@@ -219,6 +362,82 @@ export function devDashboardPlugin(): Plugin {
             const msg = err instanceof Error ? err.message : String(err);
             res.end(JSON.stringify({ error: msg }));
           }
+          return;
+        }
+
+        // GET /api/profiles
+        if (req.url === '/api/profiles' && req.method === 'GET') {
+          res.setHeader('Content-Type', 'application/json');
+          const mockProfilesPath = path.resolve(process.cwd(), 'profiles-mock.json');
+          let profiles = [];
+          if (fs.existsSync(mockProfilesPath)) {
+            try {
+              profiles = JSON.parse(fs.readFileSync(mockProfilesPath, 'utf8'));
+            } catch (e) {
+              console.error('Error parsing profiles-mock.json:', e);
+            }
+          }
+          res.end(JSON.stringify(profiles));
+          return;
+        }
+
+        // POST /api/profiles
+        if (req.url === '/api/profiles' && req.method === 'POST') {
+          let body = '';
+          req.on('data', chunk => {
+            body += chunk;
+          });
+          req.on('end', () => {
+            try {
+              const profiles = JSON.parse(body);
+              const mockProfilesPath = path.resolve(process.cwd(), 'profiles-mock.json');
+              fs.writeFileSync(mockProfilesPath, JSON.stringify(profiles, null, 2), 'utf8');
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true, profiles }));
+            } catch (err) {
+              res.statusCode = 500;
+              const msg = err instanceof Error ? err.message : String(err);
+              res.end(JSON.stringify({ error: msg }));
+            }
+          });
+          return;
+        }
+
+        // GET /api/progression
+        if (req.url === '/api/progression' && req.method === 'GET') {
+          res.setHeader('Content-Type', 'application/json');
+          const mockProgressionPath = path.resolve(process.cwd(), 'progression-mock.json');
+          let progression = {};
+          if (fs.existsSync(mockProgressionPath)) {
+            try {
+              progression = JSON.parse(fs.readFileSync(mockProgressionPath, 'utf8'));
+            } catch (e) {
+              console.error('Error parsing progression-mock.json:', e);
+            }
+          }
+          res.end(JSON.stringify(progression));
+          return;
+        }
+
+        // POST /api/progression
+        if (req.url === '/api/progression' && req.method === 'POST') {
+          let body = '';
+          req.on('data', chunk => {
+            body += chunk;
+          });
+          req.on('end', () => {
+            try {
+              const progression = JSON.parse(body);
+              const mockProgressionPath = path.resolve(process.cwd(), 'progression-mock.json');
+              fs.writeFileSync(mockProgressionPath, JSON.stringify(progression, null, 2), 'utf8');
+              res.setHeader('Content-Type', 'application/json');
+              res.end(JSON.stringify({ success: true, progression }));
+            } catch (err) {
+              res.statusCode = 500;
+              const msg = err instanceof Error ? err.message : String(err);
+              res.end(JSON.stringify({ error: msg }));
+            }
+          });
           return;
         }
 

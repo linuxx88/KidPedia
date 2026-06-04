@@ -3,7 +3,6 @@ import { type SupportedLanguage } from '../locales';
 import { useSettingsStore } from './useSettingsStore';
 import { useProgressionStore } from './useProgressionStore';
 
-
 export interface Profile {
   id: string;
   name: string;
@@ -11,6 +10,7 @@ export interface Profile {
   gender: 'boy' | 'girl';
   theme: 'light' | 'dark';
   language: SupportedLanguage;
+  updatedAt?: number;
 }
 
 export interface ProfileState {
@@ -23,6 +23,7 @@ export interface ProfileState {
   selectProfile: (id: string) => void;
   updateProfile: (id: string, updates: Partial<Omit<Profile, 'id'>>) => void;
   deleteProfile: (id: string) => void;
+  sync: () => Promise<void>;
   reset: () => void;
 }
 
@@ -68,7 +69,7 @@ const generateUUID = (): string => {
   });
 };
 
-export const useProfileStore = create<ProfileState>((set) => ({
+export const useProfileStore = create<ProfileState>((set, get) => ({
   ...getInitialState(),
 
   addProfile: (name, avatar, gender, language = 'fr') => {
@@ -79,6 +80,7 @@ export const useProfileStore = create<ProfileState>((set) => ({
       gender,
       theme: 'light',
       language,
+      updatedAt: Date.now(),
     };
     
     set((state) => {
@@ -93,6 +95,7 @@ export const useProfileStore = create<ProfileState>((set) => ({
         isFirstVisit: false,
       };
     });
+    get().sync().catch(console.error);
     return newProfile;
   },
 
@@ -113,7 +116,7 @@ export const useProfileStore = create<ProfileState>((set) => ({
 
   updateProfile: (id, updates) => {
     set((state) => {
-      const newProfiles = state.profiles.map(p => p.id === id ? { ...p, ...updates } : p);
+      const newProfiles = state.profiles.map(p => p.id === id ? { ...p, ...updates, updatedAt: Date.now() } : p);
       localStorage.setItem(STORAGE_KEY_INDEX, JSON.stringify(newProfiles));
       const newActiveProfile = newProfiles.find(p => p.id === state.activeProfileId) || null;
       
@@ -122,9 +125,13 @@ export const useProfileStore = create<ProfileState>((set) => ({
         activeProfile: newActiveProfile,
       };
     });
+    get().sync().catch(console.error);
   },
 
   deleteProfile: (id) => {
+    import('../utils/syncService').then(({ trackDeletedProfileId }) => {
+      trackDeletedProfileId(id);
+    }).catch(console.error);
     set((state) => {
       const newProfiles = state.profiles.filter(p => p.id !== id);
       localStorage.setItem(STORAGE_KEY_INDEX, JSON.stringify(newProfiles));
@@ -142,6 +149,22 @@ export const useProfileStore = create<ProfileState>((set) => ({
         activeProfile: newProfiles.find(p => p.id === newActiveId) || null,
         isFirstVisit: newProfiles.length === 0,
       };
+    });
+    get().sync().catch(console.error);
+  },
+
+  sync: async () => {
+    const localProfiles = get().profiles;
+    const { syncAll } = await import('../utils/syncService');
+    await syncAll(localProfiles, (syncedProfiles) => {
+      localStorage.setItem(STORAGE_KEY_INDEX, JSON.stringify(syncedProfiles));
+      const activeId = get().activeProfileId;
+      const active = syncedProfiles.find(p => p.id === activeId) || null;
+      set({
+        profiles: syncedProfiles,
+        activeProfile: active,
+        isFirstVisit: syncedProfiles.length === 0,
+      });
     });
   },
 

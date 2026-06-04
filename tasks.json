@@ -1,25 +1,11 @@
 {
   "nodes": [
     {
-      "id": "KP-1",
-      "type": "taskNode",
-      "position": {
-        "x": 100,
-        "y": 80
-      },
-      "data": {
-        "label": "Optimisation des Images (WebP)",
-        "priority": "medium",
-        "status": "done",
-        "assignee": "marc"
-      }
-    },
-    {
       "id": "KP-2",
       "type": "taskNode",
       "position": {
-        "x": 350,
-        "y": 80
+        "x": 90.87261181872039,
+        "y": 68.38862559241706
       },
       "data": {
         "label": "Musique d'ambiance",
@@ -31,12 +17,12 @@
       "id": "KP-3",
       "type": "taskNode",
       "position": {
-        "x": 600,
-        "y": 80
+        "x": 344.54976303317534,
+        "y": 50.97156398104265
       },
       "data": {
         "label": "Verrouillage de Profil Kid-Safe",
-        "priority": "high",
+        "priority": "low",
         "status": "todo",
         "assignee": "Marc"
       }
@@ -56,16 +42,16 @@
       }
     },
     {
-      "id": "KP-5",
+      "id": "KP-6",
       "type": "taskNode",
       "position": {
-        "x": 350.4615988685073,
-        "y": 215.03187772161837
+        "x": 349.00321051174967,
+        "y": 238.68689619872617
       },
       "data": {
-        "label": "Continuer modularisation fichier 400 ligne +",
-        "priority": "high",
-        "status": "done",
+        "label": "rajout de recompense",
+        "priority": "medium",
+        "status": "todo",
         "assignee": "dev"
       }
     }

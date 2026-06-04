@@ -6,8 +6,7 @@ Vous pouvez consulter l'historique de tous les tickets déjà résolus et clôtu
 
 ---
 
-- [x] **[KP-1]** Optimisation des Images (WebP) | priorité: moyenne | assigné: marc
 - [ ] **[KP-2]** Musique d'ambiance | priorité: basse
-- [ ] **[KP-3]** Verrouillage de Profil Kid-Safe | priorité: haute | assigné: Marc
+- [ ] **[KP-3]** Verrouillage de Profil Kid-Safe | priorité: basse | assigné: Marc
 - [ ] **[KP-4]** Variabilité Dynamique des Effets Sonores | priorité: basse | assigné: Sophie
-- [x] **[KP-5]** Continuer modularisation fichier 400 ligne + | priorité: haute | assigné: dev
+- [ ] **[KP-6]** rajout de recompense | priorité: moyenne | assigné: dev
