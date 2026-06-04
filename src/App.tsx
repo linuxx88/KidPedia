@@ -6,7 +6,7 @@ import { useSettingsStore } from './store/useSettingsStore'
 import { ProfileSelection } from './features/profile'
 import { ToastContainer } from './components/UI/Toast/ToastContainer'
 import { ProgressionListener } from './components/Layout/ProgressionListener'
-import { ParentalGate } from './features/parents/components/ParentalGate/ParentalGate'
+import { ParentalGate } from './features/parents'
 
 import { PWAPrompt } from './components/UI/PWAPrompt'
 import ScrollToTop from './components/UI/ScrollToTop'

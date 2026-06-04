@@ -8,7 +8,7 @@ import { useGiftStore } from '../../store/useGiftStore';
 import { useEnvironmentStore } from '../../store/useEnvironmentStore';
 import { useQuizChampionshipStore } from '../../store/useQuizChampionshipStore';
 import { useQuizStore } from '../../store/useQuizStore';
-import { ParentalGate } from '../../features/parents/components/ParentalGate/ParentalGate';
+import { ParentalGate } from '../../features/parents';
 import styles from './ResetButton.module.css';
 
 interface ResetButtonProps {

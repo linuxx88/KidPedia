@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import { safariMap } from '../data/gameData';
 import { encyclopedia, type Topic } from '../data/topics';
-import { DICE_COLORS, type DiceColor } from '../features/game/components/DiceRoller/DiceRoller.types';
+import { DICE_COLORS, type DiceColor } from '../features/game';
 import { SAFARI_GEOMETRY } from '../constants/geometry';
 
 type GameState = 'IDLE' | 'ROLLING' | 'MOVING' | 'EVENT' | 'VICTORY';
