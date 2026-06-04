@@ -1,0 +1,72 @@
+{
+  "pterodactyle": [
+    {
+      "question": {
+        "fr": "Que mangeait principalement le Ptérodactyle ?",
+        "en": "What did the Pterodactyl mainly eat?"
+      },
+      "options": {
+        "fr": ["Des fruits", "Du poisson", "Du fromage"],
+        "en": ["Fruit", "Fish", "Cheese"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "À quel groupe d'animaux appartenait le Ptérodactyle ?",
+        "en": "Which group of animals did the Pterodactyl belong to?"
+      },
+      "options": {
+        "fr": ["Les dinosaures", "Les reptiles volants", "Les oiseaux modernes"],
+        "en": ["Dinosaurs", "Flying reptiles", "Modern birds"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "À quoi ressemblaient les ailes du Ptérodactyle ?",
+        "en": "What were the Pterodactyl's wings like?"
+      },
+      "options": {
+        "fr": ["Des ailes en plumes", "Des ailes de peau comme les chauves-souris", "Des ailes en métal"],
+        "en": ["Feathered wings", "Skin wings like bats", "Metal wings"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "mosasaure": [
+    {
+      "question": {
+        "fr": "Où vivait le Mosasaure ?",
+        "en": "Where did the Mosasaurus live?"
+      },
+      "options": {
+        "fr": ["Dans la jungle", "Dans l'océan", "Sur les montagnes"],
+        "en": ["In the jungle", "In the ocean", "On mountains"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Qu'est-ce que le Mosasaure avait pour nager à la place des pattes ?",
+        "en": "What did the Mosasaurus have to swim instead of legs?"
+      },
+      "options": {
+        "fr": ["Des palmes orange", "Des nageoires et une queue de requin", "Des ailes de canard"],
+        "en": ["Orange flippers", "Fins and a shark tail", "Duck wings"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Comme quel autre reptile volant le Mosasaure n'était pas techniquement un dinosaure ?",
+        "en": "Like which other flying reptile was the Mosasaurus not technically a dinosaur?"
+      },
+      "options": {
+        "fr": ["Le T-Rex", "Le Ptérodactyle", "Le Diplodocus"],
+        "en": ["The T-Rex", "The Pterodactyl", "The Diplodocus"]
+      },
+      "correctAnswer": 1
+    }
+  ]
+}

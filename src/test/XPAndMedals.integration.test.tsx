@@ -31,6 +31,7 @@ describe('Integration: XP and Medals System', () => {
   beforeEach(() => {
     resetAllStores()
     vi.clearAllMocks()
+    vi.spyOn(Math, 'random').mockReturnValue(0)
   })
 
   it('permet de gagner 1000 XP avec une médaille d\'Or', async () => {

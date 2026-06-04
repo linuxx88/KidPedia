@@ -1,0 +1,80 @@
+{
+  "poissons-sans-machoires": [
+    {
+      "question": {
+        "fr": "Comment les poissons sans mâchoires mangeaient-ils ?",
+        "en": "How did jawless fish eat?"
+      },
+      "options": {
+        "fr": ["En croquant avec des dents pointues", "En aspirant leur nourriture", "En utilisant des bras articulés"],
+        "en": ["By biting with sharp teeth", "By sucking their food", "By using jointed arms"]
+      },
+      "correctAnswer": 1,
+      "hint": {
+        "fr": "Comme ils n'avaient pas de mâchoire, ils devaient aspirer !",
+        "en": "Since they had no jaw, they had to suck!"
+      }
+    },
+    {
+      "question": {
+        "fr": "De quoi était faite la colonne vertébrale de ces premiers poissons ?",
+        "en": "What was the spine of these first fish made of?"
+      },
+      "options": {
+        "fr": ["De fer", "Toute molle (en cartilage)", "De pierre très dure"],
+        "en": ["Iron", "Completely soft (cartilage)", "Very hard stone"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Quel poisson moderne descend de ces poissons primitifs ?",
+        "en": "Which modern fish descends from these primitive fish?"
+      },
+      "options": {
+        "fr": ["Le requin", "La lamproie", "Le poisson-rouge"],
+        "en": ["The shark", "The lamprey", "The goldfish"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "poissons-ecailles": [
+    {
+      "question": {
+        "fr": "Qu'est-ce qui permet aux poissons à écailles de nager plus vite ?",
+        "en": "What allows scaly fish to swim faster?"
+      },
+      "options": {
+        "fr": ["Des plumes colorées", "Leurs écailles glissantes et leurs nageoires", "Une carapace lourde en pierre"],
+        "en": ["Color feathers", "Their slippery scales and fins", "A heavy stone shell"]
+      },
+      "correctAnswer": 1,
+      "hint": {
+        "fr": "C'est tout doux, glissant et cela les aide à se propulser dans l'eau !",
+        "en": "It is smooth, slippery and helps them propel themselves through the water!"
+      }
+    },
+    {
+      "question": {
+        "fr": "Qu'est-ce que les poissons ont inventé en plus des écailles ?",
+        "en": "What did fish invent in addition to scales?"
+      },
+      "options": {
+        "fr": ["Des bras", "Des mâchoires solides avec des dents", "Des cornes"],
+        "en": ["Arms", "Strong jaws with teeth", "Horns"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Comment grandissent les écailles des poissons ?",
+        "en": "How do fish scales grow?"
+      },
+      "options": {
+        "fr": ["Elles ne grandissent pas", "Tout au long de leur vie", "Seulement le premier jour"],
+        "en": ["They don't grow", "Throughout their entire life", "Only on the first day"]
+      },
+      "correctAnswer": 1
+    }
+  ]
+}

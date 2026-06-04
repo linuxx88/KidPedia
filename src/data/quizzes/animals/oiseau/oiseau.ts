@@ -1,16 +1,16 @@
 import { type Quiz } from '../../../topics/types';
 import { type TopicId } from '../../../../types/domain';
+import oiseauQuizzesData from './oiseau.json';
 
-export const oiseauQuizzes: Partial<Record<TopicId, Quiz>> = {
-  pingouin: {
-    question: {
-      fr: 'Est-ce que le manchot peut voler dans le ciel ?',
-      en: 'Can the penguin fly in the sky?',
-    },
-    options: {
-      fr: ['Oui', 'Non, il nage', 'Seulement bébé'],
-      en: ['Yes', 'No, it swims', 'Only as a baby'],
-    },
-    correctAnswer: 1,
+const typedOiseauQuizzes = oiseauQuizzesData as Record<string, Quiz[]>;
+
+export const oiseauQuizBanks: Partial<Record<TopicId, Quiz[]>> = {};
+export const oiseauQuizzes: Partial<Record<TopicId, Quiz>> = {};
+
+Object.entries(typedOiseauQuizzes).forEach(([key, list]) => {
+  const topicId = key as TopicId;
+  oiseauQuizBanks[topicId] = list;
+  if (list.length > 0) {
+    oiseauQuizzes[topicId] = list[0];
   }
-};
+});

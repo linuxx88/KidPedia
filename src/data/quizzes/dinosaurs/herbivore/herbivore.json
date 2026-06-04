@@ -1,0 +1,247 @@
+{
+  "triceratops": [
+    {
+      "question": {
+        "fr": "Que mangeait le Tricératops ?",
+        "en": "What did the Triceratops eat?"
+      },
+      "options": {
+        "fr": ["De la viande", "Des plantes", "Des glaces"],
+        "en": ["Meat", "Plants", "Ice cream"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Combien de cornes le Tricératops avait-il sur sa tête ?",
+        "en": "How many horns did the Triceratops have on its head?"
+      },
+      "options": {
+        "fr": ["Une seule", "Deux cornes", "Trois cornes"],
+        "en": ["Only one", "Two horns", "Three horns"]
+      },
+      "correctAnswer": 2
+    },
+    {
+      "question": {
+        "fr": "À quoi servait la collerette en os derrière la tête du Tricératops ?",
+        "en": "What was the bony frill behind the Triceratops' head for?"
+      },
+      "options": {
+        "fr": ["À faire joli", "À se protéger des prédateurs", "À voler dans le ciel"],
+        "en": ["To look pretty", "To protect itself from predators", "To fly in the sky"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "stegosaure": [
+    {
+      "question": {
+        "fr": "Quelle était la taille du cerveau du Stégosaure ?",
+        "en": "How big was the Stegosaurus's brain?"
+      },
+      "options": {
+        "fr": ["Gros comme un ballon", "Gros comme une noix", "Gros comme une pomme"],
+        "en": ["Big as a ball", "Big as a walnut", "Big as an apple"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Qu'est-ce que le Stégosaure avait sur son dos ?",
+        "en": "What did the Stegosaurus have on its back?"
+      },
+      "options": {
+        "fr": ["Des plaques osseuses", "Des ailes en plumes", "Une selle de cowboy"],
+        "en": ["Bony plates", "Feathered wings", "A cowboy saddle"]
+      },
+      "correctAnswer": 0
+    },
+    {
+      "question": {
+        "fr": "Comment le Stégosaure se défendait-il contre les prédateurs ?",
+        "en": "How did the Stegosaurus defend itself against predators?"
+      },
+      "options": {
+        "fr": ["En crachant du feu", "Avec les pointes au bout de sa queue", "En courant très vite"],
+        "en": ["By breathing fire", "With the spikes at the end of its tail", "By running very fast"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "brachiosaure": [
+    {
+      "question": {
+        "fr": "Jusqu'à quel étage d'un immeuble le Brachiosaure pouvait-il regarder ?",
+        "en": "Up to which floor of a building could the Brachiosaurus look?"
+      },
+      "options": {
+        "fr": ["Le 1er étage", "Le 4ème étage", "Le 10ème étage"],
+        "en": ["1st floor", "4th floor", "10th floor"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Qu'est-ce qui était plus long chez le Brachiosaure ?",
+        "en": "What was longer on the Brachiosaurus?"
+      },
+      "options": {
+        "fr": ["Ses pattes avant", "Ses pattes arrière", "Ses oreilles"],
+        "en": ["Its front legs", "Its back legs", "Its ears"]
+      },
+      "correctAnswer": 0
+    },
+    {
+      "question": {
+        "fr": "Que mangeait principalement le Brachiosaure ?",
+        "en": "What did the Brachiosaurus mainly eat?"
+      },
+      "options": {
+        "fr": ["D'autres dinosaures", "Des plantes et des feuilles d'arbres", "Du poisson"],
+        "en": ["Other dinosaurs", "Plants and tree leaves", "Fish"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "ankylosaure": [
+    {
+      "question": {
+        "fr": "Qu'est-ce que l'Ankylosaure avait au bout de sa queue ?",
+        "en": "What did the Ankylosaurus have at the end of its tail?"
+      },
+      "options": {
+        "fr": ["Une fleur", "Une massue d'os", "Un sifflet"],
+        "en": ["A flower", "A bone club", "A whistle"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Pourquoi l'Ankylosaure était-il comme un char d'assaut vivant ?",
+        "en": "Why was the Ankylosaurus like a living tank?"
+      },
+      "options": {
+        "fr": ["Il crachait de la fumée", "Son corps était couvert de plaques osseuses solides", "Il avait des chenilles à la place des pattes"],
+        "en": ["It breathed smoke", "Its body was covered in solid bony plates", "It had tracks instead of legs"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Quelle partie surprenante de l'Ankylosaure était aussi faite d'os pour le protéger ?",
+        "en": "Which surprising part of the Ankylosaurus was also made of bone to protect it?"
+      },
+      "options": {
+        "fr": ["Ses paupières", "Sa langue", "Ses oreilles"],
+        "en": ["Its eyelids", "Its tongue", "Its ears"]
+      },
+      "correctAnswer": 0
+    }
+  ],
+  "diplodocus": [
+    {
+      "question": {
+        "fr": "Comment le Diplodocus utilisait-il sa queue ?",
+        "en": "How did the Diplodocus use its tail?"
+      },
+      "options": {
+        "fr": ["Pour nager", "Comme un fouet", "Pour faire coucou"],
+        "en": ["To swim", "Like a whip", "To wave hello"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Quelle était environ la taille d'un Diplodocus ?",
+        "en": "How long was a Diplodocus approximately?"
+      },
+      "options": {
+        "fr": ["La taille d'un chat", "La longueur de deux grands bus mis bout à bout", "La taille d'un vélo"],
+        "en": ["The size of a cat", "The length of two large buses put end to end", "The size of a bicycle"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "À quoi servait le très long cou du Diplodocus ?",
+        "en": "What did the Diplodocus use its very long neck for?"
+      },
+      "options": {
+        "fr": ["À boire dans les nuages", "À attraper les feuilles en haut des arbres", "À chanter plus fort"],
+        "en": ["To drink from the clouds", "To reach leaves from very high trees", "To sing louder"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "parasaurolophus": [
+    {
+      "question": {
+        "fr": "À quoi servait la crête du Parasaurolophus ?",
+        "en": "What was the Parasaurolophus's crest for?"
+      },
+      "options": {
+        "fr": ["À porter un chapeau", "À faire des bruits comme une trompette", "À ranger de la nourriture"],
+        "en": ["To wear a hat", "To make noises like a trumpet", "To store food"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Comment était la crête sur la tête du Parasaurolophus ?",
+        "en": "What was the crest on the Parasaurolophus's head like?"
+      },
+      "options": {
+        "fr": ["Pleine d'eau", "Creuse pour laisser passer de l'air", "En plume toute douce"],
+        "en": ["Full of water", "Hollow to let air pass", "Soft feathered"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Combien de mètres pouvait mesurer la crête du Parasaurolophus ?",
+        "en": "How many meters long could the Parasaurolophus's crest be?"
+      },
+      "options": {
+        "fr": ["10 centimètres", "Presque 2 mètres", "50 mètres"],
+        "en": ["10 centimeters", "Almost 2 meters", "50 meters"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "iguanodon": [
+    {
+      "question": {
+        "fr": "Qu'est-ce que l'Iguanodon avait de spécial sur ses mains ?",
+        "en": "What was special about the Iguanodon's hands?"
+      },
+      "options": {
+        "fr": ["Des gants", "Un pouce en forme d'éperon pointu", "Des nageoires"],
+        "en": ["Gloves", "A sharp spur-like thumb", "Flippers"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Pourquoi l'Iguanodon est-il célèbre pour l'histoire des sciences ?",
+        "en": "Why is the Iguanodon famous for the history of science?"
+      },
+      "options": {
+        "fr": ["C'est le premier dinosaure à être allé sur la lune", "C'est l'un des premiers découverts par les scientifiques", "C'est le plus petit dinosaure du monde"],
+        "en": ["It's the first dinosaur to go to the moon", "It's one of the first discovered by scientists", "It's the smallest dinosaur in the world"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Comment l'Iguanodon pouvait-il marcher ?",
+        "en": "How could the Iguanodon walk?"
+      },
+      "options": {
+        "fr": ["Seulement sur ses deux pattes arrière", "Sur ses deux ou sur ses quatre pattes", "Il rampait comme un serpent"],
+        "en": ["Only on its two back legs", "On either two or four legs", "It crawled like a snake"]
+      },
+      "correctAnswer": 1
+    }
+  ]
+}

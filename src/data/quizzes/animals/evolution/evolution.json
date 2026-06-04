@@ -1,0 +1,158 @@
+{
+  "sortie-des-eaux": [
+    {
+      "question": {
+        "fr": "En quoi les nageoires des premiers poissons se sont-elles transformées ?",
+        "en": "What did the fins of the first fish transform into?"
+      },
+      "options": {
+        "fr": ["En ailes pour s'envoler", "En petites pattes solides pour ramper", "En bulles de savon"],
+        "en": ["Into wings to fly away", "Into tiny strong legs to crawl", "Into soap bubbles"]
+      },
+      "correctAnswer": 1,
+      "hint": {
+        "fr": "Elles les ont aidés à marcher sur le sol ferme !",
+        "en": "They helped them walk on the solid ground!"
+      }
+    },
+    {
+      "question": {
+        "fr": "Comment s'appelle l'ancêtre poisson célèbre ayant fait les premiers pas sur terre ?",
+        "en": "What is the famous ancestor fish that took the first steps on land called?"
+      },
+      "options": {
+        "fr": ["Le T-Rex", "Le Tiktaalik", "Le Dauphin"],
+        "en": ["The T-Rex", "Tiktaalik", "The Dolphin"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Il y a combien d'années a eu lieu la sortie des eaux ?",
+        "en": "How many million years ago did the exit from the waters happen?"
+      },
+      "options": {
+        "fr": ["10 ans", "375 millions d'années", "5 millions d'années"],
+        "en": ["10 years", "375 million years", "5 million years"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "insectes-geants": [
+    {
+      "question": {
+        "fr": "Quelle était la taille de la libellule géante Meganeura ?",
+        "en": "What was the size of the giant Meganeura dragonfly?"
+      },
+      "options": {
+        "fr": ["Comme une mouche", "De la taille d'un grand oiseau ou aigle", "Aussi grande qu'une maison"],
+        "en": ["Like a fly", "The size of a large bird or eagle", "As big as a house"]
+      },
+      "correctAnswer": 1,
+      "hint": {
+        "fr": "Elle avait des ailes très grandes pour voler comme un aigle !",
+        "en": "It had very large wings to fly like an eagle!"
+      }
+    },
+    {
+      "question": {
+        "fr": "Pourquoi les insectes sont-ils devenus si géants à cette époque ?",
+        "en": "Why did insects become so giant at that time?"
+      },
+      "options": {
+        "fr": ["À cause du chocolat", "Grâce à la grande quantité d'oxygène dans l'air", "Parce qu'ils mangeaient des dinosaures"],
+        "en": ["Because of chocolate", "Thanks to the large amount of oxygen in the air", "Because they ate dinosaurs"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Quelle était la taille des mille-pattes de cette époque ?",
+        "en": "How long were the millipedes of that time?"
+      },
+      "options": {
+        "fr": ["Comme un ver de terre", "Aussi longs que des voitures", "De 10 mètres de haut"],
+        "en": ["Like an earthworm", "As long as cars", "10 meters high"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "peau-reptile": [
+    {
+      "question": {
+        "fr": "À quoi sert la peau écailleuse des reptiles ?",
+        "en": "What is the scaly skin of reptiles for?"
+      },
+      "options": {
+        "fr": ["À changer de couleur", "À retenir l'eau dans leur corps pour ne pas sécher", "À fabriquer du parfum"],
+        "en": ["To change color", "To keep water in their body so they do not dry out", "To make perfume"]
+      },
+      "correctAnswer": 1,
+      "hint": {
+        "fr": "C'est comme un bouclier imperméable qui garde l'eau à l'intérieur !",
+        "en": "It is like a waterproof shield that keeps the water inside!"
+      }
+    },
+    {
+      "question": {
+        "fr": "De quoi sont faites les écailles des reptiles ?",
+        "en": "What are reptile scales made of?"
+      },
+      "options": {
+        "fr": ["De pierre", "De kératine (comme nos cheveux et ongles)", "De feuilles d'arbres"],
+        "en": ["Stone", "Keratin (like our hair and nails)", "Tree leaves"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Où cette peau imperméable a-t-elle permis aux reptiles de vivre ?",
+        "en": "Where did this waterproof skin allow reptiles to live?"
+      },
+      "options": {
+        "fr": ["Seulement dans l'eau", "Dans les déserts et milieux secs", "Dans les nuages"],
+        "en": ["Only in water", "In deserts and dry environments", "In clouds"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "oeuf-solide": [
+    {
+      "question": {
+        "fr": "Quel est le grand avantage de l'œuf à coquille dure ?",
+        "en": "What is the great advantage of the hard-shelled egg?"
+      },
+      "options": {
+        "fr": ["Il peut rouler comme un ballon", "Il permet de pondre sur terre loin de l'eau", "Il est multicolore"],
+        "en": ["It can roll like a ball", "It allows laying on land away from water", "It is multicolored"]
+      },
+      "correctAnswer": 1,
+      "hint": {
+        "fr": "Grâce à lui, plus besoin d'aller mouiller ses œufs dans les étangs !",
+        "en": "Thanks to it, there's no need to wet the eggs in ponds anymore!"
+      }
+    },
+    {
+      "question": {
+        "fr": "Qu'y a-t-il à l'intérieur de l'œuf solide pour aider le bébé ?",
+        "en": "What is inside the solid egg to help the baby?"
+      },
+      "options": {
+        "fr": ["Des jouets", "Sa propre réserve d'eau et de nourriture", "De la laine"],
+        "en": ["Toys", "Its own supply of water and food", "Wool"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Qu'est-ce que cette invention de l'œuf solide a permis aux animaux ?",
+        "en": "What did this invention of the solid egg allow animals to do?"
+      },
+      "options": {
+        "fr": ["De voler plus haut", "De coloniser toute la Terre ferme", "De parler aux plantes"],
+        "en": ["To fly higher", "To colonize the entire dry land", "To talk to plants"]
+      },
+      "correctAnswer": 1
+    }
+  ]
+}

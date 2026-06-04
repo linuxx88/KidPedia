@@ -1,0 +1,197 @@
+{
+  "meduses-eponges": [
+    {
+      "question": {
+        "fr": "Qu'est-ce qui manque aux méduses et aux éponges ?",
+        "en": "What do jellyfish and sponges lack?"
+      },
+      "options": {
+        "fr": ["Des dents de vampire", "Un squelette et des os", "De l'eau autour d'elles"],
+        "en": ["Vampire teeth", "A skeleton and bones", "Water around them"]
+      },
+      "correctAnswer": 1,
+      "hint": {
+        "fr": "Elles sont toutes molles parce qu'elles n'ont pas d'os !",
+        "en": "They are completely soft because they have no bones!"
+      }
+    },
+    {
+      "question": {
+        "fr": "De quoi est principalement constitué le corps d'une méduse ?",
+        "en": "What is a jellyfish's body mostly made of?"
+      },
+      "options": {
+        "fr": ["De sable", "D'eau (environ 95%)", "De plastique"],
+        "en": ["Sand", "Water (about 95%)", "Plastic"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Où vivent les éponges de mer ?",
+        "en": "Where do sea sponges live?"
+      },
+      "options": {
+        "fr": ["Elles volent dans le vent", "Fixées au fond de la mer", "Sur la plage"],
+        "en": ["They fly in the wind", "Fixed to the seabed", "On the beach"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "trilobites": [
+    {
+      "question": {
+        "fr": "En combien de parties la carapace des trilobites était-elle séparée ?",
+        "en": "Into how many parts was the trilobite shell split?"
+      },
+      "options": {
+        "fr": ["Deux parties", "Trois parties", "Dix parties"],
+        "en": ["Two parts", "Three parts", "Ten parts"]
+      },
+      "correctAnswer": 1,
+      "hint": {
+        "fr": "Pense au début de leur nom : 'tri'-lobites !",
+        "en": "Think of the beginning of their name: 'tri'-lobites!"
+      }
+    },
+    {
+      "question": {
+        "fr": "À quelle époque vivaient les trilobites ?",
+        "en": "When did trilobites live?"
+      },
+      "options": {
+        "fr": ["De nos jours", "Bien avant les dinosaures !", "Pendant l'époque du Moyen Âge"],
+        "en": ["Nowadays", "Long before dinosaurs!", "During the Middle Ages"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Que savaient faire les trilobites pour se protéger du danger ?",
+        "en": "What could trilobites do to protect themselves from danger?"
+      },
+      "options": {
+        "fr": ["Voler dans le ciel", "Se rouler en boule comme des cloportes", "Cracher du venin"],
+        "en": ["Fly in the sky", "Roll into a ball like pillbugs", "Spit venom"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "vers-marins": [
+    {
+      "question": {
+        "fr": "Où vivent principalement les vers marins ?",
+        "en": "Where do marine worms mainly live?"
+      },
+      "options": {
+        "fr": ["Au fond de la mer dans le sable", "En haut des arbres", "Sur les nuages"],
+        "en": ["At the bottom of the sea in the sand", "At the top of trees", "On clouds"]
+      },
+      "correctAnswer": 0,
+      "hint": {
+        "fr": "Ils adorent ramper tout en bas, là où se trouve le sable mouillé.",
+        "en": "They love to crawl all the way down, where the wet sand is."
+      }
+    },
+    {
+      "question": {
+        "fr": "Qu'est-ce que certains vers marins ont d'amusant sur la tête ?",
+        "en": "What funny thing do some marine worms have on their head?"
+      },
+      "options": {
+        "fr": ["Un chapeau melon", "Des plumes colorées pour respirer", "Des lunettes de soleil"],
+        "en": ["A bowler hat", "Colorful feathers to breathe", "Sunglasses"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Que font certains vers marins dans la nuit ?",
+        "en": "What do some marine worms do at night?"
+      },
+      "options": {
+        "fr": ["Ils parlent aux poissons", "Ils brillent dans le noir", "Ils sortent de l'océan"],
+        "en": ["They talk to fish", "They glow in the dark", "They leave the ocean"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "coquillages-primitifs": [
+    {
+      "question": {
+        "fr": "Pourquoi les petits animaux ont-ils fabriqué des coquillages ?",
+        "en": "Why did small animals make shells?"
+      },
+      "options": {
+        "fr": ["Pour faire de la musique", "Pour se protéger des prédateurs", "Pour flotter comme des ballons"],
+        "en": ["To make music", "To protect themselves from predators", "To float like balloons"]
+      },
+      "correctAnswer": 1,
+      "hint": {
+        "fr": "C'est comme un bouclier très dur pour se cacher !",
+        "en": "It is like a very hard shield to hide behind!"
+      }
+    },
+    {
+      "question": {
+        "fr": "De quelle matière est faite la coquille d'un coquillage ?",
+        "en": "What material is a shell made of?"
+      },
+      "options": {
+        "fr": ["De plastique", "De calcaire dur", "De chocolat"],
+        "en": ["Plastic", "Hard calcium", "Chocolate"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Quelle forme géométrique parfaite avaient certains coquillages primitifs ?",
+        "en": "What perfect geometric shape did some primitive shells have?"
+      },
+      "options": {
+        "fr": ["Un carré", "Une spirale", "Un triangle"],
+        "en": ["A square", "A spiral", "A triangle"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "anomalocaris": [
+    {
+      "question": {
+        "fr": "Que signifie le nom 'Anomalocaris' ?",
+        "en": "What does the name 'Anomalocaris' mean?"
+      },
+      "options": {
+        "fr": ["Poisson géant", "Crevette bizarre", "Coquillage magique"],
+        "en": ["Giant fish", "Strange shrimp", "Magical shell"]
+      },
+      "correctAnswer": 1,
+      "hint": {
+        "fr": "C'est une petite bête de mer très connue, mais version très bizarre !",
+        "en": "It is a very famous little sea creature, but a very strange version!"
+      }
+    },
+    {
+      "question": {
+        "fr": "Qu'utilisait l'Anomalocaris pour attraper ses proies ?",
+        "en": "What did the Anomalocaris use to grab its prey?"
+      },
+      "options": {
+        "fr": ["Ses pieds", "Deux bras articulés devant sa bouche", "Sa longue langue"],
+        "en": ["Its feet", "Two jointed arms in front of its mouth", "Its long tongue"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Où l'Anomalocaris vivait-il ?",
+        "en": "Where did the Anomalocaris live?"
+      },
+      "options": {
+        "fr": ["Sur terre", "Dans les océans préhistoriques", "Dans le ciel"],
+        "en": ["On land", "In prehistoric oceans", "In the sky"]
+      },
+      "correctAnswer": 1
+    }
+  ]
+}

@@ -1,0 +1,251 @@
+{
+  "elephant": [
+    {
+      "question": {
+        "fr": "Qu'est-ce que les éléphants ne savent pas faire ?",
+        "en": "What can elephants not do?"
+      },
+      "options": {
+        "fr": ["Nager", "Manger avec leur nez", "Sauter"],
+        "en": ["Swim", "Eat with their nose", "Jump"]
+      },
+      "correctAnswer": 2,
+      "hint": {
+        "fr": "Pense à tes pieds... Ils sont très lourds et ne peuvent pas décoller du sol en même temps !",
+        "en": "Think about your feet... They are very heavy and cannot leave the ground at the same time!"
+      }
+    },
+    {
+      "question": {
+        "fr": "Comment s'appelle le long nez de l'éléphant ?",
+        "en": "What is the long nose of an elephant called?"
+      },
+      "options": {
+        "fr": ["Une trompette", "Une trompe", "Une paille"],
+        "en": ["A trumpet", "A trunk", "A straw"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Quel trait de caractère rend les éléphants célèbres ?",
+        "en": "What character trait makes elephants famous?"
+      },
+      "options": {
+        "fr": ["Leur mauvaise humeur", "Leur excellente mémoire", "Leur vitesse de course"],
+        "en": ["Their bad mood", "Their excellent memory", "Their running speed"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "singe": [
+    {
+      "question": {
+        "fr": "Comment les singes font-ils pour tenir en équilibre dans les arbres ?",
+        "en": "How do monkeys balance in trees?"
+      },
+      "options": {
+        "fr": ["Avec des chaussures spéciales", "Grâce à leur queue", "En tenant un parapluie"],
+        "en": ["With special shoes", "Thanks to their tail", "By holding an umbrella"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Qu'utilisent souvent les singes pour ouvrir des noix ?",
+        "en": "What do monkeys often use to open nuts?"
+      },
+      "options": {
+        "fr": ["Des marteaux en métal", "Des outils comme des pierres", "Leur nez"],
+        "en": ["Metal hammers", "Tools like stones", "Their nose"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Où vivent la plupart des singes ?",
+        "en": "Where do most monkeys live?"
+      },
+      "options": {
+        "fr": ["Dans des châteaux", "Dans les arbres des forêts tropicales", "Dans le désert"],
+        "en": ["In castles", "In trees in tropical forests", "In the desert"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "lapin": [
+    {
+      "question": {
+        "fr": "Qu'est-ce qui ne s'arrête jamais de pousser chez le lapin ?",
+        "en": "What never stops growing in a rabbit?"
+      },
+      "options": {
+        "fr": ["Ses oreilles", "Ses dents", "Sa queue"],
+        "en": ["Its ears", "Its teeth", "Its tail"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Où vivent les lapins sauvages ?",
+        "en": "Where do wild rabbits live?"
+      },
+      "options": {
+        "fr": ["Dans des houses en bois", "Dans des terriers sous la terre", "Dans les nids d'oiseaux"],
+        "en": ["In wooden houses", "In burrows underground", "In birds' nests"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "À quoi servent principalement les grandes oreilles du lapin ?",
+        "en": "What do the rabbit's large ears mainly do?"
+      },
+      "options": {
+        "fr": ["À voler", "À entendre le moindre danger", "À faire joli"],
+        "en": ["To fly", "To hear the slightest danger", "To look pretty"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "kangourou": [
+    {
+      "question": {
+        "fr": "Où la maman kangourou garde-t-elle son bébé ?",
+        "en": "Where does the mother kangaroo keep her baby?"
+      },
+      "options": {
+        "fr": ["Dans un sac à dos", "Dans sa poche", "Sur sa tête"],
+        "en": ["In a backpack", "In her pouch", "On her head"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Qu'est-ce qu'un kangourou ne peut pas faire ?",
+        "en": "What can a kangaroo not do?"
+      },
+      "options": {
+        "fr": ["Sauter", "Marcher à reculons", "Manger de l'herbe"],
+        "en": ["Jump", "Walk backwards", "Eat grass"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Dans quel pays trouve-t-on les kangourous sauvages ?",
+        "en": "In which country do you find wild kangaroos?"
+      },
+      "options": {
+        "fr": ["En France", "En Australie", "Au Canada"],
+        "en": ["In France", "In Australia", "In Canada"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "girafe": [
+    {
+      "question": {
+        "fr": "De quelle couleur est la langue de la girafe ?",
+        "en": "What color is the giraffe's tongue?"
+      },
+      "options": {
+        "fr": ["Rose", "Bleue", "Verte"],
+        "en": ["Pink", "Blue", "Green"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Combien d'os y a-t-il dans le long cou de la girafe ?",
+        "en": "How many bones are in the giraffe's long neck?"
+      },
+      "options": {
+        "fr": ["Seulement 7 (comme l'humain)", "Plus de 100", "Zéro"],
+        "en": ["Only 7 (same as humans)", "More than 100", "Zero"]
+      },
+      "correctAnswer": 0
+    },
+    {
+      "question": {
+        "fr": "Que mange la girafe en haut des arbres ?",
+        "en": "What does the giraffe eat from the top of trees?"
+      },
+      "options": {
+        "fr": ["Des pommes", "Des feuilles d'arbres", "Des oiseaux"],
+        "en": ["Apples", "Tree leaves", "Birds"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "panda": [
+    {
+      "question": {
+        "fr": "Que mange principalement le panda ?",
+        "en": "What does the panda mainly eat?"
+      },
+      "options": {
+        "fr": ["Des pommes", "Du bambou", "Du miel"],
+        "en": ["Apples", "Bamboo", "Honey"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Dans quel pays le panda géant vit-il à l'état sauvage ?",
+        "en": "In which country does the giant panda live in the wild?"
+      },
+      "options": {
+        "fr": ["En France", "En Chine", "Au Brésil"],
+        "en": ["In France", "In China", "In Brazil"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Quelle est l'activité préférée du panda en dehors de manger ?",
+        "en": "What is the panda's favorite activity besides eating?"
+      },
+      "options": {
+        "fr": ["Courir", "Faire la sieste", "Nager"],
+        "en": ["Running", "Napping", "Swimming"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "loup": [
+    {
+      "question": {
+        "fr": "Comment s'appelle la famille du loup ?",
+        "en": "What is the wolf family called?"
+      },
+      "options": {
+        "fr": ["Une meute", "Une classe", "Un club"],
+        "en": ["A pack", "A class", "A club"]
+      },
+      "correctAnswer": 0
+    },
+    {
+      "question": {
+        "fr": "Pourquoi le loup hurle-t-il ?",
+        "en": "Why does the wolf howl?"
+      },
+      "options": {
+        "fr": ["Parce qu'il a mal aux dents", "Pour communiquer avec ses amis de loin", "Pour faire rire"],
+        "en": ["Because of a toothache", "To communicate with friends from afar", "To make others laugh"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Quel sens chez le loup est 100 fois plus puissant que chez l'humain ?",
+        "en": "Which sense in a wolf is 100 times more powerful than in humans?"
+      },
+      "options": {
+        "fr": ["La vue", "L'odorat (le nez)", "Le goût"],
+        "en": ["Sight", "Smell (the nose)", "Taste"]
+      },
+      "correctAnswer": 1
+    }
+  ]
+}

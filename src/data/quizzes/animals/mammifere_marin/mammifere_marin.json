@@ -1,0 +1,37 @@
+{
+  "dauphin": [
+    {
+      "question": {
+        "fr": "Comment le dauphin communique-t-il ?",
+        "en": "How does the dolphin communicate?"
+      },
+      "options": {
+        "fr": ["En criant", "Avec des cliquetis", "En chantant"],
+        "en": ["By shouting", "With clicks", "By singing"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Le dauphin est-il un poisson ?",
+        "en": "Is the dolphin a fish?"
+      },
+      "options": {
+        "fr": ["Oui", "Non, c'est un mammifère", "C'est un oiseau"],
+        "en": ["Yes", "No, it's a mammal", "It's a bird"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Comment dorment les dauphins ?",
+        "en": "How do dolphins sleep?"
+      },
+      "options": {
+        "fr": ["Dans un lit", "Avec un seul œil fermé", "La tête en bas"],
+        "en": ["In a bed", "With only one eye closed", "Upside down"]
+      },
+      "correctAnswer": 1
+    }
+  ]
+}

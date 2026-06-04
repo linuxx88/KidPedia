@@ -1,0 +1,37 @@
+{
+  "tortue": [
+    {
+      "question": {
+        "fr": "À quoi sert la carapace de la tortue ?",
+        "en": "What is the turtle's shell for?"
+      },
+      "options": {
+        "fr": ["À faire du sport", "À se protéger", "À ranger ses jouets"],
+        "en": ["For sports", "To protect itself", "To store toys"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Jusqu'à quel âge certaines tortues géantes peuvent-elles vivre ?",
+        "en": "How old can some giant turtles live to be?"
+      },
+      "options": {
+        "fr": ["10 ans", "Plus de 150 ans", "50 ans"],
+        "en": ["10 years", "More than 150 years", "50 years"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Où vivent les tortues marines ?",
+        "en": "Where do sea turtles live?"
+      },
+      "options": {
+        "fr": ["Dans la savane", "Dans l'océan", "Sur les toits"],
+        "en": ["In the savannah", "In the ocean", "On roofs"]
+      },
+      "correctAnswer": 1
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "t-rex": [
+    {
+      "question": {
+        "fr": "À quoi ressemblait la taille des dents du T-Rex ?",
+        "en": "What was the size of a T-Rex's teeth like?"
+      },
+      "options": {
+        "fr": ["Des crayons", "Des bananes", "Des grains de riz"],
+        "en": ["Pencils", "Bananas", "Rice grains"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Combien mesurait environ le T-Rex en longueur ?",
+        "en": "How long was the T-Rex approximately?"
+      },
+      "options": {
+        "fr": ["5 mètres", "12 mètres", "50 mètres"],
+        "en": ["5 meters", "12 meters", "50 meters"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Comment étaient les bras du T-Rex par rapport à sa taille ?",
+        "en": "What were the T-Rex's arms like compared to its size?"
+      },
+      "options": {
+        "fr": ["Géants", "Tout petits", "Il n'en avait pas"],
+        "en": ["Giant", "Very small", "It didn't have any"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "velociraptor": [
+    {
+      "question": {
+        "fr": "Qu'est-ce que le Vélociraptor avait probablement sur son corps ?",
+        "en": "What did the Velociraptor probably have on its body?"
+      },
+      "options": {
+        "fr": ["Des écailles", "Des plumes", "De la laine"],
+        "en": ["Scales", "Feathers", "Wool"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Comment chassaient souvent les Vélociraptors ?",
+        "en": "How did Velociraptors often hunt?"
+      },
+      "options": {
+        "fr": ["Tout seuls", "En groupe", "Ils ne chassaient pas"],
+        "en": ["All alone", "In groups", "They did not hunt"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Qu'avait le Vélociraptor sur chaque pied pour attraper ses proies ?",
+        "en": "What did the Velociraptor have on each foot to catch its prey?"
+      },
+      "options": {
+        "fr": ["Un sabot de cheval", "Une grande griffe courbée", "Des ventouses"],
+        "en": ["A horse hoof", "A large curved claw", "Suction cups"]
+      },
+      "correctAnswer": 1
+    }
+  ],
+  "spinosaure": [
+    {
+      "question": {
+        "fr": "Où le Spinosaure passait-il beaucoup de temps ?",
+        "en": "Where did the Spinosaurus spend a lot of time?"
+      },
+      "options": {
+        "fr": ["Dans les arbres", "Dans l'eau", "Dans les grottes"],
+        "en": ["In trees", "In water", "In caves"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Qu'avait le Spinosaure sur le dos ?",
+        "en": "What did the Spinosaurus have on its back?"
+      },
+      "options": {
+        "fr": ["Une immense voile de peau et d'os", "Des piquants de porc-épic", "Une carapace de tortue"],
+        "en": ["A huge sail of skin and bone", "Porcupine quills", "A turtle shell"]
+      },
+      "correctAnswer": 0
+    },
+    {
+      "question": {
+        "fr": "Comment était le Spinosaure par rapport au T-Rex ?",
+        "en": "What was the Spinosaurus like compared to the T-Rex?"
+      },
+      "options": {
+        "fr": ["Plus petit", "Encore plus grand !", "De la même couleur"],
+        "en": ["Smaller", "Even bigger!", "The same color"]
+      },
+      "correctAnswer": 1
+    }
+  ]
+}

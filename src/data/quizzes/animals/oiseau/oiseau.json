@@ -1,0 +1,37 @@
+{
+  "pingouin": [
+    {
+      "question": {
+        "fr": "Est-ce que le manchot peut voler dans le ciel ?",
+        "en": "Can the penguin fly in the sky?"
+      },
+      "options": {
+        "fr": ["Oui", "Non, il nage", "Seulement bébé"],
+        "en": ["Yes", "No, it swims", "Only as a baby"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "À quoi servent les ailes du manchot sous l'eau ?",
+        "en": "What do the penguin's wings do underwater?"
+      },
+      "options": {
+        "fr": ["À rien", "De nageoires pour voler sous l'eau", "À faire des bulles"],
+        "en": ["Nothing", "As flippers to fly underwater", "To make bubbles"]
+      },
+      "correctAnswer": 1
+    },
+    {
+      "question": {
+        "fr": "Comment font les manchots pour se tenir chaud ?",
+        "en": "How do penguins keep warm?"
+      },
+      "options": {
+        "fr": ["Ils portent des pulls", "Ils font de gros câlins collectifs serrés", "Ils font du feu"],
+        "en": ["They wear sweaters", "They have big tight group hugs", "They build fires"]
+      },
+      "correctAnswer": 1
+    }
+  ]
+}
