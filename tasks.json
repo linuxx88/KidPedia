@@ -49,12 +49,33 @@
         "y": 238.68689619872617
       },
       "data": {
-        "label": "rajout de recompense",
+        "label": "rajout plus de cadeau",
+        "priority": "medium",
+        "status": "todo",
+        "assignee": "dev"
+      }
+    },
+    {
+      "id": "KP-7",
+      "type": "taskNode",
+      "position": {
+        "x": -132.07210443146036,
+        "y": 50.687764289965955
+      },
+      "data": {
+        "label": "rajout de plus de titre honorifique",
         "priority": "medium",
         "status": "todo",
         "assignee": "dev"
       }
     }
   ],
-  "edges": []
+  "edges": [
+    {
+      "source": "KP-7",
+      "target": "KP-6",
+      "animated": true,
+      "id": "xy-edge__KP-7-KP-6"
+    }
+  ]
 }

@@ -9,4 +9,5 @@ Vous pouvez consulter l'historique de tous les tickets déjà résolus et clôtu
 - [ ] **[KP-2]** Musique d'ambiance | priorité: basse
 - [ ] **[KP-3]** Verrouillage de Profil Kid-Safe | priorité: basse | assigné: Marc
 - [ ] **[KP-4]** Variabilité Dynamique des Effets Sonores | priorité: basse | assigné: Sophie
-- [ ] **[KP-6]** rajout de recompense | priorité: moyenne | assigné: dev
+- [ ] **[KP-6]** rajout plus de cadeau | priorité: moyenne | assigné: dev
+- [ ] **[KP-7]** rajout de plus de titre honorifique | priorité: moyenne | assigné: dev
