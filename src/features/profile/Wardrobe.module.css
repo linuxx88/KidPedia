@@ -45,7 +45,7 @@
   gap: 0.75rem;
   padding: 1.25rem;
   background-color: var(--card-bg);
-  border: 3px solid var(--card-border);
+  border: 3px solid var(--color-border-control);
   border-radius: 1.5rem;
   cursor: pointer;
   transition: var(--transition-bounce);
@@ -55,6 +55,11 @@
 .item:hover {
   transform: translateY(-4px);
   border-color: var(--color-primary);
+}
+
+.item:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .active {
@@ -78,7 +83,7 @@
   top: -0.5rem;
   right: -0.5rem;
   background: var(--color-primary);
-  color: white;
+  color: var(--color-btn-primary-text);
   padding: 0.25rem 0.75rem;
   border-radius: 9999px;
   font-size: 0.7rem;

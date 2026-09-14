@@ -8,6 +8,7 @@ interface PageHeaderProps {
   onBack: () => void;
   rightElement?: React.ReactNode;
   className?: string;
+  variant?: 'default' | 'transparent';
 }
 
 export const PageHeader: React.FC<PageHeaderProps> = ({ 
@@ -15,12 +16,13 @@ export const PageHeader: React.FC<PageHeaderProps> = ({
   icon, 
   onBack, 
   rightElement,
-  className = ""
+  className = "",
+  variant = 'default'
 }) => {
   return (
-    <header className={`${styles.header} ${className}`}>
+    <header className={`${styles.header} ${variant === 'transparent' ? styles.transparent : ''} ${className}`}>
       <div className={styles.navSection}>
-        <BackButton onClick={onBack} />
+        <BackButton onClick={onBack} className={styles.headerBackButton} />
       </div>
       
       <div className={styles.titleSection}>

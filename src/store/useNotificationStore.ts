@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type NotificationType = 'badge' | 'rank' | 'xp';
+type NotificationType = 'badge' | 'rank' | 'xp' | 'favorite';
 
 export interface AppNotification {
   id: string;

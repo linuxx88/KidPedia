@@ -108,7 +108,10 @@ describe('TreasureMap', () => {
     reset: vi.fn(),
     unlockSticker: vi.fn(),
     unlockPuzzlePiece: vi.fn(),
-    awardPuzzlePiece: vi.fn().mockReturnValue({ success: true, pieceIndex: 0, isNew: true })
+    awardPuzzlePiece: vi.fn().mockReturnValue({ success: true, pieceIndex: 0, isNew: true }),
+    getFavorites: vi.fn().mockReturnValue([]),
+    isFavorite: vi.fn().mockReturnValue(false),
+    toggleFavorite: vi.fn().mockReturnValue(true)
   }
 
   beforeEach(() => {

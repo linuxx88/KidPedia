@@ -9,6 +9,8 @@ interface QuizResultsProps {
   readonly gender: Gender
   readonly labels: Labels
   readonly language: string
+  readonly onReplay?: () => void
+  readonly onFinish?: () => void
 }
 
 export const QuizResults: React.FC<QuizResultsProps> = ({
@@ -16,6 +18,8 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
   gender,
   labels,
   language,
+  onReplay,
+  onFinish,
 }) => {
   const medalStyles = {
     gold: {
@@ -58,6 +62,29 @@ export const QuizResults: React.FC<QuizResultsProps> = ({
         </h4>
         <div className={styles.resultBadge}>
           {labels.quiz.winMessage(medalStyles[result.medal].label)}
+        </div>
+
+        <div className={styles.resultActions}>
+          {onReplay && (
+            <button
+              type="button"
+              className={styles.btnReplay}
+              onClick={onReplay}
+              data-testid="quiz-replay-btn"
+            >
+              {language === 'fr' ? 'Rejouer le quiz 🔄' : 'Replay quiz 🔄'}
+            </button>
+          )}
+          {onFinish && (
+            <button
+              type="button"
+              className={styles.btnContinue}
+              onClick={onFinish}
+              data-testid="quiz-continue-btn"
+            >
+              {language === 'fr' ? 'Continuer l\'aventure 🚀' : 'Continue adventure 🚀'}
+            </button>
+          )}
         </div>
       </div>
     </div>

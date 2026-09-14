@@ -10,6 +10,7 @@ export const FlowDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         title="Visualisateur de Flux" 
         icon="🛠️" 
         onBack={onBack} 
+        variant="transparent"
       />
 
       <div className={styles.content}>

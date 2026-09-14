@@ -8,7 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: #0c101b;
+  background-color: var(--color-app-bg);
   border-radius: 0 0 4rem 4rem;
   padding: 4rem 0;
   box-sizing: border-box;
@@ -35,13 +35,13 @@
 .heroGradient {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.2) 60%, rgba(255, 255, 255, 0) 100%);
+  background: var(--color-hero-gradient);
   z-index: 5;
   backdrop-filter: blur(2px);
 }
 
 :global(.dark) .heroGradient {
-  background: linear-gradient(to top, #0b0f19 0%, rgba(11, 15, 25, 0.4) 60%, rgba(11, 15, 25, 0) 100%);
+  background: var(--color-hero-gradient);
 }
 
 .content {

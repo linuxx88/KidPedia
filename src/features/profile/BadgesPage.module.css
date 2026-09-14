@@ -40,9 +40,13 @@
   background-color: var(--color-surface-mixed);
 }
 
-.gold { color: #d97706; border: 2px solid #fcd34d; }
-.silver { color: #475569; border: 2px solid #cbd5e1; }
+.gold { color: #b45309; border: 2px solid #fcd34d; }
+.silver { color: #334155; border: 2px solid #cbd5e1; }
 .bronze { color: #9a3412; border: 2px solid #fdba74; }
+
+:global(.dark) .gold { color: #fbbf24; border-color: #d97706; }
+:global(.dark) .silver { color: #e2e8f0; border-color: #64748b; }
+:global(.dark) .bronze { color: #fb923c; border-color: #9a3412; }
 
 .statsBox {
   width: 100%;
@@ -96,12 +100,18 @@
 
 .xpTotal {
   font-weight: 900;
-  color: #fbbf24;
+  color: #92400e;
   font-size: 1.2rem;
-  background: rgba(251, 191, 36, 0.1);
+  background: rgba(251, 191, 36, 0.15);
   padding: 0.4rem 1.25rem;
   border-radius: 2rem;
-  border: 2px solid rgba(251, 191, 36, 0.2);
+  border: 2px solid rgba(217, 119, 6, 0.3);
+}
+
+:global(.dark) .xpTotal {
+  color: #fbbf24;
+  background: rgba(251, 191, 36, 0.1);
+  border-color: rgba(251, 191, 36, 0.3);
 }
 
 .progressBarContainer {
@@ -167,6 +177,11 @@
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   cursor: default;
   outline: none;
+}
+
+.badgeItem:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 /* Optimisation : Report du rendu pour les cartes hors-champ initial */
@@ -329,30 +344,35 @@
   gap: 0.5rem;
   padding: 0.75rem 1.25rem;
   border-radius: 1.5rem;
-  border: 3px solid var(--card-border);
+  border: 3px solid var(--color-border-control);
   background-color: var(--card-bg);
   color: var(--color-app-text);
   font-weight: 800;
   font-size: 0.95rem;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 4px 0 var(--card-border);
+  box-shadow: 0 4px 0 var(--color-border-control);
   outline: none;
 }
 
 .filterButton:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 0 var(--card-border);
+  box-shadow: 0 6px 0 var(--color-border-control);
+}
+
+.filterButton:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .filterButton:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 var(--card-border);
+  box-shadow: 0 2px 0 var(--color-border-control);
 }
 
 .filterButton.active {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-btn-primary-text);
   border-color: var(--color-primary);
   box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
 }

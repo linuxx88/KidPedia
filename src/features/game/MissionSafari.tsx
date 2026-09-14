@@ -74,6 +74,7 @@ export const MissionSafari: React.FC<MissionSafariProps> = ({ onBack }) => {
             icon="🦁" 
             onBack={handleBack}
             rightElement={<ThemeToggle />}
+            variant="transparent"
           />
           
           <div className={styles.boardWrapper}>

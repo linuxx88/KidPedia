@@ -44,7 +44,7 @@
   right: 1rem;
   top: 50%;
   height: 6px;
-  background: #e2e8f0;
+  background: var(--color-border-neutral);
   border-radius: 999px;
   z-index: -1;
   transform: translateY(-50%);
@@ -60,14 +60,19 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 3px solid #f1f5f9;
-  background-color: white;
+  border: 3px solid var(--color-border-control);
+  background-color: var(--card-bg);
   cursor: pointer;
   transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   position: relative;
-  box-shadow: 0 4px 0 #cbd5e1;
+  box-shadow: 0 4px 0 var(--color-border-dark);
   outline: none;
   color: var(--color-app-text-light);
+}
+
+.button:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .icon {
@@ -87,12 +92,32 @@
   z-index: 2;
 }
 
+@media (max-width: 375px) {
+  .container {
+    padding: 0.5rem 0.5rem calc(0.5rem + env(safe-area-inset-bottom));
+  }
+  .categoryList {
+    gap: 0.5rem;
+    padding: 0.2rem;
+  }
+  .button {
+    width: 2.85rem;
+    height: 2.85rem;
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 0.75rem;
+  }
+  .icon {
+    font-size: 1.35rem;
+  }
+}
+
 /* --- ADAPTATION DESKTOP (> 1024px) --- */
 @media (min-width: 1024px) {
   .container {
     position: fixed;
     left: auto; /* IMPORTANT : Annule le left: 0 du mobile */
-    right: 1.5rem;
+    right: max(1.5rem, calc(50vw - (var(--layout-max-width, 1440px) / 2) - 4.5rem));
     top: calc(90px + 20px);
     bottom: 20px;
     width: auto;
@@ -138,7 +163,7 @@
     height: clamp(1.8rem, 6.5vh, 3rem);
     border-radius: 0.85rem;
     box-shadow: 0 4px 0 var(--color-border-dark);
-    border: 3px solid var(--color-border-neutral);
+    border: 3px solid var(--color-border-control);
     background-color: var(--card-bg);
     flex-shrink: 1;
     transition: var(--transition-bounce);
@@ -155,6 +180,7 @@
     border-color: var(--category-color, var(--color-primary));
     box-shadow: -3px 3px 0 var(--category-color, var(--color-primary));
     color: var(--category-color, var(--color-primary));
+    background-color: var(--color-bg-hover);
   }
 
   .icon { 
@@ -168,8 +194,8 @@
     /* Décalé un peu plus à gauche car le bouton est plus large */
     right: 4.5rem;
     padding: 0.5rem 1rem;
-    background-color: #1e293b;
-    color: white;
+    background-color: var(--color-tooltip-bg);
+    color: var(--color-tooltip-text);
     font-size: 0.85rem;
     font-weight: 800;
     border-radius: 1rem;
@@ -177,7 +203,7 @@
     opacity: 0;
     pointer-events: none;
     transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--shadow-md);
     transform: translateX(20px);
   }
 
@@ -189,7 +215,7 @@
     transform: translateY(-50%);
     border-top: 6px solid transparent;
     border-bottom: 6px solid transparent;
-    border-left: 8px solid #1e293b;
+    border-left: 8px solid var(--color-tooltip-bg);
   }
 
   .button:hover .tooltip {
@@ -200,8 +226,8 @@
 
 /* --- THEME ESPACE (DARK) --- */
 :global(html[data-theme='dark']) .container {
-  background: rgba(15, 23, 42, 0.85);
-  border-top-color: rgba(255, 255, 255, 0.1);
+  background: var(--color-nav-bg);
+  border-top-color: var(--glass-border);
 }
 
 @media (min-width: 1024px) {
@@ -209,28 +235,28 @@
 }
 
 :global(html[data-theme='dark']) .categoryList::before {
-  background: linear-gradient(to right, #334155, var(--color-primary), #334155);
+  background: linear-gradient(to right, var(--card-border), var(--color-primary), var(--card-border));
   box-shadow: 0 0 15px var(--color-primary);
 }
 
 @media (min-width: 1024px) {
   :global(html[data-theme='dark']) .categoryList::before {
-    background: linear-gradient(to bottom, #334155, var(--color-primary), #334155);
+    background: linear-gradient(to bottom, var(--card-border), var(--color-primary), var(--card-border));
   }
 }
 
 :global(html[data-theme='dark']) .button {
-  background-color: #1e293b;
-  border-color: #334155;
-  box-shadow: 0 4px 0 #0f172a;
+  background-color: var(--card-bg);
+  border-color: var(--color-border-control);
+  box-shadow: 0 4px 0 var(--color-border-dark);
 }
 
 @media (min-width: 1024px) {
-  :global(html[data-theme='dark']) .button { box-shadow: 0 6px 0 #0f172a; }
+  :global(html[data-theme='dark']) .button { box-shadow: 0 6px 0 var(--color-border-dark); }
 }
 
 :global(html[data-theme='dark']) .button.active {
-  background-color: #0f172a;
+  background-color: var(--color-app-bg);
   box-shadow: 0 0 20px var(--category-color, var(--color-primary));
 }
 
@@ -241,12 +267,12 @@
 }
 
 :global(html[data-theme='dark']) .tooltip {
-  background: var(--color-primary);
-  color: #0f172a;
+  background: var(--color-tooltip-bg);
+  color: var(--color-tooltip-text);
 }
 
 :global(html[data-theme='dark']) .tooltip::after {
-  border-left-color: var(--color-primary);
+  border-left-color: var(--color-tooltip-bg);
 }
 
 /* --- CATEGORY COLORS --- */

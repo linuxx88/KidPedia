@@ -12,7 +12,11 @@
   font-weight: 800;
   text-align: center;
   margin-bottom: 1.5rem;
-  color: #f59e0b;
+  color: #b45309;
+}
+
+:global([data-theme='dark']) .leaderboardTitle {
+  color: #fbbf24;
 }
 
 .leaderboardList {
@@ -26,7 +30,7 @@
   align-items: center;
   justify-content: space-between;
   background: rgba(255, 255, 255, 0.15);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid var(--color-border-control);
   padding: 0.75rem 1.25rem;
   border-radius: 16px;
   transition: all 0.2s ease;
@@ -34,7 +38,7 @@
 
 :global([data-theme='dark']) .leaderboardItem {
   background: rgba(30, 41, 59, 0.35);
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--color-border-control);
 }
 
 .leaderboardItemActive {
@@ -63,17 +67,17 @@
 
 .rankBadgeGold {
   background: #fbbf24;
-  color: white;
+  color: #451a03;
 }
 
 .rankBadgeSilver {
   background: #cbd5e1;
-  color: #475569;
+  color: #1e293b;
 }
 
 .rankBadgeBronze {
-  background: #d97706;
-  color: white;
+  background: #c2410c;
+  color: #ffffff;
 }
 
 .playerInfo {
@@ -94,11 +98,15 @@
 
 .scoreBadge {
   font-weight: 800;
-  color: #f59e0b;
+  color: #b45309;
   font-size: 1.15rem;
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
+
+:global([data-theme='dark']) .scoreBadge {
+  color: #fbbf24;
 }
 
 .timeSpentText {

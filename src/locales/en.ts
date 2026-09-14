@@ -367,4 +367,18 @@ export const en: Labels = {
       science: "🔬 Science",
     },
   },
+  favorites: {
+    title: "My Favorites ⭐",
+    hubTitle: "My Favorites",
+    hubDesc: "Quickly find all your favorite topics!",
+    counter: (count: number) => count === 1 ? "1 favorite topic" : `${count} favorite topics`,
+    emptyTitle: "You don't have any favorites yet!",
+    emptyDesc: "Tap the star ⭐ on any topic to add it to your favorites and find it easily here.",
+    exploreBtn: "Explore encyclopedia",
+    addedToast: "Added to favorites ⭐",
+    removedToast: "Removed from favorites",
+    filterAll: "All",
+    addAria: "Add to favorites",
+    removeAria: "Remove from favorites",
+  },
 };

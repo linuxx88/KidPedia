@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AppOverlay } from '../../components/UI/AppOverlay';
 import { AppButton } from '../../components/UI/AppButton';
 import { StorytellerButton } from '../../components/UI/StorytellerButton';
@@ -16,12 +17,19 @@ export const LockedTopicOverlay: React.FC<LockedTopicOverlayProps> = ({
   lockedTopic,
   onClose,
 }) => {
+  const navigate = useNavigate();
   const { labels, language } = useSettingsStore();
   const { speak, stopStory } = useStoryteller();
 
   const handleClose = () => {
     stopStory();
     onClose();
+  };
+
+  const handleEarnStars = () => {
+    stopStory();
+    onClose();
+    navigate('/?category=animaux');
   };
 
   return (
@@ -47,9 +55,14 @@ export const LockedTopicOverlay: React.FC<LockedTopicOverlayProps> = ({
           <p className={styles.popupText}>
             {labels.discovery.lockedTopicMessage(lockedTopic.title[language])}
           </p>
-          <AppButton onClick={handleClose} className={styles.explorerBtnMap}>
-            {language === 'fr' ? 'Compris ! 🚀' : 'Got it! 🚀'}
-          </AppButton>
+          <div className={styles.buttonGroup}>
+            <AppButton onClick={handleEarnStars} variant="primary" className={styles.explorerBtnMap}>
+              {language === 'fr' ? '🌟 Gagner des étoiles !' : '🌟 Earn stars!'}
+            </AppButton>
+            <AppButton onClick={handleClose} variant="secondary" className={styles.explorerBtnMap}>
+              {language === 'fr' ? 'Compris ! 🚀' : 'Got it! 🚀'}
+            </AppButton>
+          </div>
         </div>
       )}
     </AppOverlay>

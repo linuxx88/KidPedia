@@ -19,7 +19,41 @@ export const history = [
       fr: 'Il a fallu environ 20 ans et des milliers de personnes pour construire la Grande Pyramide !',
       en: 'It took about 20 years and thousands of people to build the Great Pyramid!',
     },
-    
+    sections: [
+      {
+        icon: '🏛️',
+        title: { fr: 'Monuments du désert', en: 'Desert monuments' },
+        content: {
+          fr: "Les pyramides sont de gigantesques montagnes de pierre dressées dans le sable chaud d'Égypte.",
+          en: "Pyramids are giant stone mountains standing tall in the warm sands of Egypt."
+        }
+      },
+      {
+        icon: '👑',
+        title: { fr: 'Le repos des pharaons', en: 'Resting place of pharaohs' },
+        content: {
+          fr: "Elles ont été bâties il y a très longtemps comme demeures éternelles pour les rois d'Égypte.",
+          en: "They were built very long ago as eternal resting homes for the kings of Egypt."
+        }
+      },
+      {
+        icon: '🧱',
+        title: { fr: 'Des pierres colossales', en: 'Colossal stones' },
+        content: {
+          fr: "Des milliers d'ouvriers ont empilé des blocs lourds comme des éléphants avec une grande précision.",
+          en: "Thousands of workers stacked blocks as heavy as elephants with great precision."
+        }
+      },
+      {
+        icon: '✨',
+        title: { fr: 'Mystères et trésors', en: 'Mysteries and treasures' },
+        content: {
+          fr: "À l'intérieur se cachent des couloirs secrets et des dessins peints aux couleurs magnifiques.",
+          en: "Inside lie hidden secret passages and drawings painted in gorgeous colors."
+        }
+      }
+    ],
+    relatedTopicIds: ['chateaux', 'prehistoire']
   },
   {
     id: 'chevaliers',
@@ -39,7 +73,41 @@ export const history = [
       fr: "Une armure complète pouvait peser jusqu'à 25 kilos, soit le poids d'un gros chien !",
       en: 'A full suit of armor could weigh up to 25 kilos, the weight of a large dog!',
     },
-    
+    sections: [
+      {
+        icon: '🛡️',
+        title: { fr: 'Les héros du Moyen Âge', en: 'Middle Ages heroes' },
+        content: {
+          fr: "Au Moyen Âge, les chevaliers étaient de vaillants cavaliers au service de leur roi et du château.",
+          en: "In the Middle Ages, knights were brave riders in service of their king and the castle."
+        }
+      },
+      {
+        icon: '⚔️',
+        title: { fr: 'Une armure en métal', en: 'A metal armor' },
+        content: {
+          fr: "Ils portaient un casque à visière et une armure en fer brillant pour se protéger des coups.",
+          en: "They wore a helmet with a visor and shiny iron armor to protect themselves from blows."
+        }
+      },
+      {
+        icon: '🐎',
+        title: { fr: 'Le fidèle destrier', en: 'The faithful steed' },
+        content: {
+          fr: "Le chevalier montait un robuste cheval nommé destrier, entraîné à galoper vite avec son cavalier.",
+          en: "The knight rode a sturdy horse called a steed, trained to gallop fast with its rider."
+        }
+      },
+      {
+        icon: '🤝',
+        title: { fr: 'Le serment d’honneur', en: 'The oath of honor' },
+        content: {
+          fr: "Lors de son sacre, il jurait d'être loyal, courageux et de toujours défendre les personnes vulnérables.",
+          en: "During knighting, he swore to be loyal, brave, and to always defend people in need."
+        }
+      }
+    ],
+    relatedTopicIds: ['chateaux', 'pyramides']
   },
   {
     id: 'vikings',
@@ -56,7 +124,45 @@ export const history = [
       fr: "Les Vikings ont découvert l'Amérique bien avant Christophe Colomb !",
       en: 'The Vikings discovered America long before Christopher Columbus!',
     },
-    
+    sections: [
+      {
+        id: 'peuple_du_nord',
+        icon: '❄️',
+        title: { fr: 'Les peuples du Nord', en: 'People of the North' },
+        content: {
+          fr: 'Les Vikings vivaient dans les pays froids de Scandinavie entourés de forêts denses et de mers gelées.',
+          en: 'Vikings lived in the cold Scandinavian north surrounded by thick forests and icy blue seas.',
+        },
+      },
+      {
+        id: 'drakkars_mers',
+        icon: '⛵',
+        title: { fr: 'Les maîtres des mers', en: 'Masters of the seas' },
+        content: {
+          fr: 'Leurs magnifiques navires en bois appelés drakkars glissaient très vite sur les vagues des océans.',
+          en: 'Their splendid wooden longships glided swiftly across the waves to explore faraway ocean shores.',
+        },
+      },
+      {
+        id: 'artisans_fermiers',
+        icon: '🌾',
+        title: { fr: 'Fermiers et artisans', en: 'Farmers and craftspeople' },
+        content: {
+          fr: 'À la maison, ils cultivaient la terre, élevaient des troupeaux et sculptaient de remarquables bijoux en métal.',
+          en: 'At home, they farmed fields, cared for livestock, and crafted remarkably detailed metal and wood treasures.',
+        },
+      },
+      {
+        id: 'commercants_voyageurs',
+        icon: '🗺️',
+        title: { fr: 'Grands marchands du monde', en: 'World traveling merchants' },
+        content: {
+          fr: "Ces explorateurs naviguaient très loin pour échanger de belles fourrures contre de la soie et de l'ambre.",
+          en: 'These brave explorers sailed far across the globe to trade warm furs for silk and amber.',
+        },
+      },
+    ],
+    relatedTopicIds: ['pirates', 'chateaux'],
   },
   {
     id: 'chateaux',
@@ -76,7 +182,41 @@ export const history = [
       fr: 'Les escaliers dans les tours tournaient presque toujours vers la droite pour gêner les attaquants !',
       en: 'Tower staircases almost always turned to the right to hinder attackers!',
     },
-    
+    sections: [
+      {
+        icon: '🏰',
+        title: { fr: 'Des forteresses de pierre', en: 'Stone fortresses' },
+        content: {
+          fr: "Au Moyen Âge, les seigneurs bâtissaient d'immenses châteaux aux épais remparts de pierre.",
+          en: "In the Middle Ages, lords built giant castles with thick protective stone ramparts."
+        }
+      },
+      {
+        icon: '🛡️',
+        title: { fr: 'Pont-levis et douves', en: 'Drawbridge and moat' },
+        content: {
+          fr: "Un grand fossé plein d'eau et un pont-levis à remonter empêchaient les ennemis de passer.",
+          en: "A wide water-filled moat and a raised drawbridge stopped enemies from getting inside."
+        }
+      },
+      {
+        icon: '👑',
+        title: { fr: 'Un village protégé', en: 'A protected village' },
+        content: {
+          fr: "Tout le monde s'y abritait : chevaliers, cuisiniers et artisans vivaient ensemble dans la cour.",
+          en: "Everyone sheltered there: knights, cooks, and craftsmen lived together in the courtyard."
+        }
+      },
+      {
+        icon: '👀',
+        title: { fr: 'Le donjon secret', en: 'The secret keep' },
+        content: {
+          fr: "Le donjon était la plus haute tour du château où veillaient les guetteurs pour surveiller la forêt.",
+          en: "The keep was the highest tower where lookouts kept watch over the surrounding forest."
+        }
+      }
+    ],
+    relatedTopicIds: ['chevaliers', 'pyramides']
   },
   {
     id: 'romains',
@@ -93,7 +233,41 @@ export const history = [
       fr: 'Les Romains utilisaient des éponges sur des bâtons en guise de papier toilette !',
       en: 'Romans used sponges on sticks as toilet paper!',
     },
-    
+    sections: [
+      {
+        icon: '🏛️',
+        title: { fr: 'Les grandes cités de pierre', en: 'Great stone cities' },
+        content: {
+          fr: 'Il y a deux mille ans, les Romains organisaient de splendides villes autour de places publiques animées.',
+          en: 'Two thousand years ago, Romans organized splendid stone cities around bustling public town squares.',
+        },
+      },
+      {
+        icon: '🛣️',
+        title: { fr: 'Des routes pavées solides', en: 'Paved stone roads' },
+        content: {
+          fr: "Leurs ouvriers construisaient des chaussées en pierres pavées pour relier rapidement toutes les régions de l'Empire.",
+          en: 'Their workers built durable paved stone highways to quickly connect distant regions across the Empire.',
+        },
+      },
+      {
+        icon: '💧',
+        title: { fr: 'L’eau des aqueducs', en: 'Water from aqueducts' },
+        content: {
+          fr: "De magnifiques ponts à arches appelés aqueducs acheminaient l'eau fraîche des montagnes directement dans les bains.",
+          en: 'Magnificent arched bridge channels called aqueducts carried cool mountain water straight into public baths.',
+        },
+      },
+      {
+        icon: '🏺',
+        title: { fr: 'La vie au marché', en: 'Life at the market' },
+        content: {
+          fr: "Habillés de tuniques en laine, les citoyens s'y retrouvaient pour acheter des poteries, pains et huiles.",
+          en: 'Dressed in woolen tunics, citizens met together to buy fresh bread, clay pots, and oil.',
+        },
+      },
+    ],
+    relatedTopicIds: ['pyramides', 'roue'],
   },
   {
     id: 'samourais',
@@ -110,7 +284,41 @@ export const history = [
       fr: "Le mot samouraï signifie 'celui qui sert' !",
       en: "The word samurai means 'one who serves'!",
     },
-    
+    sections: [
+      {
+        icon: '🏯',
+        title: { fr: 'Au service des seigneurs', en: 'Serving the lords' },
+        content: {
+          fr: "Dans le Japon d'autrefois, les samouraïs appartenaient à une classe respectée chargée de protéger les châteaux et d'administrer les terres de leur seigneur.",
+          en: "In ancient Japan, samurai belonged to a respected class tasked with protecting castles and managing their lord's lands.",
+        },
+      },
+      {
+        icon: '🥋',
+        title: { fr: 'Un entraînement rigoureux', en: 'Disciplined training' },
+        content: {
+          fr: "Dès l'enfance, ils apprenaient à manier l'arc et le sabre, mais aussi à rester calmes, patients et fidèles à leur parole en toute circonstance.",
+          en: 'From childhood, they learned archery and swordsmanship, while practicing patience, calm focus, and unyielding loyalty.',
+        },
+      },
+      {
+        icon: '🖌️',
+        title: { fr: 'Poésie et calligraphie', en: 'Poetry and calligraphy' },
+        content: {
+          fr: "Loin d'être de simples guerriers, les samouraïs étudiaient les livres, composaient de courts poèmes et pratiquaient avec soin la cérémonie du thé.",
+          en: 'Far from mere fighters, samurai studied classical books, composed delicate poems, and carefully practiced the peaceful tea ceremony.',
+        },
+      },
+      {
+        icon: '📜',
+        title: { fr: 'De gardiens à gouverneurs', en: 'From warriors to governors' },
+        content: {
+          fr: 'Quand les guerres ont cessé au fil des siècles, beaucoup sont devenus des lettrés, des juges et des conseillers pour guider la société japonaise.',
+          en: 'As eras of peace arrived over the centuries, many samurai became scholars, judges, and wise advisors guiding Japanese society.',
+        },
+      },
+    ],
+    relatedTopicIds: ['chateaux', 'chevaliers'],
   },
   {
     id: 'pirates',
@@ -130,7 +338,45 @@ export const history = [
       fr: 'Contrairement aux films, les pirates ne cachaient pas souvent leurs trésors dans le sable, ils dépensaient tout très vite !',
       en: "Unlike in the movies, pirates didn't often hide their treasures in the sand; they spent everything very quickly!",
     },
-    
+    sections: [
+      {
+        id: 'marins_aventure',
+        icon: '⛵',
+        title: { fr: 'Les marins de l’aventure', en: 'Sailors of adventure' },
+        content: {
+          fr: 'Il y a trois cents ans, les pirates parcouraient les mers lointaines à bord de grands voiliers.',
+          en: 'Three hundred years ago, pirates sailed distant oceans on board magnificent tall sailing wooden ships.',
+        },
+      },
+      {
+        id: 'vie_a_bord',
+        icon: '⚓',
+        title: { fr: 'La vie sur le bateau', en: 'Life on board' },
+        content: {
+          fr: "L'équipage hissait ensemble les lourdes voiles, réparait le bois du navire et partageait des repas simples.",
+          en: 'The crew hoisted heavy sails together, repaired the ship wood, and shared humble daily meals.',
+        },
+      },
+      {
+        id: 'drapeau_et_signes',
+        icon: '🏴‍☠️',
+        title: { fr: 'Le fameux drapeau noir', en: 'The famous black flag' },
+        content: {
+          fr: 'Leur drapeau noir avec une tête de mort servait à faire peur aux autres navires aperçus au loin.',
+          en: 'Their black flag with a skull was hoisted high to frighten other ships spotted far away.',
+        },
+      },
+      {
+        id: 'cartes_et_tresors',
+        icon: '🗺️',
+        title: { fr: 'Boussoles et navigation', en: 'Compasses and navigation' },
+        content: {
+          fr: "Pour s'orienter sans boussole moderne, ils observaient attentivement les étoiles et le soleil au-dessus des vagues.",
+          en: 'To steer without modern tools, they carefully read the stars and the sun over ocean waves.',
+        },
+      },
+    ],
+    relatedTopicIds: ['dauphin', 'chateaux'],
   },
   {
     id: 'prehistoire',
@@ -147,7 +393,41 @@ export const history = [
       fr: 'Les premiers hommes ne vivaient pas avec les dinosaures, ils sont arrivés bien après leur disparition !',
       en: 'The first humans did not live with dinosaurs; they arrived long after they disappeared!',
     },
-    
+    sections: [
+      {
+        icon: '🪨',
+        title: { fr: 'Les premiers humains', en: 'The first humans' },
+        content: {
+          fr: "La préhistoire commence avec les tout premiers êtres humains, bien avant l'invention de l'écriture.",
+          en: "Prehistory begins with the very first human beings, long before the invention of writing."
+        }
+      },
+      {
+        icon: '🔥',
+        title: { fr: 'La magie du feu', en: 'The magic of fire' },
+        content: {
+          fr: "En frottant des pierres, ils ont appris à allumer le feu pour se réchauffer et cuisiner.",
+          en: "By striking stones together, they learned to make fire to stay warm and cook food."
+        }
+      },
+      {
+        icon: '🎨',
+        title: { fr: 'Peintres des cavernes', en: 'Cave painters' },
+        content: {
+          fr: "À la lueur des torches, ils dessinaient des animaux sauvages sur les parois rocheuses des grottes.",
+          en: "By the light of torches, they drew wild animals on the rocky walls of deep caves."
+        }
+      },
+      {
+        icon: '⛏️',
+        title: { fr: 'Des outils malins', en: 'Clever tools' },
+        content: {
+          fr: "Avec du silex et du bois, ils taillaient des outils solides pour fabriquer des tentes et s'habiller.",
+          en: "With flint and wood, they crafted sturdy tools to build shelters and make warm clothes."
+        }
+      }
+    ],
+    relatedTopicIds: ['pyramides', 'chateaux']
   },
   {
     id: 'grece-antique',
@@ -167,7 +447,41 @@ export const history = [
       fr: 'Lors des premiers Jeux Olympiques, les athlètes faisaient toutes les épreuves complètement nus !',
       en: 'During the first Olympic Games, athletes performed all events completely naked!',
     },
-    
+    sections: [
+      {
+        icon: '🏺',
+        title: { fr: 'Des cités pleines de vie', en: 'Lively city-states' },
+        content: {
+          fr: 'Les Grecs vivaient dans de grandes cités près de la mer. Sur la place du marché, on échangeait des olives, du pain et de belles poteries peintes.',
+          en: 'Greeks lived in bustling cities near the sea. In the marketplace, families traded fresh olives, bread, and brightly painted clay pots.',
+        },
+      },
+      {
+        icon: '🏛️',
+        title: { fr: 'Des temples pour les dieux', en: 'Temples for the gods' },
+        content: {
+          fr: 'Sur les collines, ils bâtissaient de grands temples aux hautes colonnes de pierre pour honorer des dieux puissants comme Zeus et Athéna.',
+          en: 'On high hills, they built grand stone temples with tall columns to honor powerful gods like Zeus and Athena.',
+        },
+      },
+      {
+        icon: '🏃',
+        title: { fr: 'Les premiers Jeux Olympiques', en: 'The first Olympic Games' },
+        content: {
+          fr: "Tous les quatre ans, les meilleurs sportifs se réunissaient à Olympie. Ils faisaient la course à pied pour remporter une couronne d'olivier !",
+          en: 'Every four years, champions gathered in Olympia. They ran races and competed to win a precious crown of olive leaves!',
+        },
+      },
+      {
+        icon: '🗳️',
+        title: { fr: 'Se réunir pour décider', en: 'Gathering to decide' },
+        content: {
+          fr: "À Athènes, des citoyens se rassemblaient pour discuter et voter les lois ensemble. C'était une première forme de démocratie, même si tout le monde n'avait pas le droit de participer.",
+          en: 'In Athens, citizens gathered in the town square to discuss and vote on laws. It was an early form of democracy, though not everyone was allowed to take part.',
+        },
+      },
+    ],
+    relatedTopicIds: ['romains', 'theatre', 'pyramides'],
   },
   {
     id: 'leonard-vinci',
@@ -184,7 +498,41 @@ export const history = [
       fr: "Léonard de Vinci écrivait souvent ses secrets à l'envers, il fallait un miroir pour pouvoir les lire !",
       en: 'Leonardo da Vinci often wrote his secrets backwards; you needed a mirror to read them!',
     },
-    
+    sections: [
+      {
+        icon: '🎨',
+        title: { fr: 'Un peintre de génie', en: 'A master painter' },
+        content: {
+          fr: 'Vivant en Italie à l’époque de la Renaissance, Léonard peignait des tableaux célèbres dans le monde entier, comme la mystérieuse Joconde.',
+          en: 'Living in Italy during the Renaissance, Leonardo painted world-famous masterpieces, including the mysterious Mona Lisa.',
+        },
+      },
+      {
+        icon: '🦅',
+        title: { fr: 'Observer la nature', en: 'Observing nature' },
+        content: {
+          fr: 'Curieux de tout, il passait des heures à observer le vol des oiseaux, l’écoulement de l’eau et les muscles des animaux pour comprendre leur fonctionnement.',
+          en: 'Curious about everything, he spent hours watching birds fly, water flow, and muscles move to understand how nature works.',
+        },
+      },
+      {
+        icon: '📖',
+        title: { fr: 'Des carnets de croquis', en: 'Sketchbooks of ideas' },
+        content: {
+          fr: 'Dans ses carnets secrets, il imaginait et dessinait des machines volantes, des ponts et des roues bien avant leur fabrication dans la réalité.',
+          en: 'In his secret notebooks, he dreamed up and drew flying machines, bridges, and giant gears long before they could actually be built.',
+        },
+      },
+      {
+        icon: '💡',
+        title: { fr: 'Des rêves sur le papier', en: 'Dreams on paper' },
+        content: {
+          fr: 'Beaucoup de ses inventions sont restées de superbes dessins sur le papier, car les moteurs et les matériaux modernes n’existaient pas encore.',
+          en: 'Many of his inventions remained brilliant paper drawings, because modern engines and materials did not yet exist to build them.',
+        },
+      },
+    ],
+    relatedTopicIds: ['peinture', 'chateaux'],
   },
   {
     id: 'mayas',
@@ -201,7 +549,41 @@ export const history = [
       fr: 'Les Mayas adoraient le chocolat, mais ils le buvaient chaud avec du piment, sans sucre !',
       en: 'The Mayans loved chocolate, but they drank it hot with chili, without sugar!',
     },
-    
+    sections: [
+      {
+        icon: '🏛️',
+        title: { fr: 'Des cités dans la forêt', en: 'Cities in the rainforest' },
+        content: {
+          fr: 'En Amérique centrale, les bâtisseurs mayas ont édifié de splendides villes de pierre avec des places publiques et de hautes pyramides à degrés.',
+          en: 'In Central America, Mayan builders raised splendid stone cities featuring bustling plazas and towering stepped pyramids.',
+        },
+      },
+      {
+        icon: '⭐',
+        title: { fr: 'Étoiles et mathématiques', en: 'Stars and mathematics' },
+        content: {
+          fr: 'Très attentifs au ciel, leurs savants suivaient la course des astres pour créer des calendriers précis et écrivaient avec de jolis glyphes gravés.',
+          en: 'Keen skywatchers, their scholars tracked stars to create precise calendars and wrote stories with elegant carved glyphs.',
+        },
+      },
+      {
+        icon: '🌽',
+        title: { fr: 'Maïs et fèves de cacao', en: 'Corn and cocoa beans' },
+        content: {
+          fr: 'Les fermiers cultivaient le maïs et préparaient une boisson mousseuse à base de fèves de cacao, l’ancêtre de notre chocolat !',
+          en: 'Farmers grew corn and brewed a frothy, spiced drink from cocoa beans, the ancient ancestor of our beloved chocolate!',
+        },
+      },
+      {
+        icon: '👥',
+        title: { fr: 'Une culture vivante', en: 'A living culture today' },
+        content: {
+          fr: 'Si les anciennes cités se sont endormies sous la végétation, des millions de descendants mayas vivent aujourd’hui et parlent encore leurs langues.',
+          en: 'Though ancient stone cities fell quiet beneath the jungle, millions of Maya descendants thrive today, keeping their languages alive.',
+        },
+      },
+    ],
+    relatedTopicIds: ['pyramides', 'chateaux'],
   },
   {
     id: 'premier-pas-lune',
@@ -218,7 +600,41 @@ export const history = [
       fr: "Comme il n'y a pas de vent sur la Lune, les empreintes de pas des astronautes y sont toujours intactes aujourd'hui !",
       en: "Since there is no wind on the Moon, the astronauts' footprints are still intact today!",
     },
-    
+    sections: [
+      {
+        icon: '🚀',
+        title: { fr: 'La mission Apollo 11', en: 'The Apollo 11 mission' },
+        content: {
+          fr: 'En juillet 1969, une immense fusée a décollé de la Terre avec à son bord trois courageux astronautes : Neil Armstrong, Buzz Aldrin et Michael Collins.',
+          en: 'In July 1969, a giant rocket blasted off from Earth carrying three brave astronauts: Neil Armstrong, Buzz Aldrin, and Michael Collins.',
+        },
+      },
+      {
+        icon: '👨‍🚀',
+        title: { fr: 'Un travail d’équipe', en: 'A historic team' },
+        content: {
+          fr: 'Pendant que Neil Armstrong puis Buzz Aldrin descendaient marcher sur le sol lunaire, Michael Collins pilotait le vaisseau en orbite au-dessus d’eux.',
+          en: 'While Neil Armstrong and Buzz Aldrin stepped out onto the Moon, Michael Collins stayed in orbit above piloting the command module.',
+        },
+      },
+      {
+        icon: '👣',
+        title: { fr: 'Un petit pas historique', en: 'A small step for man' },
+        content: {
+          fr: 'Vêtus d’épaisses combinaisons blanches, ils ont ramassé des roches et installé des instruments avant de revenir sains et saufs sur Terre.',
+          en: 'Wearing thick white spacesuits, they gathered lunar rocks and set up science instruments before returning safely home to Earth.',
+        },
+      },
+      {
+        icon: '🌍',
+        title: { fr: 'Une aventure partagée', en: 'Other journeys followed' },
+        content: {
+          fr: 'Après Apollo 11, d’autres missions spatiales ont emmené dix autres astronautes marcher sur la Lune pour continuer à percer ses secrets.',
+          en: 'Following Apollo 11, further missions brought ten more astronauts to explore the Moon and unlock more of its secrets.',
+        },
+      },
+    ],
+    relatedTopicIds: ['la-lune', 'terre'],
   },
   {
     id: 'berceau-afrique',
@@ -234,7 +650,42 @@ export const history = [
     funFact: {
       fr: "Le plus ancien fossile pré-humain retrouvé s'appelle Toumaï et a environ 7 millions d'années !",
       en: "The oldest pre-human fossil found is called Toumaï and is about 7 million years old!"
-    }
+    },
+    sections: [
+      {
+        icon: '🌍',
+        title: { fr: 'La grande vallée du Rift', en: 'The Great Rift Valley' },
+        content: {
+          fr: "Il y a des millions d'années en Afrique, nos tout premiers ancêtres vivaient dans de grandes plaines chaudes bordées de collines.",
+          en: 'Millions of years ago in Africa, our earliest ancestors lived across warm open plains bordered by hills.'
+        }
+      },
+      {
+        icon: '👣',
+        title: { fr: 'Faire les premiers pas', en: 'Taking the first steps' },
+        content: {
+          fr: "C'est sur ces terres que les hominidés ont appris à marcher debout, observant l'horizon au-dessus des herbes de la savane.",
+          en: 'On these lands, early hominids learned to walk upright, watching the horizon above savanna grasses.'
+        }
+      },
+      {
+        icon: '🪨',
+        title: { fr: 'Les outils du quotidien', en: 'Daily stone tools' },
+        content: {
+          fr: "Ils ont taillé les premiers galets pour couper des plantes et se défendre, marquant le début de l'ingéniosité humaine.",
+          en: 'They shaped the first pebbles to cut plants and protect themselves, marking the dawn of human ingenuity.'
+        }
+      },
+      {
+        icon: '🌅',
+        title: { fr: 'Le départ vers le monde', en: 'Setting out into the world' },
+        content: {
+          fr: "Depuis ce berceau d'Afrique, les groupes humains ont ensuite voyagé génération après génération pour peupler tous les continents.",
+          en: 'From this African cradle, human groups traveled generation after generation to populate all continents.'
+        }
+      }
+    ],
+    relatedTopicIds: ['debout-deux-pieds', 'artisan-pierres', 'cousins-neandertal'],
   },
   {
     id: 'debout-deux-pieds',
@@ -250,7 +701,42 @@ export const history = [
     funFact: {
       fr: "La plus célèbre de nos ancêtres à marcher debout s'appelle Lucy, une jeune australopithèque découverte en Éthiopie !",
       en: "The most famous of our ancestors to walk upright is Lucy, a young Australopithecus discovered in Ethiopia!"
-    }
+    },
+    sections: [
+      {
+        icon: '🚶',
+        title: { fr: 'Se redresser sur deux pieds', en: 'Standing on two feet' },
+        content: {
+          fr: "Il y a plusieurs millions d'années, certains de nos lointains ancêtres ont commencé à se tenir droits. Cette façon de marcher s'appelle la bipédie.",
+          en: 'Millions of years ago, some of our distant ancestors began to stand upright. This way of walking is called bipedalism.'
+        }
+      },
+      {
+        icon: '🌾',
+        title: { fr: 'Regarder au loin', en: 'Looking far ahead' },
+        content: {
+          fr: "En se tenant debout au milieu des hautes herbes, ils pouvaient observer la plaine et repérer plus facilement les animaux ou les dangers.",
+          en: 'By standing tall above the tall grasses, they could look across the plain and spot animals or dangers much more easily.'
+        }
+      },
+      {
+        icon: '🤲',
+        title: { fr: 'Des mains enfin libres', en: 'Hands finally free' },
+        content: {
+          fr: "Comme les mains ne servaient plus à marcher, elles sont devenues libres pour porter des petits, ramasser des fruits et tenir des bâtons.",
+          en: 'Because hands were no longer needed for walking, they were free to hold little ones, gather fruits, and carry sticks.'
+        }
+      },
+      {
+        icon: '👣',
+        title: { fr: 'Des traces venues du passé', en: 'Footprints from the past' },
+        content: {
+          fr: "Des scientifiques ont découvert d'anciennes empreintes de pas figées dans la cendre volcanique, prouvant cette incroyable marche vers l'avant.",
+          en: 'Scientists discovered ancient footprints preserved in volcanic ash, proving this wonderful upright journey long ago.'
+        }
+      }
+    ],
+    relatedTopicIds: ['prehistoire', 'cousins-neandertal', 'dompteur-feu']
   },
   {
     id: 'artisan-pierres',
@@ -266,7 +752,42 @@ export const history = [
     funFact: {
       fr: "Les premiers outils étaient de simples galets taillés appelés des 'choppers' !",
       en: "The first tools were simple chipped pebbles called 'choppers'!"
-    }
+    },
+    sections: [
+      {
+        icon: '🪨',
+        title: { fr: 'Frapper la pierre', en: 'Striking stone against stone' },
+        content: {
+          fr: "En heurtant un galet contre un autre avec précision, les premiers humains ont détaché des éclats tranchants. Ce geste a fait naître les tout premiers outils.",
+          en: 'By tapping one stone against another, early humans struck off sharp flakes. This deliberate gesture gave birth to the very first tools.'
+        }
+      },
+      {
+        icon: '🔪',
+        title: { fr: 'Des outils pour tout couper', en: 'Tools to cut and scrape' },
+        content: {
+          fr: "Avec ces arêtes coupantes, ils pouvaient facilement trancher la nourriture, tailler du bois solide ou racler des peaux d'animaux pour s'abriter.",
+          en: 'With these sharp edges, they could easily slice food, carve wood, and scrape animal hides to make warm shelters.'
+        }
+      },
+      {
+        icon: '🧠',
+        title: { fr: 'Imaginer avant de tailler', en: 'Imagining before shaping' },
+        content: {
+          fr: "Tailler un caillou demande de penser à la forme voulue avant de donner le coup. Cela prouve la grande ingéniosité de nos lointains ancêtres.",
+          en: 'Shaping a pebble required picturing the desired form before striking. It shows the wonderful ingenuity of our distant ancestors.'
+        }
+      },
+      {
+        icon: '🖐️',
+        title: { fr: 'Un savoir transmis', en: 'Skills passed down' },
+        content: {
+          fr: "Ces techniques de fabrication se transmettaient des aînés aux enfants. Au fil des siècles, les pointes et racloirs sont devenus de plus en plus fins.",
+          en: 'These toolmaking skills were passed down from elders to children. Over centuries, stone points and scrapers became finer and sharper.'
+        }
+      }
+    ],
+    relatedTopicIds: ['prehistoire', 'debout-deux-pieds', 'dompteur-feu']
   },
   {
     id: 'dompteur-feu',
@@ -282,7 +803,42 @@ export const history = [
     funFact: {
       fr: "La nourriture cuite était beaucoup plus facile à mâcher et a aidé le cerveau humain à grandir très vite !",
       en: "Cooked food was much easier to chew and helped the human brain grow very fast!"
-    }
+    },
+    sections: [
+      {
+        icon: '🔥',
+        title: { fr: "Une découverte progressive", en: "A gradual discovery" },
+        content: {
+          fr: "Au début, les humains récupéraient des braises nées d'orages ou d'incendies naturels. Au fil des générations, ils ont appris à frotter du bois ou percuter des pierres pour allumer une flamme quand ils en avaient besoin.",
+          en: "At first, early humans collected embers from lightning strikes or natural wildfires. Over many generations, they learned to rub wood or strike stones to create a spark whenever they needed one."
+        }
+      },
+      {
+        icon: '❄️',
+        title: { fr: "Chaleur et lumière", en: "Warmth and light" },
+        content: {
+          fr: "Grâce au feu, les nuits sombres devenaient lumineuses et rassurantes. Le foyer réchauffait les campements lors des saisons froides et éloignait les prédateurs dangereux pendant le sommeil.",
+          en: "Fire turned dark, scary nights into bright and comforting evenings. The hearth kept campsites warm during cold seasons and protected sleeping groups by keeping dangerous predators away."
+        }
+      },
+      {
+        icon: '🍲',
+        title: { fr: "La cuisson des aliments", en: "Cooking food" },
+        content: {
+          fr: "Faire griller la viande et cuire les racines a transformé la vie quotidienne. Les aliments devenaient plus tendres, meilleurs au goût et plus faciles à digérer pour les grands et les petits.",
+          en: "Roasting meat and cooking roots transformed daily life. Food became softer, tastier, safer to eat, and much easier to digest for both children and adults."
+        }
+      },
+      {
+        icon: '🤝',
+        title: { fr: "Le cercle du foyer", en: "Around the hearth" },
+        content: {
+          fr: "Le soir venu, tout le clan se rassemblait autour des flammes. C'est là que les adultes fabriquaient des outils, partageaient les repas et commençaient à raconter des histoires.",
+          en: "In the evening, the whole group gathered around the crackling flames. Around the hearth, people shared meals, made tools, and began telling stories to one another."
+        }
+      }
+    ],
+    relatedTopicIds: ['prehistoire', 'soleil']
   },
   {
     id: 'grand-voyage',
@@ -298,7 +854,42 @@ export const history = [
     funFact: {
       fr: "Pour passer de l'Asie à l'Amérique, les premiers humains ont marché sur de la glace géante qui reliait les deux continents !",
       en: "To cross from Asia to America, early humans walked on giant ice that connected the two continents!"
-    }
+    },
+    sections: [
+      {
+        icon: '👣',
+        title: { fr: "En route depuis l'Afrique", en: 'On the road from Africa' },
+        content: {
+          fr: "Il y a des dizaines de milliers d'années, des groupes de chasseurs-cueilleurs ont suivi les troupeaux au-delà de leur région d'origine.",
+          en: 'Tens of thousands of years ago, hunter-gatherer groups followed game herds beyond their home territories.'
+        }
+      },
+      {
+        icon: '🏔️',
+        title: { fr: 'Franchir les obstacles', en: 'Crossing big obstacles' },
+        content: {
+          fr: "À pied et avec courage, ils ont traversé des rivières, escaladé des montagnes et appris à vivre dans des climats très variés.",
+          en: 'On foot and with great courage, they crossed rivers, climbed mountains, and learned to live in many different climates.'
+        }
+      },
+      {
+        icon: '🧊',
+        title: { fr: 'Des ponts de glace éphémères', en: 'Temporary ice bridges' },
+        content: {
+          fr: "Pendant les périodes froides, le niveau de la mer a baissé, laissant passer les humains à pied sec vers de nouveaux continents.",
+          en: 'During cold eras, sea levels dropped, allowing humans to walk across dry land bridges to new continents.'
+        }
+      },
+      {
+        icon: '🌏',
+        title: { fr: 'Une seule grande famille', en: 'One big human family' },
+        content: {
+          fr: "En s'installant sur tous les continents, ces voyageurs ont inventé mille coutumes tout en restant unis par la même histoire.",
+          en: 'Settling across every continent, these travelers created a thousand customs while remaining united by one shared story.'
+        }
+      }
+    ],
+    relatedTopicIds: ['berceau-afrique', 'cousins-neandertal', 'debout-deux-pieds'],
   },
   {
     id: 'cousins-neandertal',
@@ -314,7 +905,42 @@ export const history = [
     funFact: {
       fr: "Néandertal prenait soin des malades de sa tribu et offrait des fleurs lors des enterrements !",
       en: "Neanderthal cared for the sick of his tribe and offered flowers during burials!"
-    }
+    },
+    sections: [
+      {
+        icon: '❄️',
+        title: { fr: 'Des humains adaptés au froid', en: 'Humans built for the cold' },
+        content: {
+          fr: "L'Homme de Néandertal formait un groupe humain ancien qui vivait en Europe et en Asie. Avec son corps robuste et trapu, il supportait très bien les hivers glaciaires.",
+          en: 'Neanderthals were an ancient human group living across Europe and Asia. With their sturdy, robust bodies, they were well equipped for freezing glacial winters.'
+        }
+      },
+      {
+        icon: '🛠️',
+        title: { fr: 'Des artisans habiles', en: 'Skilled toolmakers' },
+        content: {
+          fr: "Loin d'être maladroits, les Néandertaliens taillaient de superbes outils en pierre et en bois. Ils fabriquaient des lances solides et des racloirs pour nettoyer les peaux.",
+          en: 'Far from clumsy, Neanderthals crafted fine stone and wooden tools. They shaped sturdy spears and stone scrapers to clean and prepare warm hides.'
+        }
+      },
+      {
+        icon: '🤝',
+        title: { fr: 'Une tribu solidaire', en: 'A caring tribe' },
+        content: {
+          fr: "Les archéologues ont découvert que ces humains prenaient soin de leurs compagnons blessés ou âgés. Ils vivaient en petits clans unis où chacun s'entraidait.",
+          en: 'Archaeologists discovered that Neanderthals cared for injured and elderly companions. They lived in small, close-knit clans where everyone supported one another.'
+        }
+      },
+      {
+        icon: '🌿',
+        title: { fr: 'Les secrets du campement', en: 'Campfire secrets' },
+        content: {
+          fr: "Ils maîtrisaient le feu pour se réchauffer et cuisiner au campement. Les fouilles révèlent encore aujourd'hui de nouvelles découvertes sur leurs coutumes.",
+          en: 'They mastered fire to keep warm and cook at their campsites. Excavations continue today to reveal fascinating new discoveries about their customs.'
+        }
+      }
+    ],
+    relatedTopicIds: ['prehistoire', 'dompteur-feu', 'artistes-cavernes']
   },
   {
     id: 'artistes-cavernes',
@@ -330,7 +956,42 @@ export const history = [
     funFact: {
       fr: "La grotte de Lascaux en France est si belle qu'elle est souvent appelée la 'Chapelle Sixtine de la préhistoire' !",
       en: "The Lascaux Cave in France is so beautiful that it is often called the 'Sistine Chapel of prehistory'!"
-    }
+    },
+    sections: [
+      {
+        icon: '🔦',
+        title: { fr: "Peindre dans le noir des grottes", en: "Painting deep in the caves" },
+        content: {
+          fr: "Munis de torches ou de petites lampes à graisse, les humains de la Préhistoire s'enfonçaient au fond des cavernes. Sur les parois rocheuses, ils peignaient des scènes spectaculaires.",
+          en: "Carrying torches or small animal-fat lamps, prehistoric humans walked deep inside dark caves. On the rocky walls, they created breathtaking paintings."
+        }
+      },
+      {
+        icon: '🎨',
+        title: { fr: "Des couleurs venues de la Terre", en: "Colors made from the Earth" },
+        content: {
+          fr: "Pour peindre, ils broyaient des minéraux comme l'ocre rouge et jaune, ou utilisaient du charbon noir. Ils mélangeaient ces poudres avec de l'eau pour obtenir de la peinture.",
+          en: "To paint, they ground natural minerals into red and yellow ochre, or used black charcoal. They mixed these powders with water to make natural paints."
+        }
+      },
+      {
+        icon: '✋',
+        title: { fr: "Empreintes de mains et animaux", en: "Handprints and animals" },
+        content: {
+          fr: "Ils représentaient des bisons, des chevaux, des cerfs ou des mammouths. En posant leur main contre la paroi et en soufflant la couleur autour, ils laissaient aussi leur silhouette.",
+          en: "They drew bison, horses, deer, and giant mammoths. By placing a hand on the rock and blowing color around it, they left delicate hand stencils."
+        }
+      },
+      {
+        icon: '❓',
+        title: { fr: "Un grand mystère à contempler", en: "A fascinating mystery" },
+        content: {
+          fr: "Ces peintures servaient-elles à raconter des histoires, à célébrer la nature ou à des cérémonies secrètes ? Même aujourd'hui, les scientifiques continuent d'admirer leur mystère.",
+          en: "Did these artworks tell stories, celebrate nature, or serve sacred ceremonies? Even today, scientists continue to marvel at their beauty and mysteries."
+        }
+      }
+    ],
+    relatedTopicIds: ['prehistoire', 'grottes-souterraines']
   },
   {
     id: 'premiers-villages',
@@ -346,7 +1007,42 @@ export const history = [
     funFact: {
       fr: "L'invention de l'agriculture s'appelle la révolution néolithique !",
       en: "The invention of agriculture is called the Neolithic Revolution!"
-    }
+    },
+    sections: [
+      {
+        icon: '🌾',
+        title: { fr: "L'essor de l'agriculture", en: "The rise of farming" },
+        content: {
+          fr: "Au fil des millénaires, certains groupes humains ont commencé à semer des céréales et à apprivoiser des bêtes. Comme les récoltes demandaient du temps et des soins, ils ont choisi de rester plus longtemps au même endroit.",
+          en: "Over thousands of years, some human groups began sowing grains and raising animals. Because growing crops required patience and daily care, families stayed longer in one place."
+        }
+      },
+      {
+        icon: '🛖',
+        title: { fr: "Des maisons durables", en: "Permanent shelters" },
+        content: {
+          fr: "Pour remplacer les campements éphémères de peaux et de branchages, les habitants bâtissent des huttes solides avec des troncs de bois, des pierres et de la terre séchée.",
+          en: "Replacing temporary camps made of branches and hides, villagers built sturdy homes using tree trunks, stacked stones, and sun-dried mud bricks."
+        }
+      },
+      {
+        icon: '🤝',
+        title: { fr: "Vivre et s'entraider", en: "Living together in community" },
+        content: {
+          fr: "Dans le village naissant, chacun participe : stocker les réserves de blé, garder les troupeaux, fabriquer des poteries ou moudre le grain. L'entraide rend la communauté plus forte.",
+          en: "In early villages, everyone contributed: storing wheat harvests, tending herds, shaping clay pots, or grinding grain. Cooperation made the community strong and resilient."
+        }
+      },
+      {
+        icon: '🌍',
+        title: { fr: "Une transition progressive", en: "A gradual global change" },
+        content: {
+          fr: "Tous les humains ne se sont pas installés au même moment ni au même rythme. Beaucoup de populations ont continué à voyager en nomades en fonction des saisons et du gibier.",
+          en: "People did not settle down all at once or in the same way everywhere. Many communities continued living as nomadic hunters and travelers across different regions."
+        }
+      }
+    ],
+    relatedTopicIds: ['prehistoire', 'dompteur-feu']
   },
   {
     id: 'sedentarisation',
@@ -362,7 +1058,42 @@ export const history = [
     funFact: {
       fr: "Les premières huttes étaient souvent rondes comme de petits nids douillets !",
       en: "The first huts were often round like cozy little nests!"
-    }
+    },
+    sections: [
+      {
+        icon: '🛖',
+        title: { fr: 'Poser ses affaires', en: 'Putting down roots' },
+        content: {
+          fr: "Pendant très longtemps, les humains étaient nomades et voyageaient sans cesse. Peu à peu, ils ont choisi de rester vivre au même endroit.",
+          en: 'For a very long time, humans were nomads who moved constantly. Gradually, they chose to settle and live in one place.'
+        }
+      },
+      {
+        icon: '🌊',
+        title: { fr: "Au bord de l'eau", en: 'Beside the water' },
+        content: {
+          fr: "Ils s'installaient souvent près d'une rivière ou d'un lac. L'eau fraîche était précieuse pour boire, cuisiner et arroser les plantations.",
+          en: 'They often settled near a river or freshwater lake. Fresh water was essential for drinking, cooking, and watering crops.'
+        }
+      },
+      {
+        icon: '🏡',
+        title: { fr: 'Des maisons solides', en: 'Sturdy lasting homes' },
+        content: {
+          fr: "Au lieu de tentes légères, ils ont bâti des huttes en bois, en roseaux et en terre séchée, parfaites pour traverser les saisons.",
+          en: 'Instead of light tents, they built huts with wood, reeds, and dried mud, perfect for weathering all four seasons.'
+        }
+      },
+      {
+        icon: '🌾',
+        title: { fr: 'Le temps des récoltes', en: 'Harvest time' },
+        content: {
+          fr: "En restant sur place, les familles ont pu cultiver des champs, soigner leurs troupeaux et stocker des graines pour l'hiver.",
+          en: 'By staying put, families could tend fields, care for animals, and store grain to feed everyone through winter.'
+        }
+      }
+    ],
+    relatedTopicIds: ['premiers-villages', 'debuts-agriculture', 'debuts-elevage']
   },
   {
     id: 'murs-terre',
@@ -378,7 +1109,42 @@ export const history = [
     funFact: {
       fr: "Cette technique s'appelle le pisé et elle garde la maison fraîche en été et chaude en hiver !",
       en: "This technique is called cob or pisé, and it keeps the house cool in summer and warm in winter!"
-    }
+    },
+    sections: [
+      {
+        icon: '🌾',
+        title: { fr: 'La terre et la paille', en: 'Earth and straw' },
+        content: {
+          fr: "Pour bâtir des murs solides, les premiers villageois mélangeaient de la terre avec de la paille et de l'eau. La paille évite que le mur ne se fende.",
+          en: 'To build strong walls, early villagers mixed clay soil with straw and water. The straw keeps the earth from cracking as it dries.'
+        }
+      },
+      {
+        icon: '☀️',
+        title: { fr: 'Sécher sous le soleil', en: 'Sun-dried bricks' },
+        content: {
+          fr: "Ils moulaient cette pâte en briques rectangulaires. En séchant sous le soleil d'été, la terre devenait aussi dure et résistante que de la pierre.",
+          en: 'They shaped this paste into rectangular bricks. Dried under the summer sun, the earth became as hard and durable as stone.'
+        }
+      },
+      {
+        icon: '🏡',
+        title: { fr: 'Un abri tempéré', en: 'A cozy temperate home' },
+        content: {
+          fr: "Les murs en terre épaisse sont magiques : ils gardent la maison bien fraîche en été et retiennent la chaleur du foyer en hiver.",
+          en: 'Thick earthen walls are wonderful: they keep the house cool in summer and trap the fireplace heat in winter.'
+        }
+      },
+      {
+        icon: '🌍',
+        title: { fr: 'Une tradition universelle', en: 'A worldwide tradition' },
+        content: {
+          fr: "Partout dans le monde, de nombreux peuples ont utilisé la terre pour bâtir de jolis villages, des greniers et même de grands châteaux.",
+          en: 'All around the world, many cultures used earth to build charming villages, grain silos, and even great castles.'
+        }
+      }
+    ],
+    relatedTopicIds: ['sedentarisation', 'premiers-villages', 'chateaux']
   },
   {
     id: 'debuts-agriculture',
@@ -394,7 +1160,42 @@ export const history = [
     funFact: {
       fr: "Le blé et l'orge ont été les toutes premières plantes cultivées par les humains !",
       en: "Wheat and barley were the very first plants grown by humans!"
-    }
+    },
+    sections: [
+      {
+        icon: '🌱',
+        title: { fr: "Le cycle magique des graines", en: "The cycle of seeds" },
+        content: {
+          fr: "En observant la nature, les humains remarquent que les graines tombées au sol germent et donnent de nouveaux épis. Ils commencent alors à semer délibérément les plantes les plus nutritives.",
+          en: "Watching nature closely, early humans noticed that fallen seeds sprout into new shoots. They slowly began gathering and intentionally replanting the most nutritious wild grains."
+        }
+      },
+      {
+        icon: '🌍',
+        title: { fr: "Une aventure aux quatre coins du monde", en: "A worldwide turning point" },
+        content: {
+          fr: "L'agriculture n'est pas née en un seul jour ni en un seul lieu : elle est apparue indépendamment au Moyen-Orient avec le blé, en Asie avec le riz et en Amérique avec le maïs.",
+          en: "Farming did not begin in a single place or day: it arose independently with wheat in the Middle East, rice in Asia, and corn across the Americas."
+        }
+      },
+      {
+        icon: '🌾',
+        title: { fr: "Prendre soin de la terre", en: "Working with the soil" },
+        content: {
+          fr: "Pour faire pousser les cultures, il fallait désherber, arroser et attendre la saison de la moisson. Les humains fabriquent les premières faucilles en pierre et des réserves pour stocker les grains.",
+          en: "Nurturing crops required weeding, watering, and waiting for harvest season. People crafted early stone sickles to reap ears of grain and clay silos to store food safely."
+        }
+      },
+      {
+        icon: '🏡',
+        title: { fr: "Champs, troupeaux et villages", en: "Fields, herds, and homes" },
+        content: {
+          fr: "En cultivant la terre et en élevant les premiers troupeaux, les communautés se fixent plus durablement près de leurs champs. Cette nouvelle vie transforme profondément l'histoire humaine.",
+          en: "By tending crops and domesticating herds, human families settled down permanently near their fields. This new way of life laid the foundations for enduring villages and towns."
+        }
+      }
+    ],
+    relatedTopicIds: ['premiers-villages', 'soleil']
   },
   {
     id: 'debuts-elevage',
@@ -410,7 +1211,42 @@ export const history = [
     funFact: {
       fr: "Les chèvres ont été parmi les premiers animaux à s'associer aux humains pour de bon !",
       en: "Goats were among the first animals to associate with humans for good!"
-    }
+    },
+    sections: [
+      {
+        icon: '🐾',
+        title: { fr: 'Des rencontres douces', en: 'Gentle encounters' },
+        content: {
+          fr: "Dans plusieurs parties du monde, certains animaux ont commencé à s'approcher sans peur des campements humains.",
+          en: "In several parts of the world, certain animals began approaching human settlements without fear."
+        }
+      },
+      {
+        icon: '🤝',
+        title: { fr: 'Apprivoiser et soigner', en: 'Taming and caring' },
+        content: {
+          fr: "Au départ, les villageois ont apprivoisé quelques bêtes blessées ou jeunes en leur donnant de l'eau et de l'herbe.",
+          en: "At first, villagers tamed a few young or hurt animals by sharing fresh water and grass."
+        }
+      },
+      {
+        icon: '🐐',
+        title: { fr: "L'élevage au fil du temps", en: 'Farming over time' },
+        content: {
+          fr: "En gardant des troupeaux protégés des prédateurs, les familles ont obtenu de la laine chaude et du lait frais.",
+          en: "By keeping herds safe from predators, families gained warm wool and fresh milk."
+        }
+      },
+      {
+        icon: '🏡',
+        title: { fr: 'Vivre ensemble pour toujours', en: 'Living together for good' },
+        content: {
+          fr: "Après de très nombreuses générations, ces animaux sont devenus de fidèles compagnons habitués aux humains.",
+          en: "After many generations, these animals became faithful companions accustomed to humans."
+        }
+      }
+    ],
+    relatedTopicIds: ['prehistoire', 'premiers-villages', 'debuts-agriculture']
   },
   {
     id: 'invention-poterie',
@@ -426,7 +1262,42 @@ export const history = [
     funFact: {
       fr: "Les potiers dessinaient souvent de jolies lignes et des animaux sur leurs pots pour les décorer !",
       en: "Potters often drew pretty lines and animals on their pots to decorate them!"
-    }
+    },
+    sections: [
+      {
+        icon: '🌍',
+        title: { fr: 'Une idée partagée', en: 'A shared idea' },
+        content: {
+          fr: "Dans plusieurs régions du monde, les humains ont découvert comment utiliser la terre mouillée.",
+          en: "In several parts of the world, humans discovered how to use wet earth."
+        }
+      },
+      {
+        icon: '🖐️',
+        title: { fr: "L'argile sous les doigts", en: 'Clay under fingers' },
+        content: {
+          fr: "L'argile est une terre douce et malléable qu'on façonne à la main pour créer des récipients.",
+          en: "Clay is a soft earth that you shape by hand to create vessels."
+        }
+      },
+      {
+        icon: '🔥',
+        title: { fr: 'La magie du feu', en: 'The magic of fire' },
+        content: {
+          fr: "En cuisant dans les flammes, la terre molle durcit et devient solide comme de la pierre.",
+          en: "Baking in the flames makes the soft earth turn as hard as stone."
+        }
+      },
+      {
+        icon: '🏺',
+        title: { fr: 'Des pots pour tout garder', en: 'Pots to keep everything' },
+        content: {
+          fr: "Ces récipients protègent l'eau fraîche, les graines et les repas du quotidien.",
+          en: "These vessels protect cool water, seeds, and daily meals."
+        }
+      }
+    ],
+    relatedTopicIds: ['prehistoire', 'dompteur-feu', 'premiers-villages']
   },
   {
     id: 'vie-communaute',
@@ -442,7 +1313,42 @@ export const history = [
     funFact: {
       fr: "Les maisons d'un village étaient parfois collées sans rue, et on entrait par le toit avec des échelles !",
       en: "Houses in a village were sometimes packed together without streets, and people entered through the roof using ladders!"
-    }
+    },
+    sections: [
+      {
+        icon: '🏡',
+        title: { fr: 'Des villages différents', en: 'Different villages' },
+        content: {
+          fr: "Les premiers villages n'étaient pas tous pareils : certains s'abritaient près des rivières, d'autres sur des collines.",
+          en: "Early villages were not all the same: some settled near rivers, others high on hills."
+        }
+      },
+      {
+        icon: '🌾',
+        title: { fr: 'Partager le travail', en: 'Sharing the work' },
+        content: {
+          fr: "Pour réussir, les habitants se répartissaient les tâches : cultiver la terre, s'occuper des bêtes et préparer les repas.",
+          en: "To thrive, neighbors shared daily chores: tending crops, caring for animals, and preparing meals."
+        }
+      },
+      {
+        icon: '🤝',
+        title: { fr: "S'entraider et décider", en: 'Helping and deciding' },
+        content: {
+          fr: "Vivre ensemble demandait de discuter, de trouver des règles communes et de réparer les maisons ensemble.",
+          en: "Living together meant talking things over, finding shared rules, and repairing homes together."
+        }
+      },
+      {
+        icon: '🔄',
+        title: { fr: 'Une organisation qui change', en: 'Changing ways of life' },
+        content: {
+          fr: "Au fil des siècles, les groupes humains ont appris à adapter leurs coutumes à chaque saison et chaque région.",
+          en: "Over centuries, human communities learned to adapt their customs to each season and region."
+        }
+      }
+    ],
+    relatedTopicIds: ['premiers-villages', 'prehistoire', 'debuts-agriculture']
   },
   {
     id: 'tissage-laine',
@@ -458,7 +1364,42 @@ export const history = [
     funFact: {
       fr: "Les premiers métiers à tisser étaient faits de simples branches de bois lestées par de grosses pierres !",
       en: "The first weaving looms were made of simple wooden branches weighted down by heavy stones!"
-    }
+    },
+    sections: [
+      {
+        icon: '🐑',
+        title: { fr: 'De la toison au poil doux', en: 'From fleece to soft wool' },
+        content: {
+          fr: "Les humains ont récolté la laine bouclée des moutons et d'autres fibres pour se protéger du froid.",
+          en: "Humans gathered curly wool from sheep and other fibers to protect themselves from the cold."
+        }
+      },
+      {
+        icon: '🧶',
+        title: { fr: 'Filer pour créer le brin', en: 'Spinning to make yarn' },
+        content: {
+          fr: "Le filage consiste à étirer et rouler la laine entre ses doigts ou avec un fuseau pour former un long fil solide.",
+          en: "Spinning means stretching and twisting wool with fingers or a drop spindle into a strong continuous thread."
+        }
+      },
+      {
+        icon: '🧵',
+        title: { fr: 'Croiser sur le métier', en: 'Crossing on the loom' },
+        content: {
+          fr: "Le tissage consiste ensuite à entrecroiser ces fils dessus et dessous pour fabriquer un morceau de tissu.",
+          en: "Weaving then means interlacing these threads over and under to create a sheet of cloth."
+        }
+      },
+      {
+        icon: '🌍',
+        title: { fr: 'Des savoir-faire multiples', en: 'Many different crafts' },
+        content: {
+          fr: "Dans le monde entier, chaque peuple a inventé ses propres motifs, couleurs et façons de tisser les habits.",
+          en: "Across the world, each community invented its own patterns, colors, and ways of weaving clothing."
+        }
+      }
+    ],
+    relatedTopicIds: ['debuts-elevage', 'prehistoire', 'premiers-villages']
   },
   {
     id: 'megalithes',
@@ -474,7 +1415,42 @@ export const history = [
     funFact: {
       fr: "Certaines de ces pierres pèsent autant que plusieurs éléphants réunis, et pourtant ils ont réussi à les lever !",
       en: "Some of these stones weigh as much as several elephants combined, and yet they managed to lift them!"
-    }
+    },
+    sections: [
+      {
+        icon: '🗿',
+        title: { fr: "Des blocs géants taillés dans la roche", en: "Huge stone blocks" },
+        content: {
+          fr: "Le mot mégalithe veut dire « grande pierre ». Durant la Préhistoire, des communautés ont extrait d'immenses blocs rocheux pour les dresser fièrement dans le paysage.",
+          en: "The word megalith means 'large stone'. In prehistoric times, human communities quarried enormous blocks of rock and erected them proudly across the landscape."
+        }
+      },
+      {
+        icon: '🤝',
+        title: { fr: "Une immense aventure collective", en: "A massive team effort" },
+        content: {
+          fr: "Sans machines modernes, déplacer ces colosses de plusieurs tonnes demandait l'effort uni de centaines de personnes avec des cordes, des rondins de bois et des leviers.",
+          en: "Without modern engines, moving these multi-ton giants required hundreds of people working together with strong ropes, wooden rollers, and levers."
+        }
+      },
+      {
+        icon: '🏛️',
+        title: { fr: "Menhirs, dolmens et cercles", en: "Standing stones and tombs" },
+        content: {
+          fr: "Certaines pierres se dressent toutes seules : ce sont les menhirs. D'autres forment des tables de pierre appelées dolmens, ou de grands cercles comme le célèbre site de Stonehenge.",
+          en: "Some stones stand alone as upright menhirs. Others form covered stone chambers called dolmens, or grand circular monuments like the famous Stonehenge."
+        }
+      },
+      {
+        icon: '✨',
+        title: { fr: "Des rôles multiples et mystérieux", en: "Many mysterious roles" },
+        content: {
+          fr: "Beaucoup de dolmens servaient de sépultures collectives. D'autres monuments servaient de repères dans le territoire, de lieux de rassemblement ou d'observation du ciel.",
+          en: "Many dolmens were collective burial chambers. Other stone sites served as territory markers, ceremonial gathering places, or calendars aligned with the sun."
+        }
+      }
+    ],
+    relatedTopicIds: ['pyramides', 'prehistoire']
   },
   {
     id: 'ecriture-sacree',
@@ -490,7 +1466,42 @@ export const history = [
     funFact: {
       fr: "Il y avait plus de 700 dessins différents à retenir pour savoir écrire !",
       en: "There were over 700 different drawings to remember to know how to write!"
-    }
+    },
+    sections: [
+      {
+        icon: '📜',
+        title: { fr: "Un système d'écriture fascinant", en: "A fascinating writing system" },
+        content: {
+          fr: "Dans l'Égypte ancienne, les hiéroglyphes étaient une écriture complète faite de centaines de signes représentant des oiseaux, des yeux, des outils ou des plantes.",
+          en: "In ancient Egypt, hieroglyphs formed a complete writing system made of hundreds of signs depicting birds, eyes, tools, and water plants."
+        }
+      },
+      {
+        icon: '🪨',
+        title: { fr: "Sur la pierre et le papyrus", en: "On stone and papyrus" },
+        content: {
+          fr: "On gravait et peignait ces symboles sur les murs des temples, mais on écrivait aussi des lettres, des lois et des comptes sur des rouleaux de roseau appelés papyrus.",
+          en: "People carved and painted these symbols on temple walls, but they also wrote daily letters, laws, and records on reed paper scrolls called papyrus."
+        }
+      },
+      {
+        icon: '✍️',
+        title: { fr: "Le métier précieux de scribe", en: "The honored scribes" },
+        content: {
+          fr: "Apprendre tous ces signes demandait de longues années d'étude. Les scribes occupaient une place très respectée pour noter les récits historiques et transmettre les connaissances.",
+          en: "Learning all these signs required years of dedicated practice. Scribes were highly respected scholars who recorded events, managed stores, and preserved knowledge."
+        }
+      },
+      {
+        icon: '🔍',
+        title: { fr: "Le mystère déchiffré", en: "Decoding the ancient mystery" },
+        content: {
+          fr: "Ces signes ne sont pas de simples illustrations : certains représentent des sons, d'autres des idées entières. Grâce à la pierre de Rosette, les chercheurs ont pu percer leurs secrets.",
+          en: "Decoding these symbols revealed that some stand for sounds while others represent whole concepts. Thanks to the Rosetta Stone, scholars unlocked the rich stories of Egypt."
+        }
+      }
+    ],
+    relatedTopicIds: ['pyramides', 'fleuve-nil']
   },
   {
     id: 'empire-incas',
@@ -506,7 +1517,42 @@ export const history = [
     funFact: {
       fr: "Le Machu Picchu est une ville inca cachée si haut dans les nuages qu'elle est restée secrète pendant très longtemps !",
       en: "Machu Picchu is an Inca city hidden so high in the clouds that it remained a secret for a very long time!"
-    }
+    },
+    sections: [
+      {
+        icon: '🏔️',
+        title: { fr: 'Des cités dans les nuages', en: 'Cities in the clouds' },
+        content: {
+          fr: 'Dans la haute chaîne des Andes, les bâtisseurs incas ont taillé de gigantesques blocs de pierre pour ériger des forteresses solides comme Machu Picchu.',
+          en: 'High in the Andes mountains, Inca builders cut giant stone blocks to construct sturdy stone fortresses like Machu Picchu.',
+        },
+      },
+      {
+        icon: '🌱',
+        title: { fr: 'Des cultures en marches d’escalier', en: 'Stepped terrace farming' },
+        content: {
+          fr: 'Sur les pentes raides des montagnes, ils aménageaient des terrasses en escalier pour cultiver le maïs et des centaines de variétés de pommes de terre.',
+          en: 'On steep mountain slopes, they carved stepped terraces to grow corn and hundreds of varieties of nourishing potatoes.',
+        },
+      },
+      {
+        icon: '🛣️',
+        title: { fr: 'Des chemins à travers l’Empire', en: 'Paths across the empire' },
+        content: {
+          fr: 'Des messagers rapides couraient à pied le long de milliers de kilomètres de sentiers pavés et de ponts suspendus pour relier tout le pays.',
+          en: 'Fast couriers ran on foot along thousands of kilometers of paved trails and rope bridges to connect the entire empire.',
+        },
+      },
+      {
+        icon: '🧶',
+        title: { fr: 'Une culture toujours vivante', en: 'Living traditions today' },
+        content: {
+          fr: 'Aujourd’hui encore, les peuples andins parlent le quechua, tissent la laine chaude des lamas et célèbrent avec fierté leurs traditions ancestrales.',
+          en: 'Even today, Andean communities speak Quechua, weave warm llama wool, and proudly keep their ancestral customs alive.',
+        },
+      },
+    ],
+    relatedTopicIds: ['pyramides', 'soleil'],
   },
   {
     id: 'cathedrales',
@@ -522,7 +1568,42 @@ export const history = [
     funFact: {
       fr: "Certaines cathédrales ont mis plus de 200 ans à être entièrement finies, soit le temps de plusieurs générations de bâtisseurs !",
       en: "Some cathedrals took over 200 years to be fully completed, which is the lifespan of several generations of builders!"
-    }
+    },
+    sections: [
+      {
+        icon: '⛪',
+        title: { fr: "Des géantes de pierre", en: "Giants of stone" },
+        content: {
+          fr: "Au Moyen Âge, les villes dressent de splendides cathédrales au cœur des cités. Construites en pierre taillée, leurs tours et leurs flèches s'élèvent très haut vers les nuages.",
+          en: "During the Middle Ages, towns raised grand cathedrals at their very center. Built from carved stone, their towers and spires soared high toward the clouds."
+        }
+      },
+      {
+        icon: '🏗️',
+        title: { fr: "Le travail de plusieurs générations", en: "Generations of builders" },
+        content: {
+          fr: "Il fallait souvent plus de cent ans pour bâtir une telle merveille. Des tailleurs de pierre, charpentiers et maîtres d'œuvre se transmettaient leur savoir d'une génération à l'autre.",
+          en: "Completing such a wonder often took over a hundred years. Stonemasons, carpenters, and master builders passed their skills and plans down from one generation to the next."
+        }
+      },
+      {
+        icon: '🏛️',
+        title: { fr: "Des arcs et des voûtes solides", en: "Strong arches and vaults" },
+        content: {
+          fr: "Pour porter le poids immense des toits sans s'effondrer, les bâtisseurs inventent des voûtes croisées et des arcs-boutants en pierre qui soutiennent les hauts murs extérieurs.",
+          en: "To support heavy ceilings without collapsing, builders designed ribbed vaults and flying buttresses that carried the weight out to strong exterior supports."
+        }
+      },
+      {
+        icon: '🎨',
+        title: { fr: "La lumière des vitraux", en: "The light of stained glass" },
+        content: {
+          fr: "D'immenses fenêtres en verre coloré ornent les murs. Lorsque le soleil brille à travers ces vitraux, il projette des reflets étincelants et raconte des scènes illustrées.",
+          en: "Vast windows of colored glass adorn the walls. When sunlight streams through these stained glass panels, it projects glowing colors and tells illustrated stories."
+        }
+      }
+    ],
+    relatedTopicIds: ['chateaux', 'pyramides']
   },
   {
     id: 'calligraphie',
@@ -538,7 +1619,42 @@ export const history = [
     funFact: {
       fr: "La première lettre d'une page était souvent géante et décorée de petits dragons ou de jolies fleurs en or !",
       en: "The first letter of a page was often giant and decorated with small dragons or pretty gold flowers!"
-    }
+    },
+    sections: [
+      {
+        icon: '✒️',
+        title: { fr: "La plume et l'encre noire", en: 'Quill and black ink' },
+        content: {
+          fr: "Au Moyen Âge, les moines copistes taillaient des plumes d'oie bien pointues pour écrire avec de l'encre naturelle.",
+          en: 'In the Middle Ages, scribe monks carved pointed goose quills to write with natural ink.'
+        }
+      },
+      {
+        icon: '📖',
+        title: { fr: 'Copier mot après mot', en: 'Copying word by word' },
+        content: {
+          fr: "Pendant de longs mois dans le silence, ils recopiaient des livres entiers à la main pour préserver les connaissances.",
+          en: 'For long quiet months, they copied entire books by hand to preserve knowledge for the future.'
+        }
+      },
+      {
+        icon: '🎨',
+        title: { fr: 'Des lettrines enluminées', en: 'Illuminated letters' },
+        content: {
+          fr: "La première lettre de chaque chapitre était peinte comme un tableau, décorée d'or brillant, de feuillages et d'animaux.",
+          en: 'The first letter of each chapter was painted like a picture, adorned with shining gold, leaves, and friendly animals.'
+        }
+      },
+      {
+        icon: '🏛️',
+        title: { fr: 'Des trésors pour les siècles', en: 'Treasures for the centuries' },
+        content: {
+          fr: "Grâce à leur patience infinie, ces magnifiques manuscrits sont arrivés jusqu'à nous dans les musées et bibliothèques.",
+          en: 'Thanks to their infinite patience, these magnificent manuscripts have survived for us to admire in museums and libraries.'
+        }
+      }
+    ],
+    relatedTopicIds: ['invention-papier', 'imprimerie', 'ecriture-sacree'],
   },
   {
     id: 'moulins-moyen-age',
@@ -554,7 +1670,42 @@ export const history = [
     funFact: {
       fr: "Le moulin tournait si fort qu'il pouvait écraser autant de blé en une heure qu'un humain en une journée entière !",
       en: "The mill turned so fast that it could grind as much wheat in one hour as a human could in a whole day!"
-    }
+    },
+    sections: [
+      {
+        icon: '💨',
+        title: { fr: "La force du vent et de l'eau", en: 'Power of wind and water' },
+        content: {
+          fr: "Pour aider les paysans, les bâtisseurs médiévaux ont inventé de grandes machines actionnées par la brise ou le courant de la rivière.",
+          en: 'To help villagers, medieval builders invented large machines driven by the gentle breeze or rushing river water.'
+        }
+      },
+      {
+        icon: '🌾',
+        title: { fr: 'Écraser le bon grain', en: 'Grinding the golden grain' },
+        content: {
+          fr: "À l'intérieur, de lourdes meules de pierre tournaient sans arrêt pour écraser les grains de blé et fabriquer de la farine blanche.",
+          en: 'Inside, heavy round stones turned nonstop to crush golden wheat kernels into smooth white flour.'
+        }
+      },
+      {
+        icon: '🥖',
+        title: { fr: 'Du pain pour tout le village', en: 'Bread for the whole village' },
+        content: {
+          fr: "Grâce au meunier et à son moulin infatigable, les familles pouvaient cuire de grandes miches de pain doré au four à bois.",
+          en: 'Thanks to the miller and the tireless mill, families could bake large loaves of golden bread in wood ovens.'
+        }
+      },
+      {
+        icon: '⚙️',
+        title: { fr: 'Des engrenages ingénieux', en: 'Ingenious gears' },
+        content: {
+          fr: "Des roues crantées en bois transmettaient le mouvement avec précision, ouvrant la voie aux futures inventions mécaniques.",
+          en: 'Notched wooden wheels transferred movement smoothly, paving the way for future mechanical inventions.'
+        }
+      }
+    ],
+    relatedTopicIds: ['vent-air', 'roue', 'tissage-laine'],
   },
   {
     id: 'foires-marches',
@@ -570,7 +1721,42 @@ export const history = [
     funFact: {
       fr: "Certains marchands voyageaient pendant des mois à dos de chameau ou en bateau pour ramener du poivre blanc, précieux comme de l'or !",
       en: "Some merchants traveled for months on camelback or boat to bring back white pepper, which was as precious as gold!"
-    }
+    },
+    sections: [
+      {
+        icon: '🎪',
+        title: { fr: 'La fête au cœur du village', en: 'Celebration in the village heart' },
+        content: {
+          fr: "Plusieurs fois par an, les places des cités médiévales se remplissaient de tentes rayées et de musiques joyeuses.",
+          en: 'Several times a year, town squares in the Middle Ages filled with striped tents and cheerful music.'
+        }
+      },
+      {
+        icon: '🐪',
+        title: { fr: 'Des marchands venus de loin', en: 'Merchants from faraway lands' },
+        content: {
+          fr: "Des caravanes voyageaient des semaines pour apporter des soieries précieuses, des perles et des épices parfumées.",
+          en: 'Caravans traveled for weeks to bring precious silks, shining beads, and fragrant spices.'
+        }
+      },
+      {
+        icon: '🪙',
+        title: { fr: 'Échanger et marchander', en: 'Trading and bargaining' },
+        content: {
+          fr: "On pesait les pièces de monnaie et on troquait du fromage, de la laine et de beaux outils en fer dans la bonne humeur.",
+          en: 'People weighed coins and traded cheese, warm wool, and iron tools with big smiles and friendly banter.'
+        }
+      },
+      {
+        icon: '🤹',
+        title: { fr: 'Troubadours et jongleurs', en: 'Jesters and jugglers' },
+        content: {
+          fr: "Entre deux emplettes, les enfants admiraient les montreurs de marionnettes, les acrobates et les conteurs d'histoires.",
+          en: 'Between purchases, children watched puppet masters, acrobats, and wandering storytellers.'
+        }
+      }
+    ],
+    relatedTopicIds: ['chateaux', 'tissage-laine', 'moulins-moyen-age'],
   },
   {
     id: 'invention-papier',
@@ -586,6 +1772,41 @@ export const history = [
     funFact: {
       fr: "Avant le papier, on écrivait sur du parchemin en peau de mouton, et il fallait tout un troupeau pour faire un seul grand livre !",
       en: "Before paper, people wrote on sheepskin parchment, and it took a whole flock to make a single large book!"
-    }
+    },
+    sections: [
+      {
+        icon: '📜',
+        title: { fr: 'Avant le papier', en: 'Before paper was made' },
+        content: {
+          fr: "Autrefois, les gens écrivaient sur de la pierre, des tablettes d'argile ou de lourdes peaux d'animaux appelées parchemins.",
+          en: 'Long ago, people wrote on stone, clay tablets, or heavy animal skins called parchment.'
+        }
+      },
+      {
+        icon: '🎋',
+        title: { fr: 'Le secret des fibres végétales', en: 'The plant fiber secret' },
+        content: {
+          fr: "En Chine, des artisans ont eu l'idée de broyer des fibres de plantes et de vieux tissus dans l'eau pour former une pâte douce.",
+          en: 'In China, craftspeople had the idea of crushing plant fibers and old rags in water to make a soft pulp.'
+        }
+      },
+      {
+        icon: '☀️',
+        title: { fr: 'Sécher en fines feuilles', en: 'Drying into thin sheets' },
+        content: {
+          fr: "Cette pâte était étalée sur un grand tamis plat, puis pressée et séchée au soleil pour devenir une feuille bien lisse et légère.",
+          en: 'This pulp was spread onto a flat screen, pressed, and dried in the sun to become a smooth, lightweight sheet.'
+        }
+      },
+      {
+        icon: '📖',
+        title: { fr: 'Le voyage des histoires', en: 'Sharing stories worldwide' },
+        content: {
+          fr: "Grâce au papier, fabriquer des livres est devenu plus facile, permettant aux contes, dessins et découvertes de voyager dans le monde entier.",
+          en: 'Thanks to paper, making books became much easier, allowing stories, drawings, and discoveries to travel across the entire world.'
+        }
+      }
+    ],
+    relatedTopicIds: ['imprimerie', 'ecriture-sacree', 'bd-manga']
   }
 ] as const

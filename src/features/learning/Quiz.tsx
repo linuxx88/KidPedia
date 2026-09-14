@@ -31,6 +31,8 @@ interface QuizProps {
   readonly funFact: string
   readonly anchorIcon?: string
   readonly categoryKey?: string
+  readonly onReplay?: () => void
+  readonly onFinish?: () => void
 }
 
 export const QuizComponent: React.FC<QuizProps> = ({ 
@@ -47,6 +49,8 @@ export const QuizComponent: React.FC<QuizProps> = ({
   funFact,
   anchorIcon,
   categoryKey,
+  onReplay,
+  onFinish,
 }) => {
   const { playSound } = useAudioFeedback()
   const { language } = useSettingsStore()
@@ -213,6 +217,8 @@ export const QuizComponent: React.FC<QuizProps> = ({
           gender={gender}
           labels={labels}
           language={language}
+          onReplay={onReplay}
+          onFinish={onFinish}
         />
       )}
     </div>

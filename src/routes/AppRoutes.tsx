@@ -3,7 +3,7 @@ import { AppButton } from '../components/UI/AppButton'
 import { mapData } from '../data/mapData'
 
 // Import direct des pages majeures pour éviter les erreurs d'import de module dynamique sous WebKit E2E
-import { TopicPage, GiftsPage } from '../features/learning'
+import { TopicPage, GiftsPage, FavoritesPage } from '../features/learning'
 import { TreasureMap, MissionSafari } from '../features/game'
 import { ExplorerGallery, BadgesPage } from '../features/profile'
 import { ParentsDashboard, FlowDashboard, ContentEditor } from '../features/parents'
@@ -81,6 +81,14 @@ export function AppRoutes({
         element={
           <div className={styles.routeWrapper}>
             <GiftsPage />
+          </div>
+        }
+      />
+      <Route
+        path="/favorites"
+        element={
+          <div className={styles.routeWrapper}>
+            <FavoritesPage />
           </div>
         }
       />

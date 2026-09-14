@@ -1,4 +1,4 @@
-import { screen } from '@testing-library/react'
+import { screen, fireEvent } from '@testing-library/react'
 import { render, resetAllStores } from '../../test/test-utils'
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { TopicPage } from './TopicPage'
@@ -6,13 +6,21 @@ import { isSpoiler } from './utils_topic/spoiler'
 import { setupSpeechMock, setupAudioMock } from '../../test/mockUtils'
 import { useProgressionStore } from '../../store/useProgressionStore'
 
-// Mock react-router-dom to set custom useParams
+// Mock react-router-dom to set custom useParams and useLocation
 const mockParams = { topicId: 'soleil' }
+let mockLocationState: Record<string, unknown> | null = null
 vi.mock('react-router-dom', async () => {
   const actual = await vi.importActual('react-router-dom')
   return {
     ...actual,
     useParams: () => mockParams,
+    useLocation: () => ({
+      pathname: '/topic/' + mockParams.topicId,
+      search: '',
+      hash: '',
+      state: mockLocationState,
+      key: 'test',
+    }),
   }
 })
 
@@ -22,6 +30,7 @@ describe('TopicPage - Anti-spoiler Security', () => {
   beforeEach(() => {
     resetAllStores()
     vi.clearAllMocks()
+    mockLocationState = null
     setupSpeechMock()
     setupAudioMock()
     
@@ -226,4 +235,146 @@ describe('TopicPage - Anti-spoiler Security', () => {
       vi.unstubAllGlobals()
     })
   })
+
+  describe('TopicPage - Quiz Award Single Invocation', () => {
+    it('déclenche addBadge exactement une seule fois lors de la validation d\'un quiz réussi', async () => {
+      mockParams.topicId = 'soleil'
+      const mockMath = vi.spyOn(Math, 'random').mockReturnValue(0)
+      const addBadgeSpy = vi.spyOn(useProgressionStore.getState(), 'addBadge')
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      const optionBtn = await screen.findByTestId('quiz-option-1')
+      fireEvent.click(optionBtn)
+
+      expect(addBadgeSpy).toHaveBeenCalledTimes(1)
+      expect(addBadgeSpy).toHaveBeenCalledWith('soleil', 'gold')
+
+      mockMath.mockRestore()
+    })
+  })
+
+  describe('TopicPage - Generalized Free Access & Non-blocking Quiz', () => {
+    it('autorise l\'ouverture directe de tout sujet sans redirection même s\'il est initialement non débloqué en jeu', async () => {
+      // Le tigre est initialement non débloqué dans la progression de jeu
+      expect(useProgressionStore.getState().isUnlocked('tigre')).toBe(false)
+
+      mockParams.topicId = 'tigre'
+      mockLocationState = null
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      // Aucune redirection vers l'accueil
+      expect(mockGoHome).not.toHaveBeenCalled()
+      expect(await screen.findByRole('heading', { name: /Tigre/i })).toBeInTheDocument()
+
+      mockParams.topicId = 'soleil'
+    })
+
+    it('enregistre automatiquement le sujet consulté dans readTopics', () => {
+      mockParams.topicId = 'elephant'
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      const activeProfileId = useProgressionStore.getState().activeProfileId!
+      const readTopics = useProgressionStore.getState().progressions[activeProfileId]?.readTopics || []
+      expect(readTopics).toContain('elephant')
+
+      mockParams.topicId = 'soleil'
+    })
+
+    it('permet de quitter un quiz non-lion sans confirmation bloquante', () => {
+      const confirmSpy = vi.spyOn(window, 'confirm')
+      mockParams.topicId = 'elephant'
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      const backBtn = screen.getByText(/Retour/i)
+      fireEvent.click(backBtn)
+
+      expect(confirmSpy).not.toHaveBeenCalled()
+
+      confirmSpy.mockRestore()
+      mockParams.topicId = 'soleil'
+    })
+
+    it('conserve le quiz et attribue les récompenses pour les sujets consultés', async () => {
+      mockParams.topicId = 'tigre'
+      const mockMath = vi.spyOn(Math, 'random').mockReturnValue(0)
+      const addBadgeSpy = vi.spyOn(useProgressionStore.getState(), 'addBadge')
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      expect(await screen.findByTestId('quiz-question')).toBeInTheDocument()
+
+      const optionBtn = screen.getByTestId('quiz-option-1')
+      fireEvent.click(optionBtn)
+
+      expect(addBadgeSpy).toHaveBeenCalledTimes(1)
+      expect(addBadgeSpy).toHaveBeenCalledWith('tigre', 'gold')
+
+      mockMath.mockRestore()
+      mockParams.topicId = 'soleil'
+    })
+
+    it('affiche la section des sujets connexes quand elle est définie', async () => {
+      mockParams.topicId = 'lion'
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      expect(await screen.findByTestId('related-topics-section')).toBeInTheDocument()
+      expect(screen.getByTestId('related-topic-elephant')).toBeInTheDocument()
+      expect(screen.getByTestId('related-topic-tigre')).toBeInTheDocument()
+
+      mockParams.topicId = 'soleil'
+    })
+
+    it('applique le modèle générique à l\'éléphant avec micro-sections et sujets connexes', async () => {
+      mockParams.topicId = 'elephant'
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      expect(await screen.findByRole('heading', { name: /Éléphant/i })).toBeInTheDocument()
+      expect(screen.getByTestId('topic-sections-grid')).toBeInTheDocument()
+      expect(screen.getByText('Sa trompe magique')).toBeInTheDocument()
+      expect(screen.getByTestId('topic-real-audio-button')).toBeInTheDocument()
+      expect(screen.getByTestId('related-topics-section')).toBeInTheDocument()
+      expect(screen.getByTestId('related-topic-lion')).toBeInTheDocument()
+      expect(screen.getByTestId('related-topic-girafe')).toBeInTheDocument()
+
+      mockParams.topicId = 'soleil'
+    })
+
+    it('applique le modèle générique au tigre avec micro-sections et sujets connexes', async () => {
+      mockParams.topicId = 'tigre'
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      expect(await screen.findByRole('heading', { name: /Tigre/i })).toBeInTheDocument()
+      expect(screen.getByTestId('topic-sections-grid')).toBeInTheDocument()
+      expect(screen.getByText('Ses rayures magiques')).toBeInTheDocument()
+      expect(screen.getByTestId('topic-real-audio-button')).toBeInTheDocument()
+      expect(screen.getByTestId('related-topics-section')).toBeInTheDocument()
+      expect(screen.getByTestId('related-topic-lion')).toBeInTheDocument()
+      expect(screen.getByTestId('related-topic-singe')).toBeInTheDocument()
+
+      mockParams.topicId = 'soleil'
+    })
+
+    it('applique le modèle générique hors catégorie animaux au soleil avec micro-sections et sujets connexes', async () => {
+      mockParams.topicId = 'soleil'
+
+      render(<TopicPage handleGoHome={mockGoHome} />)
+
+      expect(await screen.findByRole('heading', { level: 2, name: /Le Soleil/i })).toBeInTheDocument()
+      expect(screen.getByTestId('topic-sections-grid')).toBeInTheDocument()
+      expect(screen.getByText("Qu'est-ce que le Soleil ?")).toBeInTheDocument()
+      expect(screen.getByText('Lumière et chaleur')).toBeInTheDocument()
+      expect(screen.queryByTestId('topic-real-audio-button')).not.toBeInTheDocument()
+      expect(screen.getByTestId('related-topics-section')).toBeInTheDocument()
+      expect(screen.getByTestId('related-topic-terre')).toBeInTheDocument()
+      expect(screen.getByTestId('related-topic-mercure')).toBeInTheDocument()
+    })
+  })
 })
+

@@ -19,6 +19,13 @@ export interface ProfileProgression {
   unlockedPuzzlePieces?: Record<string, number[]>;
   unlockedWallpapers?: readonly string[];
   readTopics?: string[];
+  favorites?: readonly string[];
+}
+
+export interface FavoritesSlice {
+  getFavorites: () => readonly string[];
+  isFavorite: (topicId: string) => boolean;
+  toggleFavorite: (topicId: string) => boolean;
 }
 
 export interface ProfileSlice {
@@ -59,7 +66,7 @@ export interface CollectiblesSlice {
   markTopicAsRead?: (topicId: string) => void;
 }
 
-export interface ProgressionState extends ProfileSlice, XpBadgeSlice, AccessorySlice, CollectiblesSlice {
+export interface ProgressionState extends ProfileSlice, XpBadgeSlice, AccessorySlice, CollectiblesSlice, FavoritesSlice {
   // --- Global Progressions Map ---
   progressions: Record<string, ProfileProgression>;
   activeProfileId: string | null;

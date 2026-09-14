@@ -36,7 +36,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Une seule dent de T-Rex pouvait mesurer jusqu'à 30 centimètres de long, racine comprise !",
         en: "A single T-Rex tooth could measure up to 30 centimeters long, including the root!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '🦖',
+        title: { fr: 'Le roi des géants', en: 'The king of giants' },
+        content: {
+          fr: "Le T-Rex était l'un des plus impressionnants dinosaures terrestres. Il mesurait plus de 12 mètres de long !",
+          en: "The T-Rex was one of the most impressive land dinosaurs. It measured over 12 meters long!"
+        }
+      },
+      {
+        icon: '🥩',
+        title: { fr: 'Un chasseur redoutable', en: 'A fearsome hunter' },
+        content: {
+          fr: "Avec des mâchoires surpuissantes et des dents acérées comme des bananes, il chassait d'autres dinosaures.",
+          en: "With mighty jaws and teeth as sharp as bananas, it hunted other dinosaurs."
+        }
+      },
+      {
+        icon: '💪',
+        title: { fr: 'De tout petits bras', en: 'Tiny little arms' },
+        content: {
+          fr: "Même s'il était géant et très fort, ses deux bras étaient si courts qu'il ne pouvait pas toucher sa bouche !",
+          en: "Even though huge and strong, its two arms were so short it could not touch its mouth!"
+        }
+      },
+      {
+        icon: '⏳',
+        title: { fr: 'Une époque disparue', en: 'A bygone era' },
+        content: {
+          fr: "Le T-Rex vivait sur Terre il y a 66 millions d'années, bien avant l'apparition des premiers humains.",
+          en: "The T-Rex lived on Earth 66 million years ago, long before the very first humans appeared."
+        }
+      }
+    ],
+    relatedTopicIds: ['triceratops', 'velociraptor']
   },
   {
     id: 'triceratops',
@@ -70,7 +105,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Il possédait jusqu'à 800 dents empilées dans sa bouche, prêtes à remplacer celles qui s'usaient !",
         en: "It had up to 800 teeth stacked in its mouth, ready to replace those that wore out!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '🦕',
+        title: { fr: 'Le géant à trois cornes', en: 'The three-horned giant' },
+        content: {
+          fr: "Le Tricératops était un immense dinosaure à quatre pattes reconnaissable à son grand bouclier osseux.",
+          en: "The Triceratops was a massive four-legged dinosaur famous for its large bony shield."
+        }
+      },
+      {
+        icon: '🌿',
+        title: { fr: 'Un amateur de plantes', en: 'A plant lover' },
+        content: {
+          fr: "C'était un paisible herbivore : avec son bec solide, il coupait des feuilles et des branches dures.",
+          en: "It was a peaceful herbivore: using its tough beak, it snipped leaves and sturdy branches."
+        }
+      },
+      {
+        icon: '🛡️',
+        title: { fr: 'Un bouclier solide', en: 'A strong shield' },
+        content: {
+          fr: "Sa collerette d'os et ses cornes pointues lui servaient d'armure pour impressionner les prédateurs comme le T-Rex.",
+          en: "Its bony frill and pointed horns acted as armor to scare off predators like the T-Rex."
+        }
+      },
+      {
+        icon: '🐾',
+        title: { fr: 'La vie en troupeau', en: 'Life in a herd' },
+        content: {
+          fr: "Les Tricératops voyageaient ensemble en grand groupe pour protéger les bébés au milieu des adultes.",
+          en: "Triceratops traveled together in large groups to keep the babies safe among adults."
+        }
+      }
+    ],
+    relatedTopicIds: ['t-rex', 'stegosaure']
   },
   {
     id: 'stegosaure',
@@ -104,7 +174,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Ses plaques osseuses sur le dos pouvaient changer de couleur si le sang y circulait plus vite !",
         en: "Its bony back plates could change color if blood flowed faster through them!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '🛡️',
+        title: { fr: 'Des plaques sur le dos', en: 'Plates on its back' },
+        content: {
+          fr: "Le Stégosaure est célèbre pour ses grandes plaques triangulaires dressées tout le long de son dos.",
+          en: "The Stegosaurus is famous for its large triangular plates standing tall along its back."
+        }
+      },
+      {
+        icon: '🌿',
+        title: { fr: 'Mangeur de fougères', en: 'Fern eater' },
+        content: {
+          fr: "C'était un herbivore paisible qui broutait des feuilles tendres et des fougères au ras du sol.",
+          en: "It was a peaceful herbivore grazing on tender leaves and low-lying ferns."
+        }
+      },
+      {
+        icon: '⚔️',
+        title: { fr: 'Une queue à pointes', en: 'A spiked tail' },
+        content: {
+          fr: "Au bout de sa queue, quatre longues épines de pierre le protégeaient des attaques de prédateurs.",
+          en: "At the tip of its tail, four long sharp spikes protected it against predator attacks."
+        }
+      },
+      {
+        icon: '🧠',
+        title: { fr: 'Un tout petit cerveau', en: 'A tiny brain' },
+        content: {
+          fr: "Aussi lourd qu'un camion, son cerveau n'était pourtant pas plus gros qu'une petite noix !",
+          en: "As heavy as a truck, its brain was surprisingly no bigger than a little walnut!"
+        }
+      }
+    ],
+    relatedTopicIds: ['triceratops', 't-rex']
   },
   {
     id: 'velociraptor',
@@ -138,7 +243,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Il pouvait courir jusqu'à 40 kilomètres par heure, presque aussi vite qu'un chat !",
         en: "It could run up to 40 kilometers per hour, almost as fast as a cat!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '🦎',
+        title: { fr: 'Un coureur à plumes', en: 'A feathered runner' },
+        content: {
+          fr: "Le Vélociraptor était un petit dinosaure vif et léger, couvert de douces plumes comme un oiseau.",
+          en: "The Velociraptor was a lively, lightweight dinosaur covered in soft feathers like a bird."
+        }
+      },
+      {
+        icon: '⚡',
+        title: { fr: 'Rapide comme l’éclair', en: 'Fast as lightning' },
+        content: {
+          fr: "Il sprintait sur ses deux pattes fines et utilisait sa queue droite pour tourner sans perdre l'équilibre.",
+          en: "It sprinted on its two slender legs and used its straight tail to turn without losing balance."
+        }
+      },
+      {
+        icon: '🐾',
+        title: { fr: 'Une griffe recourbée', en: 'A curved claw' },
+        content: {
+          fr: "Sur chaque pied, il avait une grande griffe en crochet qu'il levait en courant pour ne pas l'abîmer.",
+          en: "On each foot, it had a large curved claw that it lifted while running to protect it."
+        }
+      },
+      {
+        icon: '👥',
+        title: { fr: 'Chasser en équipe', en: 'Hunting as a team' },
+        content: {
+          fr: "Très malins, ils chassaient en meute solidaire pour surprendre des dinosaures plus grands qu'eux.",
+          en: "Very clever, they hunted in tight packs to take on dinosaurs much larger than themselves."
+        }
+      }
+    ],
+    relatedTopicIds: ['t-rex', 'stegosaure']
   },
   {
     id: 'pterodactyle',
@@ -172,7 +312,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Le nom Ptérodactyle signifie 'Doigt ailé' !",
         en: "The name Pterodactyl means 'Winged finger'!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '🦇',
+        title: { fr: 'Un reptile volant fascinant', en: 'A fascinating flying reptile' },
+        content: {
+          fr: "Le Ptérodactyle vivait au temps des dinosaures, mais ce n'était pas un dinosaure : c'était un ptérosaure, un reptile capable de voler dans le ciel.",
+          en: "The Pterodactyl lived during the age of dinosaurs, but it was not a dinosaur: it was a pterosaur, a flying reptile soaring across ancient skies."
+        }
+      },
+      {
+        icon: '🪁',
+        title: { fr: 'Des ailes de peau tendue', en: 'Stretched skin wings' },
+        content: {
+          fr: "Ses ailes n'avaient pas de plumes. Une fine membrane de peau souple s'étirait le long de son corps jusqu'au bout d'un quatrième doigt immense.",
+          en: "Its wings had no feathers. A thin membrane of elastic skin stretched along its body all the way to the tip of an extra-long fourth finger."
+        }
+      },
+      {
+        icon: '🐟',
+        title: { fr: 'Pêcher au ras des vagues', en: 'Fishing above the waves' },
+        content: {
+          fr: "Il survolait les côtes rocheuses et les lagunes pour repérer des poissons. Son long bec garni de dents fines lui permettait d'attraper ses proies glissantes.",
+          en: "It glided over rocky shores and lagoons spotting fish. Its long beak lined with slender teeth helped it snatch slippery prey right from the water."
+        }
+      },
+      {
+        icon: '🪶',
+        title: { fr: 'Léger pour mieux planer', en: 'Light bones for soaring' },
+        content: {
+          fr: "Pour décoller facilement, ses os étaient très légers et remplis d'air. Il profitait des courants chauds pour planer longtemps sans trop se fatiguer.",
+          en: "To take off easily, its hollow bones were light and filled with air. It used warm thermal winds to glide effortlessly for hours over long distances."
+        }
+      }
+    ],
+    relatedTopicIds: ['t-rex', 'brachiosaure']
   },
   {
     id: 'brachiosaure',
@@ -206,7 +381,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Ses narines étaient situées tout en haut de sa tête, juste entre ses yeux !",
         en: "Its nostrils were located at the very top of its head, right between its eyes!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '🦕',
+        title: { fr: 'Un géant parmi les sauropodes', en: 'A sauropod giant' },
+        content: {
+          fr: "Le Brachiosaure était un immense dinosaure à quatre pattes qui marchait sur la terre ferme à l'époque du Jurassique.",
+          en: "The Brachiosaurus was an enormous four-legged dinosaur that walked firmly on land during the Jurassic period."
+        }
+      },
+      {
+        icon: '🦒',
+        title: { fr: 'Une silhouette unique', en: 'A unique silhouette' },
+        content: {
+          fr: "Contrairement à d'autres sauropodes, ses pattes avant étaient plus longues que ses pattes arrière, donnant à son dos une allure inclinée vers le haut.",
+          en: "Unlike other sauropods, its front legs were longer than its hind legs, giving its back a naturally upward-sloping posture."
+        }
+      },
+      {
+        icon: '🍃',
+        title: { fr: 'Mangeur de feuillages hauts', en: 'High treetop browser' },
+        content: {
+          fr: "Grâce à son grand cou dressé, cet herbivore pouvait cueillir sans effort les feuilles tendres tout en haut des arbres préhistoriques.",
+          en: "Thanks to its raised neck, this herbivore could easily clip tender leaves high up in prehistoric trees."
+        }
+      },
+      {
+        icon: '🌱',
+        title: { fr: 'Des tonnes de végétaux', en: 'Tons of plants' },
+        content: {
+          fr: "Pour nourrir sa masse colossale, il avalait chaque jour des centaines de kilos de plantes qu'il broyait et digérait lentement.",
+          en: "To fuel its colossal mass, it swallowed hundreds of kilograms of plants every day, digesting them slowly."
+        }
+      }
+    ],
+    relatedTopicIds: ['t-rex', 'arbres']
   },
   {
     id: 'ankylosaure',
@@ -240,7 +450,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Le nom Ankylosaure signifie 'Lézard rigide' !",
         en: "The name Ankylosaurus means 'Stiff lizard'!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '🛡️',
+        title: { fr: "Une armure d'os", en: 'A bony armor' },
+        content: {
+          fr: "Son dos et sa tête portaient des plaques osseuses très solides pour le recouvrir comme un bouclier.",
+          en: "Its back and head carried very hard bony plates covering it like a shield."
+        }
+      },
+      {
+        icon: '🔨',
+        title: { fr: 'Une queue à massue', en: 'A heavy tail club' },
+        content: {
+          fr: "Au bout de sa queue se trouvait une grosse boule d'os lourd. Les scientifiques étudient encore comment il l'utilisait.",
+          en: "At the end of its tail was a heavy ball of bone. Scientists are still studying how it was used."
+        }
+      },
+      {
+        icon: '🌿',
+        title: { fr: 'Un mangeur de plantes', en: 'A plant eater' },
+        content: {
+          fr: "L'ankylosaure avançait près de la terre pour cueillir calmement des fougères et des feuilles tendres.",
+          en: "The ankylosaurus walked close to the ground to peacefully graze on ferns and tender leaves."
+        }
+      },
+      {
+        icon: '🦕',
+        title: { fr: 'Un géant paisible', en: 'A peaceful giant' },
+        content: {
+          fr: "Ce grand herbivore vivait à la même époque que d'autres dinosaures célèbres comme le Tricératops.",
+          en: "This large herbivore lived during the same period as other famous dinosaurs like Triceratops."
+        }
+      }
+    ],
+    relatedTopicIds: ['t-rex', 'triceratops', 'stegosaure']
   },
   {
     id: 'diplodocus',
@@ -274,7 +519,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Le nom Diplodocus signifie 'Double poutre' à cause de la forme de ses os sous la queue !",
         en: "The name Diplodocus means 'Double beam' because of the shape of its bones under the tail!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '🦕',
+        title: { fr: "Un géant tout en longueur", en: "A long gentle giant" },
+        content: {
+          fr: "Le Diplodocus est un sauropode célèbre de la période du Jurassique. Avec son corps immense posé sur quatre pattes solides, il pouvait mesurer près de trente mètres de long !",
+          en: "Diplodocus is a famous Jurassic sauropod. With its enormous body supported by four sturdy legs, it could stretch almost thirty meters from head to tail!"
+        }
+      },
+      {
+        icon: '🌿',
+        title: { fr: "Un grand cou pour brouter", en: "A long browsing neck" },
+        content: {
+          fr: "Grâce à son long cou horizontal, il balayait de vastes zones de fougères et de buissons sans se déplacer. Ses dents en forme de peignes effeuillaient les branches tendres.",
+          en: "Using its long horizontal neck, it swept through wide patches of ferns and shrubs without moving its body. Its peg-like teeth easily stripped leaves from branches."
+        }
+      },
+      {
+        icon: '🦴',
+        title: { fr: "Un squelette allégé", en: "A lightweight skeleton" },
+        content: {
+          fr: "Pour porter une telle longueur sans être écrasé par son propre poids, ses vertèbres comportaient des cavités creuses remplies d'air, un peu comme chez les oiseaux actuels.",
+          en: "To carry such immense length without collapsing under its own weight, its backbones featured hollow air pockets, much like the skeleton of modern birds."
+        }
+      },
+      {
+        icon: '⚡',
+        title: { fr: "L'énigme de la queue effilée", en: "The long whip tail puzzle" },
+        content: {
+          fr: "Sa queue très fine comptait plus de quatre-vingts os. Elle servait d'abord de contrepoids pour marcher, et certains chercheurs pensent qu'elle pouvait aussi claquer pour impressionner.",
+          en: "Its slender tail contained over eighty bones. It served mainly as a counterweight while walking, and scientists think it might also have whipped the air to warn rival predators."
+        }
+      }
+    ],
+    relatedTopicIds: ['brachiosaure', 't-rex']
   },
   {
     id: 'spinosaure',
@@ -308,7 +588,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Ses dents étaient lisses et pointues, faites pour glisser sur les poissons plutôt que pour broyer les os !",
         en: "Its teeth were smooth and sharp, designed to slide on fish rather than crush bones!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '🌊',
+        title: { fr: 'Entre terre et eau', en: 'Between land and water' },
+        content: {
+          fr: "Ce géant passait beaucoup de temps au bord des fleuves et chassait dans les cours d'eau préhistoriques.",
+          en: "This giant spent much of its time along riverbanks and hunted in prehistoric waterways."
+        }
+      },
+      {
+        icon: '🐟',
+        title: { fr: 'Un pêcheur redoutable', en: 'A skilled fisher' },
+        content: {
+          fr: "Son long museau droit et ses dents pointues ressemblaient à ceux d'un crocodile pour attraper les poissons.",
+          en: "Its long straight snout and sharp teeth resembled a crocodile's to snap up slippery fish."
+        }
+      },
+      {
+        icon: '⛵',
+        title: { fr: 'Une voile mystérieuse', en: 'A mysterious sail' },
+        content: {
+          fr: "Sur son dos se dressait une immense voile d'épines. Les scientifiques débattent encore de son rôle exact.",
+          en: "Across its back rose a giant sail of spines. Scientists still discuss its exact purpose."
+        }
+      },
+      {
+        icon: '🦖',
+        title: { fr: 'Une nage étudiée de près', en: 'Swimming studied closely' },
+        content: {
+          fr: "Grâce à sa queue aplatie, il pouvait pagayer, et les chercheurs cherchent encore comment il se déplaçait précisément.",
+          en: "With its flattened tail, it could paddle, and researchers are still uncovering exactly how it moved."
+        }
+      }
+    ],
+    relatedTopicIds: ['t-rex', 'brachiosaure']
   },
   {
     id: 'parasaurolophus',
@@ -342,7 +657,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Il possédait des centaines de petites dents serrées pour broyer les aiguilles de pins et les plantes dures !",
         en: "It had hundreds of small tight teeth to grind pine needles and tough plants!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '🎺',
+        title: { fr: 'Une crête remarquable', en: 'A remarkable crest' },
+        content: {
+          fr: "Le Parasaurolophus portait un long tube osseux courbé vers l'arrière de sa tête. Cette silhouette originale le rendait facile à reconnaître parmi les grands troupeaux.",
+          en: 'Parasaurolophus carried a long curved bony tube reaching backward from its head. This striking outline made it easy to spot among large herds.'
+        }
+      },
+      {
+        icon: '💨',
+        title: { fr: "Des conduits d'air internes", en: 'Air pathways inside' },
+        content: {
+          fr: "Sa crête abritait de longs tubes reliés à ses narines. Beaucoup de chercheurs pensent que l'air soufflé dedans pouvait créer de profonds sons de résonance.",
+          en: 'Its crest sheltered long hollow tubes connected to its nostrils. Many researchers believe air moving inside could produce low, booming sounds.'
+        }
+      },
+      {
+        icon: '🌿',
+        title: { fr: 'Un paisible herbivore', en: 'A peaceful plant-eater' },
+        content: {
+          fr: "Ce dinosaure se nourrissait de feuilles, de fougères et de pousses dures. Ses mâchoires contenaient de nombreuses petites dents serrées pour broyer les végétaux.",
+          en: 'This dinosaur fed on leaves, ferns, and tough twigs. Its jaws were lined with many tight rows of teeth to grind rough plant food.'
+        }
+      },
+      {
+        icon: '👀',
+        title: { fr: 'Se faire remarquer', en: 'Standing out in the herd' },
+        content: {
+          fr: "La crête servait sans doute aussi de signal visuel entre congénères. Comme les fossiles restent silencieux, les paléontologues comparent encore plusieurs hypothèses.",
+          en: 'The crest likely served as a visual sign to companions. Since fossils cannot speak, paleontologists still compare several explanations.'
+        }
+      }
+    ],
+    relatedTopicIds: ['triceratops', 'diplodocus', 't-rex'],
   },
   {
     id: 'iguanodon',
@@ -376,7 +726,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Il possédait un bec corné à l'avant de sa bouche pour couper proprement les branches !",
         en: "It had a horny beak at the front of its mouth to cleanly cut branches!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '👍',
+        title: { fr: 'Le pouce en éperon', en: 'The thumb spike' },
+        content: {
+          fr: "L'Iguanodon avait un pouce pointu comme une épine. Les chercheurs ont d'abord cru que c'était une corne sur son nez avant de lui trouver sa vraie place !",
+          en: 'Iguanodon had a sharp spike for a thumb. Scientists first thought it was a horn on its nose before realizing it belonged on its hand!'
+        }
+      },
+      {
+        icon: '🌿',
+        title: { fr: 'Un bec pour couper', en: 'A beak to cut leaves' },
+        content: {
+          fr: "Ce paisible herbivore utilisait son bec dur pour trancher les branches et ses dents solides pour broyer les fougères et aiguilles de pin.",
+          en: 'This peaceful plant-eater used its hard beak to snip twigs and sturdy teeth to chew through rough ferns and pine needles.'
+        }
+      },
+      {
+        icon: '🐾',
+        title: { fr: 'Deux ou quatre pattes', en: 'Two or four legs' },
+        content: {
+          fr: "Il pouvait marcher à quatre pattes pour brouter au sol, ou se lever sur ses deux pattes arrière pour courir ou attraper des feuilles en hauteur.",
+          en: 'It could stroll on four legs to graze on the ground, or rise onto two hind legs to run or reach tasty leaves up high.'
+        }
+      },
+      {
+        icon: '🦕',
+        title: { fr: 'Une découverte historique', en: 'A historic discovery' },
+        content: {
+          fr: "C'est l'un des tout premiers dinosaures décrits par les scientifiques il y a deux siècles, ouvrant la grande aventure de la paléontologie.",
+          en: 'It is one of the very first dinosaurs described by scientists two centuries ago, sparking the great adventure of paleontology.'
+        }
+      }
+    ],
+    relatedTopicIds: ['parasaurolophus', 'triceratops', 'diplodocus'],
   },
   {
     id: 'mosasaure',
@@ -410,7 +795,42 @@ const rawDinosaurs: readonly RawTopic[] = [
         fr: "Il avait une double rangée de dents sur son palais pour empêcher ses proies de s'échapper de sa bouche !",
         en: "It had a double row of teeth on its palate to prevent prey from escaping its mouth!"
       }
-    ]
+    ],
+    sections: [
+      {
+        icon: '🌊',
+        title: { fr: 'Le maître des mers chaudes', en: 'Master of the warm seas' },
+        content: {
+          fr: "Au temps des dinosaures, le mosasaure régnait en maître dans les eaux chaudes et peu profondes du globe.",
+          en: 'In the age of dinosaurs, the mosasaur ruled supreme over warm, shallow seas around the globe.'
+        }
+      },
+      {
+        icon: '🦎',
+        title: { fr: 'Un reptile géant à nageoires', en: 'A giant reptile with fins' },
+        content: {
+          fr: "Ce n'était pas un poisson ni un dinosaure, mais un formidable reptile marin cousin des varans et des serpents actuels.",
+          en: 'It was neither a fish nor a dinosaur, but a formidable marine reptile related to modern monitor lizards and snakes.'
+        }
+      },
+      {
+        icon: '🦈',
+        title: { fr: 'Une queue de grand nageur', en: 'A powerful swimming tail' },
+        content: {
+          fr: "Sa longue queue puissante et ses quatre nageoires en forme de palettes lui permettaient de nager très vite à l'affût.",
+          en: 'Its long powerful tail and four paddle-like fins let it swim at high speed while hunting.'
+        }
+      },
+      {
+        icon: '🦷',
+        title: { fr: 'Une mâchoire redoutable', en: 'A fearsome double jaw' },
+        content: {
+          fr: "Avec ses dents pointues et une deuxième rangée au palais, il attrapait facilement les poissons, calmars et ammonites.",
+          en: 'With sharp teeth and a second row on its palate, it easily caught fish, squids, and ammonites.'
+        }
+      }
+    ],
+    relatedTopicIds: ['t-rex', 'spinosaure', 'sortie-des-eaux'],
   }
 ];
 

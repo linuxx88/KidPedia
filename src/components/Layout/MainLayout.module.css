@@ -37,7 +37,7 @@
 
 .appNav {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--layout-max-width, 1440px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -56,6 +56,12 @@
 
 .logoContainer:hover {
   transform: scale(1.05);
+}
+
+.logoContainer:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 3px;
+  border-radius: var(--radius-md);
 }
 
 :global(.dark) .logoContainer {
@@ -136,14 +142,78 @@
   box-shadow: 0 6px 0 var(--color-border-dark);
 }
 
+.headerBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
 .headerBtn:active {
   transform: translateY(2px);
   box-shadow: 0 2px 0 var(--color-border-dark);
 }
 
+@media (max-width: 768px) {
+  .appNav {
+    padding: 0 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .logoText {
+    font-size: 1.4rem;
+  }
+
+  .headerActions {
+    gap: 0.35rem;
+  }
+
+  .headerBtn {
+    width: 2.75rem;
+    height: 2.75rem;
+    font-size: 1.35rem;
+    border-width: 3px;
+    box-shadow: 0 3px 0 var(--color-border-dark);
+  }
+}
+
+@media (max-width: 480px) {
+  .appNav {
+    padding: 0 0.5rem;
+    gap: 0.35rem;
+  }
+
+  .logoText {
+    font-size: 1.15rem;
+  }
+
+  .headerActions {
+    gap: 0.25rem;
+  }
+
+  .headerBtn {
+    width: 2.35rem;
+    height: 2.35rem;
+    font-size: 1.15rem;
+    border-width: 2.5px;
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 0 var(--color-border-dark);
+  }
+}
+
+@media (max-width: 360px) {
+  .logoText {
+    display: none;
+  }
+
+  .headerBtn {
+    width: 2.2rem;
+    height: 2.2rem;
+    font-size: 1.05rem;
+  }
+}
+
 .mainContent {
   width: 100%;
-  max-width: 1200px;
+  max-width: var(--layout-max-width, 1440px);
   padding: 0 1.5rem 15vh;
 }
 
@@ -155,7 +225,7 @@
 .footer {
   padding: 3rem 0;
   text-align: center;
-  color: #94a3b8;
+  color: var(--color-app-text-light);
   font-size: 0.8rem;
   font-weight: 800;
   text-transform: uppercase;

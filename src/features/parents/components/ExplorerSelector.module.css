@@ -56,8 +56,13 @@
   box-shadow: 0 8px 15px rgba(99, 102, 241, 0.15);
 }
 
+.profileSelectorBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
 .profileSelectorBtnActive {
-  background: white;
+  background: var(--card-bg);
   border-color: var(--color-primary, #6366f1);
   color: var(--color-primary, #6366f1);
   box-shadow: 0 10px 20px rgba(99, 102, 241, 0.2);

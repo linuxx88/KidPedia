@@ -1,6 +1,6 @@
 .topicDetailCard {
   width: 100%;
-  max-width: 1000px;
+  max-width: var(--layout-max-width, 1440px);
   margin: 0 auto;
   padding: 1rem;
   animation: slideUp 0.6s cubic-bezier(0.23, 1, 0.32, 1);
@@ -12,11 +12,11 @@
 }
 
 .speechError {
-  color: #ef4444;
+  color: var(--color-retry-text);
   font-size: 0.75rem;
   font-weight: 900;
   text-transform: uppercase;
-  background-color: rgba(239, 68, 68, 0.1);
+  background-color: var(--color-retry-bg);
   padding: 0.5rem 1rem;
   border-radius: 9999px;
 }
@@ -33,12 +33,12 @@
 }
 
 :global(.dark) .topicGlassSheet {
-  background-color: #1e293b;
-  border-color: #334155;
+  background-color: var(--card-bg);
+  border-color: var(--card-border);
 }
 
 :global(.dark) .topicMainTitle {
-  color: #f8fafc;
+  color: var(--color-app-text);
 }
 
 .topicSectionHeader {
@@ -52,7 +52,7 @@
   left: -100px;
   width: 250px;
   height: 250px;
-  background-color: rgba(168, 85, 247, 0.1);
+  background-color: var(--color-nebula-2);
   border-radius: 50%;
   filter: blur(40px);
   z-index: 0;
@@ -96,6 +96,53 @@
   font-size: 2.5rem;
 }
 
+.realAudioButton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: var(--color-bg-subtle, rgba(255, 255, 255, 0.9));
+  color: var(--color-primary, #059669);
+  border: 2px solid var(--color-primary, #059669);
+  border-radius: 9999px;
+  padding: 0.6rem 1.4rem;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+  margin-top: 0.25rem;
+}
+
+.realAudioButton:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+:global(.dark) .realAudioButton {
+  background: var(--card-bg);
+  color: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.realAudioButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px var(--color-accent);
+  background: var(--color-bg-hover);
+}
+
+.realAudioButton:active {
+  transform: translateY(1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.realAudioIcon {
+  font-size: 1.25rem;
+}
+
+.realAudioLabel {
+  font-family: inherit;
+}
+
 .topicSeparator {
   height: 4px;
   background-color: var(--color-border-neutral);
@@ -120,7 +167,59 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 2rem;
-  margin-bottom: 3rem;
+  margin-bottom: 2rem;
+}
+
+.sectionsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+  margin-bottom: 2.5rem;
+}
+
+.sectionCard {
+  background: var(--card-bg);
+  border: 2px solid var(--color-border-neutral);
+  border-radius: 1.5rem;
+  padding: 1.25rem;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+:global(.dark) .sectionCard {
+  background: var(--card-bg);
+  border-color: var(--card-border);
+}
+
+.sectionCard:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+}
+
+.sectionIcon {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.sectionTitle {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--color-app-text);
+  margin: 0;
+}
+
+.sectionContent {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--color-app-text-muted);
+  margin: 0;
 }
 
 .topicSectionQuiz {
@@ -138,7 +237,7 @@
   display: block;
   padding: 1.5rem 4rem;
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-btn-primary-text);
   border: none;
   border-radius: 2rem;
   font-size: 1.5rem;
@@ -154,9 +253,87 @@
   box-shadow: 0 10px 0 var(--color-primary-dark);
 }
 
+.topicFinishButton:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 3px;
+}
+
 .topicFinishButton:active {
   transform: translateY(6px);
   box-shadow: 0 2px 0 var(--color-primary-dark);
+}
+
+.relatedTopicsContainer {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  background: var(--card-bg);
+  border: 2px dashed var(--color-primary);
+  border-radius: 1.5rem;
+}
+
+.relatedTopicsTitle {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: var(--color-app-text);
+  margin: 0 0 1rem 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.relatedTopicsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 1rem;
+}
+
+.relatedTopicCard {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.85rem 1.25rem;
+  background-color: var(--card-bg);
+  border: 2px solid var(--color-border-control);
+  border-radius: 1.25rem;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  box-shadow: var(--shadow-sm);
+  text-align: left;
+  font-family: inherit;
+  outline: none;
+}
+
+.relatedTopicCard:hover {
+  transform: translateY(-3px) scale(1.02);
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  background-color: var(--color-bg-hover);
+}
+
+.relatedTopicCard:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+.relatedTopicCard:active {
+  transform: translateY(0);
+}
+
+:global(.dark) .relatedTopicCard {
+  background-color: var(--card-bg);
+  border-color: var(--color-border-control);
+}
+
+.relatedTopicIcon {
+  font-size: 2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.relatedTopicName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--color-app-text);
 }
 
 /* ==========================================================================
@@ -206,11 +383,33 @@
     gap: 1rem;
     margin-bottom: 2rem;
   }
+  .sectionsGrid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+  }
   .topicFinishButton {
     padding: 1rem 2.5rem;
     font-size: 1.25rem;
     margin: 2rem auto;
     border-radius: 1.5rem;
     box-shadow: 0 6px 0 var(--color-primary-dark);
+  }
+}
+
+@media (max-width: 375px) {
+  .topicGlassSheet {
+    padding: 1rem;
+    border-radius: 1.5rem;
+  }
+  .topicMainTitle {
+    font-size: 1.4rem;
+  }
+  .topicHeroIcon {
+    font-size: 2.75rem;
+  }
+  .realAudioButton {
+    padding: 0.5rem 1rem;
+    font-size: 0.9rem;
   }
 }

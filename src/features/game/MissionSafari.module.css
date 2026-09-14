@@ -11,7 +11,7 @@
 
 .questBadge {
   background: var(--color-primary);
-  color: white;
+  color: var(--color-btn-primary-text);
   padding: 0.4rem 1.2rem;
   border-radius: 1rem;
   font-weight: 800;
@@ -189,8 +189,8 @@
 .rollBtn, .resetBtn {
   width: 100%;
   background: var(--color-primary); /* Utilise la couleur Explorer Blue ou Amethyst */
-  color: white;
-  border: 3px solid rgba(255, 255, 255, 0.3);
+  color: var(--color-btn-primary-text);
+  border: 3px solid var(--color-border-control);
   padding: clamp(1rem, 1.5vh, 1.4rem);
   border-radius: 1.5rem;
   font-size: clamp(1rem, 1.2vw, 1.2rem);
@@ -206,9 +206,14 @@
   gap: 10px;
 }
 
-.rollBtn:hover:not(:disabled) {
+.rollBtn:hover:not(:disabled), .resetBtn:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 8px 0px var(--color-primary-dark), 0 12px 25px rgba(0,0,0,0.2);
+}
+
+.rollBtn:focus-visible, .resetBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .rollBtn:active:not(:disabled) {

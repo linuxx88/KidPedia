@@ -5,7 +5,7 @@ import { useProgressionStore } from '../../store/useProgressionStore';
 import { useSettingsStore } from '../../store/useSettingsStore';
 import { useAudioFeedback } from '../../hooks/useAudioFeedback';
 import { getMedalIcon } from '../../utils/quizMessages';
-import { PageHeader } from '../../components/Layout/PageHeader';
+import BackButton from '../../components/UI/BackButton';
 import { GiftButton } from './Elements/GiftButton';
 import type { EarnedBadge } from '../../types/domain';
 import { type Topic } from '../../data/topics/types';
@@ -61,16 +61,23 @@ export function ExplorerGallery({ onTopicClick, onBack }: ExplorerGalleryProps) 
 
   return (
     <div className={styles.galleryContainer}>
-      <PageHeader 
-        title={labels.gallery.title}
-        icon="📔"
-        onBack={handleBack}
-        rightElement={<GiftButton onClick={handleGiftsClick} />}
-      />
-      
-      <header className={styles.galleryHeader}>
-        <p className={styles.gallerySubtitle}>{labels.gallery.subtitle}</p>
-      </header>
+      <div className={styles.galleryHeaderBar}>
+        <div className={styles.navSection}>
+          <BackButton onClick={handleBack} className={styles.headerBtn} />
+        </div>
+
+        <div className={styles.titleSection}>
+          <div className={styles.titleRow}>
+            <span className={styles.headerIcon} role="img" aria-hidden="true">📔</span>
+            <h1 className={styles.galleryTitle}>{labels.gallery.title}</h1>
+          </div>
+          <p className={styles.gallerySubtitle}>{labels.gallery.subtitle}</p>
+        </div>
+
+        <div className={styles.rightSection}>
+          <GiftButton onClick={handleGiftsClick} className={styles.headerBtn} />
+        </div>
+      </div>
 
       <div className={styles.stickerGrid}>
         {allTopics.map((topic) => {

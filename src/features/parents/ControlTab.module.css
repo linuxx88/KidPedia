@@ -12,7 +12,7 @@
 
 /* Settings & Parental Controls Cards */
 .settingsCard {
-  background: white;
+  background: var(--card-bg);
   border-radius: 2.2rem;
   padding: 2rem;
   box-shadow: 0 12px 30px rgba(0, 0, 0, 0.03);
@@ -73,8 +73,13 @@
   border-color: rgba(99, 102, 241, 0.3);
 }
 
+.screentimeBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
 .screentimeBtnActive {
-  background: white !important;
+  background: var(--card-bg) !important;
   border-color: var(--color-primary, #6366f1) !important;
   color: var(--color-primary, #6366f1) !important;
   box-shadow: 0 4px 15px rgba(99, 102, 241, 0.15);
@@ -169,6 +174,11 @@ input:checked + .slider {
   background-color: var(--color-primary, #6366f1);
 }
 
+.switch input:focus-visible + .slider {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
 input:checked + .slider:before {
   transform: translateX(26px);
 }
@@ -215,6 +225,11 @@ input:checked + .slider:before {
   font-size: 0.85rem;
 }
 
+.editNameBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
 .editNameInputWrapper {
   display: flex;
   flex-direction: column;
@@ -227,11 +242,15 @@ input:checked + .slider:before {
   font-size: 1.1rem;
   font-weight: 800;
   border-radius: 1rem;
-  border: 2px solid var(--color-primary, #6366f1);
-  background: white;
-  color: black;
+  border: 2px solid var(--color-border-control);
+  background: var(--card-bg);
+  color: var(--color-app-text);
   width: 100%;
   max-width: 300px;
+}
+
+.editNameInput:focus {
+  border-color: var(--color-primary, #6366f1);
 }
 
 .editNameActions {
@@ -241,7 +260,12 @@ input:checked + .slider:before {
 
 .saveNameBtn {
   background: var(--color-primary, #6366f1);
-  color: white;
+  color: var(--color-btn-primary-text);
+}
+
+.saveNameBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .dangerActionsRow {
@@ -264,6 +288,15 @@ input:checked + .slider:before {
   border-color: #f87171;
 }
 
+.resetBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+:global(html[data-theme='dark']) .resetBtn:hover {
+  background: rgba(239, 68, 68, 0.15);
+}
+
 .deleteBtn {
   flex-grow: 1;
   font-size: 0.9rem;
@@ -277,4 +310,18 @@ input:checked + .slider:before {
 .deleteBtn:hover {
   background: #fee2e2;
   border-color: #ef4444;
+}
+
+.deleteBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
+:global(html[data-theme='dark']) .deleteBtn {
+  background: rgba(220, 38, 38, 0.2);
+  color: #f87171;
+}
+
+:global(html[data-theme='dark']) .deleteBtn:hover {
+  background: rgba(220, 38, 38, 0.3);
 }

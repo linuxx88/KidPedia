@@ -95,7 +95,7 @@ export function DictionaryPage() {
   return (
     <div className={styles.dictionaryContainer}>
       <header className={styles.header}>
-        <BackButton onClick={() => navigate('/')} />
+        <BackButton onClick={() => navigate('/')} className={styles.backBtn} />
         <div className={styles.titleSection}>
           <h1 className={styles.title}>{labels.dictionary.title}</h1>
           <p className={styles.subtitle}>{labels.dictionary.listenTip}</p>
@@ -197,9 +197,38 @@ export function DictionaryPage() {
           </div>
         ) : (
           <div className={styles.emptyState}>
-            <span className={styles.emptyEmoji}>🦖💤</span>
+            <span className={styles.emptyEmoji}>🔎🐶</span>
             <h2 className={styles.emptyTitle}>{labels.dictionary.noResults}</h2>
             <p className={styles.emptyText}>{labels.home.noResultsText}</p>
+            <div className={styles.emptyActions}>
+              <button 
+                type="button" 
+                className={styles.clearSearchBtn}
+                onClick={() => setSearchQuery('')}
+              >
+                {language === 'fr' ? 'Effacer la recherche 🔄' : 'Clear search 🔄'}
+              </button>
+            </div>
+            <div className={styles.suggestionsWrapper}>
+              <p className={styles.suggestionsPrompt}>
+                {language === 'fr' ? '💡 Essaie ces mots magiques :' : '💡 Try these magic words:'}
+              </p>
+              <div className={styles.suggestionsList}>
+                {(language === 'fr' 
+                  ? ['T-Rex', 'Étoile', 'Océan', 'Volcan']
+                  : ['T-Rex', 'Star', 'Ocean', 'Volcano']
+                ).map(word => (
+                  <button
+                    key={word}
+                    type="button"
+                    className={styles.suggestionWordPill}
+                    onClick={() => setSearchQuery(word)}
+                  >
+                    {word} ✨
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         )}
       </main>

@@ -16,9 +16,13 @@
 .header {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   position: relative;
   z-index: 10;
+}
+
+.backBtn {
+  margin-right: 0 !important;
 }
 
 .titleSection {
@@ -99,6 +103,11 @@
   transform: scale(1.15);
 }
 
+.clearButton:focus-visible {
+  outline: 2px solid var(--color-focus-ring);
+  border-radius: var(--radius-sm, 4px);
+}
+
 .searchInput:focus {
   border-color: var(--color-primary);
   box-shadow: 0 0 15px rgba(59, 130, 246, 0.15);
@@ -139,8 +148,9 @@
   color: var(--color-app-text);
   border-radius: var(--radius-md);
   box-shadow: var(--shadow-sm);
-  border: 2px solid var(--card-border);
+  border: 2px solid var(--color-border-control);
   transition: var(--transition-bounce);
+  cursor: pointer;
 }
 
 .letterButton:hover {
@@ -149,9 +159,14 @@
   color: var(--color-primary);
 }
 
+.letterButton:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
 .activeLetter {
   background-color: var(--color-primary) !important;
-  color: #ffffff !important;
+  color: var(--color-btn-primary-text) !important;
   border-color: var(--color-primary) !important;
   box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3) !important;
 }
@@ -247,19 +262,25 @@
   font-size: 1.35rem;
   box-shadow: var(--shadow-sm);
   transition: var(--transition-bounce);
+  cursor: pointer;
 }
 
 .speakButton:hover {
   background-color: var(--color-primary);
-  color: #ffffff;
+  color: var(--color-btn-primary-text);
   transform: rotate(-10deg) scale(1.1);
   box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3);
+}
+
+.speakButton:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .speakingOwl {
   animation: wobble 0.6s infinite alternate ease-in-out;
   background-color: var(--color-accent) !important;
-  color: #ffffff !important;
+  color: var(--color-btn-accent-text) !important;
 }
 
 @keyframes wobble {
@@ -305,6 +326,81 @@
   margin: 0;
 }
 
+.emptyActions {
+  margin-top: 0.5rem;
+}
+
+.clearSearchBtn {
+  background-color: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: var(--radius-full);
+  font-weight: var(--fw-black);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--color-primary-dark);
+  transition: var(--transition-bounce);
+}
+
+.clearSearchBtn:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 0 var(--color-primary-dark);
+}
+
+.clearSearchBtn:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--color-primary-dark);
+}
+
+.suggestionsWrapper {
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.suggestionsPrompt {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  color: var(--color-app-text-light);
+  margin: 0;
+}
+
+.suggestionsList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  justify-content: center;
+  max-width: 450px;
+}
+
+.suggestionWordPill {
+  background: var(--color-surface-mixed);
+  color: var(--color-app-text);
+  border: 2px solid var(--color-border-control);
+  padding: 0.5rem 1.2rem;
+  border-radius: var(--radius-full);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  cursor: pointer;
+  box-shadow: 0 3px 0 var(--color-border-dark);
+  transition: var(--transition-bounce);
+}
+
+.suggestionWordPill:hover {
+  transform: translateY(-2px);
+  border-color: var(--color-primary);
+  color: var(--color-primary);
+  box-shadow: 0 5px 0 var(--color-primary-dark);
+}
+
+.suggestionWordPill:active {
+  transform: translateY(1px);
+  box-shadow: 0 1px 0 var(--color-border-dark);
+}
+
 /* Categories Filter Slider */
 .categoriesContainer {
   display: flex;
@@ -339,7 +435,7 @@
   color: var(--color-app-text);
   border-radius: var(--radius-full);
   box-shadow: var(--shadow-sm);
-  border: 2px solid var(--card-border);
+  border: 2px solid var(--color-border-control);
   transition: var(--transition-bounce);
   cursor: pointer;
 }
@@ -349,8 +445,12 @@
   border-color: var(--color-primary);
 }
 
+.categoryButton:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
 .activeCategory {
-  color: #ffffff !important;
   box-shadow: 0 4px 10px rgba(59, 130, 246, 0.3) !important;
 }
 
@@ -358,26 +458,31 @@
 .activeCategory:not(.espace):not(.histoire):not(.nature):not(.science) {
   background-color: var(--color-primary) !important;
   border-color: var(--color-primary) !important;
+  color: var(--color-btn-primary-text) !important;
 }
 
 .espace {
   background-color: #6366f1 !important; /* Indigo */
   border-color: #6366f1 !important;
+  color: #ffffff !important;
 }
 
 .histoire {
   background-color: #f59e0b !important; /* Amber */
   border-color: #f59e0b !important;
+  color: #451a03 !important;
 }
 
 .nature {
   background-color: #10b981 !important; /* Emerald */
   border-color: #10b981 !important;
+  color: #022c22 !important;
 }
 
 .science {
   background-color: #3b82f6 !important; /* Blue */
   border-color: #3b82f6 !important;
+  color: #ffffff !important;
 }
 
 /* Category specific tags in word cards */

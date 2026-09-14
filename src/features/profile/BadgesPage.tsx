@@ -50,6 +50,7 @@ export function BadgesPage({ onBack }: BadgesPageProps) {
         title={labels.badges.title}
         icon="🏆"
         onBack={onBack}
+        variant="transparent"
         rightElement={<GiftButton onClick={handleGiftsClick} />}
       />
 

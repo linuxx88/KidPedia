@@ -44,6 +44,11 @@
   z-index: 10;
 }
 
+.hexWrapper:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 4px;
+}
+
 .hexContent {
   position: absolute;
   inset: 0;

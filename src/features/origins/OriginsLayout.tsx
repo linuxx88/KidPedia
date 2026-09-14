@@ -106,6 +106,7 @@ export const OriginsLayout: React.FC = () => {
         icon="🕰️" 
         onBack={handleBack} 
         className={styles.integratedHeader}
+        variant="transparent"
       />
       
       <svg style={{ position: 'absolute', width: 0, height: 0 }}>

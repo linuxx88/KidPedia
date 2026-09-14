@@ -18,5 +18,6 @@ export const DEFAULT_PROGRESSION: ProfileProgression = {
   stickers: [],
   unlockedPuzzlePieces: {},
   unlockedWallpapers: [],
-  readTopics: []
+  readTopics: [],
+  favorites: []
 };

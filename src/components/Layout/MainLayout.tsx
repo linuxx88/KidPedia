@@ -121,6 +121,16 @@ export const MainLayout: React.FC<MainLayoutProps> = ({
             <div className={styles.headerActions}>
               <button
                 className={styles.headerBtn}
+                onClick={() => navigate('/favorites')}
+                aria-label={labels.favorites.title}
+                title={labels.favorites.title}
+                data-testid="header-favorites-btn"
+              >
+                ⭐
+              </button>
+
+              <button
+                className={styles.headerBtn}
                 onClick={onOpenParents}
                 aria-label="Zone Parents"
                 title="Zone Parents"

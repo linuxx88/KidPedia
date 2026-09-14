@@ -140,6 +140,7 @@ export const TreasureMap: React.FC<TreasureMapProps> = ({ onBack, markers }) => 
             playClickSound();
             onBack();
           }}
+          variant="transparent"
           rightElement={
             <ZoomControls
               zoom={zoom}

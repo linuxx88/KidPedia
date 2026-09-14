@@ -173,6 +173,7 @@ export const ContentEditor: React.FC<{ onBack: () => void }> = ({ onBack }) => {
         title={language === 'fr' ? '📝 Éditeur de Contenu' : '📝 Content Editor'}
         icon="🛠️"
         onBack={onBack}
+        variant="transparent"
       />
 
       <ContentEditorHeader

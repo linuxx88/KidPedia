@@ -22,7 +22,11 @@
 .scoreTracker {
   font-weight: 700;
   font-size: 1.1rem;
-  color: #10b981;
+  color: #047857;
+}
+
+:global([data-theme='dark']) .scoreTracker {
+  color: #34d399;
 }
 
 .progressContainer {
@@ -80,7 +84,7 @@
 
 .optionCard {
   background: rgba(255, 255, 255, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.3);
+  border: 2px solid var(--color-border-control);
   border-radius: 16px;
   padding: 1.25rem;
   font-size: 1.1rem;
@@ -98,8 +102,13 @@
 
 :global([data-theme='dark']) .optionCard {
   background: rgba(30, 41, 59, 0.4);
-  border: 2px solid rgba(255, 255, 255, 0.05);
+  border: 2px solid var(--color-border-control);
   color: #e2e8f0;
+}
+
+.optionCard:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .optionCard:hover:not(.optionCardAnswered) {
@@ -158,7 +167,11 @@
 .alertBoxCorrect {
   background: rgba(16, 185, 129, 0.1);
   border: 1px solid rgba(16, 185, 129, 0.2);
-  color: #10b981;
+  color: #047857;
+}
+
+:global([data-theme='dark']) .alertBoxCorrect {
+  color: #34d399;
 }
 
 .alertBoxIncorrect {
@@ -186,7 +199,7 @@
   border-radius: 9999px;
   border: none;
   background: linear-gradient(135deg, #4f46e5, #6366f1);
-  color: white;
+  color: var(--color-btn-primary-text);
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(79, 70, 229, 0.3);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -195,4 +208,9 @@
 .nextButton:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 20px rgba(79, 70, 229, 0.45);
+}
+
+.nextButton:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }

@@ -15,21 +15,39 @@
 }
 
 .errorContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 60vh;
+  padding: 2rem 1rem;
+}
+
+.errorCard {
+  background: var(--card-bg);
+  border: 3px dashed var(--color-border-dark);
+  border-radius: var(--radius-3xl);
+  padding: 3.5rem 2rem;
+  max-width: 550px;
+  width: 100%;
   text-align: center;
-  padding: 5rem 1rem;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .errorTitle {
-  font-size: 2rem;
-  font-weight: 950;
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-black);
   margin-bottom: 1rem;
   color: var(--color-app-text);
 }
 
 .errorText {
-  font-size: 1.25rem;
+  font-size: var(--fs-base);
   color: var(--color-app-text-muted);
   margin-bottom: 2rem;
+  line-height: 1.5;
 }
 
 .errorIllustration {
@@ -37,6 +55,36 @@
   margin-bottom: 1.5rem;
   animation: bounce 2s infinite ease-in-out;
   display: inline-block;
+}
+
+.errorActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.retryButton {
+  background: var(--color-primary);
+  color: var(--color-btn-primary-text);
+  border: none;
+  padding: 0.8rem 1.8rem;
+  border-radius: var(--radius-full);
+  font-weight: var(--fw-black);
+  font-size: var(--fs-sm);
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--color-primary-dark);
+  transition: var(--transition-bounce);
+}
+
+.retryButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--color-primary-dark);
+}
+
+.retryButton:active {
+  transform: translateY(1px);
 }
 
 @keyframes bounce {

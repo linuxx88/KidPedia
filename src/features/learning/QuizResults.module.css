@@ -21,7 +21,7 @@
 .resultContent {
   position: relative;
   z-index: 10;
-  color: white;
+  color: var(--color-btn-primary-text);
 }
 
 .resultIcon {
@@ -56,6 +56,52 @@
   letter-spacing: 0.05em;
 }
 
+.resultActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 2rem;
+}
+
+.btnReplay,
+.btnContinue {
+  padding: 0.9rem 2rem;
+  border-radius: var(--radius-full);
+  font-weight: 950;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border: none;
+}
+
+.btnReplay {
+  background-color: var(--card-bg);
+  color: var(--color-app-text);
+  box-shadow: 0 4px 0 var(--color-border-dark);
+}
+
+.btnReplay:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 0 var(--color-border-dark);
+}
+
+.btnContinue {
+  background: var(--gradient-fire);
+  color: var(--color-btn-primary-text);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.btnContinue:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.btnReplay:active,
+.btnContinue:active {
+  transform: translateY(1px);
+}
+
 /* --- Gamification: QC PASS Stamp --- */
 .qcPassStamp {
   position: absolute;
@@ -63,7 +109,7 @@
   right: 1.5rem;
   border: 5px double var(--color-success-green);
   color: var(--color-success-green);
-  background-color: rgba(255, 255, 255, 0.95);
+  background-color: var(--color-nav-bg);
   font-family: 'Courier New', Courier, monospace;
   padding: 0.5rem 1rem;
   border-radius: 0.5rem;
@@ -119,8 +165,8 @@
   position: absolute;
   top: 1rem;
   left: -2.5rem;
-  background: linear-gradient(135deg, #facc15, #f59e0b, #ef4444);
-  color: white;
+  background: var(--gradient-fire);
+  color: var(--color-btn-primary-text);
   padding: 0.5rem 3.5rem;
   font-size: 1.1rem;
   font-weight: 950;
@@ -128,7 +174,7 @@
   letter-spacing: 0.15em;
   transform: rotate(-15deg);
   box-shadow: 0 4px 15px rgba(245, 158, 11, 0.4), inset 0 2px 0 rgba(255, 255, 255, 0.4);
-  border: 3px solid #b45309;
+  border: 3px solid var(--color-hint-text-title);
   border-radius: 0.5rem;
   z-index: 40;
   text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);

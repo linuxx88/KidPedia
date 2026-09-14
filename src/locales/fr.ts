@@ -368,4 +368,18 @@ export const fr: Labels = {
       science: "🔬 Science",
     },
   },
+  favorites: {
+    title: "Mes favoris ⭐",
+    hubTitle: "Mes Favoris",
+    hubDesc: "Retrouve vite toutes tes fiches préférées !",
+    counter: (count: number) => count === 1 ? "1 fiche favorite" : `${count} fiches favorites`,
+    emptyTitle: "Tu n'as pas encore de favoris !",
+    emptyDesc: "Touche l'étoile ⭐ sur une fiche pour l'ajouter à tes préférées et la retrouver ici facilement.",
+    exploreBtn: "Explorer l'encyclopédie",
+    addedToast: "Ajouté aux favoris ⭐",
+    removedToast: "Retiré des favoris",
+    filterAll: "Tous",
+    addAria: "Ajouter aux favoris",
+    removeAria: "Retirer des favoris",
+  },
 };

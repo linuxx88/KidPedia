@@ -36,6 +36,41 @@ export const modernAnimals = [
         en: "Lions sleep a lot: they can nap for up to 20 hours a day to save their energy!"
       }
     ],
+    sections: [
+      {
+        icon: '🌍',
+        title: { fr: 'Où vit-il ?', en: 'Where does it live?' },
+        content: {
+          fr: 'Le lion vit dans les grandes plaines herbeuses et les savanes d’Afrique.',
+          en: 'The lion lives in the large grassy plains and savannahs of Africa.'
+        }
+      },
+      {
+        icon: '🥩',
+        title: { fr: 'Que mange-t-il ?', en: 'What does it eat?' },
+        content: {
+          fr: 'C’est un carnivore : il chasse des zèbres, des antilopes et d’autres grands animaux.',
+          en: 'It is a carnivore: it hunts zebras, antelopes, and other large animals.'
+        }
+      },
+      {
+        icon: '👑',
+        title: { fr: 'Comment vit-il ?', en: 'How does it live?' },
+        content: {
+          fr: 'Il vit en famille dans une troupe. Les lionnes chassent ensemble pendant que le mâle protège le clan.',
+          en: 'It lives with family in a pride. Lionesses hunt together while the male protects the pride.'
+        }
+      },
+      {
+        icon: '✨',
+        title: { fr: 'Sa crinière magique', en: 'Its magnificent mane' },
+        content: {
+          fr: 'Seul le lion mâle possède une grande crinière dorée ou brune qui le protège pendant les combats.',
+          en: 'Only the male lion has a thick golden or dark mane that protects it during fights.'
+        }
+      }
+    ],
+    relatedTopicIds: ['elephant', 'tigre'],
     audioFile: audioAssets.lion,
   },
   {
@@ -84,6 +119,41 @@ export const modernAnimals = [
         en: "Baby elephants sometimes suck their trunk for comfort, just like human babies suck their thumb!"
       }
     ],
+    sections: [
+      {
+        icon: '🌍',
+        title: { fr: 'Où vit-il ?', en: 'Where does it live?' },
+        content: {
+          fr: 'L’éléphant vit dans les grandes savanes et les forêts d’Afrique et d’Asie.',
+          en: 'The elephant lives in the great savannahs and forests of Africa and Asia.'
+        }
+      },
+      {
+        icon: '🌿',
+        title: { fr: 'Que mange-t-il ?', en: 'What does it eat?' },
+        content: {
+          fr: 'C’est un grand herbivore : il adore manger de l’herbe, des feuilles, des fruits et des écorces d’arbres.',
+          en: 'It is a large herbivore: it loves eating grass, leaves, fruits, and tree bark.'
+        }
+      },
+      {
+        icon: '🐘',
+        title: { fr: 'Comment vit-il ?', en: 'How does it live?' },
+        content: {
+          fr: 'Il vit en famille avec d’autres éléphants, guidé avec amour par la plus ancienne et la plus sage des femelles.',
+          en: 'It lives in a family with other elephants, guided lovingly by the oldest and wisest female.'
+        }
+      },
+      {
+        icon: '✨',
+        title: { fr: 'Sa trompe magique', en: 'Its magical trunk' },
+        content: {
+          fr: 'Sa trompe lui sert de nez, de main et de paille géante pour boire, attraper des objets et faire des câlins !',
+          en: 'Its trunk serves as a nose, a hand, and a giant straw to drink, grab objects, and give hugs!'
+        }
+      }
+    ],
+    relatedTopicIds: ['lion', 'girafe'],
     audioFile: audioAssets.elephant,
   },
   {
@@ -124,6 +194,41 @@ export const modernAnimals = [
         en: 'Each tigre has unique stripes, just like human fingerprints.',
       }
     ],
+    sections: [
+      {
+        icon: '🌿',
+        title: { fr: 'Où vit-il ?', en: 'Where does it live?' },
+        content: {
+          fr: 'Le tigre vit principalement dans les forêts denses, les jungles et les mangroves d’Asie.',
+          en: 'The tiger lives mainly in the dense forests, jungles, and mangroves of Asia.'
+        }
+      },
+      {
+        icon: '🥩',
+        title: { fr: 'Que mange-t-il ?', en: 'What does it eat?' },
+        content: {
+          fr: 'C’est un grand carnivore : il chasse à l’affût des cerfs, des sangliers et d’autres animaux de la forêt.',
+          en: 'It is a large carnivore: it stalks and hunts deer, wild boars, and other forest animals.'
+        }
+      },
+      {
+        icon: '🏊',
+        title: { fr: 'Comment vit-il ?', en: 'How does it live?' },
+        content: {
+          fr: 'Il vit en solitaire et protège son territoire. Contrairement aux petits chats, il adore nager et se baigner !',
+          en: 'It lives alone and protects its territory. Unlike small cats, it loves swimming and bathing!'
+        }
+      },
+      {
+        icon: '🐅',
+        title: { fr: 'Ses rayures magiques', en: 'Its magical stripes' },
+        content: {
+          fr: 'Ses rayures orange et noires sont comme une empreinte digitale : aucun tigre n’a exactement les mêmes !',
+          en: 'Its orange and black stripes are like fingerprints: no two tigers have the exact same pattern!'
+        }
+      }
+    ],
+    relatedTopicIds: ['lion', 'singe'],
     audioFile: audioAssets.tiger,
   },
   {
@@ -172,6 +277,41 @@ export const modernAnimals = [
         en: "There are pygmy monkeys so small they weigh less than an apple and fit in a human's hand!"
       }
     ],
+    sections: [
+      {
+        icon: '🐒',
+        title: { fr: 'L’acrobate des arbres', en: 'Acrobat of the trees' },
+        content: {
+          fr: "Le singe est un champion d'agilité qui bondit d'arbre en arbre avec une aisance incroyable.",
+          en: "The monkey is a champion of agility leaping from tree to tree with incredible ease."
+        }
+      },
+      {
+        icon: '🖐️',
+        title: { fr: 'Des mains très habiles', en: 'Very handy hands' },
+        content: {
+          fr: "Avec ses doigts agiles, il épluche des fruits savoureux et sait utiliser des bâtons pour jouer.",
+          en: "With nimble fingers, it peels tasty fruits and knows how to use little sticks to play."
+        }
+      },
+      {
+        icon: '🤗',
+        title: { fr: 'La vie en troupe', en: 'Life in a troop' },
+        content: {
+          fr: "Les singes vivent en groupe joyeux : ils veillent les uns sur les autres et partagent leurs repas.",
+          en: "Monkeys live in cheerful groups: they look out for one another and share their meals."
+        }
+      },
+      {
+        icon: '🌿',
+        title: { fr: 'Une queue d’équilibre', en: 'A balance tail' },
+        content: {
+          fr: "Leur longue queue souple leur sert à garder l'équilibre sur les branches et parfois à s'accrocher.",
+          en: "Their long flexible tail helps them balance on branches and sometimes hold on tightly."
+        }
+      }
+    ],
+    relatedTopicIds: ['tigre', 'arbres']
   },
   {
     id: 'lapin',
@@ -219,6 +359,41 @@ export const modernAnimals = [
         en: "A rabbit can live up to 10 years if well cared for at home!"
       }
     ],
+    sections: [
+      {
+        icon: '👂',
+        title: { fr: 'De grandes oreilles à l’écoute', en: 'Big listening ears' },
+        content: {
+          fr: 'Le lapin possède de longues oreilles mobiles qui pivotent pour capter le moindre bruit et l’avertir quand un danger approche.',
+          en: 'The rabbit has long, mobile ears that pivot to catch soft sounds and warn of approaching danger.',
+        },
+      },
+      {
+        icon: '🥕',
+        title: { fr: 'Un gourmand d’herbe fraîche', en: 'A fan of fresh greens' },
+        content: {
+          fr: 'Strictement herbivore, il grignote de l’herbe, des trèfles et des pissenlits avec ses dents de devant qui poussent sans arrêt.',
+          en: 'A strict herbivore, it nibbles on grass, clover, and dandelions using front teeth that grow throughout its life.',
+        },
+      },
+      {
+        icon: '🐾',
+        title: { fr: 'Des bonds vers le terrier', en: 'Hopping to the burrow' },
+        content: {
+          fr: 'Grâce à ses puissantes pattes arrière, il bondit agilement vers son terrier souterrain où il vit en groupe familial bien au chaud.',
+          en: 'With powerful hind legs, it hops swiftly toward its cozy underground burrow where it lives in a sheltered family group.',
+        },
+      },
+      {
+        icon: '🐰',
+        title: { fr: 'Cousin du lièvre', en: 'Cousin of the hare' },
+        content: {
+          fr: 'Contrairement à son grand cousin le lièvre qui vit seul à la surface, le lapin est plus petit, plus sociable et préfère vivre sous terre.',
+          en: 'Unlike its larger cousin the solitary hare living in open fields, the rabbit is smaller, more social, and digs burrows underground.',
+        },
+      },
+    ],
+    relatedTopicIds: ['loup', 'yeux'],
   },
   {
     id: 'tortue',
@@ -266,6 +441,41 @@ export const modernAnimals = [
         en: "Turtles don't have teeth, but they have a very sharp beak to cut their food!"
       }
     ],
+    sections: [
+      {
+        icon: '🐢',
+        title: { fr: 'Une maison sur le dos', en: 'A house on its back' },
+        content: {
+          fr: "La tortue est un reptile tranquille protégé par une solide carapace attachée à son corps.",
+          en: "The turtle is a peaceful reptile protected by a tough shell attached to its body."
+        }
+      },
+      {
+        icon: '🌊',
+        title: { fr: 'Sur terre ou dans l’eau', en: 'On land or in water' },
+        content: {
+          fr: "Certaines marchent dans les jardins, tandis que les tortues marines nagent gracieusement dans les océans.",
+          en: "Some walk through gardens, while sea turtles swim gracefully through the vast oceans."
+        }
+      },
+      {
+        icon: '🛡️',
+        title: { fr: 'Un abri secret', en: 'A secret shelter' },
+        content: {
+          fr: "Dès qu'un danger approche, elle rentre la tête et ses pattes pour se protéger comme dans un bouclier.",
+          en: "As soon as danger nears, it tucks its head and legs inside to protect itself like a shield."
+        }
+      },
+      {
+        icon: '⏳',
+        title: { fr: 'Une vie très longue', en: 'A very long life' },
+        content: {
+          fr: "Les tortues vivaient déjà avec les dinosaures et certaines peuvent vivre plus de cent cinquante ans !",
+          en: "Turtles already lived alongside dinosaurs and some can live for more than one hundred and fifty years!"
+        }
+      }
+    ],
+    relatedTopicIds: ['dauphin', 'terre']
   },
   {
     id: 'kangourou',
@@ -313,6 +523,41 @@ export const modernAnimals = [
         en: "They can jump up to 3 meters high!"
       }
     ],
+    sections: [
+      {
+        icon: '🦘',
+        title: { fr: "Un marsupial d'Australie", en: "An Australian marsupial" },
+        content: {
+          fr: "Le kangourou est un mammifère emblématique d'Australie appartenant à la famille des marsupiaux, des animaux célèbres pour leur poche ventrale.",
+          en: "The kangaroo is an iconic Australian mammal belonging to the marsupial family, animals famous for their unique belly pouch."
+        }
+      },
+      {
+        icon: '👝',
+        title: { fr: "La poche protectrice", en: "The nursery pouch" },
+        content: {
+          fr: "À la naissance, le minuscule petit grimpe jusqu'à la poche de sa maman. Il y reste bien au chaud pendant plusieurs mois pour téter et grandir en sécurité.",
+          en: "At birth, the tiny joey climbs into its mother's pouch. It stays warmly nestled inside for several months to nurse and grow in total safety."
+        }
+      },
+      {
+        icon: '⚡',
+        title: { fr: "Des bonds spectaculaires", en: "Spectacular leaps" },
+        content: {
+          fr: "Avec ses grandes pattes arrière élastiques et sa queue musclée qui lui sert de balancier, il se déplace en bondissant rapidement à travers les plaines.",
+          en: "With its long elastic hind legs and powerful tail acting as a counterbalance, it travels across open plains by making swift, graceful leaps."
+        }
+      },
+      {
+        icon: '🌿',
+        title: { fr: "Un grand herbivore", en: "A peaceful herbivore" },
+        content: {
+          fr: "Les kangourous se nourrissent principalement d'herbes, de feuilles et de jeunes pousses. Beaucoup d'espèces broutent paisiblement au lever et au coucher du soleil.",
+          en: "Kangaroos feed primarily on grass, leaves, and tender shoots. Many species graze peacefully together in the cool hours of dawn and dusk."
+        }
+      }
+    ],
+    relatedTopicIds: ['lapin', 'terre']
   },
   {
     id: 'dauphin',
@@ -360,6 +605,41 @@ export const modernAnimals = [
         en: "They can leap up to 6 meters out of the water!"
       }
     ],
+    sections: [
+      {
+        icon: '🐬',
+        title: { fr: 'Un mammifère marin', en: 'A marine mammal' },
+        content: {
+          fr: "Le dauphin n'est pas un poisson : c'est un mammifère qui remonte à la surface pour respirer.",
+          en: "The dolphin is not a fish: it is a mammal that comes to the surface to breathe."
+        }
+      },
+      {
+        icon: '🐟',
+        title: { fr: 'Agile sous les vagues', en: 'Agile under the waves' },
+        content: {
+          fr: "Grand nageur très rapide, il chasse des poissons et utilise des cliquetis sonores pour se repérer.",
+          en: "A swift and skilled swimmer, it hunts fish and uses clicking sounds to find its way."
+        }
+      },
+      {
+        icon: '🌊',
+        title: { fr: 'Une bande joyeuse', en: 'A playful pod' },
+        content: {
+          fr: "Les dauphins vivent en groupe, adorent sauter hors de l'eau et s'entraident si l'un d'eux faiblit.",
+          en: "Dolphins live in groups, love jumping out of water, and help each other if one is weak."
+        }
+      },
+      {
+        icon: '🎵',
+        title: { fr: 'Un sifflement prénom', en: 'A name whistle' },
+        content: {
+          fr: "Chaque dauphin invente un sifflement unique qui permet à ses amis de le reconnaître facilement.",
+          en: "Each dolphin invents a unique whistle that allows its friends to easily recognize it."
+        }
+      }
+    ],
+    relatedTopicIds: ['tortue', 'pingouin']
   },
   {
     id: 'girafe',
@@ -407,6 +687,41 @@ export const modernAnimals = [
         en: "The giraffe's heart weighs about 11 kilos to pump blood all the way up her long neck!"
       }
     ],
+    sections: [
+      {
+        icon: '🦒',
+        title: { fr: 'La géante au long cou', en: 'The long-necked giant' },
+        content: {
+          fr: "La girafe est le plus grand animal de la planète avec son cou géant et ses longues pattes.",
+          en: "The giraffe is the tallest animal on the planet with its giant neck and long legs."
+        }
+      },
+      {
+        icon: '🌿',
+        title: { fr: 'Au sommet des arbres', en: 'Atop the tall trees' },
+        content: {
+          fr: "Avec sa longue langue bleue, elle attrape facilement les feuilles tendres tout en haut des acacias.",
+          en: "With its long blue tongue, it easily plucks tender leaves from the tops of acacia trees."
+        }
+      },
+      {
+        icon: '❤️',
+        title: { fr: 'Un cœur surpuissant', en: 'A powerful heart' },
+        content: {
+          fr: "Son cœur pèse plus de 10 kilos pour faire monter le sang jusqu'à sa tête tout là-haut !",
+          en: "Its heart weighs over 10 kilos to push blood all the way up to its head high above!"
+        }
+      },
+      {
+        icon: '🌍',
+        title: { fr: 'La vigie de la savane', en: 'Savannah lookout' },
+        content: {
+          fr: "De sa grande hauteur, elle veille sur la plaine et prévient les autres animaux si un lion approche.",
+          en: "From its great height, it watches over the plain and alerts other animals if a lion approaches."
+        }
+      }
+    ],
+    relatedTopicIds: ['elephant', 'lion']
   },
   {
     id: 'panda',
@@ -454,6 +769,41 @@ export const modernAnimals = [
         en: "The giant panda spends about 12 hours a day munching on bamboo!"
       }
     ],
+    sections: [
+      {
+        icon: '🐼',
+        title: { fr: "Un ours noir et blanc", en: "A black and white bear" },
+        content: {
+          fr: "Le panda géant fait partie de la famille des ours. Avec son épaisse fourrure bicolore et ses taches noires autour des yeux, il vit paisiblement dans les montagnes brumeuses de Chine.",
+          en: "The giant panda belongs to the bear family. With its thick two-toned coat and dark eye patches, it lives peacefully in the misty mountain forests of China."
+        }
+      },
+      {
+        icon: '🎋',
+        title: { fr: "Un grand amateur de bambou", en: "A devoted bamboo eater" },
+        content: {
+          fr: "Bien qu'il descende d'ancêtres carnivores, le panda se nourrit presque exclusivement de tiges et de feuilles de bambou. Il peut toutefois croquer occasionnellement d'autres plantes ou petits insectes.",
+          en: "Although descended from carnivore ancestors, the panda feeds almost entirely on fresh bamboo stalks. Occasionally, it may also nibble other plants or small insects."
+        }
+      },
+      {
+        icon: '🐾',
+        title: { fr: "Le faux pouce du grimpeur", en: "The climber's false thumb" },
+        content: {
+          fr: "Pour tenir fermement les tiges rigides, sa patte avant possède un petit os du poignet allongé qui agit comme un pouce. Ce grimpeur agile sait aussi se réfugier dans les arbres.",
+          en: "To grasp tough bamboo stalks firmly, its front paw has an enlarged wrist bone that works like a thumb. This agile climber can also rest safely high in trees."
+        }
+      },
+      {
+        icon: '💤',
+        title: { fr: "Un rythme de vie tranquille", en: "A calm daily routine" },
+        content: {
+          fr: "Comme le bambou apporte peu d'énergie, le panda passe de longues heures par jour à mâcher tranquillement, puis s'endort pour de longues siestes afin d'économiser ses forces.",
+          en: "Because fibrous bamboo provides little energy, the panda spends long hours gently chewing, then curls up for restorative naps to save its strength."
+        }
+      }
+    ],
+    relatedTopicIds: ['singe', 'arbres']
   },
   {
     id: 'pingouin',
@@ -501,6 +851,41 @@ export const modernAnimals = [
         en: "Some penguins offer a nice round pebble as a gift to their partner to declare their love!"
       }
     ],
+    sections: [
+      {
+        icon: '🐧',
+        title: { fr: 'Un oiseau marin', en: 'A marine bird' },
+        content: {
+          fr: "Le manchot est un oiseau noir et blanc qui ne vole pas dans l'air mais fend l'eau comme une flèche.",
+          en: "The penguin is a black and white bird that does not fly in the air but cuts through water like an arrow."
+        }
+      },
+      {
+        icon: '❄️',
+        title: { fr: 'Le roi de la glisse', en: 'King of sliding' },
+        content: {
+          fr: "Il vit sur la banquise polaire glacée et adore glisser sur le ventre comme sur une petite luge.",
+          en: "It lives on icy polar sea ice and loves sliding on its belly just like on a little sled."
+        }
+      },
+      {
+        icon: '🐟',
+        title: { fr: 'Plongeur sous l’eau', en: 'Underwater diver' },
+        content: {
+          fr: "Ses ailes lui servent de nageoires puissantes pour plonger profond et attraper de petits poissons.",
+          en: "Its wings act as powerful flippers to dive deep and catch quick little fish."
+        }
+      },
+      {
+        icon: '🫂',
+        title: { fr: 'Câlins contre le froid', en: 'Hugs against the cold' },
+        content: {
+          fr: "Pendant les tempêtes de neige, les manchots se collent tous ensemble pour garder leurs bébés bien au chaud.",
+          en: "During snowstorms, penguins press together closely to keep their babies warm and safe."
+        }
+      }
+    ],
+    relatedTopicIds: ['antarctique', 'dauphin']
   },
   {
     id: 'loup',
@@ -548,5 +933,40 @@ export const modernAnimals = [
         en: "Wolf pups are born deaf and blind, and the entire pack takes care of them!"
       }
     ],
+    sections: [
+      {
+        icon: '🌲',
+        title: { fr: 'Au cœur des forêts sauvages', en: 'In wild forests' },
+        content: {
+          fr: 'Le loup vit principalement dans les forêts, les plaines et les montagnes où il trouve de grands espaces naturels pour courir.',
+          en: 'The wolf lives mainly in forests, plains, and mountains where it finds wide-open natural spaces to roam.',
+        },
+      },
+      {
+        icon: '🐾',
+        title: { fr: 'Une vraie vie de famille', en: 'A true family pack' },
+        content: {
+          fr: 'Les loups vivent en meute familiale : les parents et les plus grands frères et sœurs s’entraident avec tendresse pour nourrir et protéger les petits louveteaux.',
+          en: 'Wolves live in a family pack: parents and older siblings work together tenderly to feed and protect the newborn pups.',
+        },
+      },
+      {
+        icon: '🥩',
+        title: { fr: 'Un chasseur d’équipe', en: 'A team hunter' },
+        content: {
+          fr: 'Carnivore, le loup chasse en groupe des proies comme les cerfs ou les chevreuils pour nourrir tous les membres de la meute.',
+          en: 'As a carnivore, the wolf cooperates with its pack to hunt deer, ensuring food is shared among all members.',
+        },
+      },
+      {
+        icon: '🌕',
+        title: { fr: 'Le chant du hurlement', en: 'The howling song' },
+        content: {
+          fr: 'En levant le museau vers le ciel, le loup pousse de longs hurlements sonores pour appeler ses proches égarés et marquer son territoire.',
+          en: 'Lifting its snout to the sky, the wolf lets out long musical howls to call distant relatives and mark its territory.',
+        },
+      },
+    ],
+    relatedTopicIds: ['lion', 'la-lune'],
   }
 ] as const

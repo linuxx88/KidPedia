@@ -293,6 +293,11 @@
   box-shadow: 0 8px 0 var(--color-green-dark), 0 12px 20px rgba(16, 185, 129, 0.4);
 }
 
+.modalConfirmBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
 .modalConfirmBtn:active {
   transform: translateY(2px);
   box-shadow: 0 2px 0 var(--color-green-dark), 0 4px 8px rgba(16, 185, 129, 0.2);
@@ -316,6 +321,11 @@
 .modalCancelBtn:hover {
   transform: translateY(-3px);
   box-shadow: 0 8px 0 var(--color-red-shadow), 0 12px 20px rgba(239, 68, 68, 0.4);
+}
+
+.modalCancelBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .modalCancelBtn:active {

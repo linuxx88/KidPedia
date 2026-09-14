@@ -31,3 +31,14 @@ dist-ssr
 # Build et tests
 coverage/
 .nyc_output/
+playwright-report/
+test-results/
+
+# Antigravity & Agents locaux
+.agents/
+AGENTS.md
+.antigravitycli/
+
+# Scripts MCP locaux
+scripts/mcp-*.mjs
+scripts/

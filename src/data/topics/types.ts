@@ -10,6 +10,12 @@ export interface Quiz {
   hint?: LocalizedString
 }
 
+export interface TopicSection {
+  title: LocalizedString
+  content: LocalizedString
+  icon?: string
+}
+
 export interface Topic {
   id: string
   title: LocalizedString
@@ -21,6 +27,8 @@ export interface Topic {
   fullContents?: readonly LocalizedString[]
   funFact: LocalizedString
   funFacts?: readonly LocalizedString[]
+  sections?: readonly TopicSection[]
+  relatedTopicIds?: readonly string[]
   quiz?: Quiz
   audioFile?: string
   anchorIcon?: string
@@ -33,6 +41,8 @@ export interface RawTopic {
   shortDesc: LocalizedString
   fullContents: readonly LocalizedString[]
   funFacts: readonly LocalizedString[]
+  sections?: readonly TopicSection[]
+  relatedTopicIds?: readonly string[]
   quiz?: Quiz
   audioFile?: string
   anchorIcon?: string
@@ -49,6 +59,8 @@ export interface TopicContent {
   fullContents?: LocalizedString[]
   funFact: LocalizedString
   funFacts?: LocalizedString[]
+  sections?: TopicSection[]
+  relatedTopicIds?: string[]
   quiz?: Quiz
   quizzes?: Quiz[]
   audioFile?: string

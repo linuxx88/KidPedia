@@ -5,6 +5,7 @@ import { createProfileSlice } from './progression/profileSlice';
 import { createXpBadgeSlice } from './progression/xpBadgeSlice';
 import { createAccessorySlice } from './progression/accessorySlice';
 import { createCollectiblesSlice } from './progression/collectiblesSlice';
+import { createFavoritesSlice } from './progression/favoritesSlice';
 
 // Re-export type for external compatibility
 export type { ProgressionState };
@@ -20,7 +21,8 @@ export const useProgressionStore = create<ProgressionState>()(
       ...createProfileSlice(set, get, store),
       ...createXpBadgeSlice(set, get, store),
       ...createAccessorySlice(set, get, store),
-      ...createCollectiblesSlice(set, get, store)
+      ...createCollectiblesSlice(set, get, store),
+      ...createFavoritesSlice(set, get, store)
     })
   )
 ) as UseBoundStore<StoreApi<ProgressionState>> & {

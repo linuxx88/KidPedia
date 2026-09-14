@@ -4,6 +4,7 @@ import { useQuizStore } from './useQuizStore'
 import { useSettingsStore } from './useSettingsStore'
 import { LABELS } from '../utils/labels'
 import { type Labels } from '../locales/types'
+import { useProgressionStore } from './useProgressionStore'
 
 // Mock des dépendances
 vi.mock('../data/topics', () => ({
@@ -115,5 +116,21 @@ describe('useQuizStore', () => {
     })
 
     expect(result.current.quizResult?.medal).toBe('bronze')
+  })
+
+  it('devrait appeler addBadge exactement une fois lors d\'une bonne réponse', () => {
+    const addBadgeSpy = vi.spyOn(useProgressionStore.getState(), 'addBadge')
+    const { result } = renderHook(() => useQuizStore())
+    
+    act(() => {
+      result.current.startQuiz('lion')
+    })
+
+    act(() => {
+      result.current.submitAnswer(1) // Bonne réponse
+    })
+
+    expect(addBadgeSpy).toHaveBeenCalledTimes(1)
+    expect(addBadgeSpy).toHaveBeenCalledWith('lion', 'gold')
   })
 })

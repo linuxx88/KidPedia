@@ -12,7 +12,7 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 2px solid var(--card-border);
+  border: 2px solid var(--color-border-control);
   background: var(--card-bg);
   font-size: 1.25rem;
   font-weight: bold;
@@ -27,11 +27,11 @@
 .zoomBtn:hover:not(:disabled) {
   transform: scale(1.1);
   background: var(--color-primary);
-  color: white;
+  color: var(--color-btn-primary-text);
   border-color: var(--color-primary);
 }
 .zoomBtn:focus-visible {
-  outline: 3px solid var(--color-primary);
+  outline: 3px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
 .zoomBtn:active:not(:disabled) {

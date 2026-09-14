@@ -37,9 +37,9 @@
   border-radius: 1.5rem;
   font-weight: 900;
   font-size: 1.1rem;
-  background-color: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
-  border: 2px solid rgba(239, 68, 68, 0.2);
+  background-color: var(--color-retry-bg);
+  color: var(--color-retry-text);
+  border: 2px solid var(--color-retry-border);
   animation: shake 0.5s ease-in-out;
 }
 
@@ -52,8 +52,8 @@
 .hintBox {
   margin-top: 2rem;
   padding: 2rem;
-  background: linear-gradient(135deg, #fefce8 0%, #fef9c3 100%);
-  border: 3px dashed #facc15;
+  background: linear-gradient(135deg, var(--color-hint-bg-start) 0%, var(--color-hint-bg-end) 100%);
+  border: 3px dashed var(--color-hint-border);
   border-radius: 2rem;
   animation: slideIn 0.5s ease-out;
 }
@@ -66,7 +66,7 @@
 .hintTitle {
   font-size: 1.25rem;
   font-weight: 900;
-  color: #a16207;
+  color: var(--color-hint-text-title);
   margin-bottom: 0.75rem;
   display: flex;
   align-items: center;
@@ -76,43 +76,63 @@
 .hintText {
   font-size: 1.1rem;
   font-weight: 700;
-  color: #854d0e;
+  color: var(--color-hint-text-body);
   line-height: 1.5;
   margin-bottom: 1.5rem;
 }
 
 .hintAudioBtn {
-  background: white;
-  border: 2px solid #facc15;
+  background: var(--card-bg);
+  border: 2px solid var(--color-hint-border);
   padding: 0.75rem 1.5rem;
   border-radius: 1rem;
   font-weight: 800;
-  color: #a16207;
+  color: var(--color-hint-text-title);
   cursor: pointer;
   transition: all 0.2s;
-  box-shadow: 0 4px 0 #fde047;
+  box-shadow: 0 4px 0 var(--color-hint-shadow);
 }
 
 .hintAudioBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 0 #fde047;
+  box-shadow: 0 6px 0 var(--color-hint-shadow);
 }
 
 .hintAudioBtn:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #fde047;
+  box-shadow: 0 2px 0 var(--color-hint-shadow);
 }
 
 .hintAudioBtn:focus-visible {
-  outline: 4px solid #facc15;
+  outline: 4px solid var(--color-focus-ring);
   outline-offset: 4px;
   transform: translateY(-2px);
-  box-shadow: 0 6px 0 #fde047, 0 0 15px rgba(250, 204, 21, 0.4);
+  box-shadow: 0 6px 0 var(--color-hint-shadow), 0 0 15px rgba(250, 204, 21, 0.4);
 }
 
 .hintAudioBtn:focus-visible:active {
   transform: translateY(2px);
-  box-shadow: 0 2px 0 #fde047;
+  box-shadow: 0 2px 0 var(--color-hint-shadow);
+}
+
+:global(.dark) .hintBox {
+  background: rgba(254, 240, 138, 0.08);
+  border-color: var(--color-hint-border);
+}
+
+:global(.dark) .hintTitle {
+  color: var(--color-hint-shadow);
+}
+
+:global(.dark) .hintText {
+  color: var(--color-hint-bg-end);
+}
+
+:global(.dark) .hintAudioBtn {
+  background: var(--card-bg);
+  border-color: var(--color-hint-border);
+  color: var(--color-hint-shadow);
+  box-shadow: 0 4px 0 var(--color-hint-text-body);
 }
 
 .reviewBtn {
@@ -131,15 +151,15 @@
 
 .reviewBtn:hover {
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-btn-primary-text);
   transform: scale(1.02);
 }
 
 .reviewBtn:focus-visible {
-  outline: 4px solid var(--color-primary);
+  outline: 4px solid var(--color-focus-ring);
   outline-offset: 4px;
   background-color: var(--color-primary);
-  color: white;
+  color: var(--color-btn-primary-text);
   transform: scale(1.02);
   box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
 }
@@ -203,8 +223,8 @@
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  background: rgba(255, 255, 255, 0.25);
-  border: 3px solid var(--color-border-neutral);
+  background: var(--glass-bg);
+  border: 3px solid var(--color-border-control);
   border-radius: 50%;
   width: 2.2rem;
   height: 2.2rem;
@@ -214,7 +234,7 @@
   font-size: 1rem;
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-  box-shadow: 0 3px 0 var(--color-border-neutral);
+  box-shadow: 0 3px 0 var(--color-border-control);
   padding: 0;
   z-index: 10;
   color: inherit;
@@ -222,36 +242,41 @@
 }
 
 :global(.dark) .cornerSpeaker {
-  background: rgba(15, 23, 42, 0.6);
-  border-color: #1e293b;
-  box-shadow: 0 3px 0 #0f172a;
+  background: var(--glass-bg);
+  border-color: var(--color-border-control);
+  box-shadow: 0 3px 0 var(--color-border-dark);
+}
+
+.cornerSpeaker:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .cornerSpeaker:hover {
   transform: translateY(-2px) scale(1.1);
-  background: white;
+  background: var(--card-bg);
   border-color: var(--color-primary);
-  box-shadow: 0 5px 0 var(--color-border-neutral);
+  box-shadow: 0 5px 0 var(--color-border-control);
 }
 
 :global(.dark) .cornerSpeaker:hover {
-  background: #1e293b;
+  background: var(--card-bg);
   border-color: var(--color-primary);
-  box-shadow: 0 5px 0 #0f172a;
+  box-shadow: 0 5px 0 var(--color-border-dark);
 }
 
 .cornerSpeaker:active {
   transform: translateY(1px) scale(0.95);
-  box-shadow: 0 1px 0 var(--color-border-neutral);
+  box-shadow: 0 1px 0 var(--color-border-control);
 }
 
 :global(.dark) .cornerSpeaker:active {
-  box-shadow: 0 1px 0 #0f172a;
+  box-shadow: 0 1px 0 var(--color-border-dark);
 }
 
 .cornerSpeakerActive {
   background: var(--color-primary) !important;
-  color: white !important;
+  color: var(--color-btn-primary-text) !important;
   border-color: var(--color-primary) !important;
   box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2) !important;
   animation: pulseSpeaker 1.5s infinite;

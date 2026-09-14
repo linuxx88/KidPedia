@@ -49,6 +49,14 @@ export const DiscoveryHub: React.FC = () => {
       color: '#10b981',
       path: '/dictionary',
     },
+    {
+      id: 'favorites',
+      icon: <AppIcon name="star" size="large" />,
+      title: labels.favorites.hubTitle,
+      desc: labels.favorites.hubDesc,
+      color: '#eab308',
+      path: '/favorites',
+    },
   ];
 
   return (

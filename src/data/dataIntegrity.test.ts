@@ -1,5 +1,6 @@
 import { describe, it, expect } from 'vitest'
 import { encyclopedia } from './topics'
+import type { Topic } from './topics'
 import { mapData } from './mapData'
 import { originData } from './originData'
 import type { HistoryNode } from './origins'
@@ -137,4 +138,45 @@ describe('Data Integrity Audit', () => {
       expect(isKebab, `Topic ID "${topic.id}" must be kebab-case`).toBe(true)
     })
   })
+
+  it('Intégrité des fiches enrichies : sections bilingues et validité des relatedTopicIds', () => {
+    (encyclopedia as readonly Topic[]).forEach((topic) => {
+      if (topic.sections && topic.sections.length > 0) {
+        expect(topic.sections.length, `Topic "${topic.id}" doit comporter exactement 4 micro-sections`).toBe(4)
+        topic.sections.forEach((sec, idx) => {
+          expect(sec.title.fr, `Section ${idx} fr title dans ${topic.id} ne doit pas être vide`).toBeTruthy()
+          expect(sec.title.en, `Section ${idx} en title dans ${topic.id} ne doit pas être vide`).toBeTruthy()
+          expect(sec.content.fr, `Section ${idx} fr content dans ${topic.id} ne doit pas être vide`).toBeTruthy()
+          expect(sec.content.en, `Section ${idx} en content dans ${topic.id} ne doit pas être vide`).toBeTruthy()
+          expect(sec.icon, `Section ${idx} icon dans ${topic.id} ne doit pas être vide`).toBeTruthy()
+        })
+      }
+
+      if (topic.relatedTopicIds && topic.relatedTopicIds.length > 0) {
+        topic.relatedTopicIds.forEach(targetId => {
+          const exists = encyclopediaIds.has(targetId) || DECOUPLED_TOPIC_IDS.has(targetId)
+          expect(exists, `Related topic ID "${targetId}" in topic "${topic.id}" must exist in encyclopedia`).toBe(true)
+        })
+      }
+    })
+  })
+
+  it('tous les relatedTopicIds des fiches enrichies doivent pointer vers des fiches enrichies (linked_but_not_enriched = 0)', () => {
+    const enrichedTopics = (encyclopedia as readonly Topic[]).filter(t => t.sections && t.sections.length > 0)
+    const enrichedIds = new Set(enrichedTopics.map(t => t.id))
+    const linkedButNotEnriched: { from: string; to: string }[] = []
+
+    console.log(`[Enriched Stats] Total fiches: ${encyclopedia.length}, Fiches enrichies: ${enrichedTopics.length}`)
+
+    enrichedTopics.forEach(topic => {
+      topic.relatedTopicIds?.forEach(targetId => {
+        if (!enrichedIds.has(targetId)) {
+          linkedButNotEnriched.push({ from: topic.id, to: targetId })
+        }
+      })
+    })
+
+    expect(linkedButNotEnriched, `Des sujets enrichis pointent vers des sujets non enrichis: ${JSON.stringify(linkedButNotEnriched)}`).toEqual([])
+  })
 })
+

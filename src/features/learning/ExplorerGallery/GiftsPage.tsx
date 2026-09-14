@@ -131,6 +131,7 @@ export const GiftsPage: React.FC = () => {
         title={labels.badges.unlockedTitle || "Mes Cadeaux"}
         icon="🎁"
         onBack={handleBack}
+        variant="transparent"
       />
 
       <main className={styles.mainContent}>

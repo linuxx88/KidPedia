@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AvatarDisplay } from '../../../components/UI/AvatarDisplay';
 import styles from './GiftChest.module.css';
 
@@ -31,6 +32,7 @@ export const GiftChest: React.FC<GiftChestProps> = ({
   onOpenChest,
   onToggleEquip,
 }) => {
+  const navigate = useNavigate();
   return (
     <section className={styles.chestSection}>
       <div className={styles.avatarPreview}>
@@ -107,6 +109,14 @@ export const GiftChest: React.FC<GiftChestProps> = ({
                 ? `Plus que ${xpNeeded} 🌟 pour ouvrir ton coffre !` 
                 : `Only ${xpNeeded} 🌟 left to open your chest!`}
             </p>
+
+            <button
+              type="button"
+              className={styles.earnXPBtn}
+              onClick={() => navigate('/')}
+            >
+              {language === 'fr' ? '🌟 Gagner des étoiles dans les quiz !' : '🌟 Earn stars in quizzes!'}
+            </button>
           </div>
         )}
       </div>

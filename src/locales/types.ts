@@ -294,4 +294,18 @@ export interface Labels {
       science: string;
     };
   };
+  favorites: {
+    title: string;
+    hubTitle: string;
+    hubDesc: string;
+    counter: (count: number) => string;
+    emptyTitle: string;
+    emptyDesc: string;
+    exploreBtn: string;
+    addedToast: string;
+    removedToast: string;
+    filterAll: string;
+    addAria: string;
+    removeAria: string;
+  };
 }

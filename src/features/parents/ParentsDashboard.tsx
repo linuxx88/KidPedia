@@ -54,6 +54,7 @@ export const ParentsDashboard: React.FC<{ onBack: () => void }> = ({ onBack }) =
         title={t.dashboardTitle} 
         icon="📊" 
         onBack={onBack} 
+        variant="transparent"
       />
 
       <div className={styles.content}>

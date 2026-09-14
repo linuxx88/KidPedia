@@ -15,6 +15,9 @@
   --fs-2xl: clamp(2rem, 6vw, 3.5rem);
   --fs-3xl: clamp(3.5rem, 10vw, 6rem);
 
+  /* Largeur maximale du conteneur (Desktop Large) */
+  --layout-max-width: 1440px;
+
   /* Fond de page par défaut - Doux et chaud */
   --color-app-bg: #FEFDF5; 
   --color-nav-bg: rgba(255, 255, 255, 0.9);
@@ -78,6 +81,13 @@
   --color-primary: var(--color-explorer-blue);
   --color-primary-dark: #2563eb;
   --color-accent: var(--color-explorer-emerald);
+
+  /* Tokens sémantiques interactifs (Boutons & Contrôles) */
+  --color-btn-primary-text: #ffffff;
+  --color-btn-accent-text: #0f172a;
+  --color-border-control: #94a3b8;
+  --color-focus-ring: var(--color-primary-dark);
+  --color-bg-hover: rgba(0, 0, 0, 0.06);
 
   /* Dégradés Spéciaux */
   --gradient-fire: linear-gradient(to right, #ff0000, #ff8c00, #ffff00);
@@ -193,6 +203,37 @@
   --gradient-medal-gold: linear-gradient(135deg, #fbbf24, #d97706);
   --gradient-medal-silver: linear-gradient(135deg, #94a3b8, #475569);
   --gradient-medal-bronze: linear-gradient(135deg, #fb923c, #9a3412);
+
+  /* Danger & Reset tokens */
+  --gradient-danger: linear-gradient(135deg, #e11d48, #c2410c);
+  --color-danger-glow: rgba(225, 29, 72, 0.4);
+
+  /* Storyteller & Wizard tokens */
+  --gradient-storyteller: linear-gradient(135deg, #a78bfa, #f472b6);
+  --color-storyteller-shadow: #8b5cf6;
+  --color-storyteller-glow: rgba(139, 92, 246, 0.3);
+  --gradient-wizard: linear-gradient(135deg, #a855f7 0%, #7c3aed 100%);
+  --color-wizard-border: #c084fc;
+  --color-wizard-shadow: #6d28d9;
+  --color-wizard-glow: rgba(124, 58, 237, 0.3);
+  --color-wizard-bg-start: #faf5ff;
+  --color-wizard-bg-end: #f3e8ff;
+  --color-wizard-text-title: #7c3aed;
+  --color-wizard-text-body: #581c87;
+
+  /* Animated background & bubble tokens */
+  --gradient-animated-bg: linear-gradient(135deg, #eef2ff 0%, #e0e7ff 50%, #f5f7ff 100%);
+  --bubble-bg: rgba(255, 255, 255, 0.35);
+  --bubble-border: rgba(255, 255, 255, 0.5);
+  --bubble-shadow-inset: rgba(255, 255, 255, 0.4);
+  --bubble-shadow-glow: rgba(165, 180, 252, 0.25);
+
+  /* Tooltip token */
+  --color-tooltip-bg: #1e293b;
+  --color-tooltip-text: #ffffff;
+
+  /* Hero carousel gradient */
+  --color-hero-gradient: linear-gradient(to top, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.2) 60%, rgba(255, 255, 255, 0) 100%);
 }
 
 /* --- VARIATIONS SAISONNIÈRES (NATURE EXPLORER) --- */
@@ -286,6 +327,18 @@ html[data-theme='dark'],
   --card-border: #334155;
   --card-shadow: rgba(0, 0, 0, 0.4);
 
+  /* Fallback de thème principal sombre (quand aucun gender spécifique) */
+  --color-primary: #38bdf8;
+  --color-primary-dark: #0284c7;
+  --color-accent: #34d399;
+
+  /* Tokens sémantiques interactifs Sombre (Boutons & Contrôles) */
+  --color-btn-primary-text: #0f172a;
+  --color-btn-accent-text: #0f172a;
+  --color-border-control: #64748b;
+  --color-focus-ring: var(--color-primary);
+  --color-bg-hover: rgba(255, 255, 255, 0.1);
+
   --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 10px 15px rgba(0, 0, 0, 0.4);
   --shadow-lg: 0 20px 25px rgba(0, 0, 0, 0.5);
@@ -332,6 +385,32 @@ html[data-theme='dark'],
   --color-origins-middleages-start: #94a3b8;
   --color-origins-middleages-mid: #c084fc;
   --color-origins-middleages-end: #cbd5e1;
+
+  /* Storyteller & Wizard dark */
+  --color-storyteller-shadow: #6d28d9;
+  --color-storyteller-glow: rgba(139, 92, 246, 0.4);
+  --gradient-wizard: linear-gradient(135deg, #9333ea 0%, #6b21a8 100%);
+  --color-wizard-border: #a855f7;
+  --color-wizard-shadow: #581c87;
+  --color-wizard-glow: rgba(168, 85, 247, 0.4);
+  --color-wizard-bg-start: #1e1b4b;
+  --color-wizard-bg-end: #2e1065;
+  --color-wizard-text-title: #c084fc;
+  --color-wizard-text-body: #e9d5ff;
+
+  /* Animated background dark */
+  --gradient-animated-bg: linear-gradient(135deg, #090d16 0%, #0f172a 50%, #1e1b4b 100%);
+  --bubble-bg: rgba(99, 102, 241, 0.12);
+  --bubble-border: rgba(255, 255, 255, 0.18);
+  --bubble-shadow-inset: rgba(255, 255, 255, 0.15);
+  --bubble-shadow-glow: rgba(99, 102, 241, 0.3);
+
+  /* Tooltip dark */
+  --color-tooltip-bg: var(--color-primary);
+  --color-tooltip-text: var(--color-app-bg);
+
+  /* Hero carousel gradient dark */
+  --color-hero-gradient: linear-gradient(to top, #0b0f19 0%, rgba(11, 15, 25, 0.4) 60%, rgba(11, 15, 25, 0) 100%);
 }
 
 /* Accents en mode Sombre - Amélioration du contraste pour WCAG AA */
@@ -380,6 +459,18 @@ html[data-theme='dark'][data-gender='space'] {
     --fs-xl: clamp(1.2rem, 4vw, 1.4rem);
     --fs-2xl: clamp(1.4rem, 6vw, 1.8rem);
     --fs-3xl: clamp(1.8rem, 8vw, 2.5rem);
+  }
+}
+
+@media (max-width: 375px) {
+  :root {
+    --fs-xs: 0.7rem;
+    --fs-sm: 0.8rem;
+    --fs-base: 0.95rem;
+    --fs-lg: 1.05rem;
+    --fs-xl: 1.25rem;
+    --fs-2xl: 1.5rem;
+    --fs-3xl: 2rem;
   }
 }
 

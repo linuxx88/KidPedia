@@ -186,6 +186,11 @@
   margin-top: 0.75rem;
 }
 
+.btnBuyAccessory:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
 .btnBuyAccessory:hover:not(:disabled) {
   transform: translateY(-2px);
   box-shadow: 0 6px 0 var(--color-gold-shadow), 0 8px 16px rgba(245, 158, 11, 0.35);

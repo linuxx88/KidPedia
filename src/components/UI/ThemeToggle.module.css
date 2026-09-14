@@ -1,6 +1,6 @@
 .toggleBtn {
-  background: var(--color-nav-bg);
-  border: 1px solid var(--color-border-neutral);
+  background: var(--card-bg);
+  border: 1px solid var(--color-border-control);
   padding: 8px;
   border-radius: 50%;
   cursor: pointer;
@@ -15,3 +15,9 @@
   transform: scale(1.1);
   background: var(--color-bg-hover);
 }
+
+.toggleBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+

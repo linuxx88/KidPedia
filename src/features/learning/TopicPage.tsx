@@ -8,7 +8,6 @@ import { useProgressionStore } from '../../store/useProgressionStore'
 import { getMedalIcon } from '../../utils/quizMessages'
 import { type TopicId } from '../../types/domain'
 import BackButton from '../../components/UI/BackButton'
-import { useNavigationConfirm } from '../../hooks/useNavigationConfirm'
 import styles from './TopicPage.module.css'
 
 
@@ -42,16 +41,14 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   const activeHint = useQuizStore(state => state.activeHint)
   const attempts = useQuizStore(state => state.attempts)
 
-  const addBadge = useProgressionStore(state => state.addBadge)
-  const isUnlocked = useProgressionStore(state => state.isUnlocked)
   const markTopicAsRead = useProgressionStore(state => state.markTopicAsRead)
 
   // Marquer le sujet comme lu
   useEffect(() => {
-    if (topicId && isUnlocked(topicId as TopicId) && markTopicAsRead) {
+    if (topicId && markTopicAsRead) {
       markTopicAsRead(topicId)
     }
-  }, [topicId, isUnlocked, markTopicAsRead])
+  }, [topicId, markTopicAsRead])
 
   const isStatic = useMemo(() => encyclopedia.some((t) => t.id === topicId), [topicId]);
   const { data: dynamicTopic, isLoading: isLoadingDecoupled, error: fetchError } = useTopicFetcher(isStatic ? undefined : topicId);
@@ -63,19 +60,27 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
     currentDescription
   } = useTopicContent({ topicId, dynamicTopic, language })
 
-  // Rediriger vers l'accueil si le sujet est verrouillé
-  useEffect(() => {
-    if (topicId && !isUnlocked(topicId as TopicId)) {
-      handleGoHome()
+  const relatedTopicIds = topic?.relatedTopicIds
+  const relatedTopics = useMemo(() => {
+    if (!relatedTopicIds || relatedTopicIds.length === 0) {
+      return undefined
     }
-  }, [topicId, isUnlocked, handleGoHome])
+    return relatedTopicIds
+      .map((id) => encyclopedia.find((t) => t.id === id))
+      .filter((t): t is (typeof encyclopedia)[number] => t !== undefined)
+      .map((t) => ({
+        id: t.id,
+        title: t.title[language] || t.title.fr || t.id,
+        icon: t.icon,
+      }))
+  }, [relatedTopicIds, language])
 
   // Initialiser le quiz pour ce sujet au montage
   useEffect(() => {
-    if (topicId && isUnlocked(topicId as TopicId)) {
+    if (topicId) {
       startQuiz(topicId as TopicId)
     }
-  }, [topicId, startQuiz, isUnlocked])
+  }, [topicId, startQuiz])
 
   const forceLeaveQuiz = () => {
     resetQuiz()
@@ -87,19 +92,8 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   }
 
   const handleBack = () => {
-    if (!fromOrigins && quizResult === null) {
-      if (!window.confirm(labels.quiz.quitConfirmMessage)) {
-        return;
-      }
-    }
     forceLeaveQuiz()
   }
-
-  useNavigationConfirm({
-    active: !fromOrigins && quizResult === null,
-    message: labels.quiz.quitConfirmMessage,
-    onConfirm: forceLeaveQuiz
-  });
 
   if (isLoadingDecoupled) {
     return <AppLoader message={labels.common.loading} />;
@@ -108,18 +102,31 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   if (fetchError || !topic || !currentQuiz) {
     return (
       <div className={styles.errorContainer} role="alert">
-        <div className={styles.errorIllustration}>🦖💤</div>
-        <h2 className={styles.errorTitle}>
-          {fetchError ? "Oh oh ! Problème de connexion !" : (topic ? "Quiz non trouvé" : labels.errors.pageNotFound)}
-        </h2>
-        <p className={styles.errorText}>
-          {fetchError 
-            ? "Le petit dinosaure n'a pas pu récupérer l'histoire. Vérifie ta connexion Internet !"
-            : "Oups ! Cette fiche d'aventure s'est envolée dans les étoiles !"}
-        </p>
-        <BackButton onClick={() => handleGoHome()}>
-          {labels.common.goHome}
-        </BackButton>
+        <div className={styles.errorCard}>
+          <div className={styles.errorIllustration}>🦖💤</div>
+          <h2 className={styles.errorTitle}>
+            {fetchError ? "Oh oh ! Problème de connexion !" : (topic ? "Quiz non trouvé" : labels.errors.pageNotFound)}
+          </h2>
+          <p className={styles.errorText}>
+            {fetchError 
+              ? "Le petit dinosaure n'a pas pu récupérer l'histoire. Vérifie ta connexion Internet !"
+              : "Oups ! Cette fiche d'aventure s'est envolée dans les étoiles !"}
+          </p>
+          <div className={styles.errorActions}>
+            {fetchError && (
+              <button
+                type="button"
+                className={styles.retryButton}
+                onClick={() => window.location.reload()}
+              >
+                {language === 'fr' ? 'Réessayer 🔄' : 'Try again 🔄'}
+              </button>
+            )}
+            <BackButton onClick={() => handleGoHome()}>
+              {labels.common.goHome}
+            </BackButton>
+          </div>
+        </div>
       </div>
     );
   }
@@ -127,10 +134,7 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
   const earnedBadge = badges.find((b) => b.id === topic.id)
 
   const handleAnswer = (idx: number) => {
-    const result = submitAnswer(idx, currentQuiz);
-    if (result.success && result.medal && topicId) {
-      addBadge(topicId as TopicId, result.medal);
-    }
+    submitAnswer(idx, currentQuiz);
   }
 
   const CATEGORY_ANCHOR_ICONS: Record<string, string> = {
@@ -152,6 +156,7 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
     <Suspense fallback={<AppLoader message={labels.common.loading} />}>
       <StorytellerProvider>
         <TopicView
+          topicId={topic.id}
           title={topic.title[language]}
           description={currentDescription}
           funFact={currentFunFact}
@@ -171,6 +176,9 @@ export function TopicPage({ handleGoHome }: TopicPageProps) {
           anchorIcon={resolvedAnchorIcon}
           hideQuiz={fromOrigins}
           categoryKey={topic.categoryKey}
+          sections={topic.sections}
+          relatedTopics={relatedTopics}
+          onReplay={() => { resetQuiz(); if (topicId) startQuiz(topicId as TopicId); }}
         />
       </StorytellerProvider>
     </Suspense>

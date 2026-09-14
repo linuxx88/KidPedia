@@ -1,4 +1,154 @@
 {
+  "2df99a3b-39ef-4956-b8aa-f9c0bffad261": {
+    "profileId": "2df99a3b-39ef-4956-b8aa-f9c0bffad261",
+    "badges": [
+      {
+        "id": "lion",
+        "medal": "gold"
+      },
+      {
+        "id": "elephant",
+        "medal": "gold"
+      },
+      {
+        "id": "tigre",
+        "medal": "bronze"
+      },
+      {
+        "id": "singe",
+        "medal": "gold"
+      },
+      {
+        "id": "soleil",
+        "medal": "gold"
+      },
+      {
+        "id": "mercure",
+        "medal": "gold"
+      },
+      {
+        "id": "t-rex",
+        "medal": "gold"
+      },
+      {
+        "id": "triceratops",
+        "medal": "gold"
+      },
+      {
+        "id": "cerveau",
+        "medal": "gold"
+      },
+      {
+        "id": "venus",
+        "medal": "silver"
+      },
+      {
+        "id": "terre",
+        "medal": "gold"
+      },
+      {
+        "id": "stegosaure",
+        "medal": "gold"
+      },
+      {
+        "id": "coeur",
+        "medal": "gold"
+      },
+      {
+        "id": "mars",
+        "medal": "silver"
+      },
+      {
+        "id": "jupiter",
+        "medal": "gold"
+      },
+      {
+        "id": "saturne",
+        "medal": "silver"
+      },
+      {
+        "id": "uranus",
+        "medal": "bronze"
+      },
+      {
+        "id": "neptune",
+        "medal": "silver"
+      }
+    ],
+    "totalXP": 20500,
+    "currentRankId": "sage",
+    "unlockedAccessories": [
+      "explorer-hat",
+      "dog-companion",
+      "crown",
+      "dino-companion",
+      "space-helmet",
+      "robot-companion"
+    ],
+    "equippedAccessoryId": "space-helmet",
+    "equippedCompanionId": "robot-companion",
+    "tickets": 46,
+    "dailyDiscoveries": {
+      "2026-05-31": [
+        "lion",
+        "elephant",
+        "tigre",
+        "singe",
+        "soleil",
+        "mercure",
+        "t-rex",
+        "triceratops",
+        "cerveau",
+        "venus",
+        "terre",
+        "stegosaure",
+        "coeur",
+        "mars",
+        "jupiter",
+        "saturne",
+        "uranus",
+        "neptune"
+      ]
+    },
+    "stickers": [
+      {
+        "id": "animaux-wallpaper",
+        "unlockedAt": "2026-05-31T20:42:37.886Z"
+      },
+      {
+        "id": "espace-wallpaper",
+        "unlockedAt": "2026-05-31T21:08:15.851Z"
+      }
+    ],
+    "unlockedPuzzlePieces": {
+      "animaux": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "espace": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "dinosaures": [
+        0,
+        1,
+        2
+      ],
+      "corps-humain": [
+        0,
+        1
+      ]
+    },
+    "unlockedWallpapers": [
+      "animaux-wallpaper",
+      "espace-wallpaper"
+    ],
+    "updatedAt": 1780270814546
+  },
   "479ea635-f4e2-4973-9f9f-17335abccbf1": {
     "profileId": "479ea635-f4e2-4973-9f9f-17335abccbf1",
     "badges": [
@@ -135,7 +285,7 @@
       "animaux-wallpaper",
       "espace-wallpaper"
     ],
-    "updatedAt": 1780576258936
+    "updatedAt": 1783495932093
   },
   "84ecbe5a-7b9e-4aa5-9f5e-4ba1f1d7fdc2": {
     "profileId": "84ecbe5a-7b9e-4aa5-9f5e-4ba1f1d7fdc2",
@@ -230,6 +380,397 @@
     "stickers": [],
     "unlockedPuzzlePieces": {},
     "unlockedWallpapers": [],
-    "updatedAt": 1780444357046
+    "updatedAt": 1783495932099
+  },
+  "86bc6749-4758-4535-a539-a98e832587b2": {
+    "profileId": "86bc6749-4758-4535-a539-a98e832587b2",
+    "badges": [
+      {
+        "id": "lion",
+        "medal": "gold"
+      },
+      {
+        "id": "ampoule",
+        "medal": "silver"
+      },
+      {
+        "id": "elephant",
+        "medal": "gold"
+      },
+      {
+        "id": "ciel-bleu",
+        "medal": "gold"
+      },
+      {
+        "id": "mer-salee",
+        "medal": "gold"
+      },
+      {
+        "id": "soleil",
+        "medal": "gold"
+      },
+      {
+        "id": "tigre",
+        "medal": "silver"
+      },
+      {
+        "id": "singe",
+        "medal": "gold"
+      },
+      {
+        "id": "library-rat",
+        "medal": "gold"
+      },
+      {
+        "id": "perseverant",
+        "medal": "gold"
+      },
+      {
+        "id": "animal-friend",
+        "medal": "gold"
+      },
+      {
+        "id": "t-rex",
+        "medal": "gold"
+      },
+      {
+        "id": "mercure",
+        "medal": "gold"
+      },
+      {
+        "id": "lapin",
+        "medal": "gold"
+      },
+      {
+        "id": "tortue",
+        "medal": "gold"
+      },
+      {
+        "id": "kangourou",
+        "medal": "gold"
+      },
+      {
+        "id": "girafe",
+        "medal": "gold"
+      },
+      {
+        "id": "dauphin",
+        "medal": "gold"
+      }
+    ],
+    "totalXP": 20500,
+    "currentRankId": "sage",
+    "unlockedAccessories": [
+      "explorer-hat",
+      "crown",
+      "dog-companion"
+    ],
+    "equippedAccessoryId": "explorer-hat",
+    "equippedCompanionId": "dog-companion",
+    "tickets": 43,
+    "dailyDiscoveries": {
+      "2026-09-12": [
+        "lion",
+        "soleil",
+        "tigre",
+        "singe",
+        "elephant",
+        "t-rex"
+      ],
+      "2026-09-13": [
+        "mercure",
+        "lion",
+        "elephant",
+        "lapin",
+        "tortue",
+        "kangourou",
+        "girafe",
+        "t-rex"
+      ],
+      "2026-09-14": [
+        "lion",
+        "dauphin",
+        "girafe"
+      ]
+    },
+    "stickers": [
+      {
+        "id": "animaux-wallpaper",
+        "unlockedAt": "2026-09-13T00:55:10.319Z"
+      }
+    ],
+    "unlockedPuzzlePieces": {
+      "animaux": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "inventions": [
+        0
+      ],
+      "pourquoi": [
+        0,
+        1
+      ],
+      "espace": [
+        0,
+        1
+      ],
+      "dinosaures": [
+        0,
+        1
+      ]
+    },
+    "unlockedWallpapers": [
+      "animaux-wallpaper"
+    ],
+    "updatedAt": 1789358646253
+  },
+  "a9db1701-10ac-4a36-bbf1-e3f48b934253": {
+    "profileId": "a9db1701-10ac-4a36-bbf1-e3f48b934253",
+    "badges": [
+      {
+        "id": "lion",
+        "medal": "gold"
+      },
+      {
+        "id": "elephant",
+        "medal": "gold"
+      }
+    ],
+    "totalXP": 3000,
+    "currentRankId": "explorer",
+    "unlockedAccessories": [
+      "explorer-hat"
+    ],
+    "equippedAccessoryId": "explorer-hat",
+    "equippedCompanionId": null,
+    "tickets": 6,
+    "dailyDiscoveries": {
+      "2026-05-28": [
+        "lion"
+      ],
+      "2026-05-30": [
+        "lion",
+        "elephant"
+      ]
+    },
+    "stickers": [],
+    "unlockedPuzzlePieces": {
+      "animaux": [
+        0,
+        1
+      ]
+    },
+    "unlockedWallpapers": [],
+    "updatedAt": 1780199803372
+  },
+  "aa22688b-4084-45d3-9e7a-f4134cf9631c": {
+    "profileId": "aa22688b-4084-45d3-9e7a-f4134cf9631c",
+    "badges": [
+      {
+        "id": "lion",
+        "medal": "gold"
+      },
+      {
+        "id": "elephant",
+        "medal": "gold"
+      },
+      {
+        "id": "soleil",
+        "medal": "gold"
+      },
+      {
+        "id": "mercure",
+        "medal": "silver"
+      },
+      {
+        "id": "t-rex",
+        "medal": "gold"
+      },
+      {
+        "id": "triceratops",
+        "medal": "gold"
+      },
+      {
+        "id": "cerveau",
+        "medal": "silver"
+      },
+      {
+        "id": "pyramides",
+        "medal": "silver"
+      },
+      {
+        "id": "ciel-bleu",
+        "medal": "gold"
+      },
+      {
+        "id": "arbres",
+        "medal": "gold"
+      }
+    ],
+    "totalXP": 12000,
+    "currentRankId": "sage",
+    "unlockedAccessories": [
+      "explorer-hat",
+      "crown"
+    ],
+    "equippedAccessoryId": "crown",
+    "equippedCompanionId": null,
+    "tickets": 27,
+    "dailyDiscoveries": {
+      "2026-05-30": [
+        "lion",
+        "elephant",
+        "soleil",
+        "mercure",
+        "t-rex",
+        "triceratops",
+        "cerveau",
+        "pyramides"
+      ],
+      "2026-05-31": [
+        "ciel-bleu",
+        "arbres"
+      ]
+    },
+    "stickers": [],
+    "unlockedPuzzlePieces": {
+      "animaux": [
+        0,
+        1
+      ],
+      "espace": [
+        0,
+        1
+      ],
+      "dinosaures": [
+        0,
+        1
+      ],
+      "corps-humain": [
+        0
+      ],
+      "histoire": [
+        0
+      ],
+      "pourquoi": [
+        0
+      ],
+      "nature": [
+        0
+      ]
+    },
+    "unlockedWallpapers": [],
+    "updatedAt": 1780249630302
+  },
+  "fb5361b2-26cc-47d3-992e-418b5232b5af": {
+    "profileId": "fb5361b2-26cc-47d3-992e-418b5232b5af",
+    "badges": [
+      {
+        "id": "panda",
+        "medal": "gold"
+      },
+      {
+        "id": "elephant",
+        "medal": "gold"
+      },
+      {
+        "id": "lion",
+        "medal": "gold"
+      },
+      {
+        "id": "tigre",
+        "medal": "gold"
+      },
+      {
+        "id": "singe",
+        "medal": "silver"
+      },
+      {
+        "id": "lapin",
+        "medal": "gold"
+      },
+      {
+        "id": "tortue",
+        "medal": "bronze"
+      },
+      {
+        "id": "kangourou",
+        "medal": "gold"
+      },
+      {
+        "id": "dauphin",
+        "medal": "bronze"
+      },
+      {
+        "id": "girafe",
+        "medal": "silver"
+      },
+      {
+        "id": "tour-eiffel",
+        "medal": "gold"
+      },
+      {
+        "id": "animal-friend",
+        "medal": "gold"
+      },
+      {
+        "id": "library-rat",
+        "medal": "gold"
+      }
+    ],
+    "totalXP": 12000,
+    "currentRankId": "sage",
+    "unlockedAccessories": [
+      "explorer-hat",
+      "dog-companion",
+      "crown"
+    ],
+    "equippedAccessoryId": "crown",
+    "equippedCompanionId": "dog-companion",
+    "tickets": 27,
+    "dailyDiscoveries": {
+      "2026-05-31": [
+        "panda",
+        "elephant",
+        "lion",
+        "tigre",
+        "singe",
+        "lapin",
+        "tortue",
+        "kangourou",
+        "dauphin",
+        "girafe"
+      ],
+      "2026-06-01": [
+        "elephant",
+        "panda",
+        "lion",
+        "tour-eiffel"
+      ]
+    },
+    "stickers": [
+      {
+        "id": "animaux-wallpaper",
+        "unlockedAt": "2026-05-31T23:43:26.814Z"
+      }
+    ],
+    "unlockedPuzzlePieces": {
+      "animaux": [
+        0,
+        1,
+        2,
+        3
+      ],
+      "geographie": [
+        0
+      ]
+    },
+    "unlockedWallpapers": [
+      "animaux-wallpaper"
+    ],
+    "updatedAt": 1780374305281
   }
 }

@@ -16,7 +16,7 @@
 }
 
 .modal {
-  background: white;
+  background: var(--card-bg);
   width: 90%;
   max-width: 460px;
   padding: 2.5rem 2rem;
@@ -57,6 +57,11 @@
 .closeBtn:hover {
   background: rgba(0, 0, 0, 0.1);
   transform: rotate(90deg);
+}
+
+.closeBtn:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .title {
@@ -111,20 +116,20 @@
 .targetLabel {
   font-size: 0.85rem;
   font-weight: 800;
-  color: #64748b;
+  color: var(--color-app-text-muted);
   text-transform: uppercase;
   letter-spacing: 1px;
 }
 
 .sequenceText {
   background: var(--color-surface-mixed, #f8fafc);
-  border: 3px solid var(--color-border-neutral, #e2e8f0);
+  border: 3px solid var(--color-border-control);
   border-radius: 2rem;
   padding: 1.2rem 2rem;
   font-size: 1.8rem;
   font-weight: 900;
   letter-spacing: 2px;
-  color: #0f172a;
+  color: var(--color-app-text);
   box-shadow: 0 8px 16px rgba(0,0,0,0.05);
   animation: popIn 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -139,8 +144,8 @@
 }
 
 .puzzleCard {
-  background: white;
-  border: 3px solid var(--color-border-neutral, #e2e8f0);
+  background: var(--card-bg);
+  border: 3px solid var(--color-border-control);
   border-radius: 1.5rem;
   padding: 1rem;
   width: 115px;
@@ -149,7 +154,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  box-shadow: 0 6px 0 var(--color-border-neutral, #cbd5e1);
+  box-shadow: 0 6px 0 var(--color-border-control);
   transition: all 0.15s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
@@ -165,7 +170,7 @@
 }
 
 .puzzleCard:focus-visible {
-  outline: 4px solid var(--color-primary, #3b82f6);
+  outline: 4px solid var(--color-focus-ring);
   outline-offset: 2px;
 }
 
@@ -178,7 +183,7 @@
 .optionLabel {
   font-size: 0.8rem;
   font-weight: 800;
-  color: #334155;
+  color: var(--color-app-text);
   text-align: center;
   line-height: 1.2;
 }

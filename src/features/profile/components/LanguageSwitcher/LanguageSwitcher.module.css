@@ -11,21 +11,27 @@
   align-items: center;
   justify-content: center;
   padding: 0.8rem 1.2rem;
-  border: none;
   border-radius: 1.2rem;
   background-color: var(--card-bg, #ffffff);
+  color: var(--color-app-text);
   cursor: pointer;
   transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   box-shadow: 0 4px 0 rgba(0, 0, 0, 0.1);
   min-width: 100px;
   position: relative;
   top: 0;
-  border: 2px solid transparent;
+  border: 2px solid var(--color-border-control);
 }
 
-.langButton:hover {
+.langButton:hover:not(.active) {
+  background-color: var(--color-bg-hover);
   transform: translateY(-2px);
   box-shadow: 0 6px 0 rgba(0, 0, 0, 0.1);
+}
+
+.langButton:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
 }
 
 .langButton:active {
@@ -58,12 +64,15 @@
 /* Adaptations selon le genre (data-gender injecté dans le body) */
 :global([data-gender="girl"]) .active {
   background-color: #ec4899; /* Rose KidPedia */
+  color: #ffffff;
 }
 
 :global([data-gender="boy"]) .active {
   background-color: #3b82f6; /* Bleu KidPedia */
+  color: #ffffff;
 }
 
 :global([data-gender="space"]) .active {
   background-color: #06b6d4; /* Cyan Espace */
+  color: #0f172a;
 }

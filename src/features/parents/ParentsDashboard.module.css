@@ -58,8 +58,13 @@
   background: rgba(99, 102, 241, 0.05);
 }
 
+.tabLink:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 2px;
+}
+
 .tabLinkActive {
-  color: white;
+  color: var(--color-btn-primary-text);
   background: var(--color-primary, #6366f1) !important;
   box-shadow: 0 4px 12px rgba(99, 102, 241, 0.25);
 }

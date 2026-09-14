@@ -39,7 +39,7 @@
 .parallaxCard:has(.cardInteractiveArea:focus-visible),
 .parallaxCard:focus-within {
   border-color: var(--color-primary);
-  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.4), var(--shadow-lg) !important;
+  box-shadow: 0 0 0 4px var(--color-focus-ring), var(--shadow-lg) !important;
 }
 
 .foreGround {
@@ -92,7 +92,7 @@
   font-weight: var(--fw-black);
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: white;
+  color: var(--color-btn-primary-text);
   box-shadow: var(--shadow-md);
   white-space: nowrap;
 }
@@ -139,8 +139,8 @@
   justify-content: center;
   font-size: 1.5rem;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  border: 3px solid white;
-  background: white;
+  border: 3px solid var(--color-btn-primary-text);
+  background: var(--card-bg);
   transform: translateZ(20px);
 }
 
@@ -205,5 +205,28 @@
   }
   .parallaxCard:hover .iconWrapper {
     transform: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .parallaxCard {
+    min-height: 280px;
+    border-radius: var(--radius-2xl);
+    border-width: 3px;
+  }
+  .cardInteractiveArea {
+    padding: 2.75rem 1.25rem 1.75rem;
+  }
+}
+
+@media (max-width: 375px) {
+  .parallaxCard {
+    min-height: 260px;
+  }
+  .cardInteractiveArea {
+    padding: 2.25rem 1rem 1.5rem;
+  }
+  .title {
+    font-size: 1.35rem;
   }
 }

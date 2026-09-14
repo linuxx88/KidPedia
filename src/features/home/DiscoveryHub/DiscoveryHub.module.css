@@ -52,6 +52,11 @@
     box-shadow: 0 8px 0 var(--card-shadow);
   }
 
+  &:focus-visible {
+    outline: 3px solid var(--color-focus-ring);
+    outline-offset: 3px;
+  }
+
   &:active {
     transform: translateY(2px);
     box-shadow: 0 2px 0 var(--card-shadow);
