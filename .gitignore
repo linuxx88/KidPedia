@@ -33,12 +33,13 @@ coverage/
 .nyc_output/
 playwright-report/
 test-results/
+.vite/
 
 # Antigravity & Agents locaux
 .agents/
 AGENTS.md
 .antigravitycli/
+docs/REGLE_DE_TRAVAIL_ POUR_AI.md
 
 # Scripts MCP locaux
 scripts/mcp-*.mjs
-scripts/

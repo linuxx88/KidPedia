@@ -17,7 +17,7 @@
 
 ---
 
-## ���� À Propos
+## 🌍 À Propos
 
 **KidPedia** est une encyclopédie interactive qui transforme l'apprentissage en aventure! 🚀
 
